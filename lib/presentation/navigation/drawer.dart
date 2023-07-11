@@ -5,6 +5,8 @@ import 'package:slider_button/slider_button.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
+const defaultUrl = "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
 
@@ -51,9 +53,7 @@ class DrawerState extends State<MyDrawer> {
                             Spacer(),
                             CircleAvatar(
                               radius: 50,
-                              //Image from url
-                              backgroundImage: NetworkImage(
-                                  "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg"),
+                              backgroundImage: NetworkImage(defaultUrl),
                             ),
                           ],
                         ),
