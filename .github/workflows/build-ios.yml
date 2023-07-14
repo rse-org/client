@@ -1,0 +1,48 @@
+name: Build & distribute iOS
+
+on:
+  push:
+    branches: [main]
+    paths: ['lib/**']
+  workflow_dispatch:
+
+
+jobs:
+  build-and-distribute:
+    runs-on: macOS-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'zulu'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.10.5'
+
+      - name: Bump iOS version name & code
+        uses: yanamura/ios-bump-version@v1
+        with:
+          version: 1.0.0
+          project-path: ios
+          build-number: ${{ github.run_number }}
+
+      - name: Build IPA
+        run: |
+          flutter build ios
+          flutter build ipa --export-method development
+          ./build/ios/rse.ipa
+
+      - name: Upload IPA to Firebase App Distribution
+        uses: w9jds/firebase-action@v11.5.0
+        with:
+          args: appdistribution:distribute ./build/ios/rse.ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
