@@ -6,7 +6,8 @@ class ResponsiveLayout extends StatelessWidget {
   final Widget mobile;
   final Widget desktop;
 
-  const ResponsiveLayout({super.key, required this.mobile, required this.desktop});
+  const ResponsiveLayout(
+      {super.key, required this.mobile, required this.desktop});
 
   @override
   Widget build(BuildContext context) {
@@ -20,29 +21,26 @@ class ResponsiveLayout extends StatelessWidget {
               child: mobile,
             ),
           );
-        } else if (isM(context)){
+        } else if (isM(context)) {
           return Container(
             color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: desktop
-            ),
+            child: Padding(padding: const EdgeInsets.all(10), child: desktop),
           );
         } else if (isL(context)) {
           return Container(
             color: Colors.transparent,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              child: desktop
-            ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                child: desktop),
           );
         } else {
           return Container(
             color: Colors.transparent,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 10),
-              child: desktop
-            ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 200, vertical: 9),
+                child: desktop),
           );
         }
       },
