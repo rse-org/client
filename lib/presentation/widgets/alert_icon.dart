@@ -87,7 +87,7 @@ void _showActionSheet(BuildContext context, sym) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('$sym  custom alerts.'),
+            Text('$sym  custom alerts. '),
             Text(context.l.well_send_you_a_notification),
             Row(children: [
               Column(
