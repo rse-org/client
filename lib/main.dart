@@ -23,19 +23,24 @@ Future<void> main() async {
             create: (_) => NavBloc(),
           ),
           BlocProvider<PortfolioBloc>(
-            create: (_) => PortfolioBloc(portfolio: Portfolio.defaultPortfolio()),
+            create: (_) =>
+                PortfolioBloc(portfolio: Portfolio.defaultPortfolio()),
           ),
           BlocProvider<NewsBloc>(
             create: (_) => NewsBloc(),
           ),
           BlocProvider<AssetBloc>(
-            create: (_) => AssetBloc(asset: Asset.defaultAsset(), assetService: AssetService()),
+            create: (_) => AssetBloc(
+                asset: Asset.defaultAsset(), assetService: AssetService()),
           ),
           BlocProvider<ChartBloc>(
             create: (context) {
               final assetBloc = BlocProvider.of<AssetBloc>(context);
               final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
-              return ChartBloc(chart: Chart.defaultChart(), assetBloc: assetBloc, portfolioBloc: portfolioBloc);
+              return ChartBloc(
+                  chart: Chart.defaultChart(),
+                  assetBloc: assetBloc,
+                  portfolioBloc: portfolioBloc);
             },
           ),
         ],
@@ -68,7 +73,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> fetchData() async {
     _newsBloc.fetchArticles();
-    _assetBloc.fetchAsset("GOOGL");
+    _assetBloc.fetchAsset("BAC");
   }
 
   @override
@@ -92,7 +97,9 @@ class _MyAppState extends State<MyApp> {
                 supportedLocales: supportedLocales,
                 localizationsDelegates: localizationsDelegates,
                 localeResolutionCallback: localeResolutionCallback,
-                themeMode: Provider.of<ThemeModel>(context).isDarkMode ? ThemeMode.dark : ThemeMode.light,
+                themeMode: Provider.of<ThemeModel>(context).isDarkMode
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
               );
             },
           );
