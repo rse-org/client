@@ -25,7 +25,7 @@ class _AlertIconState extends State<AlertIcon> {
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
