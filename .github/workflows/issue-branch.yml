@@ -38,6 +38,7 @@ jobs:
       - name: Update issue sidebar
         if: steps.find_issue.outputs.id != ''
         run: |
+          cat issue.json
           # echo issue.json
           # issueId=$(jq -r '.id' issue.json)
           # requestBody="{ \"body\": \"This branch is linked to [issue ${{ env.issue_number }}](issues/${{ env.branch_name }}).\" }"
