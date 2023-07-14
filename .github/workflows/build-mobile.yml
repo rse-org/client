@@ -3,9 +3,8 @@ name: Build & distribute Android
 on:
   push:
     branches: [main]
-    paths: ['lib/**']
+    paths: ["lib/**"]
   workflow_dispatch:
-
 
 jobs:
   build-and-distribute:
@@ -24,14 +23,14 @@ jobs:
       - name: Install Java
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
-          distribution: 'zulu'
+          java-version: "11"
+          distribution: "zulu"
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          flutter-version: '3.10.5'
+          channel: "stable"
+          flutter-version: "3.10.5"
 
       - name: Build APK
         run: |
