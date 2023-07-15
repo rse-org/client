@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
+import 'package:rse/data/blocs/auth/all.dart';
 
 class AppBarWithSearch extends StatefulWidget {
   final int tabIndex;
@@ -209,6 +212,15 @@ void _showModal(BuildContext context) {
             },
             child: const Text("Enable Debug Paint Size"),
           ),
+          SignInButton(
+            Buttons.Google,
+            text: "Sign up with Google",
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(
+                GoogleSignInRequested(),
+              );
+            },
+          ),
           if (showAppConfig)
             FutureBuilder<String>(
               future: getVersionId(),
@@ -230,7 +242,8 @@ void _showModal(BuildContext context) {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                return Text(remoteConfig.getValue('app_secret').asString());
+                return Text(
+                    'app_secret: ${remoteConfig.getValue('app_secret').asString()}');
               }
             },
           ),

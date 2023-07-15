@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
+import './utils/firebase_options.dart';
 import 'all.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),
@@ -18,6 +23,9 @@ Future<void> main() async {
         providers: [
           BlocProvider<LangBloc>(
             create: (_) => LangBloc(),
+          ),
+          BlocProvider<AuthBloc>(
+            create: (_) => AuthBloc(authService: AuthService()),
           ),
           BlocProvider<NavBloc>(
             create: (_) => NavBloc(),
