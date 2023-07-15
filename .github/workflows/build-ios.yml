@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-distribute:
+  build:
     runs-on: macOS-latest
     strategy:
       fail-fast: false
@@ -55,7 +55,7 @@ jobs:
           channel: "stable"
           flutter-version: "3.10.5"
 
-      - name: Bump iOS version name & code
+      - name: Bump version name & code
         uses: yanamura/ios-bump-version@v1
         with:
           version: 1.0.0
@@ -64,12 +64,34 @@ jobs:
 
       - name: Build IPA
         run: |
-          flutter build ios
+          xcrun xcodebuild -showBuildSettings -workspace ./ios/Runner.xcworkspace -scheme Runner -configuration Release
           flutter build ipa --export-method development
+          mkdir -p dist
+          mv ./build/ios/rse.ipa dist/rse.ipa
 
-      - name: Upload IPA to Firebase App Distribution
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: built-ipa
+          path: dist/rse.ipa
+
+  distribute:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: built-ipa
+          path: dist/
+
+      - name: Upload to Firebase App Distribution
         uses: w9jds/firebase-action@v11.5.0
         with:
-          args: appdistribution:distribute ./build/ios/rse.ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
+          args: appdistribution:distribute dist/rse-ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}

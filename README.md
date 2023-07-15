@@ -1,5 +1,4 @@
-# Royal Stock Exchange(RSE) [![cov](https://primetimetran.github.io/f-RSE/badges/coverage.svg)](https://github.com/primetimetran/f-RSE/actions)
-
+# Royal Stock Exchange(RSE) [![cov](https://rse-org.github.io/client/badges/coverage.svg)](https://github.com/primetimetran/f-RSE/actions)
 
 A stock exchange for the next generation.
 
@@ -33,6 +32,7 @@ A stock exchange for the next generation.
 ## FAQ
 
 - Why isn't an asset in assets available on web?
+
   - Because we have to include them in web/assets & declare them in web/manifest.json for them to be bundled in the build process
 
 - How to ensure firebase events are sent to the correct project?

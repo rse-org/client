@@ -13,12 +13,6 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: Bump Android version name & code
-        uses: Devofure/advance-android-version-actions@v1.4
-        with:
-          gradlePath: ./android/app/build.gradle
-          versionCode: ${{ github.run_number }}
-          versionName: ${{ vars.APP_VERSION }}
 
       - name: Install Java
         uses: actions/setup-java@v2
@@ -32,14 +26,20 @@ jobs:
           channel: "stable"
           flutter-version: "3.10.5"
 
+      - name: Bump version name & code
+        uses: Devofure/advance-android-version-actions@v1.4
+        with:
+          gradlePath: ./android/app/build.gradle
+          versionCode: ${{ github.run_number }}
+          versionName: ${{ vars.APP_VERSION }}
+
       - name: Build APK
         run: |
           flutter --version
           flutter pub get
           flutter build apk --flavor=production
 
-      - name: Upload APK to Firebase App Distribution
-        if: ${{ matrix.platform == 'android' }}
+      - name: Upload to Firebase App Distribution
         uses: w9jds/firebase-action@v11.5.0
         with:
           args: appdistribution:distribute ./build/app/outputs/flutter-apk/app-production-release.apk --app ${{ secrets.FIREBASE_ANDROID_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
