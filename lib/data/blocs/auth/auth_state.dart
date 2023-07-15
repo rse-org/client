@@ -25,7 +25,6 @@ class UnAuthenticated extends AuthState {
   List<Object?> get props => [3];
 }
 
-// If any error occurs the state is changed to AuthError.
 class AuthError extends AuthState {
   final String error;
 

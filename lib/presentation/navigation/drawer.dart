@@ -5,8 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 import 'package:slider_button/slider_button.dart';
 
-const defaultUrl =
-    "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
+const defaultUrl = "https://shorturl.at/yGISX";
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});

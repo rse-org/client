@@ -160,6 +160,32 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   }
 }
 
+Widget renderAuthOptions(context) {
+  return BlocConsumer<AuthBloc, AuthState>(
+    listener: (context, state) {},
+    builder: (context, state) {
+      if (state is Authenticated) {
+        print(state);
+        return TextButton(
+          onPressed: () {
+            BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
+          },
+          child: Text('Sign Out'),
+        );
+      }
+      return SignInButton(
+        Buttons.Google,
+        text: "Sign up with Google",
+        onPressed: () {
+          BlocProvider.of<AuthBloc>(context).add(
+            GoogleSignInRequested(),
+          );
+        },
+      );
+    },
+  );
+}
+
 Future<String> getVersionId() async {
   try {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -211,15 +237,7 @@ void _showModal(BuildContext context) {
             },
             child: const Text("Enable Debug Paint Size"),
           ),
-          SignInButton(
-            Buttons.Google,
-            text: "Sign up with Google",
-            onPressed: () {
-              BlocProvider.of<AuthBloc>(context).add(
-                GoogleSignInRequested(),
-              );
-            },
-          ),
+          renderAuthOptions(context),
           if (showAppConfig)
             FutureBuilder<String>(
               future: getVersionId(),
