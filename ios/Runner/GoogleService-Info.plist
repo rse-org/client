@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>231022961791-ipn2qe5dhhphvd6ieibajd097pv0ebur.apps.googleusercontent.com</string>
+	<string>231022961791-h1j124el7redokrstoe05p8nbfm0d5g1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.231022961791-ipn2qe5dhhphvd6ieibajd097pv0ebur</string>
+	<string>com.googleusercontent.apps.231022961791-h1j124el7redokrstoe05p8nbfm0d5g1</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>231022961791-f7klalpeku4qdk7r4vba00e117l56fjk.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCiWWmf5vuTF_kN3_WUF5eunn3kfQg3yvQ</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.rse</string>
+	<string>com.primetimetran.rse</string>
 	<key>PROJECT_ID</key>
 	<string>royal-stock-exchange</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:231022961791:ios:9215f4a18316e6e9b58b4a</string>
+	<string>1:231022961791:ios:5fedd29c9696719bb58b4a</string>
+	<key>DATABASE_URL</key>
+	<string>https://royal-stock-exchange-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

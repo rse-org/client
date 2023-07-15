@@ -3,7 +3,7 @@ name: Run tests & code analysis
 on:
   push:
     branches: [main, feature/*, hotfix/*, bugfix/*]
-    paths: ['lib/**']
+    paths: ["lib/**"]
   pull_request:
     branches: [develop]
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.5'
+          flutter-version: "3.10.5"
 
       - name: Install packages
         run: flutter pub get
@@ -29,7 +29,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Analyze code
         run: flutter analyze
@@ -50,7 +50,7 @@ jobs:
           # Value for next step:
           # Makes output1: ${{ steps.covReport.outputs.COV }} work.          
           echo "##[set-output name=COV]$COV"
-          
+
           # Makes $COV available in subsequent steps in this job.
           echo "COV='$COV'" >> $GITHUB_ENV
 
@@ -81,7 +81,7 @@ jobs:
           COLOR=$(node -p "const cov = process.env.COV.split(' ')[1]; +cov >= 95 ? 'green' : 'orange'")
 
           mkdir -p badges
-          badgen -j "code coverage" -s "${COV#*: }%" -c $COLOR > badges/coverage.svg
+          badgen -j "code coverage" -i github -s "${COV#*: }%" -c $COLOR > badges/coverage.svg
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

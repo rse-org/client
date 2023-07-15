@@ -11,7 +11,6 @@ import 'all.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),
