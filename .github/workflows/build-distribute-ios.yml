@@ -96,6 +96,6 @@ jobs:
       - name: Upload to Firebase App Distribution
         uses: w9jds/firebase-action@v11.5.0
         with:
-          args: appdistribution:distribute dist/rse.ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
+          args: appdistribution:distribute dist/rse.ipa --app ${{ secrets.FIREBASE_APP_ID_IOS }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
