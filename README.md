@@ -5,7 +5,7 @@
 A stock exchange for the next generation.
 
 - [Demo](https://royal-stock-exchange.netlify.app/)
-- [Client Code](https://github.com/PrimeTimeTran/f-RSE)
+- [Client Code](https://github.com/rse-org/client)
 
 ## Getting Started
 

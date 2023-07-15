@@ -1,4 +1,4 @@
-name: Build & distribute Android
+name: Build & distribute to Android
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Build & distribute iOS
+name: Build & distribute to iOS
 
 on:
   push:
@@ -77,6 +77,8 @@ jobs:
           name: built-ipa
           path: dist/rse.ipa
 
+  # A linux machine is needed firebase app distribution action.
+  # Benefit of allowing us rerun only failing jobs when we've configured environments incorrectly though.
   distribute:
     needs: build
     runs-on: ubuntu-latest
