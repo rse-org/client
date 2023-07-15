@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'all.dart';
 
@@ -23,24 +24,28 @@ Future<void> main() async {
             create: (_) => NavBloc(),
           ),
           BlocProvider<PortfolioBloc>(
-            create: (_) =>
-                PortfolioBloc(portfolio: Portfolio.defaultPortfolio()),
+            create: (_) => PortfolioBloc(
+              portfolio: Portfolio.defaultPortfolio(),
+            ),
           ),
           BlocProvider<NewsBloc>(
             create: (_) => NewsBloc(),
           ),
           BlocProvider<AssetBloc>(
             create: (_) => AssetBloc(
-                asset: Asset.defaultAsset(), assetService: AssetService()),
+              asset: Asset.defaultAsset(),
+              assetService: AssetService(),
+            ),
           ),
           BlocProvider<ChartBloc>(
             create: (context) {
               final assetBloc = BlocProvider.of<AssetBloc>(context);
               final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
               return ChartBloc(
-                  chart: Chart.defaultChart(),
-                  assetBloc: assetBloc,
-                  portfolioBloc: portfolioBloc);
+                assetBloc: assetBloc,
+                chart: Chart.defaultChart(),
+                portfolioBloc: portfolioBloc,
+              );
             },
           ),
         ],

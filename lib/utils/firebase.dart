@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rse/all.dart';
 
 import 'firebase_options.dart';
-
-import 'package:rse/all.dart';
 
 StreamSubscription? subscription;
 final remoteConfig = FirebaseRemoteConfig.instance;
@@ -27,7 +27,8 @@ setupFirebase() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    fbAnalyticsObserver = FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance);
+    fbAnalyticsObserver =
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance);
 
     await remoteConfig.fetchAndActivate();
 
@@ -65,9 +66,13 @@ setupFirebase() async {
   }
 }
 
+void setScreenName(String name) async {
+  FirebaseAnalytics.instance.setCurrentScreen(screenName: name);
+}
+
 void logPeriodSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "selected_period",
+    name: "chart_select_period",
     parameters: {
       "name": name,
     },
@@ -76,7 +81,7 @@ void logPeriodSelect(String name) async {
 
 void logAssetView(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "viewed_asset",
+    name: "asset_viewed",
     parameters: {
       "name": name,
     },
@@ -85,7 +90,7 @@ void logAssetView(String name) async {
 
 void logTradeAsset(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "choose_trade_asset",
+    name: "asset_choose_trade",
     parameters: {
       "name": name,
     },
@@ -94,22 +99,18 @@ void logTradeAsset(String name) async {
 
 void logTradeAssetOption(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "choose_trade_asset_option",
+    name: "asset_choose_trade_option",
     parameters: {
       "name": name,
     },
   );
 }
 
-void setScreenName(String name) async {
-  FirebaseAnalytics.instance.setCurrentScreen(screenName: name);
-}
-
 void logJsonLoadTime(String duration) async {
   String platform = kIsWeb ? "web" : Platform.operatingSystem;
 
   await FirebaseAnalytics.instance.logEvent(
-    name: "load_time_json_file",
+    name: "json_file_save_load_time",
     parameters: {
       "platform": platform,
       "duration": duration,

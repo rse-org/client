@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:rse/all.dart';
 
 class AppBarWithSearch extends StatefulWidget {
@@ -57,7 +55,9 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   }
 
   _buildTitle(BuildContext context) {
-    return _isSearching ? _buildSearchField(context) : _buildTitleHelper(context);
+    return _isSearching
+        ? _buildSearchField(context)
+        : _buildTitleHelper(context);
   }
 
   Widget _buildSearchField(BuildContext c) {
