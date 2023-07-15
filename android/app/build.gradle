@@ -61,10 +61,16 @@ android {
             resValue "string", "app_name", "RSE"
         }
 
+        preview {
+            dimension "env"
+            applicationId "com.primetimetran.rse.dev"
+            resValue "string", "app_name", "RSE - Preview"
+        }
+
         development {
             applicationId "com.primetimetran.rse.dev"
             dimension "env"
-            resValue "string", "app_name", "RSE - DEV"
+            resValue "string", "app_name", "RSE - Dev"
         }
     }
 }

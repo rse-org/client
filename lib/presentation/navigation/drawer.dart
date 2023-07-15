@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 import 'package:slider_button/slider_button.dart';
 
-// ignore: depend_on_referenced_packages
-import 'package:provider/provider.dart';
-
-const defaultUrl = "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
+const defaultUrl =
+    "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -38,22 +39,34 @@ class DrawerState extends State<MyDrawer> {
                   children: [
                     Container(
                       color: Colors.grey[900],
-                      child: const DrawerHeader(
-                        decoration: BoxDecoration(),
+                      child: DrawerHeader(
+                        decoration: const BoxDecoration(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Royal Stock Exchange',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
                               ),
                             ),
-                            Spacer(),
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(defaultUrl),
+                            const Spacer(),
+                            StreamBuilder<User?>(
+                              stream: FirebaseAuth.instance.userChanges(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage:
+                                        NetworkImage(snapshot.data!.photoURL!),
+                                  );
+                                }
+                                return const CircleAvatar(
+                                  radius: 50,
+                                  backgroundImage: NetworkImage(defaultUrl),
+                                );
+                              },
                             ),
                           ],
                         ),

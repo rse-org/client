@@ -37,9 +37,9 @@ jobs:
         run: |
           flutter --version
           flutter pub get
-          flutter build apk --flavor=production
+          flutter build apk --flavor=preview
           mkdir -p dist
-          mv ./build/app/outputs/flutter-apk/app-production-release.apk dist/rse.apk
+          mv ./build/app/outputs/flutter-apk/app-preview-release.apk dist/rse.apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
