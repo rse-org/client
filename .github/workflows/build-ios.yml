@@ -14,6 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: "zulu"
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          flutter-version: "3.10.5"
+
+      - name: Bump version name & code
+        uses: yanamura/ios-bump-version@v1
+        with:
+          version: 1.0.0
+          project-path: ios
+          build-number: ${{ github.run_number }}
+
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
@@ -43,31 +62,14 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Install Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: "11"
-          distribution: "zulu"
-
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-          flutter-version: "3.10.5"
-
-      - name: Bump version name & code
-        uses: yanamura/ios-bump-version@v1
-        with:
-          version: 1.0.0
-          project-path: ios
-          build-number: ${{ github.run_number }}
-
       - name: Build IPA
         run: |
+          flutter --version
+          flutter pub get
           xcrun xcodebuild -showBuildSettings -workspace ./ios/Runner.xcworkspace -scheme Runner -configuration Release
           flutter build ipa --export-method development
           mkdir -p dist
-          mv ./build/ios/rse.ipa dist/rse.ipa
+          mv ./build/ios/ipa/rse.ipa dist/rse.ipa
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -92,6 +94,6 @@ jobs:
       - name: Upload to Firebase App Distribution
         uses: w9jds/firebase-action@v11.5.0
         with:
-          args: appdistribution:distribute dist/rse-ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
+          args: appdistribution:distribute dist/rse.ipa --app ${{ secrets.FIREBASE_IOS_APP_ID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}

@@ -50,3 +50,5 @@ app.*.map.json
 
 /lib/l10n/venv
 /lib/l10n/venv/*
+
+dist/
