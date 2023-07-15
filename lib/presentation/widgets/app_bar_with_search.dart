@@ -8,7 +8,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
-import 'package:rse/data/blocs/auth/all.dart';
 
 class AppBarWithSearch extends StatefulWidget {
   final int tabIndex;
