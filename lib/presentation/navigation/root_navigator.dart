@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:go_router/go_router.dart';
 import 'package:rse/all.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -9,6 +8,7 @@ final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
+final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -74,15 +74,29 @@ class _AppState extends State<App> {
     return BlocConsumer<NavBloc, NavState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          key: _scaffoldKey,
-          body: widget.shell,
-          drawer: const MyDrawer(),
-          appBar: tabRootAppBar(state.states[widget.shell.currentIndex]),
-          bottomNavigationBar: BottomNavBar(
-            shell: widget.shell,
-            resetStack: resetStack,
-          ),
+        if (state is QuizStartSuccess) {
+          return SafeArea(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white,
+              child: const GameScreen(),
+            ),
+          );
+        }
+        return Stack(
+          children: [
+            Scaffold(
+              key: _scaffoldKey,
+              body: widget.shell,
+              drawer: const MyDrawer(),
+              appBar: tabRootAppBar(state.states[widget.shell.currentIndex]),
+              bottomNavigationBar: BottomNavBar(
+                shell: widget.shell,
+                resetStack: resetStack,
+              ),
+            ),
+          ],
         );
       },
     );
@@ -170,6 +184,18 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorCKey,
           routes: [
             GoRoute(
+              path: '/play',
+              pageBuilder: (context, state) => NoTransitionPage(
+                key: state.pageKey,
+                child: const PlayScreen(),
+              ),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorDKey,
+          routes: [
+            GoRoute(
               path: '/notifications',
               pageBuilder: (context, state) => NoTransitionPage(
                 key: state.pageKey,
@@ -179,7 +205,7 @@ final goRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorDKey,
+          navigatorKey: _shellNavigatorEKey,
           routes: [
             GoRoute(
               path: '/profile',

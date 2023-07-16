@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:rse/all.dart';
 
 class BottomNavBar extends StatelessWidget {
   final StatefulNavigationShell shell;
   final Function resetStack;
 
-  const BottomNavBar({super.key, required this.shell, required this.resetStack});
+  const BottomNavBar(
+      {super.key, required this.shell, required this.resetStack});
 
   void _goBranch(int index) {
     resetStack(index);
@@ -42,17 +42,24 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
         NavigationDestination(
+          label: context.l.play,
+          icon: Icon(
+            Icons.play_arrow,
+            color: getIconColor(context, 2),
+          ),
+        ),
+        NavigationDestination(
           label: context.l.notifications,
           icon: Icon(
             Icons.notifications,
-            color: getIconColor(context, 2),
+            color: getIconColor(context, 3),
           ),
         ),
         NavigationDestination(
           label: context.l.profile,
           icon: Icon(
             Icons.person,
-            color: getIconColor(context, 3),
+            color: getIconColor(context, 4),
           ),
         ),
       ],

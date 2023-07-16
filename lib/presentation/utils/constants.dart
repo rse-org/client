@@ -1,3 +1,13 @@
+import 'package:flutter/material.dart';
+
+List<Color> playBackgroundColors = [
+  const Color(0xFFF44336),
+  const Color(0xFF009688),
+  const Color(0xFF8BC34A),
+  const Color(0xFFE91E63),
+  const Color(0xFF03A9F4),
+];
+
 Map<String, dynamic> periodMapping = {
   'live': 'live',
   '1d': 'oneDay',

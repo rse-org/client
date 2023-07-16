@@ -4,6 +4,7 @@ export 'asset.dart';
 export 'watch.dart';
 export 'chart.dart';
 export 'company.dart';
+export 'question.dart';
 export 'portfolio.dart';
 export 'data_point.dart';
 export 'candlestick.dart';
