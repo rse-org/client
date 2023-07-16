@@ -198,12 +198,22 @@ Widget renderAuthOptions(context) {
   );
 }
 
+Future<String> getBuildString() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageName = packageInfo.packageName;
+    return packageName;
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
 Future<String> getVersionId() async {
   try {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     String version = packageInfo.version;
     String buildNumber = packageInfo.buildNumber;
-    return '$version $buildNumber';
+    return '$version: $buildNumber';
   } on Exception catch (_) {
     return '';
   }
@@ -276,6 +286,19 @@ void _showModal(BuildContext context) {
               }
             },
           ),
+          if (showAppConfig)
+            FutureBuilder<String>(
+              future: getBuildString(),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Text(snapshot.data ?? '');
+                }
+              },
+            ),
         ],
       );
     },

@@ -117,11 +117,13 @@ void logAppLoadSuccess() async {
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String version = packageInfo.version;
   String buildNumber = packageInfo.buildNumber;
+  String packageName = packageInfo.packageName;
   await FirebaseAnalytics.instance.logEvent(
     name: "app_load_success",
     parameters: {
       "platform": platform,
       "device": '$version $buildNumber',
+      "package_name": packageName,
       "env": kReleaseMode ? "release" : "debug",
     },
   );
