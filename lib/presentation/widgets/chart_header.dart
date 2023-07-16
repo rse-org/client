@@ -20,7 +20,7 @@ class ChartHeader extends StatelessWidget {
               if (state is ChartFocusSuccess) {
                 final startValue = state.chart.startValue;
                 final focusedValue = state.chart.focusedValue;
-                final title = state.chart.sym == "Investing" ? context.l.investing : state.chart.sym;
+                final title = state.chart.sym == 'Investing' ? context.l.investing : state.chart.sym;
                 return ChartHeaderDetails(
                   hovering: true,
                   title: title,

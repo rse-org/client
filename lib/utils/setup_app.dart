@@ -12,7 +12,7 @@ setup() async {
 void setupEnvironments() async {
   if (kIsWeb && kReleaseMode) return;
   try {
-    await dotenv.load(fileName: "assets/.env");
+    await dotenv.load(fileName: 'assets/.env');
     debugPrint('Env loaded? ${dotenv.env['ENV_LOADED']}');
     setupAPI();
   } catch (e) {

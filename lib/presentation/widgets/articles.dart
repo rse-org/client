@@ -30,7 +30,7 @@ class Articles extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Trending News",
+                'Trending News',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

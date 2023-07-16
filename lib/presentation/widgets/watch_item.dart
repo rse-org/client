@@ -163,7 +163,7 @@ class WatchItemState extends State<WatchItem> {
     // context so we define navigate here and pass it to the button.
     navigate() {
       BlocProvider.of<NavBloc>(context).add(NavChanged('0-1'));
-      context.go("/securities/${widget.item.sym}");
+      context.go('/securities/${widget.item.sym}');
     }
 
     final List<ChartData> data = [

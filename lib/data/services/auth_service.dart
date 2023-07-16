@@ -8,7 +8,7 @@ class AuthService {
       {required String email,
       required String password,
       required String name}) async {
-    const String dummyProfilePicUrl = "https://shorturl.at/fsCLR";
+    const String dummyProfilePicUrl = 'https://shorturl.at/fsCLR';
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);

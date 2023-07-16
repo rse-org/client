@@ -8,9 +8,9 @@ import 'package:rse/all.dart';
 
 String _twoDigits(int n) {
   if (n >= 10) {
-    return "$n";
+    return '$n';
   }
-  return "0$n";
+  return '0$n';
 }
 
 String formatTime(DateTime startTime, DateTime endTime) {

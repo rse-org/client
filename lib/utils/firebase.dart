@@ -65,66 +65,66 @@ void setScreenName(String name) async {
 
 void logPeriodSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "chart_select_period",
+    name: 'chart_select_period',
     parameters: {
-      "name": name,
+      'name': name,
     },
   );
 }
 
 void logAssetView(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "asset_viewed",
+    name: 'asset_viewed',
     parameters: {
-      "name": name,
+      'name': name,
     },
   );
 }
 
 void logTradeAsset(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "asset_choose_trade",
+    name: 'asset_choose_trade',
     parameters: {
-      "name": name,
+      'name': name,
     },
   );
 }
 
 void logTradeAssetOption(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: "asset_choose_trade_option",
+    name: 'asset_choose_trade_option',
     parameters: {
-      "name": name,
+      'name': name,
     },
   );
 }
 
 void logJsonLoadTime(String duration) async {
-  String platform = kIsWeb ? "web" : Platform.operatingSystem;
+  String platform = kIsWeb ? 'web' : Platform.operatingSystem;
 
   await FirebaseAnalytics.instance.logEvent(
-    name: "json_file_save_load_time",
+    name: 'json_file_save_load_time',
     parameters: {
-      "platform": platform,
-      "duration": duration,
-      "env": kReleaseMode ? "release" : "debug",
+      'platform': platform,
+      'duration': duration,
+      'env': kReleaseMode ? 'release' : 'debug',
     },
   );
 }
 
 void logAppLoadSuccess() async {
-  String platform = kIsWeb ? "web" : Platform.operatingSystem;
+  String platform = kIsWeb ? 'web' : Platform.operatingSystem;
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String version = packageInfo.version;
   String buildNumber = packageInfo.buildNumber;
   String packageName = packageInfo.packageName;
   await FirebaseAnalytics.instance.logEvent(
-    name: "app_load_success",
+    name: 'app_load_success',
     parameters: {
-      "platform": platform,
-      "device": '$version $buildNumber',
-      "package_name": packageName,
-      "env": kReleaseMode ? "release" : "debug",
+      'platform': platform,
+      'device': '$version $buildNumber',
+      'package_name': packageName,
+      'env': kReleaseMode ? 'release' : 'debug',
     },
   );
 }

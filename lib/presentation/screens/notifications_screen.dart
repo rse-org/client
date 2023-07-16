@@ -43,7 +43,7 @@ class NotificationsScreen extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text("${context.l.notifications} $index"),
+                    title: Text('${context.l.notifications} $index'),
                   );
                 },
               ),
@@ -69,7 +69,7 @@ class NotificationsScreen extends StatelessWidget {
         children: [
           const Align(
             child: Text(
-              "Name",
+              'Name',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -88,7 +88,7 @@ class NotificationsScreen extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text("Message $index"),
+                    title: Text('Message $index'),
                   );
                 },
               ),

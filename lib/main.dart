@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> fetchData() async {
     _newsBloc.fetchArticles();
-    _assetBloc.fetchAsset("BAC");
+    _assetBloc.fetchAsset('BAC');
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 import 'package:slider_button/slider_button.dart';
 
-const defaultUrl = "https://shorturl.at/yGISX";
+const defaultUrl = 'https://shorturl.at/yGISX';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});

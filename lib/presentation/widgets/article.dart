@@ -4,7 +4,7 @@ import 'package:rse/presentation/utils/all.dart';
 import 'package:rse/data/models/all.dart' as models;
 import 'package:rse/presentation/widgets/all.dart';
 
-const placeholder = "https://awlights.com/wp-content/uploads/sites/31/2017/05/placeholder-news.jpg";
+const placeholder = 'https://awlights.com/wp-content/uploads/sites/31/2017/05/placeholder-news.jpg';
 
 class Article extends StatefulWidget {
   final models.NewsArticle article;

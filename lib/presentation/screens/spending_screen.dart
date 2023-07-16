@@ -24,7 +24,7 @@ class SpendingScreen extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Transactions",
+                        'Transactions',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -44,7 +44,7 @@ class SpendingScreen extends StatelessWidget {
                         itemCount: 100,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text("Transaction $index"),
+                            title: Text('Transaction $index'),
                           );
                         },
                       ),
@@ -63,7 +63,7 @@ class SpendingScreen extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Transaction Details",
+                        'Transaction Details',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class SpendingScreen extends StatelessWidget {
                         itemCount: 100,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text("Transaction Details $index"),
+                            title: Text('Transaction Details $index'),
                           );
                         },
                       ),

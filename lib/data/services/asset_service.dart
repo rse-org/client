@@ -11,7 +11,7 @@ class AssetService {
     try {
       // if (kDebugMode) throw Error();
       if (kDebugMode) p('API: $api');
-      final String path = "$api/assets/$sym?period=$period";
+      final String path = '$api/assets/$sym?period=$period';
       final response = await http.get(Uri.parse(path));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -22,7 +22,7 @@ class AssetService {
         throw Error();
       }
     } catch (e) {
-      p("Error: Fetching asset. Loading from cache. $e");
+      p('Error: Fetching asset. Loading from cache. $e');
       return await _localStorage.getCachedAsset('GOOGL', period);
     }
   }

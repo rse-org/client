@@ -52,3 +52,4 @@ app.*.map.json
 /lib/l10n/venv/*
 
 dist/
+/scripts/venv

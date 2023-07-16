@@ -70,12 +70,13 @@ jobs:
           flutter build ipa --export-method development
           mkdir -p dist
           mv ./build/ios/ipa/rse.ipa dist/rse.ipa
+          # zip -r -9 dist/dSYMs.zip build/ios/archive/Runner.xcarchive/dSYMs
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: built-ipa
-          path: dist/rse.ipa
+          path: dist
 
   # A linux machine is needed firebase app distribution action.
   # Benefit of allowing us rerun only failing jobs when we've configured environments incorrectly though.
@@ -91,7 +92,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: built-ipa
-          path: dist/
+          path: dist
 
       - name: Upload to Firebase App Distribution
         uses: w9jds/firebase-action@v11.5.0
@@ -99,3 +100,10 @@ jobs:
           args: appdistribution:distribute dist/rse.ipa --app ${{ secrets.FIREBASE_APP_ID_IOS }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
+
+      # - name: Upload dSYMs to Crashlytics
+      #   uses: w9jds/firebase-action@v11.5.0
+      #   with:
+      #     args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
+      #   env:
+      #     GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}

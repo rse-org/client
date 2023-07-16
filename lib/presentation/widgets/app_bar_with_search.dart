@@ -21,7 +21,7 @@ class AppBarWithSearch extends StatefulWidget {
 class _AppBarWithSearchState extends State<AppBarWithSearch> {
   bool _isSearching = false;
   late FocusNode myFocusNode;
-  String searchQuery = "Search query";
+  String searchQuery = 'Search query';
   final TextEditingController _searchQueryController = TextEditingController();
 
   @override
@@ -155,7 +155,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   void _clearSearchQuery() {
     setState(() {
       _searchQueryController.clear();
-      updateSearchQuery("");
+      updateSearchQuery('');
     });
   }
 }
@@ -176,7 +176,7 @@ Widget renderAuthOptions(context) {
         children: [
           SignInButton(
             Buttons.Google,
-            text: "Sign up with Google",
+            text: 'Sign up with Google',
             onPressed: () {
               BlocProvider.of<AuthBloc>(context).add(
                 GoogleSignInRequested(),
@@ -185,7 +185,7 @@ Widget renderAuthOptions(context) {
           ),
           SignInButton(
             Buttons.Google,
-            text: "Sign up with Google",
+            text: 'Sign up with Google',
             onPressed: () {
               BlocProvider.of<AuthBloc>(context).add(
                 GoogleSignInRequested(),
@@ -234,30 +234,30 @@ void _showModal(BuildContext context) {
             onPressed: () {
               BlocProvider.of<LangBloc>(context).changeLang('es');
             },
-            child: const Text("es"),
+            child: const Text('es'),
           ),
           TextButton(
             onPressed: () {
               BlocProvider.of<LangBloc>(context).changeLang('en');
             },
-            child: const Text("en"),
+            child: const Text('en'),
           ),
           TextButton(
             onPressed: () {
               BlocProvider.of<LangBloc>(context).changeLang('vi');
             },
-            child: const Text("vi"),
+            child: const Text('vi'),
           ),
           TextButton(
             onPressed: () => throw Exception(),
-            child: const Text("Throw Test Exception"),
+            child: const Text('Throw Test Exception'),
           ),
           TextButton(
             onPressed: () {
               final bool value = debugPaintSizeEnabled;
               debugPaintSizeEnabled = !value;
             },
-            child: const Text("Enable Debug Paint Size"),
+            child: const Text('Enable Debug Paint Size'),
           ),
           renderAuthOptions(context),
           if (showAppConfig)
