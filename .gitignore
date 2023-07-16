@@ -43,13 +43,13 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-.env
 
+.env
 /notes
 /secrets
 
-/lib/l10n/venv
-/lib/l10n/venv/*
 
 dist/
 /scripts/venv
+/scripts/build
+/scripts/build/*
