@@ -172,14 +172,27 @@ Widget renderAuthOptions(context) {
           child: const Text('Sign Out'),
         );
       }
-      return SignInButton(
-        Buttons.Google,
-        text: "Sign up with Google",
-        onPressed: () {
-          BlocProvider.of<AuthBloc>(context).add(
-            GoogleSignInRequested(),
-          );
-        },
+      return Column(
+        children: [
+          SignInButton(
+            Buttons.Google,
+            text: "Sign up with Google",
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(
+                GoogleSignInRequested(),
+              );
+            },
+          ),
+          SignInButton(
+            Buttons.Google,
+            text: "Sign up with Google",
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(
+                GoogleSignInRequested(),
+              );
+            },
+          ),
+        ],
       );
     },
   );

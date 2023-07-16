@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
-import './utils/firebase_options.dart';
+import './firebase_options.dart';
 import 'all.dart';
 
 Future<void> main() async {

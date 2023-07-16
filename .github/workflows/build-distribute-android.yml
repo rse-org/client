@@ -29,9 +29,9 @@ jobs:
       - name: Bump version name & code
         uses: Devofure/advance-android-version-actions@v1.4
         with:
-          gradlePath: ./android/app/build.gradle
-          versionCode: ${{ github.run_number }}
           versionName: ${{ vars.APP_VERSION }}
+          versionCode: ${{ github.run_number }}
+          gradlePath: ./android/app/build.gradle
 
       - name: Build APK
         run: |

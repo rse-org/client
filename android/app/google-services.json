@@ -8,50 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:231022961791:android:f34687269c4e7853b58b4a",
-        "android_client_info": {
-          "package_name": "com.example.rse"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "231022961791-f7klalpeku4qdk7r4vba00e117l56fjk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.rse",
-            "certificate_hash": "3e2ff7aa017588b0392c74981d867d32cbad926b"
-          }
-        },
-        {
-          "client_id": "231022961791-n38ccogkju3c9oetmgbb3qs6eebqtrah.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA5c5Ns6KWHpf9jM_gM4NDe7nAd2OECSrw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "231022961791-n38ccogkju3c9oetmgbb3qs6eebqtrah.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "231022961791-28mgg4ltvdu5jq5lvq85kq7e184uprme.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.rse.RunnerTests"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:231022961791:android:f52a197a02acac91b58b4a",
         "android_client_info": {
           "package_name": "com.primetimetran.rse.dev"

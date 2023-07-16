@@ -49,34 +49,40 @@ class DefaultFirebaseOptions {
     messagingSenderId: '231022961791',
     projectId: 'royal-stock-exchange',
     authDomain: 'royal-stock-exchange.firebaseapp.com',
+    databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
     measurementId: 'G-BDHRPQN841',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA5c5Ns6KWHpf9jM_gM4NDe7nAd2OECSrw',
-    appId: '1:231022961791:android:f34687269c4e7853b58b4a',
+    appId: '1:231022961791:android:5e13fc6cad1d4870b58b4a',
     messagingSenderId: '231022961791',
     projectId: 'royal-stock-exchange',
+    databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCiWWmf5vuTF_kN3_WUF5eunn3kfQg3yvQ',
-    appId: '1:231022961791:ios:9215f4a18316e6e9b58b4a',
+    appId: '1:231022961791:ios:5fedd29c9696719bb58b4a',
     messagingSenderId: '231022961791',
     projectId: 'royal-stock-exchange',
+    databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
-    iosClientId: '231022961791-ipn2qe5dhhphvd6ieibajd097pv0ebur.apps.googleusercontent.com',
-    iosBundleId: 'com.example.rse',
+    androidClientId: '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
+    iosClientId: '231022961791-h1j124el7redokrstoe05p8nbfm0d5g1.apps.googleusercontent.com',
+    iosBundleId: 'com.primetimetran.rse',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCiWWmf5vuTF_kN3_WUF5eunn3kfQg3yvQ',
-    appId: '1:231022961791:ios:ad34ad590fecd231b58b4a',
+    appId: '1:231022961791:ios:a46dd3eeb28c271bb58b4a',
     messagingSenderId: '231022961791',
     projectId: 'royal-stock-exchange',
+    databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
+    androidClientId: '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
     iosClientId: '231022961791-28mgg4ltvdu5jq5lvq85kq7e184uprme.apps.googleusercontent.com',
     iosBundleId: 'com.example.rse.RunnerTests',
   );
