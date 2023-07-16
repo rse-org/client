@@ -165,12 +165,11 @@ Widget renderAuthOptions(context) {
     listener: (context, state) {},
     builder: (context, state) {
       if (state is Authenticated) {
-        print(state);
         return TextButton(
           onPressed: () {
             BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
           },
-          child: Text('Sign Out'),
+          child: const Text('Sign Out'),
         );
       }
       return SignInButton(
