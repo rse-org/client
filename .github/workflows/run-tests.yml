@@ -48,7 +48,7 @@ jobs:
           echo $COV
 
           # Value for next step:
-          # Makes output1: ${{ steps.covReport.outputs.COV }} work.          
+          # Makes output1: ${{ steps.covReport.outputs.COV }} work.
           echo "##[set-output name=COV]$COV"
 
           # Makes $COV available in subsequent steps in this job.

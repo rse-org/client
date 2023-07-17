@@ -18,6 +18,7 @@ class _AssetScreeState extends State<AssetScreen> {
   void initState() {
     super.initState();
     setScreenName('/securities/${widget.sym}');
+    logAssetView(widget.sym);
   }
 
   void _showAction(BuildContext context, int index) {

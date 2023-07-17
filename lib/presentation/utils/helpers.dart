@@ -29,7 +29,7 @@ Future<dynamic> loadJsonFile(String path) async {
     final decoded = json.decode(jsonContent);
     DateTime endTime = DateTime.now();
 
-    logJsonLoadTime(formatTime(startTime, endTime));
+    logLoadJsonSuccess(formatTime(startTime, endTime));
     return decoded;
   } catch (e) {
     if (kDebugMode) {

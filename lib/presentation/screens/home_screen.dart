@@ -14,7 +14,9 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Causes firebase setup test to fail for some reason.
+    // ! For some reason this causes FB tests to fail.
+    // ! The test for checking if FB is setup correctly.
+    // ! Do not use until you know how to fix it.
     // setScreenName('/home');
   }
 

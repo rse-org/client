@@ -54,7 +54,7 @@ class _ExpandableFabState extends State<ExpandableFab>
     setState(() {
       _open = !_open;
       if (_open) {
-        logTradeAsset(widget.sym);
+        logAssetTradeSelect(widget.sym);
         _controller.forward();
       } else {
         _controller.reverse();
@@ -106,8 +106,8 @@ class _ExpandableFabState extends State<ExpandableFab>
     final count = widget.children.length;
     final step = 90.0 / (count - 1);
     for (var i = 0, angleInDegrees = 0.0;
-    i < count;
-    i++, angleInDegrees += step) {
+        i < count;
+        i++, angleInDegrees += step) {
       children.add(
         _ExpandingActionButton(
           progress: _expandAnimation,
@@ -139,10 +139,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           child: FloatingActionButton(
             onPressed: _toggle,
             backgroundColor: T(context, 'surface'),
-            child: Icon(
-              Icons.create,
-              color: T(context, 'primary')
-            ),
+            child: Icon(Icons.create, color: T(context, 'primary')),
           ),
         ),
       ),
@@ -210,7 +207,7 @@ class ActionButton extends StatelessWidget {
       shape: const CircleBorder(),
       child: TextButton(
         onPressed: () {
-          logTradeAssetOption(title);
+          logAssetTradeOptionSelect(title);
           onPressed!();
         },
         style: TextButton.styleFrom(

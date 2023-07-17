@@ -78,8 +78,8 @@ jobs:
           name: built-ipa
           path: dist
 
-  # A linux machine is needed firebase app distribution action.
-  # Benefit of allowing us rerun only failing jobs when we've configured environments incorrectly though.
+  # * A linux machine is needed firebase app distribution action.
+  # * Benefit of allowing us rerun only failing jobs when we've configured environments incorrectly though.
   distribute:
     needs: build
     runs-on: ubuntu-latest
@@ -101,6 +101,7 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
+      # TODO: Add DSYM to Crashlytics
       # - name: Upload dSYMs to Crashlytics
       #   uses: w9jds/firebase-action@v11.5.0
       #   with:

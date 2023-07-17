@@ -11,6 +11,8 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   int idx = 0;
+  DateTime start = DateTime.now();
+  
   List<Question> questions = [];
 
   @override
@@ -18,6 +20,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     getQuestions();
     setScreenName('/play/game');
+
   }
 
   onAnswer() {
@@ -26,6 +29,7 @@ class _GameScreenState extends State<GameScreen> {
       idx += 1;
     });
     if (idx + 1 == 11) {
+      logPlayEnd(start);
       BlocProvider.of<NavBloc>(context).add(EndQuiz());
     }
   }

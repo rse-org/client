@@ -5,6 +5,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rse/all.dart';
 
@@ -65,7 +66,7 @@ void setScreenName(String name) async {
 
 void logPeriodSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'chart_select_period',
+    name: 'chart_period_select',
     parameters: {
       'name': name,
     },
@@ -74,36 +75,36 @@ void logPeriodSelect(String name) async {
 
 void logAssetView(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_viewed',
+    name: 'asset_view',
     parameters: {
       'name': name,
     },
   );
 }
 
-void logTradeAsset(String name) async {
+void logAssetTradeSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_choose_trade',
+    name: 'asset_trade_select',
     parameters: {
       'name': name,
     },
   );
 }
 
-void logTradeAssetOption(String name) async {
+void logAssetTradeOptionSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_choose_trade_option',
+    name: 'asset_trade_option_select',
     parameters: {
       'name': name,
     },
   );
 }
 
-void logJsonLoadTime(String duration) async {
+void logLoadJsonSuccess(String duration) async {
   String platform = kIsWeb ? 'web' : Platform.operatingSystem;
 
   await FirebaseAnalytics.instance.logEvent(
-    name: 'json_file_save_load_time',
+    name: 'load_json_success',
     parameters: {
       'platform': platform,
       'duration': duration,
@@ -112,14 +113,14 @@ void logJsonLoadTime(String duration) async {
   );
 }
 
-void logAppLoadSuccess() async {
+void logLoadAppSuccess() async {
   String platform = kIsWeb ? 'web' : Platform.operatingSystem;
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String version = packageInfo.version;
   String buildNumber = packageInfo.buildNumber;
   String packageName = packageInfo.packageName;
   await FirebaseAnalytics.instance.logEvent(
-    name: 'app_load_success',
+    name: 'load_app_success',
     parameters: {
       'platform': platform,
       'device': '$version $buildNumber',
@@ -146,13 +147,40 @@ void logPlayCategorySelect(c) async {
 }
 
 void logPlayStart() async {
+  var now = DateTime.now();
+  DateFormat().format(now);
   await FirebaseAnalytics.instance.logEvent(
     name: 'play_game_start',
+    parameters: {
+      'start_time': DateFormat().format(now),
+    },
+  );
+}
+
+void logPlayEnd(start) async {
+  var end = DateTime.now();
+  Duration difference = end.difference(start);
+  String diff = formatTimeDifference(difference);
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'play_game_end',
+    parameters: {
+      'start_time': DateFormat().format(start),
+      'end_time': DateFormat().format(end),
+      'time': diff
+    },
   );
 }
 
 void logPlayAnswerSelect() async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'play_game_answer',
-  );
+  await FirebaseAnalytics.instance.logEvent(name: 'play_answer_select');
+}
+
+String formatTimeDifference(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
+
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+
+  return '${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(seconds)}';
 }

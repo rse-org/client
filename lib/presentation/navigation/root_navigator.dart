@@ -21,6 +21,12 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
+// TODO: Holy how
+// ? How does this work?
+// ! Deprecated do not use
+// * Use comments with these decorators.
+// * They're helpful with VSCode better comments
+// * https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
 // A drawer wraps a bottom tab bar wraps nested stacks:
 
 // - Drawer:
@@ -54,7 +60,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    logAppLoadSuccess();
+    logLoadAppSuccess();
   }
 
   resetStack(int tabIdx) {
