@@ -45,9 +45,9 @@ class App extends StatefulWidget {
 // The messy code from this navigation comes from goRouter lack
 // of API for observers working correctly within nested navigators.
 // We can't easily know when a nested Stack is pushed or popped.
-// So we have to manually track it in order to know when to show/hide the appbar.
+// So we have to manually track it in order to know when to show/hide the app bar.
 
-// If we don't do this, the appbar will be shown when the user navigates to nested stacks.
+// If we don't do this, the app bar will be shown when the user navigates to nested stacks.
 // We have to manually hide it when the user navigates to a nested stack.
 
 class _AppState extends State<App> {
@@ -117,9 +117,8 @@ final goRouter = GoRouter(
     if (location == '/') {
       final bloc = context.read<PortfolioBloc>();
       bloc.fetchPortfolio(1);
-      if (bloc.portfolio.meta != null
-          ? bloc.portfolio.meta!.totalValue != 0
-          : false) {
+      final meta = bloc.portfolio.meta;
+      if (meta != null ? meta.totalValue != 0 : false) {
         context.read<ChartBloc>().updateChartPortfolioValues(bloc.portfolio);
       }
     }

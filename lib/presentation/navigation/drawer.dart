@@ -93,6 +93,10 @@ class DrawerState extends State<MyDrawer> {
                           title: Text(context.l.settings),
                           onTap: () {},
                         ),
+                        ListTile(
+                          title: Text(context.l.send_feedback),
+                          onTap: () {},
+                        ),
                       ],
                     ),
                   ],

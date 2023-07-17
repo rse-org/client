@@ -18,10 +18,11 @@ class _SetupStepperState extends State<SetupStepper> {
   @override
   Widget build(BuildContext context) {
     final finalStep = diff != '' && cat != '';
+    final l = context.l;
 
     return Stepper(
       currentStep: _index,
-      controlsBuilder: stepController,
+      controlsBuilder: (_, details) => stepController(l, details),
       onStepCancel: () {
         if (_index > 0) {
           setState(() {
@@ -43,27 +44,47 @@ class _SetupStepperState extends State<SetupStepper> {
       },
       steps: <Step>[
         Step(
-          title: Text(getDiff()),
-          content: buildDifficulties(),
+          title: Text(getDiff(l)),
+          content: buildDifficulties(l),
         ),
         Step(
-          title: Text(getCat()),
-          content: buildCategories(),
+          title: Text(getCat(l)),
+          content: buildCategories(l),
         ),
         Step(
-          title: getFinalTitle(finalStep),
-          content: getFinalPrompt(finalStep),
+          title: getFinalTitle(l, finalStep),
+          content: getFinalPrompt(l, finalStep),
         ),
       ],
     );
   }
 
-  Widget stepController(_, ControlsDetails details) {
+  Widget stepController(
+    l,
+    ControlsDetails details,
+  ) {
     if (details.currentStep == 2) {
       if (start) return const SizedBox();
       return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
+            style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(
+                const Size(1000, 50),
+              ),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Colors.green,
+              ),
+              foregroundColor: MaterialStateProperty.all<Color>(
+                Colors.green,
+              ),
+              side: MaterialStateProperty.all<BorderSide>(
+                const BorderSide(
+                  color: Colors.green,
+                ),
+              ),
+            ),
             onPressed: () async {
               if (diff != '' && cat != '') {
                 setState(() {
@@ -73,8 +94,8 @@ class _SetupStepperState extends State<SetupStepper> {
                 startQuiz();
               }
             },
-            child: const Text('Play'),
-          )
+            child: Text(l.play, style: const TextStyle(color: Colors.white)),
+          ),
         ],
       );
     }
@@ -82,32 +103,32 @@ class _SetupStepperState extends State<SetupStepper> {
       children: <Widget>[
         TextButton(
           onPressed: details.onStepContinue,
-          child: const Text('Next'),
+          child: Text(l.next),
         ),
         TextButton(
           onPressed: details.onStepCancel,
-          child: const Text('Cancel'),
+          child: Text(l.cancel),
         ),
       ],
     );
   }
 
-  buildDifficulties() {
+  buildDifficulties(l) {
     return Column(
       children: [
-        Picker(pick: pickDiff, val: 'Easy', picked: diff),
-        Picker(pick: pickDiff, val: 'Medium', picked: diff),
-        Picker(pick: pickDiff, val: 'Hard', picked: diff),
+        Picker(pick: pickDiff, val: l.easy, picked: diff),
+        Picker(pick: pickDiff, val: l.medium, picked: diff),
+        Picker(pick: pickDiff, val: l.hard, picked: diff),
       ],
     );
   }
 
-  buildCategories() {
+  buildCategories(l) {
     return Column(
       children: [
-        Picker(pick: pickCat, val: 'Personal', picked: cat),
-        Picker(pick: pickCat, val: 'Corporate', picked: cat),
-        Picker(pick: pickCat, val: 'Public', picked: cat),
+        Picker(pick: pickCat, val: l.personal, picked: cat),
+        Picker(pick: pickCat, val: l.corporate, picked: cat),
+        Picker(pick: pickCat, val: l.public, picked: cat),
       ],
     );
   }
@@ -128,20 +149,20 @@ class _SetupStepperState extends State<SetupStepper> {
     });
   }
 
-  getFinalTitle(finalStep) {
-    if (!finalStep && !start) return const Text('Play');
-    if (!start && finalStep) return const Text('Ready');
-    return const Row(children: [Text('Starting:  '), CountDownTimer(time: 3)]);
+  getFinalTitle(l, finalStep) {
+    if (!finalStep && !start) return Text(l.play);
+    if (!start && finalStep) return Text(l.ready);
+    return Row(children: [Text(l.starting), const CountDownTimer(time: 3)]);
   }
 
-  getFinalPrompt(finalStep) {
-    if (finalStep && start) return const Text('Good luck!');
+  getFinalPrompt(l, finalStep) {
+    if (finalStep && start) return Text(l.good_luck);
     if (finalStep) return const SizedBox();
-    return const Text('Please choose difficulty & category');
+    return Text(l.please_choose_diff_cat);
   }
 
-  getDiff() => diff != '' ? 'Difficulty: $diff' : 'Choose your difficulty';
-  getCat() => cat != '' ? 'Category: $cat' : 'Choose your category';
+  getDiff(l) => diff != '' ? '${l.difficulty}: $diff' : l.choose_difficulty;
+  getCat(l) => cat != '' ? '${l.category}: $cat' : l.choose_category;
 
   startQuiz() {
     logPlayStart();

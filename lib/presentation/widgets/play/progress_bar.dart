@@ -92,7 +92,7 @@ class ProgressBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Progress',
+              context.l.progress,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: isS(context) ? 20 : 30,
