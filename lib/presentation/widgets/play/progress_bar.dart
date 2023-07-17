@@ -70,9 +70,9 @@ class ProgressBar extends StatelessWidget {
 
   getPadding(context) {
     if (isS(context)) {
-      return 10;
+      return 10.0;
     }
-    return 80;
+    return 80.0 ;
   }
 
   @override
