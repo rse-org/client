@@ -113,6 +113,7 @@ class _SetupStepperState extends State<SetupStepper> {
   }
 
   pickDiff(d) {
+    logPlayDifficultySelect(d);
     setState(() {
       diff = d;
       _index++;
@@ -120,6 +121,7 @@ class _SetupStepperState extends State<SetupStepper> {
   }
 
   pickCat(c) async {
+    logPlayCategorySelect(c);
     setState(() {
       cat = c;
       _index++;
@@ -141,5 +143,8 @@ class _SetupStepperState extends State<SetupStepper> {
   getDiff() => diff != '' ? 'Difficulty: $diff' : 'Choose your difficulty';
   getCat() => cat != '' ? 'Category: $cat' : 'Choose your category';
 
-  startQuiz() => BlocProvider.of<NavBloc>(context).add(StartQuiz());
+  startQuiz() {
+    logPlayStart();
+    BlocProvider.of<NavBloc>(context).add(StartQuiz());
+  }
 }

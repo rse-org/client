@@ -128,3 +128,31 @@ void logAppLoadSuccess() async {
     },
   );
 }
+
+void logPlayLoadSuccess() async {
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'play_load_success',
+  );
+}
+
+void logPlayDifficultySelect(d) async {
+  await FirebaseAnalytics.instance
+      .logEvent(name: 'play_difficulty_select', parameters: {'difficulty': d});
+}
+
+void logPlayCategorySelect(c) async {
+  await FirebaseAnalytics.instance
+      .logEvent(name: 'play_category_select', parameters: {'category': c});
+}
+
+void logPlayStart() async {
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'play_game_start',
+  );
+}
+
+void logPlayAnswerSelect() async {
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'play_game_answer',
+  );
+}

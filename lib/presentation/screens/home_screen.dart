@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +14,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // Causes firebase setup test to fail for some reason.
     // setScreenName('/home');
   }
 

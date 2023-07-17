@@ -75,28 +75,17 @@ class _AppState extends State<App> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is QuizStartSuccess) {
-          return SafeArea(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white,
-              child: const GameScreen(),
-            ),
-          );
+          return const GameScreen();
         }
-        return Stack(
-          children: [
-            Scaffold(
-              key: _scaffoldKey,
-              body: widget.shell,
-              drawer: const MyDrawer(),
-              appBar: tabRootAppBar(state.states[widget.shell.currentIndex]),
-              bottomNavigationBar: BottomNavBar(
-                shell: widget.shell,
-                resetStack: resetStack,
-              ),
-            ),
-          ],
+        return Scaffold(
+          key: _scaffoldKey,
+          body: widget.shell,
+          drawer: const MyDrawer(),
+          appBar: tabRootAppBar(state.states[widget.shell.currentIndex]),
+          bottomNavigationBar: BottomNavBar(
+            shell: widget.shell,
+            resetStack: resetStack,
+          ),
         );
       },
     );

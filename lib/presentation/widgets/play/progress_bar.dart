@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
+import 'package:rse/all.dart';
 
 const segments = [
   Segment(
@@ -67,8 +68,41 @@ const segments = [
 class ProgressBar extends StatelessWidget {
   const ProgressBar({super.key});
 
+  getPadding(context) {
+    if (isS(context)) {
+      return 10;
+    }
+    return 80;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const PrimerProgressBar(segments: segments);
+    return Container(
+      height: isS(context) ? 200 : 300,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: T(context, 'outline'),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(getPadding(context)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Progress',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: isS(context) ? 20 : 30,
+              ),
+            ),
+            const Spacer(),
+            const PrimerProgressBar(segments: segments)
+          ],
+        ),
+      ),
+    );
   }
 }

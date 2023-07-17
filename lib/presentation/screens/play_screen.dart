@@ -10,8 +10,14 @@ class PlayScreen extends StatefulWidget {
 
 class PlayScreenState extends State<PlayScreen> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     setScreenName('/play');
+    logPlayLoadSuccess();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
         mobile: buildMobile(),

@@ -30,7 +30,7 @@ class DrawerState extends State<MyDrawer> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Container(
-          color: T(context, 'primaryContainer').withOpacity(0.7),
+          color: T(context, 'primaryContainer'),
           child: Column(
             children: [
               Expanded(

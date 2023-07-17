@@ -17,13 +17,14 @@ class _GameScreenState extends State<GameScreen> {
   void initState() {
     super.initState();
     getQuestions();
+    setScreenName('/play/game');
   }
 
   onAnswer() {
+    logPlayAnswerSelect();
     setState(() {
       idx += 1;
     });
-
     if (idx + 1 == 11) {
       BlocProvider.of<NavBloc>(context).add(EndQuiz());
     }
