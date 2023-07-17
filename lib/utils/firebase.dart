@@ -12,11 +12,11 @@ import 'package:rse/all.dart';
 StreamSubscription? subscription;
 final remoteConfig = FirebaseRemoteConfig.instance;
 
-// Doesn't fix screen_view events for FB analytics.
-// May fix GA page path & screen class.
-// https://analytics.google.com/analytics/web/#/p388273837/reports/explorer?params=_u..nav%3Dmaui&r=all-pages-and-screens&ruid=all-pages-and-screens,life-cycle,engagement&collectionId=life-cycle
+// ? Doesn't fix screen_view events for FB analytics.
+// ? May fix GA page path & screen class.
+// ? https://analytics.google.com/analytics/web/#/p388273837/reports/explorer?params=_u..nav%3Dmaui&r=all-pages-and-screens&ruid=all-pages-and-screens,life-cycle,engagement&collectionId=life-cycle
 
-// https://stackoverflow.com/questions/55830575/how-do-i-track-flutter-screens-in-firebase-analytics
+// ? https://stackoverflow.com/questions/55830575/how-do-i-track-flutter-screens-in-firebase-analytics
 late FirebaseAnalyticsObserver fbAnalyticsObserver;
 
 setupFirebase() async {
@@ -33,8 +33,8 @@ setupFirebase() async {
       ),
     );
 
-    // Crashlytics isn't supported on web.
-    // https://github.com/firebase/flutterfire/issues/4631
+    // ! Crashlytics isn't supported on web.
+    // ! https://github.com/firebase/flutterfire/issues/4631
     if (!kIsWeb) {
       if (subscription != null) {
         await subscription!.cancel();
@@ -62,6 +62,26 @@ setupFirebase() async {
 
 void setScreenName(String name) async {
   FirebaseAnalytics.instance.setCurrentScreen(screenName: name);
+}
+
+// * Use this naming convention
+// * https://bloclibrary.dev/#/blocnamingconventions
+
+void logAppLoadSuccess() async {
+  String platform = kIsWeb ? 'web' : Platform.operatingSystem;
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  String version = packageInfo.version;
+  String buildNumber = packageInfo.buildNumber;
+  String packageName = packageInfo.packageName;
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'app_load_success',
+    parameters: {
+      'platform': platform,
+      'device': '$version $buildNumber',
+      'package_name': packageName,
+      'env': kReleaseMode ? 'release' : 'debug',
+    },
+  );
 }
 
 void logPeriodSelect(String name) async {
@@ -93,38 +113,21 @@ void logAssetTradeSelect(String name) async {
 
 void logAssetTradeOptionSelect(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_trade_option_select',
+    name: 'asset_trade_option_selected',
     parameters: {
       'name': name,
     },
   );
 }
 
-void logLoadJsonSuccess(String duration) async {
+void logJsonLoadSuccess(String duration) async {
   String platform = kIsWeb ? 'web' : Platform.operatingSystem;
 
   await FirebaseAnalytics.instance.logEvent(
-    name: 'load_json_success',
+    name: 'json_load_success',
     parameters: {
       'platform': platform,
       'duration': duration,
-      'env': kReleaseMode ? 'release' : 'debug',
-    },
-  );
-}
-
-void logLoadAppSuccess() async {
-  String platform = kIsWeb ? 'web' : Platform.operatingSystem;
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  String version = packageInfo.version;
-  String buildNumber = packageInfo.buildNumber;
-  String packageName = packageInfo.packageName;
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'load_app_success',
-    parameters: {
-      'platform': platform,
-      'device': '$version $buildNumber',
-      'package_name': packageName,
       'env': kReleaseMode ? 'release' : 'debug',
     },
   );

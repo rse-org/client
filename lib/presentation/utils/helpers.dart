@@ -29,7 +29,7 @@ Future<dynamic> loadJsonFile(String path) async {
     final decoded = json.decode(jsonContent);
     DateTime endTime = DateTime.now();
 
-    logLoadJsonSuccess(formatTime(startTime, endTime));
+    logJsonLoadSuccess(formatTime(startTime, endTime));
     return decoded;
   } catch (e) {
     if (kDebugMode) {
@@ -85,7 +85,7 @@ DateTime roundToNearestHour(DateTime dt) {
       .add(Duration(minutes: roundedMinutes));
 }
 
-int calculateIntervals(period, data){
+int calculateIntervals(period, data) {
   final map = {
     'live': 5,
     '1d': data.length ~/ 24,
@@ -98,5 +98,3 @@ int calculateIntervals(period, data){
 
   return map[period] ?? 0;
 }
-
-
