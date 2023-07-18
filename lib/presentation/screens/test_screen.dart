@@ -9,48 +9,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'package:rse/all.dart';
 
-class Spinner extends StatefulWidget {
-  const Spinner({super.key});
-
-  @override
-  State<Spinner> createState() => _SpinnerState();
-}
-
-class _SpinnerState extends State<Spinner> with TickerProviderStateMixin {
-  late AnimationController controller;
-  bool determinate = false;
-
-  @override
-  void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    )..addListener(() {
-        setState(() {});
-      });
-    controller.repeat();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(
-        value: controller.value,
-        semanticsLabel: 'Circular progress indicator',
-      ),
-    );
-  }
-}
-
 class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
+  Function onPress;
+  TestScreen({super.key, required this.onPress});
 
   @override
   State<TestScreen> createState() => _TestScreenState();
@@ -58,7 +19,7 @@ class TestScreen extends StatefulWidget {
 
 class _TestScreenState extends State<TestScreen> {
   int count = 0;
-  late Timer mytimer;
+  late Timer timer;
   List<Point> data = [];
   List<Point> newData = [];
   List<Question> questions = [];
@@ -85,6 +46,8 @@ class _TestScreenState extends State<TestScreen> {
       if (kDebugMode) {
         print('Error: $e');
       }
+    } finally {
+      timer = Timer.periodic(const Duration(seconds: 1), updateSource);
     }
   }
 
@@ -99,55 +62,56 @@ class _TestScreenState extends State<TestScreen> {
       newData = List.from(resp[0].newData);
     });
     setHeight();
-    // sleep(const Duration(seconds: 2));
-    renderChart();
+    sleep(const Duration(seconds: 2));
   }
 
-  renderChart() {
-    mytimer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        addChartData();
-      },
-    );
-  }
-
-  addChartData() {
-    final newDataRendered = count > currentQuestion.newData!.length - 1;
-    if (newDataRendered) {
-      mytimer.cancel();
-    } else {
-      setState(() {
-        data = getChartData();
-      });
+  void updateSource(Timer timer) {
+    final renderNewDone = count > currentQuestion.newData!.length - 1;
+    if (renderNewDone) {
+      timer.cancel();
+      return;
     }
-  }
-
-  List<Point> getChartData() {
-    data.add(newData[count]);
+    final point = newData[count];
+    data.add(point);
     _chartSeriesController?.updateDataSource(
-      addedDataIndexes: [newData[count].x.toInt()],
+      addedDataIndexes: <int>[data.length - 1],
     );
     count = count + 1;
-    return data;
+  }
+
+  startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), updateSource);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (questions.length == 0) {
-      return Spinner();
-    }
+    final loading = questions.isEmpty || currentQuestion.data!.isEmpty;
+    if (loading) return const Spinner();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          TextButton(
-            child: const Text(
-              'Random Question 🎲',
-            ),
-            onPressed: () => setData(questions),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                child: const Text(
+                  'Play Quiz 📖',
+                ),
+                onPressed: () => widget.onPress(),
+              ),
+              TextButton(
+                child: const Text(
+                  'Random Question 🎲',
+                ),
+                onPressed: () {
+                  setData(questions);
+                  startTimer();
+                },
+              ),
+            ],
           ),
           SfCartesianChart(
             primaryXAxis: CategoryAxis(
@@ -189,15 +153,6 @@ class _TestScreenState extends State<TestScreen> {
     );
   }
 
-  void onMarkerRender(MarkerRenderArgs args) {
-    final point = args.pointIndex;
-    if (point == null) return;
-    if (data[point] == data.first) {
-      args.markerWidth = 10;
-      args.markerHeight = 10;
-    }
-  }
-
   List<double> yMapper = [0, 10];
 
   setHeight() {
@@ -211,6 +166,6 @@ class _TestScreenState extends State<TestScreen> {
     final length =
         (currentQuestion.data!.length + currentQuestion.newData!.length)
             .toDouble();
-    return length == 0 ? 10 : length;
+    return length == 0 ? 10 : length + 1;
   }
 }

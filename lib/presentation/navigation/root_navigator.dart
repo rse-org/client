@@ -149,8 +149,7 @@ final goRouter = GoRouter(
             GoRoute(
               path: '/',
               pageBuilder: (context, state) => const NoTransitionPage(
-                // child: HomeScreen(label: 'Home'),
-                child: TestScreen(),
+                child: HomeScreen(label: 'Home'),
               ),
               routes: [
                 GoRoute(

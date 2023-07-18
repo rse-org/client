@@ -29,9 +29,7 @@ class PlayScreenState extends State<PlayScreen> {
   buildMobile() {
     return const SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ProgressBar(),
           SetupStepper(),
         ],
       ),
@@ -41,9 +39,7 @@ class PlayScreenState extends State<PlayScreen> {
   buildDesktop() {
     return const SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ProgressBar(),
           SetupStepper(),
         ],
       ),

@@ -13,6 +13,7 @@ class _SetupStepperState extends State<SetupStepper> {
   int _index = 0;
   String cat = '';
   String diff = '';
+  bool chart = true;
   bool start = false;
 
   @override
@@ -20,40 +21,68 @@ class _SetupStepperState extends State<SetupStepper> {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
 
-    return Stepper(
-      currentStep: _index,
-      controlsBuilder: (_, details) => stepController(l, details),
-      onStepCancel: () {
-        if (_index > 0) {
-          setState(() {
-            _index -= 1;
-          });
-        }
-      },
-      onStepContinue: () {
-        if (_index <= 1) {
-          setState(() {
-            _index += 1;
-          });
-        }
-      },
-      onStepTapped: (int index) {
-        setState(() {
-          _index = index;
-        });
-      },
-      steps: <Step>[
-        Step(
-          title: Text(getDiff(l)),
-          content: buildDifficulties(l),
+    if (chart) {
+      return TestScreen(
+        onPress: () {
+          setState(
+            () {
+              chart = !chart;
+            },
+          );
+        },
+      );
+    }
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  chart = !chart;
+                });
+              },
+              child: const Text('Play Charts 📈'),
+            )
+          ],
         ),
-        Step(
-          title: Text(getCat(l)),
-          content: buildCategories(l),
-        ),
-        Step(
-          title: getFinalTitle(l, finalStep),
-          content: getFinalPrompt(l, finalStep),
+        Stepper(
+          currentStep: _index,
+          controlsBuilder: (_, details) => stepController(l, details),
+          onStepCancel: () {
+            if (_index > 0) {
+              setState(() {
+                _index -= 1;
+              });
+            }
+          },
+          onStepContinue: () {
+            if (_index <= 1) {
+              setState(() {
+                _index += 1;
+              });
+            }
+          },
+          onStepTapped: (int index) {
+            setState(() {
+              _index = index;
+            });
+          },
+          steps: <Step>[
+            Step(
+              title: Text(getDiff(l)),
+              content: buildDifficulties(l),
+            ),
+            Step(
+              title: Text(getCat(l)),
+              content: buildCategories(l),
+            ),
+            Step(
+              title: getFinalTitle(l, finalStep),
+              content: getFinalPrompt(l, finalStep),
+            ),
+          ],
         ),
       ],
     );
