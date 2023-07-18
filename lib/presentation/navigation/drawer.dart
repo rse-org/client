@@ -2,10 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:rse/all.dart';
 import 'package:slider_button/slider_button.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-const defaultUrl = 'https://shorturl.at/yGISX';
+import 'package:rse/all.dart';
+
+const placeHolderAvatar = 'https://shorturl.at/yGISX';
+
+const feedbackFormUrl =
+    'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -17,11 +22,9 @@ class MyDrawer extends StatefulWidget {
 class DrawerState extends State<MyDrawer> {
   late bool isDark = isDarkMode(context);
 
-  void toggleTheme(themeModel) {
-    setState(() {
-      isDark = !isDark;
-    });
-    themeModel.toggleTheme();
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -63,7 +66,8 @@ class DrawerState extends State<MyDrawer> {
                                 }
                                 return const CircleAvatar(
                                   radius: 50,
-                                  backgroundImage: NetworkImage(defaultUrl),
+                                  backgroundImage:
+                                      NetworkImage(placeHolderAvatar),
                                 );
                               },
                             ),
@@ -95,7 +99,9 @@ class DrawerState extends State<MyDrawer> {
                         ),
                         ListTile(
                           title: Text(context.l.send_feedback),
-                          onTap: () {},
+                          onTap: () {
+                            _dialogBuilder(context);
+                          },
                         ),
                       ],
                     ),
@@ -167,5 +173,24 @@ class DrawerState extends State<MyDrawer> {
         ),
       ),
     );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => WebviewScaffold(
+        url: feedbackFormUrl,
+        appBar: AppBar(
+          title: const Text('RSE'),
+        ),
+      ),
+    );
+  }
+
+  void toggleTheme(themeModel) {
+    setState(() {
+      isDark = !isDark;
+    });
+    themeModel.toggleTheme();
   }
 }
