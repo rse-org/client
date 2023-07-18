@@ -71,7 +71,7 @@ class _SetupStepperState extends State<SetupStepper> {
           ElevatedButton(
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(
-                const Size(1000, 50),
+                Size(isS(context) ? 300 : 1000, 50),
               ),
               backgroundColor: MaterialStateProperty.all<Color>(
                 Colors.green,

@@ -219,6 +219,15 @@ Future<String> getVersionId() async {
   }
 }
 
+// Future<String> getSheetData() async {
+//   // try {
+//   //   final go = await QuestionApi.init();
+//   //   return 'dodod';
+//   // } on Exception catch (_) {
+//   //   return '';
+//   // }
+// }
+
 void _showModal(BuildContext context) {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
@@ -258,6 +267,12 @@ void _showModal(BuildContext context) {
               debugPaintSizeEnabled = !value;
             },
             child: const Text('Enable Debug Paint Size'),
+          ),
+          TextButton(
+            onPressed: () {
+              // getSheetData();
+            },
+            child: const Text('Get Sheet Data'),
           ),
           renderAuthOptions(context),
           if (showAppConfig)

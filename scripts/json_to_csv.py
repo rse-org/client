@@ -10,7 +10,7 @@ with open(abs_file_path, 'r') as json_file:
 
 csv_file = script_dir + '/questions.csv'
 
-csv_headers = ['title', 'answer', 'c1', 'c2', 'c3', 'w1', 'w2', 'w3', 'explanation']
+csv_headers = ['title', 'answer', 'c1', 'c2', 'c3', 'w1', 'w2', 'w3', 'explanation', 'link']
 
 with open(csv_file, 'w', newline='') as file:
     writer = csv.DictWriter(file, fieldnames=csv_headers)
@@ -27,7 +27,8 @@ with open(csv_file, 'w', newline='') as file:
             'w1': q['w1'],
             'w2': q['w2'],
             'w2': q['w3'],
-            'explanation': q['explanation']
+            'explanation': q['explanation'],
+            'link': q['link'],
         })
 
 print(f"The questions have been successfully transformed and saved to {csv_file}.")

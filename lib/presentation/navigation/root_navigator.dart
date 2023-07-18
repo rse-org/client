@@ -21,7 +21,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// TODO: Holy how
+// TODO: Use these decorations on comments & todos
 // ? How does this work?
 // ! Deprecated do not use
 // * Use comments with these decorators.
@@ -149,7 +149,8 @@ final goRouter = GoRouter(
             GoRoute(
               path: '/',
               pageBuilder: (context, state) => const NoTransitionPage(
-                child: HomeScreen(label: 'Home'),
+                // child: HomeScreen(label: 'Home'),
+                child: TestScreen(),
               ),
               routes: [
                 GoRoute(
