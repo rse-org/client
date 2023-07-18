@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 import 'package:http/http.dart' as http;
@@ -14,7 +16,8 @@ import 'package:http/http.dart' as http;
 class Point {
   final double x;
   final double y;
-  Point(this.x, this.y);
+  final Color pointColorMapper;
+  Point(this.x, this.y, this.pointColorMapper);
 }
 
 const sheetUrl =
@@ -88,6 +91,7 @@ List<Point> splitData(String str, bool isNew) {
   return parts.asMap().entries.map((entry) {
     final idx = entry.key.toDouble() + (isNew ? parts.length : 0);
     final val = double.parse(entry.value);
-    return Point(idx, val);
+    return Point(idx, val,
+        isNew || idx == parts.length - 1 ? Colors.green : Colors.blue);
   }).toList();
 }
