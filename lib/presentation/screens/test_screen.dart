@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -10,8 +8,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:rse/all.dart';
 
 class TestScreen extends StatefulWidget {
-  Function onPress;
-  TestScreen({super.key, required this.onPress});
+  final Function onPress;
+  const TestScreen({super.key, required this.onPress});
 
   @override
   State<TestScreen> createState() => _TestScreenState();
@@ -51,7 +49,7 @@ class _TestScreenState extends State<TestScreen> {
     }
   }
 
-  setData(resp) {
+  setData(resp) async {
     final qs = List<Question>.from(resp);
     qs.shuffle();
     setState(() {
@@ -62,7 +60,7 @@ class _TestScreenState extends State<TestScreen> {
       newData = List.from(resp[0].newData);
     });
     setHeight();
-    sleep(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
   }
 
   void updateSource(Timer timer) {
@@ -91,7 +89,7 @@ class _TestScreenState extends State<TestScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -141,7 +139,7 @@ class _TestScreenState extends State<TestScreen> {
             children: [
               Text(currentQuestion.context),
               Text(currentQuestion.body),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(currentQuestion.answerBank[0]),
               Text(currentQuestion.answerBank[1]),
               Text(currentQuestion.answerBank[2]),
