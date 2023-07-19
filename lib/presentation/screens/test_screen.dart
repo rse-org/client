@@ -298,6 +298,6 @@ class _TestScreenState extends State<TestScreen> {
     final length =
         (currentQuestion.data!.length + currentQuestion.newData!.length)
             .toDouble();
-    return length == 0 ? 10 : length + 1;
+    return length == 0 ? 10 : length;
   }
 }

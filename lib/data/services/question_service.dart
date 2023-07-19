@@ -26,17 +26,6 @@ const chartUrl =
     'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L3?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 class QuestionApi {
-  // static Future init() async {
-  //   try {
-  //     final response = await http.get(Uri.parse(sheetUrl));
-  //     if (response.statusCode == 200) {
-  //       final data = json.decode(response.body);
-  //     } else {
-  //       throw Error();
-  //     }
-  //   } catch (e) {}
-  // }
-
   static Future getChartQuestions() async {
     try {
       final response = await http.get(Uri.parse(chartUrl));
@@ -88,7 +77,7 @@ List<Point> splitData(String str, bool isNew) {
 
   final parts = trimmed.split(' ');
   return parts.asMap().entries.map((entry) {
-    final idx = entry.key.toDouble() + (isNew ? parts.length : 0);
+    final idx = entry.key.toDouble() + (isNew ? parts.length - 2 : 0);
     final val = double.parse(entry.value);
     return Point(idx, val,
         isNew || idx == parts.length - 1 ? Colors.green : Colors.blue);
