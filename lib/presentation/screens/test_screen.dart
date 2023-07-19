@@ -86,68 +86,202 @@ class _TestScreenState extends State<TestScreen> {
     final loading = questions.isEmpty || currentQuestion.data!.isEmpty;
     if (loading) return const Spinner();
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildPlayOptions(),
+        buildChart(),
+        buildQuestionContainer(context),
+        buildButtonContainer(context),
+      ],
+    );
+  }
+
+  SfCartesianChart buildChart() {
+    return SfCartesianChart(
+      primaryXAxis: CategoryAxis(
+        minimum: 0,
+        maximum: setWidth(),
+      ),
+      primaryYAxis: CategoryAxis(
+        minimum: yMapper[0],
+        maximum: yMapper[1],
+      ),
+      series: <ChartSeries<Point, num>>[
+        LineSeries<Point, num>(
+          dataSource: data,
+          animationDuration: 1000,
+          xValueMapper: (Point sales, _) => sales.x.toInt(),
+          yValueMapper: (Point sales, _) => sales.y,
+          pointColorMapper: (Point sales, _) => sales.pointColorMapper,
+          markerSettings: const MarkerSettings(isVisible: true),
+          onRendererCreated: (ChartSeriesController c) {
+            _chartSeriesController = c;
+          },
+        )
+      ],
+    );
+  }
+
+  Row buildPlayOptions() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        TextButton(
+          child: const Text(
+            'Play Quiz 📖',
+          ),
+          onPressed: () => widget.onPress(),
+        ),
+        TextButton(
+          child: const Text(
+            'Random Question 🎲',
+          ),
+          onPressed: () {
+            setData(questions);
+            startTimer();
+          },
+        ),
+      ],
+    );
+  }
+
+  Container buildQuestionContainer(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      height: MediaQuery.of(context).size.height * .25,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              TextButton(
-                child: const Text(
-                  'Play Quiz 📖',
+              Text(
+                currentQuestion.context,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
-                onPressed: () => widget.onPress(),
-              ),
-              TextButton(
-                child: const Text(
-                  'Random Question 🎲',
-                ),
-                onPressed: () {
-                  setData(questions);
-                  startTimer();
-                },
               ),
             ],
           ),
-          SfCartesianChart(
-            primaryXAxis: CategoryAxis(
-              minimum: 0,
-              maximum: setWidth(),
-            ),
-            primaryYAxis: CategoryAxis(
-              minimum: yMapper[0],
-              maximum: yMapper[1],
-            ),
-            series: <ChartSeries<Point, num>>[
-              LineSeries<Point, num>(
-                dataSource: data,
-                animationDuration: 1000,
-                xValueMapper: (Point sales, _) => sales.x.toInt(),
-                yValueMapper: (Point sales, _) => sales.y,
-                pointColorMapper: (Point sales, _) => sales.pointColorMapper,
-                markerSettings: const MarkerSettings(isVisible: true),
-                onRendererCreated: (ChartSeriesController c) {
-                  _chartSeriesController = c;
-                },
-              )
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Text(
+                currentQuestion.body,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w100,
+                ),
+              ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(currentQuestion.context),
-              Text(currentQuestion.body),
-              const SizedBox(height: 20),
-              Text(currentQuestion.answerBank[0]),
-              Text(currentQuestion.answerBank[1]),
-              Text(currentQuestion.answerBank[2]),
-              Text(currentQuestion.answerBank[3]),
-            ],
-          )
+          const SizedBox(height: 20),
         ],
       ),
+    );
+  }
+
+  buildButtonContainer(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    setData(questions);
+                    startTimer();
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: const Size(56, 56),
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    currentQuestion.answerBank[0],
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    setData(questions);
+                    startTimer();
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: const Size(56, 56),
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    currentQuestion.answerBank[1],
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    setData(questions);
+                    startTimer();
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: const Size(56, 56),
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    currentQuestion.answerBank[2],
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: () {
+                    setData(questions);
+                    startTimer();
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: const Size(56, 56),
+                    padding: const EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    currentQuestion.answerBank[3],
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
