@@ -22,7 +22,7 @@ class _SetupStepperState extends State<SetupStepper> {
     final l = context.l;
 
     if (chart) {
-      return TestScreen(
+      return PlayChartScreen(
         onPress: () {
           setState(
             () {

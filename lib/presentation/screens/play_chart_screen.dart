@@ -7,15 +7,15 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'package:rse/all.dart';
 
-class TestScreen extends StatefulWidget {
+class PlayChartScreen extends StatefulWidget {
   final Function onPress;
-  const TestScreen({super.key, required this.onPress});
+  const PlayChartScreen({super.key, required this.onPress});
 
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  State<PlayChartScreen> createState() => _PlayChartScreenState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _PlayChartScreenState extends State<PlayChartScreen> {
   int count = 0;
   late Timer timer;
   List<Point> data = [];
@@ -38,7 +38,7 @@ class _TestScreenState extends State<TestScreen> {
 
   getChartQuestions() async {
     try {
-      final resp = await QuestionApi.getChartQuestions();
+      final resp = await PlayService.getChartQuestions();
       setData(resp);
     } catch (e) {
       if (kDebugMode) {
@@ -69,7 +69,7 @@ class _TestScreenState extends State<TestScreen> {
       timer.cancel();
       return;
     }
-    // ! No blink but animation
+    // ! No blink but no animation
     // final point = newData[count];
     // data.add(point);
     // _chartSeriesController?.updateDataSource(
@@ -77,7 +77,7 @@ class _TestScreenState extends State<TestScreen> {
     // );
     // count = count + 1;
 
-    // ! Blinks
+    // ! Animation with blink
     final point = newData[count];
     data.add(point);
     setState(() {
@@ -111,6 +111,7 @@ class _TestScreenState extends State<TestScreen> {
       primaryXAxis: CategoryAxis(
         minimum: 0,
         maximum: setWidth(),
+        isVisible: false,
       ),
       primaryYAxis: CategoryAxis(
         minimum: yMapper[0],
@@ -194,6 +195,7 @@ class _TestScreenState extends State<TestScreen> {
   }
 
   buildButtonContainer(BuildContext context) {
+    final isMobile = isS(context);
     return Column(
       children: [
         Row(

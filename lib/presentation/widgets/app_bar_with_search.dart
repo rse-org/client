@@ -91,7 +91,19 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   }
 
   List<Widget> _buildActions(context, navigate) {
-    if (widget.tabIndex == 3) {
+    if (widget.tabIndex == 2) {
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.switch_left),
+          onPressed: () {
+            // BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
+            // navigate();
+          },
+        ),
+      ];
+    }
+
+    if (widget.tabIndex == 4) {
       return <Widget>[
         IconButton(
           icon: const Icon(Icons.settings),
@@ -218,15 +230,6 @@ Future<String> getVersionId() async {
     return '';
   }
 }
-
-// Future<String> getSheetData() async {
-//   // try {
-//   //   final go = await QuestionApi.init();
-//   //   return 'dodod';
-//   // } on Exception catch (_) {
-//   //   return '';
-//   // }
-// }
 
 void _showModal(BuildContext context) {
   double width = MediaQuery.of(context).size.width;
