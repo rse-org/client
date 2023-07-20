@@ -69,12 +69,21 @@ class _TestScreenState extends State<TestScreen> {
       timer.cancel();
       return;
     }
+    // ! No blink but animation
+    // final point = newData[count];
+    // data.add(point);
+    // _chartSeriesController?.updateDataSource(
+    //   addedDataIndexes: <int>[data.length - 1],
+    // );
+    // count = count + 1;
+
+    // ! Blinks
     final point = newData[count];
     data.add(point);
-    _chartSeriesController?.updateDataSource(
-      addedDataIndexes: <int>[data.length - 1],
-    );
-    count = count + 1;
+    setState(() {
+      count += 1;
+      data = data;
+    });
   }
 
   startTimer() {
@@ -149,17 +158,19 @@ class _TestScreenState extends State<TestScreen> {
   Container buildQuestionContainer(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: MediaQuery.of(context).size.height * .25,
+      height: isS(context) ? null : MediaQuery.of(context).size.height * .25,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             children: [
-              Text(
-                currentQuestion.context,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  currentQuestion.context!,
+                  style: TextStyle(
+                    fontSize: isS(context) ? 20 : 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -201,7 +212,7 @@ class _TestScreenState extends State<TestScreen> {
                     padding: const EdgeInsets.all(16),
                   ),
                   child: Text(
-                    currentQuestion.answerBank[0],
+                    currentQuestion.answerBank![0],
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -223,7 +234,7 @@ class _TestScreenState extends State<TestScreen> {
                     padding: const EdgeInsets.all(16),
                   ),
                   child: Text(
-                    currentQuestion.answerBank[1],
+                    currentQuestion.answerBank![1],
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -249,7 +260,7 @@ class _TestScreenState extends State<TestScreen> {
                     padding: const EdgeInsets.all(16),
                   ),
                   child: Text(
-                    currentQuestion.answerBank[2],
+                    currentQuestion.answerBank![2],
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -271,7 +282,7 @@ class _TestScreenState extends State<TestScreen> {
                     padding: const EdgeInsets.all(16),
                   ),
                   child: Text(
-                    currentQuestion.answerBank[3],
+                    currentQuestion.answerBank![3],
                     style: const TextStyle(
                       color: Colors.white,
                     ),

@@ -16,21 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Question {
-  String get sym => throw _privateConstructorUsedError;
-  double? get lo => throw _privateConstructorUsedError;
-  double? get hi => throw _privateConstructorUsedError;
-  List<Point>? get data => throw _privateConstructorUsedError;
-  List<Point>? get newData => throw _privateConstructorUsedError;
-  String get context => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
   String get answer => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
-  List<String> get answerBank => throw _privateConstructorUsedError;
-  List<String> get explanationBank => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
   String get c1 => throw _privateConstructorUsedError;
   String get c2 => throw _privateConstructorUsedError;
   String get c3 => throw _privateConstructorUsedError;
+  String get sym => throw _privateConstructorUsedError;
+  double? get lo => throw _privateConstructorUsedError;
+  double? get hi => throw _privateConstructorUsedError;
+  String? get context => throw _privateConstructorUsedError;
+  List<Point>? get data => throw _privateConstructorUsedError;
+  List<Point>? get newData => throw _privateConstructorUsedError;
+  List<String>? get answerBank => throw _privateConstructorUsedError;
+  List<String>? get explanationBank => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QuestionCopyWith<Question> get copyWith =>
@@ -43,21 +43,21 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call(
-      {String sym,
-      double? lo,
-      double? hi,
-      List<Point>? data,
-      List<Point>? newData,
-      String context,
+      {String type,
       String body,
       String answer,
       String explanation,
-      List<String> answerBank,
-      List<String> explanationBank,
-      String type,
       String c1,
       String c2,
-      String c3});
+      String c3,
+      String sym,
+      double? lo,
+      double? hi,
+      String? context,
+      List<Point>? data,
+      List<Point>? newData,
+      List<String>? answerBank,
+      List<String>? explanationBank});
 }
 
 /// @nodoc
@@ -73,46 +73,26 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sym = null,
-    Object? lo = freezed,
-    Object? hi = freezed,
-    Object? data = freezed,
-    Object? newData = freezed,
-    Object? context = null,
+    Object? type = null,
     Object? body = null,
     Object? answer = null,
     Object? explanation = null,
-    Object? answerBank = null,
-    Object? explanationBank = null,
-    Object? type = null,
     Object? c1 = null,
     Object? c2 = null,
     Object? c3 = null,
+    Object? sym = null,
+    Object? lo = freezed,
+    Object? hi = freezed,
+    Object? context = freezed,
+    Object? data = freezed,
+    Object? newData = freezed,
+    Object? answerBank = freezed,
+    Object? explanationBank = freezed,
   }) {
     return _then(_value.copyWith(
-      sym: null == sym
-          ? _value.sym
-          : sym // ignore: cast_nullable_to_non_nullable
-              as String,
-      lo: freezed == lo
-          ? _value.lo
-          : lo // ignore: cast_nullable_to_non_nullable
-              as double?,
-      hi: freezed == hi
-          ? _value.hi
-          : hi // ignore: cast_nullable_to_non_nullable
-              as double?,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<Point>?,
-      newData: freezed == newData
-          ? _value.newData
-          : newData // ignore: cast_nullable_to_non_nullable
-              as List<Point>?,
-      context: null == context
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       body: null == body
           ? _value.body
@@ -126,18 +106,6 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
               as String,
-      answerBank: null == answerBank
-          ? _value.answerBank
-          : answerBank // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      explanationBank: null == explanationBank
-          ? _value.explanationBank
-          : explanationBank // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       c1: null == c1
           ? _value.c1
           : c1 // ignore: cast_nullable_to_non_nullable
@@ -150,6 +118,38 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.c3
           : c3 // ignore: cast_nullable_to_non_nullable
               as String,
+      sym: null == sym
+          ? _value.sym
+          : sym // ignore: cast_nullable_to_non_nullable
+              as String,
+      lo: freezed == lo
+          ? _value.lo
+          : lo // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hi: freezed == hi
+          ? _value.hi
+          : hi // ignore: cast_nullable_to_non_nullable
+              as double?,
+      context: freezed == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as String?,
+      data: freezed == data
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<Point>?,
+      newData: freezed == newData
+          ? _value.newData
+          : newData // ignore: cast_nullable_to_non_nullable
+              as List<Point>?,
+      answerBank: freezed == answerBank
+          ? _value.answerBank
+          : answerBank // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      explanationBank: freezed == explanationBank
+          ? _value.explanationBank
+          : explanationBank // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -162,21 +162,21 @@ abstract class _$$_QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String sym,
-      double? lo,
-      double? hi,
-      List<Point>? data,
-      List<Point>? newData,
-      String context,
+      {String type,
       String body,
       String answer,
       String explanation,
-      List<String> answerBank,
-      List<String> explanationBank,
-      String type,
       String c1,
       String c2,
-      String c3});
+      String c3,
+      String sym,
+      double? lo,
+      double? hi,
+      String? context,
+      List<Point>? data,
+      List<Point>? newData,
+      List<String>? answerBank,
+      List<String>? explanationBank});
 }
 
 /// @nodoc
@@ -190,46 +190,26 @@ class __$$_QuestionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sym = null,
-    Object? lo = freezed,
-    Object? hi = freezed,
-    Object? data = freezed,
-    Object? newData = freezed,
-    Object? context = null,
+    Object? type = null,
     Object? body = null,
     Object? answer = null,
     Object? explanation = null,
-    Object? answerBank = null,
-    Object? explanationBank = null,
-    Object? type = null,
     Object? c1 = null,
     Object? c2 = null,
     Object? c3 = null,
+    Object? sym = null,
+    Object? lo = freezed,
+    Object? hi = freezed,
+    Object? context = freezed,
+    Object? data = freezed,
+    Object? newData = freezed,
+    Object? answerBank = freezed,
+    Object? explanationBank = freezed,
   }) {
     return _then(_$_Question(
-      sym: null == sym
-          ? _value.sym
-          : sym // ignore: cast_nullable_to_non_nullable
-              as String,
-      lo: freezed == lo
-          ? _value.lo
-          : lo // ignore: cast_nullable_to_non_nullable
-              as double?,
-      hi: freezed == hi
-          ? _value.hi
-          : hi // ignore: cast_nullable_to_non_nullable
-              as double?,
-      data: freezed == data
-          ? _value._data
-          : data // ignore: cast_nullable_to_non_nullable
-              as List<Point>?,
-      newData: freezed == newData
-          ? _value._newData
-          : newData // ignore: cast_nullable_to_non_nullable
-              as List<Point>?,
-      context: null == context
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       body: null == body
           ? _value.body
@@ -243,18 +223,6 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
               as String,
-      answerBank: null == answerBank
-          ? _value._answerBank
-          : answerBank // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      explanationBank: null == explanationBank
-          ? _value._explanationBank
-          : explanationBank // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       c1: null == c1
           ? _value.c1
           : c1 // ignore: cast_nullable_to_non_nullable
@@ -267,6 +235,38 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.c3
           : c3 // ignore: cast_nullable_to_non_nullable
               as String,
+      sym: null == sym
+          ? _value.sym
+          : sym // ignore: cast_nullable_to_non_nullable
+              as String,
+      lo: freezed == lo
+          ? _value.lo
+          : lo // ignore: cast_nullable_to_non_nullable
+              as double?,
+      hi: freezed == hi
+          ? _value.hi
+          : hi // ignore: cast_nullable_to_non_nullable
+              as double?,
+      context: freezed == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as String?,
+      data: freezed == data
+          ? _value._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<Point>?,
+      newData: freezed == newData
+          ? _value._newData
+          : newData // ignore: cast_nullable_to_non_nullable
+              as List<Point>?,
+      answerBank: freezed == answerBank
+          ? _value._answerBank
+          : answerBank // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      explanationBank: freezed == explanationBank
+          ? _value._explanationBank
+          : explanationBank // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -275,26 +275,43 @@ class __$$_QuestionCopyWithImpl<$Res>
 
 class _$_Question with DiagnosticableTreeMixin implements _Question {
   _$_Question(
-      {this.sym = '',
-      this.lo = null,
-      this.hi = null,
-      final List<Point>? data = const [],
-      final List<Point>? newData = const [],
-      this.context = '',
+      {required this.type,
       required this.body,
       required this.answer,
       required this.explanation,
-      final List<String> answerBank = const [],
-      final List<String> explanationBank = const [],
-      required this.type,
       this.c1 = '',
       this.c2 = '',
-      this.c3 = ''})
+      this.c3 = '',
+      this.sym = '',
+      this.lo = null,
+      this.hi = null,
+      this.context = '',
+      final List<Point>? data = const [],
+      final List<Point>? newData = const [],
+      final List<String>? answerBank = const [],
+      final List<String>? explanationBank = const []})
       : _data = data,
         _newData = newData,
         _answerBank = answerBank,
         _explanationBank = explanationBank;
 
+  @override
+  final String type;
+  @override
+  final String body;
+  @override
+  final String answer;
+  @override
+  final String explanation;
+  @override
+  @JsonKey()
+  final String c1;
+  @override
+  @JsonKey()
+  final String c2;
+  @override
+  @JsonKey()
+  final String c3;
   @override
   @JsonKey()
   final String sym;
@@ -304,6 +321,9 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   @override
   @JsonKey()
   final double? hi;
+  @override
+  @JsonKey()
+  final String? context;
   final List<Point>? _data;
   @override
   @JsonKey()
@@ -326,48 +346,31 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _answerBank;
   @override
   @JsonKey()
-  final String context;
-  @override
-  final String body;
-  @override
-  final String answer;
-  @override
-  final String explanation;
-  final List<String> _answerBank;
-  @override
-  @JsonKey()
-  List<String> get answerBank {
+  List<String>? get answerBank {
+    final value = _answerBank;
+    if (value == null) return null;
     if (_answerBank is EqualUnmodifiableListView) return _answerBank;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_answerBank);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _explanationBank;
+  final List<String>? _explanationBank;
   @override
   @JsonKey()
-  List<String> get explanationBank {
+  List<String>? get explanationBank {
+    final value = _explanationBank;
+    if (value == null) return null;
     if (_explanationBank is EqualUnmodifiableListView) return _explanationBank;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_explanationBank);
+    return EqualUnmodifiableListView(value);
   }
-
-  @override
-  final String type;
-  @override
-  @JsonKey()
-  final String c1;
-  @override
-  @JsonKey()
-  final String c2;
-  @override
-  @JsonKey()
-  final String c3;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Question(sym: $sym, lo: $lo, hi: $hi, data: $data, newData: $newData, context: $context, body: $body, answer: $answer, explanation: $explanation, answerBank: $answerBank, explanationBank: $explanationBank, type: $type, c1: $c1, c2: $c2, c3: $c3)';
+    return 'Question(type: $type, body: $body, answer: $answer, explanation: $explanation, c1: $c1, c2: $c2, c3: $c3, sym: $sym, lo: $lo, hi: $hi, context: $context, data: $data, newData: $newData, answerBank: $answerBank, explanationBank: $explanationBank)';
   }
 
   @override
@@ -375,21 +378,21 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Question'))
-      ..add(DiagnosticsProperty('sym', sym))
-      ..add(DiagnosticsProperty('lo', lo))
-      ..add(DiagnosticsProperty('hi', hi))
-      ..add(DiagnosticsProperty('data', data))
-      ..add(DiagnosticsProperty('newData', newData))
-      ..add(DiagnosticsProperty('context', context))
+      ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('body', body))
       ..add(DiagnosticsProperty('answer', answer))
       ..add(DiagnosticsProperty('explanation', explanation))
-      ..add(DiagnosticsProperty('answerBank', answerBank))
-      ..add(DiagnosticsProperty('explanationBank', explanationBank))
-      ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('c1', c1))
       ..add(DiagnosticsProperty('c2', c2))
-      ..add(DiagnosticsProperty('c3', c3));
+      ..add(DiagnosticsProperty('c3', c3))
+      ..add(DiagnosticsProperty('sym', sym))
+      ..add(DiagnosticsProperty('lo', lo))
+      ..add(DiagnosticsProperty('hi', hi))
+      ..add(DiagnosticsProperty('context', context))
+      ..add(DiagnosticsProperty('data', data))
+      ..add(DiagnosticsProperty('newData', newData))
+      ..add(DiagnosticsProperty('answerBank', answerBank))
+      ..add(DiagnosticsProperty('explanationBank', explanationBank));
   }
 
   @override
@@ -397,44 +400,44 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Question &&
-            (identical(other.sym, sym) || other.sym == sym) &&
-            (identical(other.lo, lo) || other.lo == lo) &&
-            (identical(other.hi, hi) || other.hi == hi) &&
-            const DeepCollectionEquality().equals(other._data, _data) &&
-            const DeepCollectionEquality().equals(other._newData, _newData) &&
-            (identical(other.context, context) || other.context == context) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.body, body) || other.body == body) &&
             (identical(other.answer, answer) || other.answer == answer) &&
             (identical(other.explanation, explanation) ||
                 other.explanation == explanation) &&
+            (identical(other.c1, c1) || other.c1 == c1) &&
+            (identical(other.c2, c2) || other.c2 == c2) &&
+            (identical(other.c3, c3) || other.c3 == c3) &&
+            (identical(other.sym, sym) || other.sym == sym) &&
+            (identical(other.lo, lo) || other.lo == lo) &&
+            (identical(other.hi, hi) || other.hi == hi) &&
+            (identical(other.context, context) || other.context == context) &&
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            const DeepCollectionEquality().equals(other._newData, _newData) &&
             const DeepCollectionEquality()
                 .equals(other._answerBank, _answerBank) &&
             const DeepCollectionEquality()
-                .equals(other._explanationBank, _explanationBank) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.c1, c1) || other.c1 == c1) &&
-            (identical(other.c2, c2) || other.c2 == c2) &&
-            (identical(other.c3, c3) || other.c3 == c3));
+                .equals(other._explanationBank, _explanationBank));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      sym,
-      lo,
-      hi,
-      const DeepCollectionEquality().hash(_data),
-      const DeepCollectionEquality().hash(_newData),
-      context,
+      type,
       body,
       answer,
       explanation,
-      const DeepCollectionEquality().hash(_answerBank),
-      const DeepCollectionEquality().hash(_explanationBank),
-      type,
       c1,
       c2,
-      c3);
+      c3,
+      sym,
+      lo,
+      hi,
+      context,
+      const DeepCollectionEquality().hash(_data),
+      const DeepCollectionEquality().hash(_newData),
+      const DeepCollectionEquality().hash(_answerBank),
+      const DeepCollectionEquality().hash(_explanationBank));
 
   @JsonKey(ignore: true)
   @override
@@ -445,34 +448,24 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
 
 abstract class _Question implements Question {
   factory _Question(
-      {final String sym,
-      final double? lo,
-      final double? hi,
-      final List<Point>? data,
-      final List<Point>? newData,
-      final String context,
+      {required final String type,
       required final String body,
       required final String answer,
       required final String explanation,
-      final List<String> answerBank,
-      final List<String> explanationBank,
-      required final String type,
       final String c1,
       final String c2,
-      final String c3}) = _$_Question;
+      final String c3,
+      final String sym,
+      final double? lo,
+      final double? hi,
+      final String? context,
+      final List<Point>? data,
+      final List<Point>? newData,
+      final List<String>? answerBank,
+      final List<String>? explanationBank}) = _$_Question;
 
   @override
-  String get sym;
-  @override
-  double? get lo;
-  @override
-  double? get hi;
-  @override
-  List<Point>? get data;
-  @override
-  List<Point>? get newData;
-  @override
-  String get context;
+  String get type;
   @override
   String get body;
   @override
@@ -480,17 +473,27 @@ abstract class _Question implements Question {
   @override
   String get explanation;
   @override
-  List<String> get answerBank;
-  @override
-  List<String> get explanationBank;
-  @override
-  String get type;
-  @override
   String get c1;
   @override
   String get c2;
   @override
   String get c3;
+  @override
+  String get sym;
+  @override
+  double? get lo;
+  @override
+  double? get hi;
+  @override
+  String? get context;
+  @override
+  List<Point>? get data;
+  @override
+  List<Point>? get newData;
+  @override
+  List<String>? get answerBank;
+  @override
+  List<String>? get explanationBank;
   @override
   @JsonKey(ignore: true)
   _$$_QuestionCopyWith<_$_Question> get copyWith =>
