@@ -42,7 +42,7 @@ jobs:
         run: |
           flutter pub global activate test_cov_console
           flutter pub global run test_cov_console -c
-          export COV="$(python coverage/app.py | tr '\n' ' ' | cut -d' ' -f2-)"
+          export COV="$(python scripts/coverage.py | tr '\n' ' ' | cut -d' ' -f2-)"
 
           # Value of COV:
           echo $COV
