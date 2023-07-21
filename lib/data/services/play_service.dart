@@ -56,24 +56,20 @@ class PlayService {
         for (final question in data['values']) {
           final j = {
             'sym': question[0],
-            'lo': double.parse(question[1]),
-            'hi': double.parse(question[2]),
-            'data': splitData(question[3], false),
-            'newData': splitData(question[4], true),
-            'context': question[5],
-            'body': question[6],
-            'answer': question[7],
-            'explanation': question[8],
-            'answerBank': split(question[9]),
-            'explanationBank': split(question[10]),
-            'type': question[11],
+            'data': splitData(question[1], false),
+            'newData': splitData(question[2], true),
+            'context': question[3],
+            'body': question[4],
+            'answer': question[5],
+            'explanation': question[6],
+            'answerBank': split(question[7]),
+            'explanationBank': split(question[8]),
+            'type': question[9],
           };
           final q = Question.fromJson(j);
           questions.add(q);
         }
         return questions;
-      } else {
-        throw Error();
       }
     } catch (e) {
       if (kDebugMode) {

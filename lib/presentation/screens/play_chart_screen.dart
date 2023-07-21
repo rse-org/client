@@ -34,6 +34,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
   @override
   void dispose() {
     super.dispose();
+    timer.cancel();
   }
 
   getChartQuestions() async {
@@ -167,7 +168,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
             children: [
               Flexible(
                 child: Text(
-                  currentQuestion.context!,
+                  regularizeSentence(currentQuestion.context!),
                   style: TextStyle(
                     fontSize: isS(context) ? 20 : 30,
                     fontWeight: FontWeight.bold,
@@ -180,7 +181,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
           Row(
             children: [
               Text(
-                currentQuestion.body,
+                regularizeSentence(currentQuestion.body),
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w100,
@@ -195,7 +196,6 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
   }
 
   buildButtonContainer(BuildContext context) {
-    final isMobile = isS(context);
     return Column(
       children: [
         Row(
@@ -313,4 +313,15 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
             .toDouble();
     return length == 0 ? 10 : length;
   }
+}
+
+String regularizeSentence(String sentence) {
+  // Remove extra spaces between words
+  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
+
+  // Remove spaces between period and end
+  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+'), '.');
+
+  // Remove any leading or trailing spaces
+  return normalizedSentence.trim();
 }

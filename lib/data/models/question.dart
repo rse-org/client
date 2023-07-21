@@ -16,8 +16,6 @@ class Question with _$Question {
     @Default('') String c2,
     @Default('') String c3,
     @Default('') String sym,
-    @Default(null) double? lo,
-    @Default(null) double? hi,
     @Default('') String? context,
     @Default([]) List<Point>? data,
     @Default([]) List<Point>? newData,
@@ -29,8 +27,6 @@ class Question with _$Question {
     return Question(
       body: json['body'] as String,
       answer: json['answer'] as String,
-      lo: json['lo'] as double?,
-      hi: json['hi'] as double?,
       c1: json['c1'] as String? ?? '',
       c2: json['c2'] as String? ?? '',
       c3: json['c3'] as String? ?? '',
@@ -46,8 +42,6 @@ class Question with _$Question {
   }
   factory Question.defaultQuestion() => Question(
         sym: '',
-        lo: null,
-        hi: null,
         data: [],
         newData: [],
         context: '',

@@ -24,8 +24,6 @@ mixin _$Question {
   String get c2 => throw _privateConstructorUsedError;
   String get c3 => throw _privateConstructorUsedError;
   String get sym => throw _privateConstructorUsedError;
-  double? get lo => throw _privateConstructorUsedError;
-  double? get hi => throw _privateConstructorUsedError;
   String? get context => throw _privateConstructorUsedError;
   List<Point>? get data => throw _privateConstructorUsedError;
   List<Point>? get newData => throw _privateConstructorUsedError;
@@ -51,8 +49,6 @@ abstract class $QuestionCopyWith<$Res> {
       String c2,
       String c3,
       String sym,
-      double? lo,
-      double? hi,
       String? context,
       List<Point>? data,
       List<Point>? newData,
@@ -81,8 +77,6 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? c2 = null,
     Object? c3 = null,
     Object? sym = null,
-    Object? lo = freezed,
-    Object? hi = freezed,
     Object? context = freezed,
     Object? data = freezed,
     Object? newData = freezed,
@@ -122,14 +116,6 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
           ? _value.sym
           : sym // ignore: cast_nullable_to_non_nullable
               as String,
-      lo: freezed == lo
-          ? _value.lo
-          : lo // ignore: cast_nullable_to_non_nullable
-              as double?,
-      hi: freezed == hi
-          ? _value.hi
-          : hi // ignore: cast_nullable_to_non_nullable
-              as double?,
       context: freezed == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
@@ -170,8 +156,6 @@ abstract class _$$_QuestionCopyWith<$Res> implements $QuestionCopyWith<$Res> {
       String c2,
       String c3,
       String sym,
-      double? lo,
-      double? hi,
       String? context,
       List<Point>? data,
       List<Point>? newData,
@@ -198,8 +182,6 @@ class __$$_QuestionCopyWithImpl<$Res>
     Object? c2 = null,
     Object? c3 = null,
     Object? sym = null,
-    Object? lo = freezed,
-    Object? hi = freezed,
     Object? context = freezed,
     Object? data = freezed,
     Object? newData = freezed,
@@ -239,14 +221,6 @@ class __$$_QuestionCopyWithImpl<$Res>
           ? _value.sym
           : sym // ignore: cast_nullable_to_non_nullable
               as String,
-      lo: freezed == lo
-          ? _value.lo
-          : lo // ignore: cast_nullable_to_non_nullable
-              as double?,
-      hi: freezed == hi
-          ? _value.hi
-          : hi // ignore: cast_nullable_to_non_nullable
-              as double?,
       context: freezed == context
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
@@ -283,8 +257,6 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       this.c2 = '',
       this.c3 = '',
       this.sym = '',
-      this.lo = null,
-      this.hi = null,
       this.context = '',
       final List<Point>? data = const [],
       final List<Point>? newData = const [],
@@ -315,12 +287,6 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   @override
   @JsonKey()
   final String sym;
-  @override
-  @JsonKey()
-  final double? lo;
-  @override
-  @JsonKey()
-  final double? hi;
   @override
   @JsonKey()
   final String? context;
@@ -370,7 +336,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Question(type: $type, body: $body, answer: $answer, explanation: $explanation, c1: $c1, c2: $c2, c3: $c3, sym: $sym, lo: $lo, hi: $hi, context: $context, data: $data, newData: $newData, answerBank: $answerBank, explanationBank: $explanationBank)';
+    return 'Question(type: $type, body: $body, answer: $answer, explanation: $explanation, c1: $c1, c2: $c2, c3: $c3, sym: $sym, context: $context, data: $data, newData: $newData, answerBank: $answerBank, explanationBank: $explanationBank)';
   }
 
   @override
@@ -386,8 +352,6 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       ..add(DiagnosticsProperty('c2', c2))
       ..add(DiagnosticsProperty('c3', c3))
       ..add(DiagnosticsProperty('sym', sym))
-      ..add(DiagnosticsProperty('lo', lo))
-      ..add(DiagnosticsProperty('hi', hi))
       ..add(DiagnosticsProperty('context', context))
       ..add(DiagnosticsProperty('data', data))
       ..add(DiagnosticsProperty('newData', newData))
@@ -409,8 +373,6 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
             (identical(other.c2, c2) || other.c2 == c2) &&
             (identical(other.c3, c3) || other.c3 == c3) &&
             (identical(other.sym, sym) || other.sym == sym) &&
-            (identical(other.lo, lo) || other.lo == lo) &&
-            (identical(other.hi, hi) || other.hi == hi) &&
             (identical(other.context, context) || other.context == context) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
             const DeepCollectionEquality().equals(other._newData, _newData) &&
@@ -431,8 +393,6 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
       c2,
       c3,
       sym,
-      lo,
-      hi,
       context,
       const DeepCollectionEquality().hash(_data),
       const DeepCollectionEquality().hash(_newData),
@@ -456,8 +416,6 @@ abstract class _Question implements Question {
       final String c2,
       final String c3,
       final String sym,
-      final double? lo,
-      final double? hi,
       final String? context,
       final List<Point>? data,
       final List<Point>? newData,
@@ -480,10 +438,6 @@ abstract class _Question implements Question {
   String get c3;
   @override
   String get sym;
-  @override
-  double? get lo;
-  @override
-  double? get hi;
   @override
   String? get context;
   @override
