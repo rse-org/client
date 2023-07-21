@@ -311,7 +311,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
     final length =
         (currentQuestion.data!.length + currentQuestion.newData!.length)
             .toDouble();
-    return length == 0 ? 10 : length;
+    return length == 0 ? 10 : length - 1;
   }
 }
 

@@ -70,8 +70,10 @@ class DefaultFirebaseOptions {
     projectId: 'royal-stock-exchange',
     databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
-    androidClientId: '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
-    iosClientId: '231022961791-h1j124el7redokrstoe05p8nbfm0d5g1.apps.googleusercontent.com',
+    androidClientId:
+        '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
+    iosClientId:
+        '231022961791-h1j124el7redokrstoe05p8nbfm0d5g1.apps.googleusercontent.com',
     iosBundleId: 'com.primetimetran.rse',
   );
 
@@ -82,8 +84,10 @@ class DefaultFirebaseOptions {
     projectId: 'royal-stock-exchange',
     databaseURL: 'https://royal-stock-exchange-default-rtdb.firebaseio.com',
     storageBucket: 'royal-stock-exchange.appspot.com',
-    androidClientId: '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
-    iosClientId: '231022961791-28mgg4ltvdu5jq5lvq85kq7e184uprme.apps.googleusercontent.com',
+    androidClientId:
+        '231022961791-54ucladt2t4gi6lqd2n0bh4g77q17713.apps.googleusercontent.com',
+    iosClientId:
+        '231022961791-28mgg4ltvdu5jq5lvq85kq7e184uprme.apps.googleusercontent.com',
     iosBundleId: 'com.example.rse.RunnerTests',
   );
 }
