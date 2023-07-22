@@ -7,17 +7,18 @@ import 'package:rse/all.dart';
 class ArrowBackButton extends StatelessWidget {
   final String screenCode;
   final String root;
-  const ArrowBackButton({super.key, required this.screenCode, required this.root});
+  const ArrowBackButton(
+      {super.key, required this.screenCode, required this.root});
 
   @override
   Widget build(BuildContext context) {
     return Builder(
-      builder: (BuildContext context) {
+      builder: (BuildContext c) {
         return IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            BlocProvider.of<NavBloc>(context).add(NavChanged(screenCode));
-            context.go(root);
+            BlocProvider.of<NavBloc>(c).add(NavChanged(screenCode));
+            c.go(root);
           },
         );
       },

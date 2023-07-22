@@ -67,12 +67,12 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
       focusNode: myFocusNode,
       controller: _searchQueryController,
       autofocus: true,
+      style: const TextStyle(fontSize: 16.0),
+      onChanged: (q) => _updateSearchQuery(q),
       decoration: InputDecoration(
         hintText: c.l.search_assets,
         border: InputBorder.none,
       ),
-      style: const TextStyle(fontSize: 16.0),
-      onChanged: (query) => updateSearchQuery(query),
     );
   }
 
@@ -108,7 +108,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
-            BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
+            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
             navigate();
           },
         ),
@@ -150,7 +150,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     });
   }
 
-  void updateSearchQuery(String newQuery) {
+  void _updateSearchQuery(String newQuery) {
     setState(() {
       searchQuery = newQuery;
     });
@@ -167,7 +167,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   void _clearSearchQuery() {
     setState(() {
       _searchQueryController.clear();
-      updateSearchQuery('');
+      _updateSearchQuery('');
     });
   }
 }

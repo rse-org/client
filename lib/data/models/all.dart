@@ -3,6 +3,7 @@ export 'meta.dart';
 export 'asset.dart';
 export 'watch.dart';
 export 'chart.dart';
+export 'result.dart';
 export 'company.dart';
 export 'question.dart';
 export 'portfolio.dart';

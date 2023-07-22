@@ -9,7 +9,9 @@ import 'package:rse/all.dart';
 
 class PlayChartScreen extends StatefulWidget {
   final Function onPress;
-  const PlayChartScreen({super.key, required this.onPress});
+  final Question question;
+  const PlayChartScreen(
+      {super.key, required this.onPress, required this.question});
 
   @override
   State<PlayChartScreen> createState() => _PlayChartScreenState();
@@ -66,6 +68,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
 
   void updateSource(Timer timer) {
     final renderNewDone = count > currentQuestion.newData!.length - 1;
+
     if (renderNewDone) {
       timer.cancel();
       return;
@@ -309,7 +312,7 @@ class _PlayChartScreenState extends State<PlayChartScreen> {
 
   double setWidth() {
     final length =
-        (currentQuestion.data!.length + currentQuestion.newData!.length)
+        (widget.question.data!.length + widget.question.newData!.length)
             .toDouble();
     return length == 0 ? 10 : length - 1;
   }

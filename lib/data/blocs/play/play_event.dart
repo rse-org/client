@@ -5,18 +5,38 @@ abstract class PlayEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SwitchQuestionType extends PlayEvent {
-  SwitchQuestionType();
+class PlayInitialized extends PlayEvent {
+  PlayInitialized();
 }
 
-class GetQuestions extends PlayEvent {
-  GetQuestions();
+class PickedDifficulty extends PlayEvent {
+  PickedDifficulty();
 }
 
-class CalculateResults extends PlayEvent {
-  CalculateResults();
+class PickedCategory extends PlayEvent {
+  PickedCategory();
 }
 
-class SubmitResult extends PlayEvent {
-  SubmitResult();
+class PlayStarted extends PlayEvent {
+  PlayStarted();
+}
+
+class QuestionAnswered extends PlayEvent {
+  QuestionAnswered();
+}
+
+class HitNext extends PlayEvent {
+  HitNext();
+}
+
+class HitPrev extends PlayEvent {
+  HitPrev();
+}
+
+class PlayDone extends PlayEvent {
+  PlayDone();
+}
+
+class ResultsCalculated extends PlayEvent {
+  ResultsCalculated();
 }

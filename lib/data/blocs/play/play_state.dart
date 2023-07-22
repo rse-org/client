@@ -3,13 +3,19 @@ part of 'play_bloc.dart';
 @immutable
 abstract class PlayState extends Equatable {}
 
-class Loading extends PlayState {
+class PlaySetup extends PlayState {
   @override
   List<Object?> get props => [];
 }
 
-class Authenticated extends PlayState {
-  Authenticated();
+class Preparing extends PlayState {
+  Preparing();
+  @override
+  List<Object?> get props => [];
+}
+
+class Playing extends PlayState {
+  Playing();
   @override
   List<Object?> get props => [];
 }

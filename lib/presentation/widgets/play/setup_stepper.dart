@@ -15,14 +15,35 @@ class _SetupStepperState extends State<SetupStepper> {
   String diff = '';
   bool chart = true;
   bool start = false;
+  List<Question> questions = [];
+  Question question = Question.defaultQuestion();
+
+  @override
+  void initState() {
+    super.initState();
+    getQuestions();
+  }
+
+  getQuestions() async {
+    try {
+      // ignore: await_only_futures
+      final playService = await PlayService();
+      setState(() {
+        questions = playService.questions;
+        question = playService.questions[0];
+      });
+    } catch (e) {
+      debugPrint('Error: ${e.toString()}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
-
     if (chart) {
       return PlayChartScreen(
+        question: question,
         onPress: () {
           setState(
             () {
@@ -32,7 +53,6 @@ class _SetupStepperState extends State<SetupStepper> {
         },
       );
     }
-
     return Column(
       children: [
         Row(

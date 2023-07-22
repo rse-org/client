@@ -26,19 +26,31 @@ const chartUrl =
     'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 class PlayService {
+  String skill = '';
+  String category = '';
+  List<Question> game = [];
   List<Question> questions = [];
 
   PlayService() {
     loadQuestions();
+    prepareQuestions();
+  }
+
+  prepareQuestions() async {
+    final mcQuestions = await loadQuestions();
+    final chartQuestions = await getChartQuestions();
+    mcQuestions.shuffle();
+    chartQuestions.shuffle();
+    questions.addAll(mcQuestions.take(5).toList());
+    questions.addAll(chartQuestions.take(5).toList());
   }
 
   Future<List<Question>> loadQuestions() async {
-    String jsonString = await rootBundle.loadString('assets/questions.json');
-    List<dynamic> jsonList = jsonDecode(jsonString);
+    String j = await rootBundle.loadString('assets/questions.json');
+    List<dynamic> list = jsonDecode(j);
 
-    for (var json in jsonList) {
-      Question question = Question.fromJson(json);
-      questions.add(question);
+    for (var q in list) {
+      questions.add(Question.fromJson(q));
     }
     questions.shuffle();
     return questions;

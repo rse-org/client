@@ -9,8 +9,64 @@ part 'play_state.dart';
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   final PlayService playService;
 
-  PlayBloc({required this.playService}) : super(Authenticated()) {
-    on<SwitchQuestionType>((event, emit) async {
+  PlayBloc({required this.playService}) : super(PlaySetup()) {
+    on<PlayInitialized>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<PickedDifficulty>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<PickedCategory>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<PlayStarted>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<QuestionAnswered>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<HitNext>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<HitPrev>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<PlayDone>((event, emit) async {
+      try {
+        // await playService
+      } catch (e) {
+        // something else
+      }
+    });
+    on<ResultsCalculated>((event, emit) async {
       try {
         // await playService
       } catch (e) {

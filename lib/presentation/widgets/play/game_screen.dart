@@ -12,7 +12,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   int idx = 0;
   DateTime start = DateTime.now();
-  
+
   List<Question> questions = [];
 
   @override
@@ -20,7 +20,6 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     getQuestions();
     setScreenName('/play/game');
-
   }
 
   onAnswer() {
@@ -36,8 +35,8 @@ class _GameScreenState extends State<GameScreen> {
 
   getQuestions() async {
     try {
-      final playService = PlayService();
-      await playService.loadQuestions();
+      // ignore: await_only_futures
+      final playService = await PlayService();
       setState(() {
         questions = playService.questions;
       });
