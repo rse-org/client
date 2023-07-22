@@ -41,8 +41,8 @@ class PlayService {
     final chartQuestions = await getChartQuestions();
     mcQuestions.shuffle();
     chartQuestions.shuffle();
-    quizQuestions.addAll(mcQuestions.take(5).toList());
-    quizQuestions.addAll(chartQuestions.take(5).toList());
+    quizQuestions.addAll(mcQuestions.take(1).toList());
+    quizQuestions.addAll(chartQuestions.take(1).toList());
   }
 
   Future<List<Question>> loadQuestions() async {
@@ -84,9 +84,7 @@ class PlayService {
         return questions;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error: $e');
-      }
+      p('Error: $e');
     }
   }
 }

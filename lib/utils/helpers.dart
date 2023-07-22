@@ -10,8 +10,8 @@ extension Log on Object {
 
 // Toggle print statements everywhere more easily.
 // Sometimes we do need to see print statements in prod.
-void p(v) {
+void p(v, {error = false}) {
   if (kDebugMode) {
-    print('📚 $v');
+    print('${error ? '❗️' : 'ℹ️'} $v');
   }
 }

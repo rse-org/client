@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:rse/all.dart';
 
 class GameScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _GameScreenState extends State<GameScreen> {
         questions = playService.quizQuestions;
       });
     } catch (e) {
-      debugPrint('Error: ${e.toString()}');
+      p('Error: ${e.toString()}');
     }
   }
 
@@ -41,7 +42,7 @@ class _GameScreenState extends State<GameScreen> {
       idx += 1;
       qIdx += 1;
     });
-    if (idx + 1 == 11) {
+    if (idx == questions.length) {
       logPlayEnd(start);
       BlocProvider.of<NavBloc>(context).add(EndQuiz());
     }
@@ -50,7 +51,7 @@ class _GameScreenState extends State<GameScreen> {
   buildQuestion(Question q, int i) {
     if (i != idx) return const SizedBox(width: 0, height: 0);
     final prompt = Text(
-      '${i + 1} of 10',
+      '${i + 1} of ${questions.length}',
       style: TextStyle(
         fontSize: 15,
         decoration: TextDecoration.none,
@@ -59,55 +60,12 @@ class _GameScreenState extends State<GameScreen> {
     );
     if (q.type != 'mc') {
       return MCChartQuestion(
-        prompt: prompt,
         question: q,
-        nextQuestion: onAnswer,
+        prompt: prompt,
+        onAnswer: onAnswer,
       );
     }
-    return buildMCQuestion(q, i, prompt);
-  }
-
-  Expanded buildMCQuestion(Question q, int i, prompt) {
-    List<Widget> answers = [
-      buildAnswerButton(q.c1),
-      buildAnswerButton(q.c2),
-      buildAnswerButton(q.answer),
-      buildAnswerButton(q.c3),
-    ];
-    answers.shuffle();
-    return Expanded(
-      flex: 3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                prompt,
-                Text(
-                  q.body,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Column(
-              children: answers,
-            ),
-          )
-        ],
-      ),
-    );
+    return MCQuestion(prompt: prompt, q: q, onAnswer: onAnswer);
   }
 
   @override
@@ -151,32 +109,6 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildAnswerButton(a) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: SizedBox(
-        height: 100,
-        child: TextButton(
-          style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all(
-              const Size(double.infinity, 50),
-            ),
-            backgroundColor: MaterialStateProperty.all<Color>(
-              Colors.blue,
-            ),
-            foregroundColor: MaterialStateProperty.all<Color>(
-              Colors.white,
-            ),
-          ),
-          onPressed: () {
-            onAnswer();
-          },
-          child: SingleChildScrollView(child: Text(a)),
         ),
       ),
     );

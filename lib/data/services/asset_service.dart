@@ -22,7 +22,7 @@ class AssetService {
         throw Error();
       }
     } catch (e) {
-      p('Error: Fetching asset. Loading from cache. $e');
+      p('Error: Fetching asset. Loading from cache. $e', error: true);
       return await _localStorage.getCachedAsset('GOOGL', period);
     }
   }

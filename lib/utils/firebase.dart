@@ -56,7 +56,7 @@ setupFirebase() async {
       p('Firebase initialized');
     }
   } catch (e) {
-    debugPrint('Error: Firebase $e');
+    p('Error: Firebase $e');
   }
 }
 

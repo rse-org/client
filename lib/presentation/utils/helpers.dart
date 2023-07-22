@@ -32,9 +32,7 @@ Future<dynamic> loadJsonFile(String path) async {
     logJsonLoadSuccess(formatTime(startTime, endTime));
     return decoded;
   } catch (e) {
-    if (kDebugMode) {
-      debugPrint('Error loading JSON file: $e');
-    }
+    p('Error loading JSON file: $e');
   }
   return null;
 }
@@ -42,9 +40,7 @@ Future<dynamic> loadJsonFile(String path) async {
 void printResponse(http.Response response) {
   final responseMap = json.decode(response.body) as Map<String, dynamic>;
   responseMap.forEach((key, v) {
-    if (kDebugMode) {
-      debugPrint('$key: $v');
-    }
+    p('$key: $v');
   });
 }
 

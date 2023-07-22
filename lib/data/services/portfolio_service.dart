@@ -11,14 +11,15 @@ class PortfolioService {
       var path = Uri.parse('$api/portfolios/$id?period=$period');
       final response = await http.get(path);
       if (response.statusCode == 200) {
-        final p = Portfolio.fromJson(json.decode(response.body), period: period);
+        final p =
+            Portfolio.fromJson(json.decode(response.body), period: period);
         _localStorage.saveData('portfolio', response.body);
         return p;
       } else {
         throw Error();
       }
     } catch (e) {
-      p('Error: Fetching portfolio. Loading from cache.');
+      p('Error: Fetching portfolio. Loading from cache.', error: true);
       return await _localStorage.getCachedPortfolio(period);
     }
   }

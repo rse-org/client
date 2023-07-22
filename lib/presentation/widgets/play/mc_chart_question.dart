@@ -9,11 +9,11 @@ import 'package:rse/all.dart';
 class MCChartQuestion extends StatefulWidget {
   final Widget prompt;
   final Question question;
-  final Function nextQuestion;
+  final Function onAnswer;
   const MCChartQuestion(
       {super.key,
       required this.question,
-      required this.nextQuestion,
+      required this.onAnswer,
       required this.prompt});
 
   @override
@@ -33,8 +33,8 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
   void initState() {
     super.initState();
     setState(() {
-      data = List.from(widget.question.data!);
-      newData = List.from(widget.question.newData!);
+      data = List.from(widget.question.data ?? []);
+      newData = List.from(widget.question.newData ?? []);
     });
     setHeight();
     startTimer();
@@ -77,17 +77,62 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    return Expanded(
+      flex: 3,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildQuestionContainer(context),
+          buildChart(),
+          buildButtonContainer(context),
+        ],
+      ),
+    );
+  }
+
+  buildQuestionContainer(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildQuestionContainer(context),
-        buildChart(data),
-        buildButtonContainer(context),
+        widget.prompt,
+        Row(
+          children: [
+            Flexible(
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isS(context) ? 20 : 30,
+                  fontWeight: FontWeight.bold,
+                ),
+                child: Text(
+                  regularizeSentence(widget.question.context!),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            DefaultTextStyle(
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w100,
+              ),
+              child: Text(
+                regularizeSentence(widget.question.body),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }
 
-  SfCartesianChart buildChart(d) {
+  SfCartesianChart buildChart() {
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(
         minimum: 0,
@@ -100,7 +145,7 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
       ),
       series: <ChartSeries<Point, num>>[
         LineSeries<Point, num>(
-          dataSource: d,
+          dataSource: data,
           animationDuration: 1000,
           xValueMapper: (Point sales, _) => sales.x.toInt(),
           yValueMapper: (Point sales, _) => sales.y,
@@ -114,51 +159,6 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
     );
   }
 
-  Container buildQuestionContainer(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      height: isS(context) ? null : MediaQuery.of(context).size.height * .25,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          widget.prompt,
-          Row(
-            children: [
-              Flexible(
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: isS(context) ? 20 : 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  child: Text(
-                    regularizeSentence(widget.question.context!),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w100,
-                ),
-                child: Text(
-                  regularizeSentence(widget.question.body),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
-
   buildButtonContainer(BuildContext context) {
     return SizedBox(
       height: 250,
@@ -168,90 +168,97 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
           Row(
             children: [
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    onPressed: () {
-                      widget.nextQuestion();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      minimumSize: const Size(56, 56),
-                      padding: const EdgeInsets.all(16),
+                flex: 1,
+                child: TextButton(
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 50),
                     ),
-                    child: Text(
-                      widget.question.answerBank![0],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green,
                     ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    widget.onAnswer();
+                  },
+                  child: SingleChildScrollView(
+                    child: Text(widget.question.answerBank![0]),
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    onPressed: () {
-                      widget.nextQuestion();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      minimumSize: const Size(56, 56),
-                      padding: const EdgeInsets.all(16),
+                flex: 1,
+                child: TextButton(
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 50),
                     ),
-                    child: Text(
-                      widget.question.answerBank![1],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green,
                     ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    widget.onAnswer();
+                  },
+                  child: SingleChildScrollView(
+                    child: Text(widget.question.answerBank![1]),
                   ),
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 10),
           Row(
             children: [
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    onPressed: () {
-                      widget.nextQuestion();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      minimumSize: const Size(56, 56),
-                      padding: const EdgeInsets.all(16),
+                flex: 1,
+                child: TextButton(
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 50),
                     ),
-                    child: Text(
-                      widget.question.answerBank![2],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green,
                     ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    widget.onAnswer();
+                  },
+                  child: SingleChildScrollView(
+                    child: Text(widget.question.answerBank![2]),
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    onPressed: () {
-                      widget.nextQuestion();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      minimumSize: const Size(56, 56),
-                      padding: const EdgeInsets.all(16),
+                flex: 1,
+                child: TextButton(
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(double.infinity, 50),
                     ),
-                    child: Text(
-                      widget.question.answerBank![3],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.green,
                     ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    widget.onAnswer();
+                  },
+                  child: SingleChildScrollView(
+                    child: Text(widget.question.answerBank![3]),
                   ),
                 ),
               ),
@@ -263,7 +270,8 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
   }
 
   void setHeight() {
-    final all = (List.from(widget.question.data! + widget.question.newData!));
+    final all = (List.from(
+        (widget.question.data ?? []) + (widget.question.newData ?? [])));
     final lo = all.map((d) => d.y as double).reduce(min);
     final hi = all.map((d) => d.y as double).reduce(max);
     yMapper = [lo, hi];

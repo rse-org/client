@@ -99,7 +99,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
                 setState(() {
                   start = true;
                 });
-                await Future.delayed(const Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 3));
                 startQuiz();
               }
             },

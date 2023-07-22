@@ -227,7 +227,7 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   void submitForm() {
     if (kDebugMode) {
-      print(formData);
+      p(formData);
     }
   }
 }

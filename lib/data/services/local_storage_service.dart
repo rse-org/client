@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:rse/data/all.dart';
-import 'package:rse/presentation/utils/all.dart';
+import 'package:rse/all.dart';
 
 class LocalStorageService {
   Future<void> saveData(String key, String value,
@@ -30,14 +29,14 @@ class LocalStorageService {
         return _mapArticlesFromData(d['results']);
       }
     }
-    debugPrint('Error: Error loading cached articles');
+    p('Error: Error loading cached articles');
     return [];
   }
 
   List<NewsArticle> _mapArticlesFromData(dynamic data) {
     return (data as List<dynamic>)
-      .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
-      .toList();
+        .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
+        .toList();
   }
 
   Future<Portfolio> getCachedPortfolio(period) async {
