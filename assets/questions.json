@@ -1,5 +1,6 @@
 [
   {
+    "type": "mc",
     "body": "What is the time value of money?",
     "answer": "The time value of money is the concept that states money today is worth more than the same amount in the future due to its potential earning capacity and the effects of inflation.",
     "c1": "The time value of money refers to the importance of being punctual in financial transactions.",
@@ -12,6 +13,7 @@
     "link": "https://www.investopedia.com/articles/03/082703.asp#:~:text=Time%20value%20of%20money%20is%20the%20concept%20that%20money%20today,unrealized%20gains%2C%20or%20unrealized%20losses."
   },
   {
+    "type": "mc",
     "body": "What is diversification in investing?",
     "answer": "Diversification in investing is the strategy of spreading investments across different assets, industries, or geographic locations to reduce risk. By diversifying, investors can potentially minimize the impact of poor performance in any single investment.",
     "c1": "Diversification in investing refers to focusing all investments in a single asset class for maximum returns.",
@@ -24,6 +26,7 @@
     "link": "https://www.investopedia.com/terms/d/diversification.asp"
   },
   {
+    "type": "mc",
     "body": "What is the difference between a stock and a bond?",
     "answer": "Stocks represent ownership in a company, while bonds represent debt issued by a company or government.",
     "c1": "Stocks and bonds both represent ownership in a company.",
@@ -36,6 +39,7 @@
     "link": "https://www.investopedia.com/ask/answers/09/difference-between-bond-stock-market.asp"
   },
   {
+    "type": "mc",
     "body": "What is compound interest?",
     "answer": "Compound interest is the addition of interest to the principal amount, resulting in interest earning interest over time.",
     "c1": "Compound interest is the interest earned only on the principal amount.",
@@ -48,6 +52,7 @@
     "link": "https://www.investopedia.com/terms/c/compoundinterest.asp"
   },
   {
+    "type": "mc",
     "body": "What is the role of the Federal Reserve?",
     "answer": "The Federal Reserve, often referred to as the central bank of the United States, is responsible for conducting monetary policy, supervising and regulating banks, and maintaining the stability of the financial system.",
     "c1": "The Federal Reserve is responsible for issuing currency notes and coins.",
@@ -60,6 +65,7 @@
     "link": "https://www.investopedia.com/terms/f/federalreservebank.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of supply and demand?",
     "answer": "Supply and demand is an economic model that explains the interaction between the availability of a product or service (supply) and the desire or need for that product or service (demand). It determines the equilibrium price and quantity in a market.",
     "c1": "Supply and demand refers to the relationship between producers and consumers in a market.",
@@ -72,6 +78,7 @@
     "link": "https://www.investopedia.com/terms/l/law-of-supply-demand.asp"
   },
   {
+    "type": "mc",
     "body": "What is the role of a financial advisor?",
     "answer": "A financial advisor is a professional who provides guidance and advice to individuals or organizations regarding various aspects of financial planning, investment management, and wealth accumulation. They help clients make informed decisions and develop strategies to achieve their financial goals.",
     "c1": "A financial advisor is a person who works at a bank and handles customer transactions.",
@@ -84,6 +91,7 @@
     "link": "https://www.investopedia.com/articles/personal-finance/050815/what-do-financial-advisers-do.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of inflation?",
     "answer": "Inflation is the sustained increase in the general price level of goods and services in an economy over time. It erodes the purchasing power of money, as each unit of currency buys fewer goods or services.",
     "c1": "Inflation refers to the reduction in the total amount of money in circulation within an economy.",
@@ -96,6 +104,7 @@
     "link": "https://www.investopedia.com/terms/i/inflation.asp"
   },
   {
+    "type": "mc",
     "body": "What is the difference between a traditional IRA and a Roth IRA?",
     "answer": "A traditional IRA allows individuals to make tax-deductible contributions, and the earnings grow tax-deferred until withdrawals are made, which are then taxed as ordinary income. In contrast, a Roth IRA offers no upfront tax deduction, but qualified withdrawals, including earnings, are tax-free as long as certain conditions are met.",
     "c1": "Both traditional and Roth IRAs allow individuals to make tax-free contributions.",
@@ -108,6 +117,7 @@
     "link": "https://www.investopedia.com/retirement/roth-vs-traditional-ira-which-is-right-for-you/"
   },
   {
+    "type": "mc",
     "body": "What is the difference between a traditional savings account and a money market account?",
     "answer": "A traditional savings account is a basic deposit account offered by banks, typically used for storing funds and earning a low interest rate. A money market account is a type of savings account that usually offers a higher interest rate, but may require a higher minimum balance. Money market accounts often provide limited check-writing and debit card access compared to traditional savings accounts.",
     "c1": "Both traditional savings accounts and money market accounts provide the same interest rates.",
@@ -120,6 +130,7 @@
     "link": "https://www.investopedia.com/ask/answers/012615/why-would-you-keep-funds-money-market-account-and-not-savings-account.asp"
   },
   {
+    "type": "mc",
     "body": "What is an initial public offering (IPO)?",
     "answer": "An initial public offering (IPO) refers to the process through which a private company offers its shares to the public for the first time. It is a significant event for a company as it transitions from being privately held to a publicly traded entity. The IPO allows the company to raise capital by selling shares to investors and provides liquidity to its existing shareholders.",
     "c1": "An initial public offering (IPO) refers to the process of merging two or more companies into a single entity.",
@@ -132,6 +143,7 @@
     "link": "https://www.investopedia.com/terms/i/ipo.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of inflation in economics?",
     "answer": "Inflation in economics refers to the sustained increase in the general price level of goods and services in an economy over time. It erodes the purchasing power of money, as the same amount of currency can buy fewer goods and services. Inflation is influenced by factors such as the supply and demand dynamics, government policies, and macroeconomic conditions.",
     "c1": "Inflation in economics refers to the decrease in the general price level of goods and services.",
@@ -144,6 +156,7 @@
     "link": "https://www.investopedia.com/terms/i/inflation.asp"
   },
   {
+    "type": "mc",
     "body": "What is a mutual fund?",
     "answer": "A mutual fund is an investment vehicle that pools money from multiple investors to invest in a diversified portfolio of securities, such as stocks, bonds, or money market instruments. It is managed by professional fund managers who make investment decisions on behalf of the investors, aiming to generate returns and manage risk.",
     "c1": "A mutual fund is a type of retirement savings account offered by employers.",
@@ -156,6 +169,7 @@
     "link": "https://www.investopedia.com/terms/m/mutualfund.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of asset allocation in investment portfolios?",
     "answer": "Asset allocation in investment portfolios refers to the strategic distribution of investments across different asset classes, such as stocks, bonds, and cash, to achieve a desired balance of risk and return. It is based on the principle that different asset classes have varying levels of risk and return potential, and by diversifying across them, investors can optimize their portfolio's risk-return profile.",
     "c1": "Asset allocation in investment portfolios refers to the allocation of investments within a single asset class, such as stocks only.",
@@ -168,6 +182,7 @@
     "link": "https://www.investopedia.com/terms/a/assetallocation.asp"
   },
   {
+    "type": "mc",
     "body": "What is the difference between a credit card and a debit card?",
     "answer": "A credit card is a payment card that allows the cardholder to borrow money from a bank or financial institution to make purchases, with the obligation to repay the borrowed amount along with any applicable interest and fees. A debit card, on the other hand, is linked to the cardholder's bank account and allows for electronic access to the funds available in that account. When a debit card is used, the purchase amount is directly deducted from the cardholder's bank balance.",
     "c1": "A credit card and a debit card are essentially the same and can be used interchangeably.",
@@ -180,6 +195,7 @@
     "link": "https://www.investopedia.com/credit-cards-vs-debit-cards-4784504"
   },
   {
+    "type": "mc",
     "body": "What is an index fund?",
     "answer": "An index fund is a type of mutual fund or exchange-traded fund (ETF) that aims to replicate the performance of a specific market index, such as the S&P 500. Index funds are passively managed, meaning they aim to match the index's performance rather than actively selecting individual investments. They offer broad market exposure, low costs, and typically provide diversification across a wide range of securities.",
     "c1": "An index fund is a type of investment that focuses on a single stock or company.",
@@ -192,6 +208,7 @@
     "link": "https://www.investopedia.com/terms/i/indexfund.asp"
   },
   {
+    "type": "mc",
     "body": "What is the role of a stockbroker?",
     "answer": "A stockbroker is a licensed financial professional or firm that facilitates the buying and selling of stocks and other securities on behalf of clients. They act as intermediaries between investors and the stock exchanges where securities are traded. Stockbrokers provide investment advice, execute trades, and may offer additional services such as portfolio management, research, and financial planning.",
     "c1": "The role of a stockbroker is to lend money to investors for purchasing stocks.",
@@ -204,6 +221,7 @@
     "link": "https://www.investopedia.com/terms/s/stockbroker.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stock dividend?",
     "answer": "A stock dividend is a distribution of additional shares of a company's stock to its existing shareholders. Instead of paying a cash dividend, the company issues new shares based on a certain percentage of the shares already owned by each shareholder. Stock dividends are typically declared by companies to reinvest profits back into the business or to enhance shareholder value without using cash resources.",
     "c1": "A stock dividend is a cash payment made to shareholders by a company.",
@@ -216,6 +234,7 @@
     "link": "https://www.investopedia.com/terms/s/stockdividend.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of risk tolerance in investing?",
     "answer": "Risk tolerance in investing refers to an individual's ability to handle the potential losses associated with different investment options. It reflects a person's willingness to accept investment risks and the emotional and financial capacity to withstand market fluctuations. Risk tolerance is influenced by factors such as an individual's financial goals, time horizon, investment knowledge, and comfort level with volatility. Understanding one's risk tolerance helps in aligning investment choices with personal preferences and goals.",
     "c1": "Risk tolerance in investing refers to the amount of risk an investor must take to achieve high returns.",
@@ -228,6 +247,7 @@
     "link": "https://www.investopedia.com/terms/r/risktolerance.asp"
   },
   {
+    "type": "mc",
     "body": "What is the role of a financial analyst?",
     "answer": "A financial analyst is a professional who evaluates financial data, economic trends, and investment opportunities to provide recommendations and guidance to individuals, businesses, and institutions. They analyze financial statements, assess the performance of stocks and other securities, and conduct research to identify potential investment opportunities. Financial analysts also play a role in financial planning, risk management, and making informed decisions based on financial data and market conditions.",
     "c1": "The role of a financial analyst is to manage and oversee company budgets and financial operations.",
@@ -240,6 +260,7 @@
     "link": "https://www.investopedia.com/terms/f/financial-analyst.asp"
   },
   {
+    "type": "mc",
     "body": "What is an expense ratio in mutual funds?",
     "answer": "The expense ratio in mutual funds is a measure of the operating costs incurred by the fund, expressed as a percentage of the fund's average net assets. It includes management fees, administrative expenses, and other costs associated with running the fund. The expense ratio is deducted from the fund's assets, reducing the returns received by investors. A lower expense ratio is generally preferred as it leaves more of the fund's returns available to investors.",
     "c1": "The expense ratio in mutual funds is the fee charged by the fund for every purchase or sale of shares.",
@@ -252,6 +273,7 @@
     "link": "https://www.investopedia.com/terms/e/expenseratio.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of diversification in investing?",
     "answer": "Diversification in investing is the strategy of spreading investments across different assets or asset classes to reduce risk. By diversifying, investors aim to minimize the impact of any single investment on their overall portfolio. This can be achieved by investing in a variety of stocks, bonds, commodities, real estate, or other assets. Diversification helps protect against losses in any one investment and allows for potentially more consistent returns.",
     "c1": "Diversification in investing refers to the process of focusing investments in a single asset or company.",
@@ -264,6 +286,7 @@
     "link": "https://www.investopedia.com/terms/d/diversification.asp"
   },
   {
+    "type": "mc",
     "body": "What is capital gains tax?",
     "answer": "Capital gains tax is a tax levied on the profits earned from the sale of assets such as stocks, real estate, or other investments. It is calculated based on the difference between the purchase price (cost basis) and the selling price of the asset. Generally, assets held for longer than one year are subject to long-term capital gains tax rates, which are typically lower than short-term capital gains tax rates for assets held for one year or less.",
     "c1": "Capital gains tax is a tax on the purchase price of assets.",
@@ -276,6 +299,7 @@
     "link": "https://www.investopedia.com/terms/c/capitalgain.asp"
   },
   {
+    "type": "mc",
     "body": "What is market volatility?",
     "answer": "Market volatility refers to the degree of variation and fluctuation in the price or value of a financial market, security, or investment. It is a measure of how quickly and dramatically prices can change within a given period. High market volatility indicates larger price swings and uncertainty, while low volatility suggests more stable and predictable price movements. Market volatility can be influenced by various factors such as economic conditions, geopolitical events, investor sentiment, and market supply and demand.",
     "c1": "Market volatility refers to the ability of a market to generate high returns consistently.",
@@ -288,6 +312,7 @@
     "link": "https://www.investopedia.com/terms/v/volatility.asp"
   },
   {
+    "type": "mc",
     "body": "What is a dividend?",
     "answer": "A dividend is a payment made by a corporation to its shareholders as a distribution of the company's profits. It is typically paid in cash, but can also be in the form of additional shares of stock. Dividends are often declared on a per-share basis and distributed regularly, such as quarterly or annually. Companies that generate stable earnings and have a history of profitability are more likely to pay regular dividends to their shareholders.",
     "c1": "A dividend is a loan provided by shareholders to a corporation.",
@@ -300,6 +325,7 @@
     "link": "https://www.investopedia.com/terms/d/dividend.asp"
   },
   {
+    "type": "mc",
     "body": "What is a bear market?",
     "answer": "A bear market refers to a prolonged period of declining prices in a financial market, typically characterized by a decline of 20% or more from previous highs. It is generally associated with investor pessimism, economic downturns, and a lack of confidence in the market. In a bear market, selling pressure is dominant, and investors may be motivated to sell assets to avoid further losses. Bear markets are often accompanied by low investor sentiment and a general decline in economic activity.",
     "c1": "A bear market refers to a period of increasing prices in a financial market.",
@@ -312,6 +338,7 @@
     "link": "https://www.investopedia.com/terms/b/bearmarket.asp"
   },
   {
+    "type": "mc",
     "body": "What is a margin call?",
     "answer": "A margin call is a demand by a broker or lender for an investor to deposit additional funds or securities to meet the minimum margin requirements on an investment that has incurred losses. Margin accounts allow investors to borrow money to purchase securities, but they require maintaining a certain level of equity (margin) in the account. If the value of the securities held as collateral falls below a certain threshold, the broker or lender may issue a margin call to protect against further losses.",
     "c1": "A margin call is a request for a loan made by an investor to a broker.",
@@ -324,6 +351,7 @@
     "link": "https://www.investopedia.com/terms/m/margincall.asp"
   },
   {
+    "type": "mc",
     "body": "What is an annuity?",
     "answer": "An annuity is a financial product designed to provide a steady stream of income over a specified period or for the rest of an individual's life. It is typically purchased from an insurance company and funded through a lump sum payment or a series of payments. The annuity issuer then invests the funds and makes regular payments to the annuitant. Annuities are commonly used for retirement planning and can provide a guaranteed income source, although they may also have fees and restrictions.",
     "c1": "An annuity is an insurance policy that provides coverage for medical expenses.",
@@ -336,6 +364,7 @@
     "link": "https://www.investopedia.com/terms/a/annuity.asp"
   },
   {
+    "type": "mc",
     "body": "What is a bull market?",
     "answer": "A bull market refers to a period of generally rising prices and optimistic investor sentiment in a financial market. It is characterized by widespread buying and increasing demand for stocks, resulting in upward price trends. In a bull market, investor confidence is high, and there is an expectation of continued price increases. Bull markets are often associated with economic growth, strong corporate performance, and positive market indicators.",
     "c1": "A bull market refers to a period of declining prices in a financial market.",
@@ -348,6 +377,7 @@
     "link": "https://www.investopedia.com/terms/b/bullmarket.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of dollar-cost averaging?",
     "answer": "Dollar-cost averaging is an investment strategy where an investor regularly invests a fixed amount of money into a particular investment at predetermined intervals, regardless of the investment's price. By consistently investing over time, the investor buys more shares when prices are low and fewer shares when prices are high. This approach reduces the impact of short-term market fluctuations and can potentially lower the average cost per share over the long term.",
     "c1": "Dollar-cost averaging is an investment strategy that involves timing the market to maximize returns.",
@@ -360,6 +390,7 @@
     "link": "https://www.investopedia.com/terms/d/dollarcostaveraging.asp"
   },
   {
+    "type": "mc",
     "body": "What is a capital market?",
     "answer": "A capital market is a financial market where individuals, companies, and governments raise long-term funds by buying and selling financial securities such as stocks, bonds, and derivatives. It is a platform that facilitates the flow of capital between investors and borrowers, enabling the financing of projects, investments, and economic growth. Capital markets play a vital role in allocating resources efficiently and providing opportunities for investors to earn returns on their investments.",
     "c1": "A capital market is a market where short-term loans are exchanged between individuals.",
@@ -372,6 +403,7 @@
     "link": "https://www.investopedia.com/terms/c/capitalmarket.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stop-loss order?",
     "answer": "A stop-loss order is an instruction given to a broker or trading platform to sell a security when it reaches a specified price level. It is a risk management tool used by investors to limit potential losses on an investment. When the stop-loss price is reached, the order is triggered, and the security is sold at the prevailing market price. Stop-loss orders can help investors protect their capital and implement a predetermined exit strategy if the price of the security moves against their expectations.",
     "c1": "A stop-loss order is an order to buy a security at a specified price level.",
@@ -384,6 +416,7 @@
     "link": "https://www.investopedia.com/terms/s/stoplossorder.asp"
   },
   {
+    "type": "mc",
     "body": "What is a 529 plan?",
     "answer": "A 529 plan is a tax-advantaged investment account designed to encourage saving for future education expenses. It is named after Section 529 of the Internal Revenue Code. 529 plans are sponsored by states, state agencies, or educational institutions and come in two main types: prepaid tuition plans and college savings plans. Prepaid tuition plans allow for the pre-purchase of tuition credits at participating educational institutions, while college savings plans provide investment options to save and grow funds for education expenses.",
     "c1": "A 529 plan is a retirement savings account with tax advantages.",
@@ -396,6 +429,7 @@
     "link": "https://www.investopedia.com/terms/1/529plan.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stock market index?",
     "answer": "A stock market index is a measurement of the value and performance of a specific group of stocks representing a particular segment of the stock market. It provides a benchmark to evaluate the overall movement and performance of the stock market or a specific sector. Stock market indices are calculated using the weighted average of the prices of the constituent stocks. Examples of well-known stock market indices include the S&P 500, Dow Jones Industrial Average (DJIA), and Nasdaq Composite.",
     "c1": "A stock market index is the price of a single stock at a given point in time.",
@@ -408,6 +442,7 @@
     "link": "https://www.investopedia.com/terms/s/stockmarketindex.asp"
   },
   {
+    "type": "mc",
     "body": "What is a margin account?",
     "answer": "A margin account is a brokerage account that allows investors to borrow funds from the broker to buy securities. It provides leverage, enabling investors to control a larger position with a smaller upfront investment. In a margin account, the investor's own funds serve as collateral, and the broker extends credit to cover a portion of the purchase price. Margin accounts involve the use of borrowed money, and investors are required to pay interest on the borrowed amount. They also have specific margin requirements and are subject to margin calls if the account's equity falls below the required level.",
     "c1": "A margin account is a savings account with a higher interest rate.",
@@ -420,6 +455,7 @@
     "link": "https://www.investopedia.com/terms/m/marginaccount.asp"
   },
   {
+    "type": "mc",
     "body": "What is an options contract?",
     "answer": "An options contract is a financial derivative that gives the holder the right, but not the obligation, to buy or sell an underlying asset at a predetermined price (strike price) within a specified period. The two main types of options are call options, which give the holder the right to buy the asset, and put options, which give the holder the right to sell the asset. Options provide flexibility and can be used for various trading and investment strategies, such as hedging, speculating on price movements, or generating income through option writing.",
     "c1": "An options contract is an agreement to borrow money from a financial institution.",
@@ -432,6 +468,7 @@
     "link": "https://www.investopedia.com/terms/o/option.asp"
   },
   {
+    "type": "mc",
     "body": "What is asset management?",
     "answer": "Asset management refers to the professional management of investments on behalf of individuals, institutions, or funds. Asset managers are responsible for making investment decisions and managing portfolios to achieve specific investment objectives. They analyze financial markets, select suitable investments, and monitor the performance of assets. Asset management can cover a range of asset classes, including stocks, bonds, real estate, commodities, and more. The goal of asset management is to optimize investment returns while managing risks and considering the individual investor's objectives and risk tolerance.",
     "c1": "Asset management refers to the physical maintenance of tangible assets such as buildings or infrastructure.",
@@ -444,6 +481,7 @@
     "link": "https://www.investopedia.com/terms/a/assetmanagement.asp"
   },
   {
+    "type": "mc",
     "body": "What is a 403(b) retirement plan?",
     "answer": "A 403(b) retirement plan is a tax-advantaged retirement savings plan designed for employees of certain tax-exempt organizations, public schools, and other nonprofit entities. Similar to a 401(k) plan, a 403(b) allows employees to contribute a portion of their salary to the plan on a pre-tax basis, reducing their current taxable income. The contributions and any investment earnings grow tax-deferred until retirement, at which point they are subject to ordinary income tax. 403(b) plans are often supplemented by employer contributions and can provide individuals with a valuable tool for long-term retirement savings.",
     "c1": "A 403(b) retirement plan is a health insurance plan for retirees.",
@@ -456,6 +494,7 @@
     "link": "https://www.investopedia.com/terms/1/403bplan.asp"
   },
   {
+    "type": "mc",
     "body": "What is a futures contract?",
     "answer": "A futures contract is a standardized financial contract between two parties to buy or sell an underlying asset at a predetermined price (the futures price) on a specified date in the future. Futures contracts are commonly used to hedge against price volatility and to speculate on the future direction of prices. They are traded on organized exchanges and cover a wide range of assets, including commodities, currencies, stock indices, and more. Futures contracts allow market participants to lock in prices and manage risks associated with future price movements.",
     "c1": "A futures contract is an agreement to purchase goods or services for immediate delivery.",
@@ -468,6 +507,7 @@
     "link": "https://www.investopedia.com/terms/f/futurescontract.asp"
   },
   {
+    "type": "mc",
     "body": "What is a dividend?",
     "answer": "A dividend is a payment made by a corporation to its shareholders as a distribution of its profits or earnings. It represents a share of the company's profits that is distributed to the owners of its common stock. Dividends are typically paid in cash, but they can also be issued as additional shares of stock or other property. Companies that consistently generate profits often distribute dividends to reward shareholders and provide an incentive to invest in their stock. Dividends can provide investors with a steady stream of income and are an important factor to consider for income-focused investors.",
     "c1": "A dividend is a loan provided by a corporation to a financial institution.",
@@ -480,6 +520,7 @@
     "link": "https://www.investopedia.com/terms/d/dividend.asp"
   },
   {
+    "type": "mc",
     "body": "What is the purpose of asset allocation in investment portfolios?",
     "answer": "Asset allocation in investment portfolios is the strategic distribution of investments across different asset classes, such as stocks, bonds, and cash. It aims to balance risk and return by diversifying investments and optimizing the portfolio's overall performance.",
     "c1": "Asset allocation in investment portfolios refers to the selection of specific stocks or bonds within a single asset class.",
@@ -492,6 +533,7 @@
     "link": "https://www.investopedia.com/terms/a/assetallocation.asp"
   },
   {
+    "type": "mc",
     "body": "What is a limit order in trading?",
     "answer": "A limit order is a type of order placed by an investor to buy or sell a security at a specific price or better. It ensures that the trade is executed at the desired price or a more favorable price. If the specified price is not available in the market, the limit order remains open until the price is reached or the order is canceled.",
     "c1": "A limit order is an order to buy or sell a security at the current market price.",
@@ -504,6 +546,7 @@
     "link": "https://www.investopedia.com/terms/l/limitorder.asp"
   },
   {
+    "type": "mc",
     "body": "What is a custodian in finance?",
     "answer": "A custodian in finance is a financial institution or entity that holds and safeguards assets on behalf of clients. Custodians play a crucial role in maintaining the security and integrity of financial assets, such as stocks, bonds, and other securities. They handle tasks such as safekeeping of assets, processing transactions, collecting income, and providing reporting and record-keeping services.",
     "c1": "A custodian in finance is an individual who manages a client's investment portfolio.",
@@ -516,6 +559,7 @@
     "link": "https://www.investopedia.com/terms/c/custodian.asp"
   },
   {
+    "type": "mc",
     "body": "What is a capital gain?",
     "answer": "A capital gain refers to the profit realized from the sale of a capital asset, such as stocks, bonds, real estate, or other investments. It is calculated by subtracting the purchase price (cost basis) of the asset from the selling price. If the selling price is higher than the purchase price, the investor realizes a capital gain. Capital gains can be either short-term (assets held for one year or less) or long-term (assets held for more than one year), and they are subject to capital gains tax.",
     "c1": "A capital gain refers to the loss incurred from the sale of a capital asset.",
@@ -528,6 +572,7 @@
     "link": "https://www.investopedia.com/terms/c/capitalgain.asp"
   },
   {
+    "type": "mc",
     "body": "What is market capitalization?",
     "answer": "Market capitalization refers to the total value of a publicly traded company's outstanding shares of stock. It is calculated by multiplying the current share price by the total number of outstanding shares. Market capitalization is used to classify companies into different size categories, such as large-cap, mid-cap, and small-cap, and is a key metric for investors to assess the size and relative value of a company.",
     "c1": "Market capitalization refers to the total annual revenue generated by a company.",
@@ -540,6 +585,7 @@
     "link": "https://www.investopedia.com/terms/m/marketcapitalization.asp"
   },
   {
+    "type": "mc",
     "body": "What is a credit score?",
     "answer": "A credit score is a numerical representation of an individual's creditworthiness. It is a measure of the likelihood that a person will repay their debts on time based on their past borrowing and repayment history. Credit scores are used by lenders, landlords, and others to evaluate an individual's credit risk and determine the terms of credit or the approval of a loan or rental application.",
     "c1": "A credit score is the total amount of money a person can borrow from a financial institution.",
@@ -552,6 +598,7 @@
     "link": "https://www.investopedia.com/terms/c/credit_score.asp"
   },
   {
+    "type": "mc",
     "body": "What is a bull market?",
     "answer": "A bull market refers to a period of rising prices and optimistic investor sentiment in a financial market. It is characterized by widespread buying activity and an expectation of further price increases. Bull markets are typically associated with economic growth, high corporate earnings, and positive market indicators. Investors in a bull market are generally more willing to take on risk and may experience significant gains in their investments.",
     "c1": "A bull market refers to a period of declining prices and pessimistic investor sentiment in a financial market.",
@@ -564,6 +611,7 @@
     "link": "https://www.investopedia.com/terms/b/bullmarket.asp"
   },
   {
+    "type": "mc",
     "body": "What is a mortgage?",
     "answer": "A mortgage is a type of loan used to finance the purchase of real estate, such as a home or commercial property. It is a legal agreement between a borrower (the homeowner) and a lender (typically a bank or mortgage company). The borrower receives funds to purchase the property and agrees to repay the loan over a specified period, usually with interest. The property itself serves as collateral, which means the lender has the right to seize the property if the borrower fails to repay the loan.",
     "c1": "A mortgage is a rental agreement for leasing a property.",
@@ -576,6 +624,7 @@
     "link": "https://www.investopedia.com/terms/m/mortgage.asp"
   },
   {
+    "type": "mc",
     "body": "What is a recession?",
     "answer": "A recession is a significant decline in economic activity, characterized by a contraction in gross domestic product (GDP), increased unemployment rates, reduced consumer spending, and a general slowdown in business activity. Recessions are a normal part of the economic cycle and are typically marked by negative GDP growth for two consecutive quarters or more.",
     "c1": "A recession is a period of rapid economic growth and expansion.",
@@ -588,6 +637,7 @@
     "link": "https://www.investopedia.com/terms/r/recession.asp"
   },
   {
+    "type": "mc",
     "body": "What is a balance sheet?",
     "answer": "A balance sheet is a financial statement that provides a snapshot of a company's financial position at a specific point in time. It presents the company's assets, liabilities, and shareholders' equity, showing how the company's resources are financed. The balance sheet follows the fundamental accounting equation: assets = liabilities + shareholders' equity.",
     "c1": "A balance sheet is a document that lists a company's daily transactions and expenses.",
@@ -600,6 +650,7 @@
     "link": "https://www.investopedia.com/terms/b/balancesheet.asp"
   },
   {
+    "type": "mc",
     "body": "What is a money market fund?",
     "answer": "A money market fund is a type of mutual fund that invests in short-term, low-risk securities, such as Treasury bills, certificates of deposit, and commercial paper. Money market funds aim to provide investors with stability of principal and easy access to their funds while generating a modest level of income. They are considered relatively safe investments and are often used as a cash management tool or an alternative to traditional savings accounts.",
     "c1": "A money market fund is an investment fund that focuses on long-term growth and capital appreciation.",
@@ -612,6 +663,7 @@
     "link": "https://www.investopedia.com/terms/m/moneymarketfund.asp"
   },
   {
+    "type": "mc",
     "body": "What is a futures contract?",
     "answer": "A futures contract is a standardized, legally binding agreement to buy or sell an underlying asset at a predetermined price (the futures price) on a specified date in the future. Futures contracts are commonly used to hedge against price volatility and to speculate on the future direction of prices. They are traded on organized exchanges and cover a wide range of assets, including commodities, currencies, stock indices, and more. Futures contracts allow market participants to lock in prices and manage risks associated with future price movements.",
     "c1": "A futures contract is an agreement to purchase goods or services for immediate delivery.",
@@ -624,6 +676,7 @@
     "link": "https://www.investopedia.com/terms/f/futurescontract.asp"
   },
   {
+    "type": "mc",
     "body": "What is a dividend?",
     "answer": "A dividend is a distribution of a portion of a company's earnings to its shareholders. It represents a return on investment for shareholders and is typically paid in cash or additional shares of stock. Dividends are usually declared by the company's board of directors and are based on the company's profitability and available cash. Dividends provide investors with regular income and are an important factor for income-oriented investors when evaluating the attractiveness of a stock.",
     "c1": "A dividend is a fee charged by a brokerage firm for executing a stock trade.",
@@ -636,6 +689,7 @@
     "link": "https://www.investopedia.com/terms/d/dividend.asp"
   },
   {
+    "type": "mc",
     "body": "What is a capital loss?",
     "answer": "A capital loss occurs when the sale price of a capital asset is less than its original purchase price. It represents a decrease in the value of the asset and results in a financial loss for the investor. Capital losses can be used to offset capital gains and reduce taxable income. If capital losses exceed capital gains in a given year, the excess losses can be carried forward to offset future capital gains or reduce taxable income in subsequent years.",
     "c1": "A capital loss occurs when the sale price of a capital asset is greater than its original purchase price.",
@@ -648,6 +702,7 @@
     "link": "https://www.investopedia.com/terms/c/capitalloss.asp"
   },
   {
+    "type": "mc",
     "body": "What is a tax deduction?",
     "answer": "A tax deduction is a specific expense or allowance that reduces a person's taxable income, ultimately reducing the amount of tax they owe. Tax deductions are typically based on expenses related to investments, education, homeownership, charitable donations, or business activities. By claiming eligible deductions, taxpayers can lower their taxable income and potentially decrease their tax liability.",
     "c1": "A tax deduction is a penalty imposed by the government for failure to pay taxes on time.",
@@ -686,6 +741,7 @@
     "link": "https://www.investopedia.com/terms/c/capitalbudgeting.asp"
   },
   {
+    "type": "mc",
     "body": "What is diversification in investing?",
     "answer": "Diversification in investing refers to the strategy of spreading investments across different assets, sectors, or geographical regions to reduce risk. By diversifying their portfolios, investors aim to minimize the impact of any single investment's performance on the overall portfolio. Diversification can be achieved through asset allocation, investing in different types of securities, or using investment vehicles such as mutual funds or exchange-traded funds (ETFs).",
     "c1": "Diversification in investing refers to the strategy of concentrating investments in a single asset or sector to maximize returns.",
@@ -698,6 +754,7 @@
     "link": "https://www.investopedia.com/terms/d/diversification.asp"
   },
   {
+    "type": "mc",
     "body": "What is a mutual fund?",
     "answer": "A mutual fund is an investment vehicle that pools money from multiple investors to invest in a diversified portfolio of securities, such as stocks, bonds, or other assets. The fund is managed by professional money managers who make investment decisions on behalf of the investors. Mutual funds offer individual investors access to professionally managed, diversified portfolios, providing opportunities for potential growth, income, or both.",
     "c1": "A mutual fund is a retirement savings account with tax advantages for individuals.",
@@ -710,6 +767,7 @@
     "link": "https://www.investopedia.com/terms/m/mutualfund.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stock exchange?",
     "answer": "A stock exchange is a marketplace where buyers and sellers trade stocks, bonds, and other securities. It provides a platform for companies to list their shares for public trading and for investors to buy or sell those shares. Stock exchanges facilitate transparent and efficient transactions by providing a centralized marketplace with established rules and regulations. Examples of well-known stock exchanges include the New York Stock Exchange (NYSE) and the NASDAQ.",
     "c1": "A stock exchange is a government agency that regulates financial markets and securities trading.",
@@ -722,6 +780,7 @@
     "link": "https://www.investopedia.com/terms/s/stockexchange.asp"
   },
   {
+    "type": "mc",
     "body": "What is an expense ratio in mutual funds?",
     "answer": "An expense ratio in mutual funds is the annual fee charged by the fund to cover operating expenses. It is expressed as a percentage of the fund's average net assets. The expense ratio includes various costs, such as management fees, administrative expenses, and other operational charges. The expense ratio is an important factor for investors to consider when evaluating the overall cost of investing in a mutual fund, as it directly affects the fund's returns.",
     "c1": "An expense ratio in mutual funds is the cost associated with buying or selling shares of the fund.",
@@ -734,6 +793,7 @@
     "link": "https://www.investopedia.com/terms/e/expenseratio.asp"
   },
   {
+    "type": "mc",
     "body": "What is a 401(k) retirement plan?",
     "answer": "A 401(k) retirement plan is a tax-advantaged retirement savings account offered by employers in the United States. It allows employees to contribute a portion of their salary to the plan on a pre-tax basis, meaning the contributions are deducted from their taxable income. The contributions and any investment gains in the plan are not taxed until withdrawn. 401(k) plans often include employer matching contributions, which can further boost retirement savings. The funds in a 401(k) plan are typically invested in a selection of mutual funds or other investment options.",
     "c1": "A 401(k) retirement plan is an insurance policy that provides income protection in retirement.",
@@ -746,6 +806,7 @@
     "link": "https://www.investopedia.com/terms/1/401kplan.asp"
   },
   {
+    "type": "mc",
     "body": "What is a bond?",
     "answer": "A bond is a fixed-income security that represents a loan made by an investor to a borrower, typically a corporation or government entity. When an investor purchases a bond, they are effectively lending money to the issuer for a specified period. In return, the issuer promises to repay the borrowed amount, known as the principal, at maturity and to make periodic interest payments to the bondholder. Bonds are widely used by entities to raise capital and provide investors with a steady income stream.",
     "c1": "A bond is an ownership stake in a company that entitles the investor to a share of profits.",
@@ -758,6 +819,7 @@
     "link": "https://www.investopedia.com/terms/b/bond.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of compounding in finance?",
     "answer": "The concept of compounding in finance refers to the process of earning returns on both the initial investment and the accumulated interest or returns from previous periods. Compounding allows investments to grow exponentially over time due to the reinvestment of earnings. As the investment generates returns, those returns are reinvested, generating additional returns in the following periods. Compounding is a powerful force in long-term investing and can significantly enhance wealth accumulation over time.",
     "c1": "The concept of compounding in finance refers to the process of calculating interest based on the initial investment only.",
@@ -770,6 +832,7 @@
     "link": "https://www.investopedia.com/terms/c/compounding.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of liquidity in finance?",
     "answer": "The concept of liquidity in finance refers to the degree to which an asset or security can be bought or sold in the market without causing significant price movement. Highly liquid assets can be easily converted into cash with minimal impact on their market value, while illiquid assets may be difficult to sell without substantial price concessions. Liquidity is an important consideration for investors, as it affects the ease of trading, the ability to enter or exit positions quickly, and the overall risk associated with an investment.",
     "c1": "The concept of liquidity in finance refers to the profitability of an investment relative to its initial cost.",
@@ -782,6 +845,7 @@
     "link": "https://www.investopedia.com/terms/l/liquidity.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of risk and return in investing?",
     "answer": "The concept of risk and return in investing states that investments with higher potential returns generally come with higher levels of risk. This relationship is known as the risk-return tradeoff. Investors must assess their risk tolerance and investment goals to determine an appropriate balance between risk and return. Higher-risk investments, such as stocks or emerging markets, have the potential for greater returns but also a higher likelihood of significant losses. Lower-risk investments, such as government bonds, offer more stability but lower potential returns.",
     "c1": "The concept of risk and return in investing states that investments with higher potential returns always have lower levels of risk.",
@@ -794,6 +858,7 @@
     "link": "https://www.investopedia.com/terms/r/riskreturntradeoff.asp"
   },
   {
+    "type": "mc",
     "body": "What is a margin call?",
     "answer": "A margin call occurs when an investor who has borrowed funds from a broker to purchase securities must deposit additional funds or securities into their account. It is triggered when the value of the investor's account falls below a certain threshold, known as the maintenance margin. The purpose of a margin call is to ensure that the investor has sufficient collateral to cover potential losses. If the investor fails to meet the margin call, the broker may liquidate some or all of the investor's positions to recover the borrowed funds.",
     "c1": "A margin call occurs when an investor decides to sell their securities at a profit.",
@@ -806,6 +871,7 @@
     "link": "https://www.investopedia.com/terms/m/margincall.asp"
   },
   {
+    "type": "mc",
     "body": "What is an annuity?",
     "answer": "An annuity is a financial product that provides a series of regular payments to an individual over a specified period or for the rest of their life. It is typically purchased from an insurance company or a financial institution. Annuities are commonly used for retirement income planning, as they offer a way to convert a lump sum or regular contributions into a steady stream of income. Annuities can be structured in various ways, such as immediate or deferred annuities, fixed or variable annuities, and with different payout options.",
     "c1": "An annuity is a type of investment account used to save for short-term financial goals.",
@@ -818,6 +884,7 @@
     "link": "https://www.investopedia.com/terms/a/annuity.asp"
   },
   {
+    "type": "mc",
     "body": "What is a bull market?",
     "answer": "A bull market refers to a period of rising prices and optimistic investor sentiment in a financial market. It is characterized by widespread buying activity and an expectation of further price increases. Bull markets are typically associated with economic growth, high investor confidence, and positive market trends. During a bull market, stock prices tend to rise, and investors may experience significant capital gains. However, bull markets can be volatile, and caution is advised to avoid excessive risk-taking.",
     "c1": "A bull market refers to a period of declining prices and pessimistic investor sentiment in a financial market.",
@@ -830,6 +897,7 @@
     "link": "https://www.investopedia.com/terms/b/bullmarket.asp"
   },
   {
+    "type": "mc",
     "body": "What is a money market fund?",
     "answer": "A money market fund is a type of mutual fund that invests in low-risk, short-term debt securities, such as Treasury bills, certificates of deposit, and commercial paper. Money market funds aim to provide stability of principal and a high level of liquidity. They are considered low-risk investments and are often used as a cash management tool by individuals and institutions. Money market funds typically offer a higher yield than traditional savings accounts while maintaining a high degree of safety and liquidity.",
     "c1": "A money market fund is a type of investment account used for long-term financial goals.",
@@ -842,6 +910,7 @@
     "link": "https://www.investopedia.com/terms/m/moneymarketfund.asp"
   },
   {
+    "type": "mc",
     "body": "What is a hedge fund?",
     "answer": "A hedge fund is an alternative investment vehicle that pools capital from accredited investors and employs various investment strategies to generate high returns. Unlike traditional investment funds, hedge funds have more flexibility in their investment approach and can invest in a wide range of assets, including stocks, bonds, derivatives, and commodities. Hedge funds often use leverage and derivatives to amplify returns, and they may employ hedging techniques to mitigate risk. These funds are typically only available to high-net-worth individuals and institutional investors.",
     "c1": "A hedge fund is a government program that provides financial assistance to low-income individuals.",
@@ -867,6 +936,7 @@
     "link": "https://www.investopedia.com/terms/d/drip.asp"
   },
   {
+    "type": "mc",
     "body": "What is a recession?",
     "answer": "A recession is a significant and widespread decline in economic activity over a sustained period. It is typically characterized by a contraction in gross domestic product (GDP), a decline in employment, and a slowdown in consumer spending. Recessions are part of the natural business cycle and can be caused by various factors, such as a financial crisis, a decline in consumer confidence, or a decrease in business investment. Recessions can have a significant impact on businesses, individuals, and the overall economy, often resulting in job losses, reduced income, and lower asset prices.",
     "c1": "A recession is a period of rapid economic growth and expansion.",
@@ -879,6 +949,7 @@
     "link": "https://www.investopedia.com/terms/r/recession.asp"
   },
   {
+    "type": "mc",
     "body": "What is market liquidity?",
     "answer": "Market liquidity refers to the ease with which a financial asset can be bought or sold without causing significant price movement. It is a measure of the market's ability to accommodate large trade volumes without disrupting the asset's price stability. Highly liquid markets have a large number of buyers and sellers, tight bid-ask spreads, and low transaction costs. Low liquidity can result in wider bid-ask spreads, higher transaction costs, and increased price volatility.",
     "c1": "Market liquidity refers to the financial strength of a company.",
@@ -891,6 +962,7 @@
     "link": "https://www.investopedia.com/terms/l/liquidity.asp"
   },
   {
+    "type": "mc",
     "body": "What is a capital adequacy ratio?",
     "answer": "A capital adequacy ratio is a measure of a bank's financial health and stability. It represents the proportion of a bank's capital to its risk-weighted assets, which are assets assigned different risk weights based on their credit risk. The capital adequacy ratio serves as a buffer against potential losses and indicates a bank's ability to absorb losses and meet its financial obligations. Regulatory authorities set minimum capital adequacy requirements to ensure banks maintain a sufficient capital base to withstand adverse economic conditions and protect depositors' funds.",
     "c1": "A capital adequacy ratio is a measure of a bank's profitability.",
@@ -903,6 +975,7 @@
     "link": "https://www.investopedia.com/terms/c/capital-adequacy-ratio.asp"
   },
   {
+    "type": "mc",
     "body": "What is systematic risk?",
     "answer": "Systematic risk, also known as market risk, is the risk inherent in the overall market or an entire market segment. It refers to the uncertainty and potential losses that can arise from factors that affect the entire market, such as economic recessions, political instability, interest rate changes, or natural disasters. Unlike unsystematic risk, which is specific to individual assets or companies, systematic risk cannot be eliminated through diversification. Investors can manage systematic risk through asset allocation, hedging strategies, or by diversifying their investments across different asset classes and geographic regions.",
     "c1": "Systematic risk is the risk associated with a specific company or asset.",
@@ -915,6 +988,7 @@
     "link": "https://www.investopedia.com/terms/s/systematicrisk.asp"
   },
   {
+    "type": "mc",
     "body": "What is a blue-chip stock?",
     "answer": "A blue-chip stock refers to shares of a large, well-established company with a history of stable earnings, strong financials, and a solid reputation. These companies are considered to be leaders in their respective industries and are known for their long track record of reliable performance. Blue-chip stocks are typically from well-known companies that have been operating for many years and have a significant market capitalization. They are often seen as a safe investment option and are favored by conservative investors seeking stable returns and dividend income.",
     "c1": "A blue-chip stock refers to shares of a startup company with high growth potential.",
@@ -927,6 +1001,7 @@
     "link": "https://www.investopedia.com/terms/b/bluechip.asp"
   },
   {
+    "type": "mc",
     "body": "What is a central bank?",
     "answer": "A central bank is an institution responsible for overseeing a country's monetary policy, regulating its banking system, and controlling the money supply. The primary objectives of a central bank are to maintain price stability, ensure the stability of the financial system, and support economic growth. Central banks have the authority to issue currency, set interest rates, act as a lender of last resort to banks, and conduct open market operations. They play a crucial role in managing inflation, stabilizing the economy, and maintaining confidence in the country's currency.",
     "c1": "A central bank is an institution responsible for overseeing fiscal policy.",
@@ -939,6 +1014,7 @@
     "link": "https://www.investopedia.com/terms/c/centralbank.asp"
   },
   {
+    "type": "mc",
     "body": "What is a mutual fund expense ratio?",
     "answer": "A mutual fund expense ratio is a measure of the total costs associated with owning shares in a mutual fund. It represents the percentage of a fund's assets that are used to cover various expenses, including management fees, administrative costs, and other operating expenses. The expense ratio is deducted from the fund's assets and directly impacts the returns received by investors. Lower expense ratios are generally preferred by investors as they result in higher net returns. Expense ratios vary among mutual funds and can depend on factors such as the fund's investment strategy, asset class, and management style.",
     "c1": "A mutual fund expense ratio is a measure of the fund's annual return.",
@@ -951,6 +1027,7 @@
     "link": "https://www.investopedia.com/terms/e/expenseratio.asp"
   },
   {
+    "type": "mc",
     "body": "What is the concept of risk management?",
     "answer": "Risk management refers to the process of identifying, assessing, and mitigating potential risks in order to minimize potential losses and protect assets. It involves evaluating the likelihood and impact of risks, implementing strategies to reduce or transfer risks, and monitoring and reviewing risk exposures on an ongoing basis. Risk management is crucial in various areas, including finance, insurance, project management, and investing. Effective risk management helps organizations and individuals make informed decisions, improve resilience, and safeguard against unexpected events or adverse outcomes.",
     "c1": "Risk management refers to the process of maximizing potential returns.",
@@ -963,6 +1040,7 @@
     "link": "https://www.investopedia.com/terms/r/riskmanagement.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stock market index?",
     "answer": "A stock market index is a statistical measure that tracks the performance of a specific group of stocks representing a particular market, sector, or asset class. It provides a snapshot of the overall market or a specific segment, allowing investors to gauge the performance and trends of the underlying stocks. Stock market indices are calculated using various methodologies, such as price-weighted, market capitalization-weighted, or equal-weighted methods. Examples of well-known stock market indices include the S&P 500, Dow Jones Industrial Average (DJIA), and Nasdaq Composite. They serve as benchmarks for comparing the performance of investment portfolios and measuring overall market sentiment.",
     "c1": "A stock market index is a measure of a company's profitability.",
@@ -975,6 +1053,7 @@
     "link": "https://www.investopedia.com/terms/s/stockmarketindex.asp"
   },
   {
+    "type": "mc",
     "body": "What is a stock market order?",
     "answer": "A stock market order is an instruction given by an investor to buy or sell a specific quantity of shares in a publicly traded company at the prevailing market price. It is an essential component of stock trading and represents the action taken by an investor to enter or exit a position in a particular stock. Common types of stock market orders include market orders, limit orders, stop orders, and stop-limit orders. The specific type of order chosen determines the conditions under which the trade will be executed, including the price at which the order will be filled.",
     "c1": "A stock market order is a contract between a buyer and a seller to exchange shares at a predetermined price.",

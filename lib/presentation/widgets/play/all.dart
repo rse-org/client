@@ -3,4 +3,5 @@ export 'game_screen.dart';
 export 'picker.dart';
 export 'progress_bar.dart';
 export 'spinner.dart';
-export 'setup_stepper.dart';
+export 'play_setup_screen.dart';
+export 'mc_chart_question.dart';

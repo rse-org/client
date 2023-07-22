@@ -2,71 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rse/all.dart';
 
-class SetupStepper extends StatefulWidget {
-  const SetupStepper({super.key});
+class PlaySetupScreen extends StatefulWidget {
+  const PlaySetupScreen({super.key});
 
   @override
-  State<SetupStepper> createState() => _SetupStepperState();
+  State<PlaySetupScreen> createState() => _PlaySetupScreenState();
 }
 
-class _SetupStepperState extends State<SetupStepper> {
+class _PlaySetupScreenState extends State<PlaySetupScreen> {
   int _index = 0;
   String cat = '';
   String diff = '';
-  bool chart = true;
   bool start = false;
-  List<Question> questions = [];
-  Question question = Question.defaultQuestion();
 
   @override
   void initState() {
     super.initState();
-    getQuestions();
-  }
-
-  getQuestions() async {
-    try {
-      // ignore: await_only_futures
-      final playService = await PlayService();
-      setState(() {
-        questions = playService.questions;
-        question = playService.questions[0];
-      });
-    } catch (e) {
-      debugPrint('Error: ${e.toString()}');
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
-    if (chart) {
-      return PlayChartScreen(
-        question: question,
-        onPress: () {
-          setState(
-            () {
-              chart = !chart;
-            },
-          );
-        },
-      );
-    }
+
     return Column(
       children: [
-        Row(
-          children: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  chart = !chart;
-                });
-              },
-              child: const Text('Play Charts 📈'),
-            )
-          ],
-        ),
         Stepper(
           currentStep: _index,
           controlsBuilder: (_, details) => stepController(l, details),
@@ -139,7 +99,7 @@ class _SetupStepperState extends State<SetupStepper> {
                 setState(() {
                   start = true;
                 });
-                await Future.delayed(const Duration(seconds: 3));
+                await Future.delayed(const Duration(seconds: 1));
                 startQuiz();
               }
             },
@@ -210,8 +170,8 @@ class _SetupStepperState extends State<SetupStepper> {
     return Text(l.please_choose_diff_cat);
   }
 
-  getDiff(l) => diff != '' ? '${l.difficulty}: $diff' : l.choose_difficulty;
   getCat(l) => cat != '' ? '${l.category}: $cat' : l.choose_category;
+  getDiff(l) => diff != '' ? '${l.difficulty}: $diff' : l.choose_difficulty;
 
   startQuiz() {
     logPlayStart();

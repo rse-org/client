@@ -1,6 +1,5 @@
 export 'asset_screen.dart';
 export 'home_screen.dart';
-export 'play_chart_screen.dart';
 export 'investing_summary_screen.dart';
 export 'notifications_screen.dart';
 export 'play_screen.dart';

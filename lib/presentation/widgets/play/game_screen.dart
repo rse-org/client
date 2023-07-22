@@ -11,21 +11,35 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   int idx = 0;
-  DateTime start = DateTime.now();
-
+  int qIdx = 0;
   List<Question> questions = [];
+  DateTime start = DateTime.now();
+  final playService = PlayService();
+  Question question = Question.defaultQuestion();
 
   @override
   void initState() {
     super.initState();
-    getQuestions();
     setScreenName('/play/game');
+    getQuestions();
+  }
+
+  getQuestions() async {
+    await playService.prepareQuiz();
+    try {
+      setState(() {
+        questions = playService.quizQuestions;
+      });
+    } catch (e) {
+      debugPrint('Error: ${e.toString()}');
+    }
   }
 
   onAnswer() {
     logPlayAnswerSelect();
     setState(() {
       idx += 1;
+      qIdx += 1;
     });
     if (idx + 1 == 11) {
       logPlayEnd(start);
@@ -33,20 +47,27 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  getQuestions() async {
-    try {
-      // ignore: await_only_futures
-      final playService = await PlayService();
-      setState(() {
-        questions = playService.questions;
-      });
-    } catch (e) {
-      debugPrint('Error: ${e.toString()}');
-    }
-  }
-
   buildQuestion(Question q, int i) {
     if (i != idx) return const SizedBox(width: 0, height: 0);
+    final prompt = Text(
+      '${i + 1} of 10',
+      style: TextStyle(
+        fontSize: 15,
+        decoration: TextDecoration.none,
+        color: Colors.white.withOpacity(0.6),
+      ),
+    );
+    if (q.type != 'mc') {
+      return MCChartQuestion(
+        prompt: prompt,
+        question: q,
+        nextQuestion: onAnswer,
+      );
+    }
+    return buildMCQuestion(q, i, prompt);
+  }
+
+  Expanded buildMCQuestion(Question q, int i, prompt) {
     List<Widget> answers = [
       buildAnswerButton(q.c1),
       buildAnswerButton(q.c2),
@@ -65,21 +86,13 @@ class _GameScreenState extends State<GameScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                prompt,
                 Text(
                   q.body,
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                     decoration: TextDecoration.none,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  '${i + 1} of 10',
-                  style: TextStyle(
-                    fontSize: 15,
-                    decoration: TextDecoration.none,
-                    color: Colors.white.withOpacity(0.6),
                   ),
                 ),
                 const SizedBox(height: 10),

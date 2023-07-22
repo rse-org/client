@@ -30,19 +30,19 @@ class PlayService {
   String category = '';
   List<Question> game = [];
   List<Question> questions = [];
+  List<Question> quizQuestions = [];
 
   PlayService() {
     loadQuestions();
-    prepareQuestions();
   }
 
-  prepareQuestions() async {
+  prepareQuiz() async {
     final mcQuestions = await loadQuestions();
     final chartQuestions = await getChartQuestions();
     mcQuestions.shuffle();
     chartQuestions.shuffle();
-    questions.addAll(mcQuestions.take(5).toList());
-    questions.addAll(chartQuestions.take(5).toList());
+    quizQuestions.addAll(mcQuestions.take(5).toList());
+    quizQuestions.addAll(chartQuestions.take(5).toList());
   }
 
   Future<List<Question>> loadQuestions() async {

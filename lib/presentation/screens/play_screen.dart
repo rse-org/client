@@ -30,7 +30,7 @@ class PlayScreenState extends State<PlayScreen> {
     return const SingleChildScrollView(
       child: Column(
         children: [
-          SetupStepper(),
+          PlaySetupScreen(),
         ],
       ),
     );
@@ -40,7 +40,7 @@ class PlayScreenState extends State<PlayScreen> {
     return const SingleChildScrollView(
       child: Column(
         children: [
-          SetupStepper(),
+          PlaySetupScreen(),
         ],
       ),
     );
