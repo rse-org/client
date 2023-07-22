@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:rse/all.dart';
 
@@ -41,8 +40,8 @@ class PlayService {
     final chartQuestions = await getChartQuestions();
     mcQuestions.shuffle();
     chartQuestions.shuffle();
-    quizQuestions.addAll(mcQuestions.take(1).toList());
-    quizQuestions.addAll(chartQuestions.take(1).toList());
+    quizQuestions.addAll(mcQuestions.take(5).toList());
+    quizQuestions.addAll(chartQuestions.take(5).toList());
   }
 
   Future<List<Question>> loadQuestions() async {

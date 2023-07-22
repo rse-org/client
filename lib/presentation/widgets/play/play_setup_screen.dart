@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:rse/all.dart';
 
 class PlaySetupScreen extends StatefulWidget {
@@ -24,9 +26,15 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   Widget build(BuildContext context) {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
+    const String assetName = 'assets/play-learn.svg';
 
     return Column(
       children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * .9,
+          height: MediaQuery.of(context).size.height * .2,
+          child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
+        ),
         Stepper(
           currentStep: _index,
           controlsBuilder: (_, details) => stepController(l, details),

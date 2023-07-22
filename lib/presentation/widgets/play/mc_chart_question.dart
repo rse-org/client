@@ -119,6 +119,7 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
             DefaultTextStyle(
               style: const TextStyle(
                 fontSize: 20,
+                color: Colors.white,
                 fontWeight: FontWeight.w100,
               ),
               child: Text(
