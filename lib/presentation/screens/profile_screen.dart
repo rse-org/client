@@ -88,7 +88,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               child: inputField(
                 context.l.first_name,
                 Icons.person,
-                'John',
+                'Charles',
                 formData.firstName,
                 (v) => formData.firstName = v,
               ),
@@ -97,7 +97,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               child: inputField(
                 context.l.last_name,
                 Icons.group,
-                'Doe',
+                'Lee',
                 formData.lastName,
                 (v) => formData.lastName = v,
               ),
@@ -107,7 +107,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         inputField(
           context.l.email,
           Icons.email,
-          'john@example.com',
+          'charles@school.com',
           formData.email,
           (v) => formData.email = v,
         ),

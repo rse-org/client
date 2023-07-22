@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,13 +34,16 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   @override
   void dispose() {
     myFocusNode.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    navigate() => context.go('/profile/settings');
+    navigate() {
+      BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+      context.go('/profile/settings');
+    }
+
     return AppBar(
       leading: _buildLeading(),
       title: _buildTitle(context),
@@ -64,9 +68,9 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
 
   Widget _buildSearchField(BuildContext c) {
     return TextField(
+      autofocus: true,
       focusNode: myFocusNode,
       controller: _searchQueryController,
-      autofocus: true,
       style: const TextStyle(fontSize: 16.0),
       onChanged: (q) => _updateSearchQuery(q),
       decoration: InputDecoration(
@@ -77,6 +81,18 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   }
 
   _buildTitleHelper(context) {
+    String title = 'Royal Stock Exchange';
+    switch (widget.tabIndex) {
+      case 1:
+        title = 'Investing';
+      case 2:
+        title = 'Play';
+      case 3:
+        title = 'Notifications';
+      case 4:
+        title = 'Profile';
+      default:
+    }
     return Consumer<ThemeModel>(
       builder: (context, themeModel, _) {
         return GestureDetector(
@@ -84,7 +100,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
           onLongPressStart: (details) {
             _handleLongPress(details, context);
           },
-          child: const Text('Royal Stock Exchange'),
+          child: Text(title),
         );
       },
     );
@@ -176,7 +192,7 @@ Widget renderAuthOptions(context) {
   return BlocConsumer<AuthBloc, AuthState>(
     listener: (context, state) {},
     builder: (context, state) {
-      if (state is Authenticated) {
+      if (FirebaseAuth.instance.currentUser != null) {
         return TextButton(
           onPressed: () {
             BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
@@ -259,10 +275,6 @@ void _showModal(BuildContext context) {
               BlocProvider.of<LangBloc>(context).changeLang('vi');
             },
             child: const Text('vi'),
-          ),
-          TextButton(
-            onPressed: () => throw Exception(),
-            child: const Text('Throw Test Exception'),
           ),
           TextButton(
             onPressed: () {

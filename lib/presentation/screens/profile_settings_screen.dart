@@ -14,8 +14,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Account Settings'),
-        leading: const ArrowBackButton(screenCode: '3-0', root: '/profile'),
+        title: const Text('Settings'),
+        leading: const ArrowBackButton(screenCode: '4-0', root: '/profile'),
       ),
       body: const Text('Hi'),
     );
