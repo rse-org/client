@@ -76,8 +76,7 @@ class DrawerState extends State<MyDrawer> {
           title: Text(context.l.send_feedback),
           onTap: () {
             if (isWeb) {
-              launchUrlString(
-                  'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform');
+              launchUrlString(feedbackFormUrl);
             } else {
               _dialogBuilder(context);
             }

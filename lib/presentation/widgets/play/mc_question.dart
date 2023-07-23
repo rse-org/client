@@ -56,7 +56,7 @@ class MCQuestion extends StatelessWidget {
     );
   }
 
-  // TODO: UI/UX - Make grid on web and column on web
+  // Todo: UI/UX - Make grid on web and column on web
   Widget buildAnswerButton(a) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),

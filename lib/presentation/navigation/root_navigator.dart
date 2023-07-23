@@ -21,14 +21,8 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// TODO: Use these decorations on comments & todos
-// ? How does this work?
-// ! Deprecated do not use
-// * Use comments with these decorators.
-// * They're helpful with VSCode better comments
-// * https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
+// Notes:  3. Explanation of navigation
 // A drawer wraps a bottom tab bar wraps nested stacks:
-
 // - Drawer:
 //   - Hamburger menu icon in app bar leading of all root bottom tab screens.
 //   - Hamburger icon press opens drawer.
@@ -109,6 +103,7 @@ class _AppState extends State<App> {
   }
 }
 
+// Notes: 4. Navigation configuration
 final goRouter = GoRouter(
   initialLocation: '/',
   // * Passing a navigatorKey causes an issue on hot reload:

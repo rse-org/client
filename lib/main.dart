@@ -10,12 +10,25 @@ import 'package:provider/provider.dart';
 import './firebase_options.dart';
 import 'all.dart';
 
+// Notes: 1. Review Todo Tree
+
+// https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+// Fix: Less than ideal fix but working.
+// Todo: Work to do later
+
+// Learn to use better comments as well.
+// https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
+// ! Very important
+// ? Not sure of something
+// * Decorators !, ?, *
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Notes: 2. Bloc entrypoint
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),

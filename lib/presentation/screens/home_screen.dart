@@ -14,6 +14,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // Fix: FB screen name breaks tests
     // ! For some reason this causes FB tests to fail.
     // ! The test for checking if FB is setup correctly.
     // ! Do not use until you know how to fix it.
