@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:rse/all.dart';
 
 part 'asset.freezed.dart';
@@ -16,6 +15,15 @@ class Asset with _$Asset {
     required Company company,
     required List<CandleStick> current,
   }) = _Asset;
+
+  factory Asset.defaultAsset() => Asset(
+        o: 0,
+        sym: '',
+        name: null,
+        current: [],
+        meta: Meta.defaultMeta(),
+        company: Company.defaultCompany(),
+      );
 
   factory Asset.fromJson(Map<String, dynamic> json) {
     final metaJson = json['meta'] as String;
@@ -34,13 +42,4 @@ class Asset with _$Asset {
       company: Company.fromJson(json['company']),
     );
   }
-
-  factory Asset.defaultAsset() => Asset(
-        o: 0,
-        sym: '',
-        name: null,
-        current: [],
-        meta: Meta.defaultMeta(),
-        company: Company.defaultCompany(),
-      );
 }

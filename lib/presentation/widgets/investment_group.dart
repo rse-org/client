@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class InvestmentGroup extends StatefulWidget {
   final int num;
@@ -29,69 +28,6 @@ class InvestmentGroupState extends State<InvestmentGroup> {
   late ActivationMode activationMode = ActivationMode.none;
 
   @override
-  void initState() {
-    super.initState();
-    sortedSecurities = widget.securities.mapIndexed((idx, s) =>
-      Investment(
-        idx: idx,
-        name: s.symbol,
-        value: s.price,
-        quantity: s.quantity,
-        totalValue: s.totalValue,
-        percentage: s.percentOfGroup,
-      ),
-    ).toList();
-  }
-
-  sortSecurities(List<Investment> newOrder, String field) {
-    setState(() {
-      _sortField = field;
-      sortedSecurities = newOrder;
-    });
-  }
-
-  void handleHover(int idx) {
-    setState(() {
-      explodeIdx = idx;
-      shouldExplode = true;
-      // activationMode = ActivationMode.singleTap;
-    });
-  }
-
-  void resetExplosion(int idx) {
-    setState(() {
-      explodeIdx = idx;
-      shouldExplode = false;
-      activationMode = ActivationMode.none;
-    });
-  }
-
-
-  getWidth() {
-    final width = MediaQuery.of(context).size.width;
-    if (isS(context)) {
-      return width *.4;
-    } else if (isM(context)) {
-      return width *.8;
-    } else if (isL(context)) {
-      return width *.7;
-    }
-    return width *.9;
-  }
-
-  getHeight() {
-    final height = MediaQuery.of(context).size.height;
-    if (isS(context)) {
-      return height *.4;
-    } else if (isM(context)) {
-      return height *.8;
-    } else if (isL(context)) {
-      return height *.7;
-    }
-    return height *.9;
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (isS(context) || isM(context)) {
       return Column(
@@ -105,20 +41,19 @@ class InvestmentGroupState extends State<InvestmentGroup> {
             hoveredRowIndex: hoveredRowIdx,
           ),
           SummaryTable(
-            num: widget.num,
-            title: widget.title,
-            items: sortedSecurities,
-            sortSecurities: sortSecurities,
-            onCategoryHover: (int idx) {
-              setState(() {
-                hoveredRowIdx = idx;
-              });
-              handleHover(idx);
-            },
-            onCategoryExit: (int idx) {
-              resetExplosion(idx);
-            }
-          ),
+              num: widget.num,
+              title: widget.title,
+              items: sortedSecurities,
+              sortSecurities: sortSecurities,
+              onCategoryHover: (int idx) {
+                setState(() {
+                  hoveredRowIdx = idx;
+                });
+                handleHover(idx);
+              },
+              onCategoryExit: (int idx) {
+                resetExplosion(idx);
+              }),
         ],
       );
     }
@@ -128,20 +63,19 @@ class InvestmentGroupState extends State<InvestmentGroup> {
         Expanded(
           flex: 3,
           child: SummaryTable(
-            num: widget.num,
-            title: widget.title,
-            items: sortedSecurities,
-            sortSecurities: sortSecurities,
-            onCategoryHover: (int idx) {
-              setState(() {
-                hoveredRowIdx = idx;
-              });
-              handleHover(idx);
-            },
-            onCategoryExit: (int idx) {
-              resetExplosion(idx);
-            }
-          ),
+              num: widget.num,
+              title: widget.title,
+              items: sortedSecurities,
+              sortSecurities: sortSecurities,
+              onCategoryHover: (int idx) {
+                setState(() {
+                  hoveredRowIdx = idx;
+                });
+                handleHover(idx);
+              },
+              onCategoryExit: (int idx) {
+                resetExplosion(idx);
+              }),
         ),
         Expanded(
           flex: 2,
@@ -156,5 +90,69 @@ class InvestmentGroupState extends State<InvestmentGroup> {
         ),
       ],
     );
+  }
+
+  getHeight() {
+    final height = MediaQuery.of(context).size.height;
+    if (isS(context)) {
+      return height * .4;
+    } else if (isM(context)) {
+      return height * .8;
+    } else if (isL(context)) {
+      return height * .7;
+    }
+    return height * .9;
+  }
+
+  getWidth() {
+    final width = MediaQuery.of(context).size.width;
+    if (isS(context)) {
+      return width * .4;
+    } else if (isM(context)) {
+      return width * .8;
+    } else if (isL(context)) {
+      return width * .7;
+    }
+    return width * .9;
+  }
+
+  void handleHover(int idx) {
+    setState(() {
+      explodeIdx = idx;
+      shouldExplode = true;
+      // activationMode = ActivationMode.singleTap;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    sortedSecurities = widget.securities
+        .mapIndexed(
+          (idx, s) => Investment(
+            idx: idx,
+            name: s.symbol,
+            value: s.price,
+            quantity: s.quantity,
+            totalValue: s.totalValue,
+            percentage: s.percentOfGroup,
+          ),
+        )
+        .toList();
+  }
+
+  void resetExplosion(int idx) {
+    setState(() {
+      explodeIdx = idx;
+      shouldExplode = false;
+      activationMode = ActivationMode.none;
+    });
+  }
+
+  sortSecurities(List<Investment> newOrder, String field) {
+    setState(() {
+      _sortField = field;
+      sortedSecurities = newOrder;
+    });
   }
 }

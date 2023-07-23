@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
-
+import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 final fakerFa = Faker(provider: FakerDataProviderFa());

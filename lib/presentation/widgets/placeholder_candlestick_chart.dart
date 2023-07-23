@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'package:rse/all.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PlaceholderCandleStickChart extends StatelessWidget {
   final double low;
   final double high;
-  const PlaceholderCandleStickChart({super.key, required this.low, required this.high});
+  const PlaceholderCandleStickChart(
+      {super.key, required this.low, required this.high});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,7 @@ class PlaceholderCandleStickChart extends StatelessWidget {
             highValueMapper: (CandleStick d, _) => high,
             openValueMapper: (CandleStick d, _) => d.o,
             closeValueMapper: (CandleStick d, _) => d.c,
-            xValueMapper: (CandleStick d, int index) => index.toString()
-        ),
+            xValueMapper: (CandleStick d, int index) => index.toString()),
       ],
     );
   }

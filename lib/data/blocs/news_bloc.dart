@@ -1,13 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:rse/data/all.dart';
-
-abstract class NewsEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
 
 class FetchNews extends NewsEvent {
   final List<NewsArticle> articles;
@@ -16,23 +10,6 @@ class FetchNews extends NewsEvent {
 
   @override
   List<Object?> get props => [articles];
-}
-
-abstract class NewsState {}
-
-class NewsInitial extends NewsState {
-}
-
-class NewsLoaded extends NewsState {
-  final List<NewsArticle> articles;
-
-  NewsLoaded(this.articles);
-}
-
-class NewsError extends NewsState {
-  final dynamic error;
-
-  NewsError(this.error);
 }
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
@@ -52,3 +29,24 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
   }
 }
+
+class NewsError extends NewsState {
+  final dynamic error;
+
+  NewsError(this.error);
+}
+
+abstract class NewsEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class NewsInitial extends NewsState {}
+
+class NewsLoaded extends NewsState {
+  final List<NewsArticle> articles;
+
+  NewsLoaded(this.articles);
+}
+
+abstract class NewsState {}

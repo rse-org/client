@@ -10,181 +10,24 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 
-class AppBarWithSearch extends StatefulWidget {
-  final int tabIndex;
-
-  const AppBarWithSearch({super.key, required this.tabIndex});
-
-  @override
-  State<AppBarWithSearch> createState() => _AppBarWithSearchState();
+Future<String> getBuildString() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageName = packageInfo.packageName;
+    return packageName;
+  } on Exception catch (_) {
+    return '';
+  }
 }
 
-class _AppBarWithSearchState extends State<AppBarWithSearch> {
-  bool _isSearching = false;
-  late FocusNode myFocusNode;
-  String searchQuery = 'Search query';
-  final TextEditingController _searchQueryController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    myFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    myFocusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    navigate() {
-      BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
-      context.go('/profile/settings');
-    }
-
-    return AppBar(
-      leading: _buildLeading(),
-      title: _buildTitle(context),
-      actions: _buildActions(context, navigate),
-    );
-  }
-
-  _buildLeading() {
-    return IconButton(
-      icon: const Icon(Icons.menu),
-      onPressed: () {
-        Scaffold.of(context).openDrawer();
-      },
-    );
-  }
-
-  _buildTitle(BuildContext context) {
-    return _isSearching
-        ? _buildSearchField(context)
-        : _buildTitleHelper(context);
-  }
-
-  Widget _buildSearchField(BuildContext c) {
-    return TextField(
-      autofocus: true,
-      focusNode: myFocusNode,
-      controller: _searchQueryController,
-      style: const TextStyle(fontSize: 16.0),
-      onChanged: (q) => _updateSearchQuery(q),
-      decoration: InputDecoration(
-        hintText: c.l.search_assets,
-        border: InputBorder.none,
-      ),
-    );
-  }
-
-  _buildTitleHelper(context) {
-    String title = 'Royal Stock Exchange';
-    switch (widget.tabIndex) {
-      case 1:
-        title = 'Investing';
-      case 2:
-        title = 'Play';
-      case 3:
-        title = 'Notifications';
-      case 4:
-        title = 'Profile';
-      default:
-    }
-    return Consumer<ThemeModel>(
-      builder: (context, themeModel, _) {
-        return GestureDetector(
-          onDoubleTap: themeModel.toggleTheme,
-          onLongPressStart: (details) {
-            _handleLongPress(details, context);
-          },
-          child: Text(title),
-        );
-      },
-    );
-  }
-
-  List<Widget> _buildActions(context, navigate) {
-    if (widget.tabIndex == 2) {
-      return <Widget>[
-        IconButton(
-          icon: const Icon(Icons.switch_left),
-          onPressed: () {
-            // BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
-            // navigate();
-          },
-        ),
-      ];
-    }
-
-    if (widget.tabIndex == 4) {
-      return <Widget>[
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () {
-            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
-            navigate();
-          },
-        ),
-      ];
-    }
-
-    if (_isSearching) {
-      return <Widget>[
-        IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: () {
-            if (_searchQueryController.text.isEmpty) {
-              Navigator.pop(context);
-              return;
-            }
-            _clearSearchQuery();
-          },
-        ),
-      ];
-    }
-
-    return <Widget>[
-      IconButton(
-        icon: const Icon(Icons.search),
-        onPressed: () {
-          myFocusNode.requestFocus();
-          _startSearch();
-        },
-      ),
-    ];
-  }
-
-  void _startSearch() {
-    ModalRoute.of(context)
-        ?.addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
-
-    setState(() {
-      _isSearching = true;
-    });
-  }
-
-  void _updateSearchQuery(String newQuery) {
-    setState(() {
-      searchQuery = newQuery;
-    });
-  }
-
-  void _stopSearching() {
-    _clearSearchQuery();
-
-    setState(() {
-      _isSearching = false;
-    });
-  }
-
-  void _clearSearchQuery() {
-    setState(() {
-      _searchQueryController.clear();
-      _updateSearchQuery('');
-    });
+Future<String> getVersionId() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return '$version: $buildNumber';
+  } on Exception catch (_) {
+    return '';
   }
 }
 
@@ -226,25 +69,8 @@ Widget renderAuthOptions(context) {
   );
 }
 
-Future<String> getBuildString() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final packageName = packageInfo.packageName;
-    return packageName;
-  } on Exception catch (_) {
-    return '';
-  }
-}
-
-Future<String> getVersionId() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-    return '$version: $buildNumber';
-  } on Exception catch (_) {
-    return '';
-  }
+void _handleLongPress(LongPressStartDetails details, context) {
+  _showModal(context);
 }
 
 void _showModal(BuildContext context) {
@@ -335,6 +161,180 @@ void _showModal(BuildContext context) {
   );
 }
 
-void _handleLongPress(LongPressStartDetails details, context) {
-  _showModal(context);
+class AppBarWithSearch extends StatefulWidget {
+  final int tabIndex;
+
+  const AppBarWithSearch({super.key, required this.tabIndex});
+
+  @override
+  State<AppBarWithSearch> createState() => _AppBarWithSearchState();
+}
+
+class _AppBarWithSearchState extends State<AppBarWithSearch> {
+  bool _isSearching = false;
+  late FocusNode myFocusNode;
+  String searchQuery = 'Search query';
+  final TextEditingController _searchQueryController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    navigate() {
+      BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+      context.go('/profile/settings');
+    }
+
+    return AppBar(
+      leading: _buildLeading(),
+      title: _buildTitle(context),
+      actions: _buildActions(context, navigate),
+    );
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  List<Widget> _buildActions(context, navigate) {
+    if (widget.tabIndex == 2) {
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.switch_left),
+          onPressed: () {
+            // BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
+            // navigate();
+          },
+        ),
+      ];
+    }
+
+    if (widget.tabIndex == 4) {
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+            navigate();
+          },
+        ),
+      ];
+    }
+
+    if (_isSearching) {
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            if (_searchQueryController.text.isEmpty) {
+              Navigator.pop(context);
+              return;
+            }
+            _clearSearchQuery();
+          },
+        ),
+      ];
+    }
+
+    return <Widget>[
+      IconButton(
+        icon: const Icon(Icons.search),
+        onPressed: () {
+          myFocusNode.requestFocus();
+          _startSearch();
+        },
+      ),
+    ];
+  }
+
+  _buildLeading() {
+    return IconButton(
+      icon: const Icon(Icons.menu),
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
+    );
+  }
+
+  Widget _buildSearchField(BuildContext c) {
+    return TextField(
+      autofocus: true,
+      focusNode: myFocusNode,
+      controller: _searchQueryController,
+      style: const TextStyle(fontSize: 16.0),
+      onChanged: (q) => _updateSearchQuery(q),
+      decoration: InputDecoration(
+        hintText: c.l.search_assets,
+        border: InputBorder.none,
+      ),
+    );
+  }
+
+  _buildTitle(BuildContext context) {
+    return _isSearching
+        ? _buildSearchField(context)
+        : _buildTitleHelper(context);
+  }
+
+  _buildTitleHelper(context) {
+    String title = 'Royal Stock Exchange';
+    switch (widget.tabIndex) {
+      case 1:
+        title = 'Investing';
+      case 2:
+        title = 'Play';
+      case 3:
+        title = 'Notifications';
+      case 4:
+        title = 'Profile';
+      default:
+    }
+    return Consumer<ThemeModel>(
+      builder: (context, themeModel, _) {
+        return GestureDetector(
+          onDoubleTap: themeModel.toggleTheme,
+          onLongPressStart: (details) {
+            _handleLongPress(details, context);
+          },
+          child: Text(title),
+        );
+      },
+    );
+  }
+
+  void _clearSearchQuery() {
+    setState(() {
+      _searchQueryController.clear();
+      _updateSearchQuery('');
+    });
+  }
+
+  void _startSearch() {
+    ModalRoute.of(context)
+        ?.addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
+
+    setState(() {
+      _isSearching = true;
+    });
+  }
+
+  void _stopSearching() {
+    _clearSearchQuery();
+
+    setState(() {
+      _isSearching = false;
+    });
+  }
+
+  void _updateSearchQuery(String newQuery) {
+    setState(() {
+      searchQuery = newQuery;
+    });
+  }
 }

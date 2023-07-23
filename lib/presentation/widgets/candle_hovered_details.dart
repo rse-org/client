@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:rse/all.dart';
 
 class CandleHoveredDetails extends StatelessWidget {
@@ -8,21 +7,21 @@ class CandleHoveredDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChartBloc, ChartState>(
-      builder: (context, state) {
-        if (state is ChartUpdateSuccess) {
-          return buildCandleItem(context, state.chart.candle);
-        } else if (state is ChartFocusSuccess) {
-          return buildCandleItem(context, state.chart.candle);
-        } else {
-          return const SizedBox();
-        }
+    return BlocBuilder<ChartBloc, ChartState>(builder: (context, state) {
+      if (state is ChartUpdateSuccess) {
+        return buildCandleItem(context, state.chart.candle);
+      } else if (state is ChartFocusSuccess) {
+        return buildCandleItem(context, state.chart.candle);
+      } else {
+        return const SizedBox();
       }
-    );
+    });
   }
 
   buildCandleItem(context, c) {
-    final alignment = isS(context) || isM(context) ? MainAxisAlignment.spaceAround : MainAxisAlignment.center;
+    final alignment = isS(context) || isM(context)
+        ? MainAxisAlignment.spaceAround
+        : MainAxisAlignment.center;
     return Row(
       mainAxisAlignment: alignment,
       children: [

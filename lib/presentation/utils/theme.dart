@@ -1,30 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:ui';
-import 'package:flutter/material.dart';
 
-final lightTheme = ThemeData(
-  brightness: Brightness.light,
-  indicatorColor: Colors.black,
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Colors.white,
-    foregroundColor: Colors.black,
-    titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
-  ),
-  colorScheme: const ColorScheme.light(
-    outline: Colors.grey,
-    primary: Colors.green,
-    primaryContainer: Colors.white,
-    onPrimaryContainer: Colors.white,
-    inversePrimary: Colors.black,
-    secondary: Color(0xFF227C9D),
-    tertiary: Color(0xFF30BFBF),
-    onError: Color(0xFFC62828),
-    onErrorContainer: Color(0xFFC62828),
-    surface: Colors.white,
-    secondaryContainer: Colors.white,
-  ),
-);
+import 'package:flutter/material.dart';
 
 final darkTheme = ThemeData(
   brightness: Brightness.dark,
@@ -49,6 +27,34 @@ final darkTheme = ThemeData(
     secondaryContainer: Colors.black38,
   ),
 );
+
+final lightTheme = ThemeData(
+  brightness: Brightness.light,
+  indicatorColor: Colors.black,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.black,
+    titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
+  ),
+  colorScheme: const ColorScheme.light(
+    outline: Colors.grey,
+    primary: Colors.green,
+    primaryContainer: Colors.white,
+    onPrimaryContainer: Colors.white,
+    inversePrimary: Colors.black,
+    secondary: Color(0xFF227C9D),
+    tertiary: Color(0xFF30BFBF),
+    onError: Color(0xFFC62828),
+    onErrorContainer: Color(0xFFC62828),
+    surface: Colors.white,
+    secondaryContainer: Colors.white,
+  ),
+);
+
+bool isDarkMode(BuildContext context) {
+  final theme = Theme.of(context).brightness;
+  return theme == Brightness.dark;
+}
 
 Color T(BuildContext context, String key) {
   final colorScheme = Theme.of(context).colorScheme;
@@ -84,30 +90,25 @@ Color T(BuildContext context, String key) {
 class ThemeModel with ChangeNotifier {
   bool _isDarkMode = window.platformBrightness == Brightness.dark;
 
-  bool get isDarkMode => _isDarkMode;
-
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
-  }
-
   ThemeModel() {
     window.onPlatformBrightnessChanged = _handleBrightnessChange;
   }
 
-  void _handleBrightnessChange() {
-    _isDarkMode = window.platformBrightness == Brightness.dark;
-    notifyListeners();
-  }
+  bool get isDarkMode => _isDarkMode;
 
   @override
   void dispose() {
     window.onPlatformBrightnessChanged = null;
     super.dispose();
   }
-}
 
-bool isDarkMode(BuildContext context) {
-  final theme = Theme.of(context).brightness;
-  return theme == Brightness.dark;
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+
+  void _handleBrightnessChange() {
+    _isDarkMode = window.platformBrightness == Brightness.dark;
+    notifyListeners();
+  }
 }

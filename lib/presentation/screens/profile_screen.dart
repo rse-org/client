@@ -1,8 +1,42 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-
 import 'package:rse/all.dart';
+
+List<Item> items = [
+  Item(
+    headerValue: 'Bank Of America',
+    expandedValue: 'This is item number.',
+  ),
+  Item(
+    headerValue: 'Wells Fargo',
+    expandedValue: 'This is item number.',
+  ),
+  Item(
+    headerValue: 'Chase',
+    expandedValue: 'This is item number.',
+  ),
+];
+
+class ExpansionPanelListExample extends StatefulWidget {
+  const ExpansionPanelListExample({super.key});
+
+  @override
+  State<ExpansionPanelListExample> createState() =>
+      _ExpansionPanelListExampleState();
+}
+
+class Item {
+  bool isExpanded;
+
+  String headerValue;
+  String expandedValue;
+  Item({
+    this.isExpanded = false,
+    required this.headerValue,
+    required this.expandedValue,
+  });
+}
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,12 +49,6 @@ class ProfileScreenState extends State<ProfileScreen> {
   ProfileForm formData = ProfileForm();
 
   @override
-  void initState() {
-    super.initState();
-    setScreenName('/profile');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
@@ -30,22 +58,13 @@ class ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  mobile(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          buildForm(context),
-          const SizedBox(height: 20),
-          buildBankAccounts(context),
-          const ExpansionPanelListExample(),
-          const SizedBox(height: 100),
-        ],
-      ),
+  buildBankAccount(context, index) {
+    return const ListTile(
+      leading: Icon(Icons.account_balance),
+      title: Text('Bank of America'),
+      subtitle: Text('Checking'),
+      trailing: Icon(Icons.edit),
     );
-  }
-
-  Widget desktop(BuildContext context) {
-    return const SizedBox();
   }
 
   buildBankAccounts(BuildContext context) {
@@ -67,15 +86,6 @@ class ProfileScreenState extends State<ProfileScreen> {
           },
         ),
       ],
-    );
-  }
-
-  buildBankAccount(context, index) {
-    return const ListTile(
-      leading: Icon(Icons.account_balance),
-      title: Text('Bank of America'),
-      subtitle: Text('Checking'),
-      trailing: Icon(Icons.edit),
     );
   }
 
@@ -170,6 +180,16 @@ class ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget desktop(BuildContext context) {
+    return const SizedBox();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/profile');
+  }
+
   Widget inputField(label, icon, hint, value, Function(String) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
@@ -192,6 +212,20 @@ class ProfileScreenState extends State<ProfileScreen> {
           }
           return null;
         },
+      ),
+    );
+  }
+
+  mobile(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildForm(context),
+          const SizedBox(height: 20),
+          buildBankAccounts(context),
+          const ExpansionPanelListExample(),
+          const SizedBox(height: 100),
+        ],
       ),
     );
   }
@@ -230,41 +264,6 @@ class ProfileScreenState extends State<ProfileScreen> {
       p(formData);
     }
   }
-}
-
-class Item {
-  Item({
-    this.isExpanded = false,
-    required this.headerValue,
-    required this.expandedValue,
-  });
-
-  bool isExpanded;
-  String headerValue;
-  String expandedValue;
-}
-
-List<Item> items = [
-  Item(
-    headerValue: 'Bank Of America',
-    expandedValue: 'This is item number.',
-  ),
-  Item(
-    headerValue: 'Wells Fargo',
-    expandedValue: 'This is item number.',
-  ),
-  Item(
-    headerValue: 'Chase',
-    expandedValue: 'This is item number.',
-  ),
-];
-
-class ExpansionPanelListExample extends StatefulWidget {
-  const ExpansionPanelListExample({super.key});
-
-  @override
-  State<ExpansionPanelListExample> createState() =>
-      _ExpansionPanelListExampleState();
 }
 
 class _ExpansionPanelListExampleState extends State<ExpansionPanelListExample> {

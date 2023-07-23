@@ -18,20 +18,19 @@ class Company with _$Company {
     required String desc,
   }) = _Company;
 
+  factory Company.defaultCompany() => Company(
+        ec: 0,
+        id: 0,
+        hq: '',
+        eh: '',
+        sym: '',
+        ceo: '',
+        name: '',
+        desc: '',
+        industry: '',
+        f: DateTime(1900, 1, 1),
+      );
+
   factory Company.fromJson(Map<String, dynamic> json) =>
       _$CompanyFromJson(json);
-
-  factory Company.defaultCompany() => Company(
-    ec: 0,
-    id: 0,
-    hq: '',
-    eh: '',
-    sym: '',
-    ceo: '',
-    name: '',
-    desc: '',
-    industry: '',
-    f: DateTime(1900, 1, 1),
-  );
 }
-

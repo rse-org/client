@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class IndicatorItem extends StatelessWidget {
@@ -7,17 +6,6 @@ class IndicatorItem extends StatelessWidget {
   final double price;
 
   const IndicatorItem(this.price, this.title, {super.key});
-
-  getTextSize(context) {
-    if (isS(context)) {
-      return 10.0;
-    } else if (isM(context)) {
-      return 10.0;
-    } else if (isL(context)) {
-      return 16.0;
-    }
-    return 16.0;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +19,10 @@ class IndicatorItem extends StatelessWidget {
             Text(title),
             Text(
               formatMoney(price.toString()),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: getTextSize(context),),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: getTextSize(context),
+              ),
             ),
           ],
         ),
@@ -45,10 +36,22 @@ class IndicatorItem extends StatelessWidget {
           Text(title),
           Text(
             formatMoney(price.toString()),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: getTextSize(context)),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: getTextSize(context)),
           ),
         ],
       ),
     );
+  }
+
+  getTextSize(context) {
+    if (isS(context)) {
+      return 10.0;
+    } else if (isM(context)) {
+      return 10.0;
+    } else if (isL(context)) {
+      return 16.0;
+    }
+    return 16.0;
   }
 }

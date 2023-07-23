@@ -1,6 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rse/all.dart';
 
 part 'question.freezed.dart';
@@ -23,6 +22,21 @@ class Question with _$Question {
     @Default([]) List<String>? explanationBank,
   }) = _Question;
 
+  factory Question.defaultQuestion() => Question(
+        sym: '',
+        data: [],
+        newData: [],
+        context: '',
+        body: '',
+        answer: '',
+        explanation: '',
+        answerBank: ['', '', '', ''],
+        explanationBank: ['', '', '', ''],
+        type: '',
+        c1: '',
+        c2: '',
+        c3: '',
+      );
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       body: json['body'] as String,
@@ -40,19 +54,4 @@ class Question with _$Question {
       explanationBank: json['explanationBank'] as List<String>?,
     );
   }
-  factory Question.defaultQuestion() => Question(
-        sym: '',
-        data: [],
-        newData: [],
-        context: '',
-        body: '',
-        answer: '',
-        explanation: '',
-        answerBank: ['', '', '', ''],
-        explanationBank: ['', '', '', ''],
-        type: '',
-        c1: '',
-        c2: '',
-        c3: '',
-      );
 }

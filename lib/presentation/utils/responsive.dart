@@ -1,5 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+const bool isWeb = kIsWeb;
+
+bool isL(BuildContext context) {
+  return MediaQuery.of(context).size.width <= 1366;
+}
+
+bool isM(BuildContext context) {
+  return MediaQuery.of(context).size.width <= 820;
+}
+
+bool isS(BuildContext context) {
+  return MediaQuery.of(context).size.width <= 431;
+}
+
+bool isXL(BuildContext context) {
+  return MediaQuery.of(context).size.width > 1366;
+}
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobile;
@@ -45,22 +63,4 @@ class ResponsiveLayout extends StatelessWidget {
       },
     );
   }
-}
-
-const bool isWeb = kIsWeb;
-
-bool isS(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 431;
-}
-
-bool isM(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 820;
-}
-
-bool isL(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 1366;
-}
-
-bool isXL(BuildContext context) {
-  return MediaQuery.of(context).size.width > 1366;
 }

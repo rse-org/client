@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:rse/all.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChart extends StatefulWidget {
   const LineChart({super.key});
@@ -13,21 +12,6 @@ class LineChart extends StatefulWidget {
 
 class LineChartState extends State<LineChart> {
   TrackballBehavior? _trackballBehavior;
-
-  @override
-  void initState() {
-    super.initState();
-    _trackballBehavior = TrackballBehavior(
-      enable: true,
-      lineWidth: 1,
-      shouldAlwaysShow: true,
-      lineDashArray: const [5, 5],
-      lineType: TrackballLineType.vertical,
-      tooltipAlignment: ChartAlignment.near,
-      activationMode: ActivationMode.singleTap,
-      tooltipSettings: const InteractiveTooltip(enable: false),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +81,21 @@ class LineChartState extends State<LineChart> {
           const PeriodSelector(),
         ],
       ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _trackballBehavior = TrackballBehavior(
+      enable: true,
+      lineWidth: 1,
+      shouldAlwaysShow: true,
+      lineDashArray: const [5, 5],
+      lineType: TrackballLineType.vertical,
+      tooltipAlignment: ChartAlignment.near,
+      activationMode: ActivationMode.singleTap,
+      tooltipSettings: const InteractiveTooltip(enable: false),
     );
   }
 

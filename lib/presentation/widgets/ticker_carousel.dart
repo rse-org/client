@@ -6,16 +6,91 @@ class Carousel extends StatefulWidget {
   const Carousel({super.key, required this.tickers});
 
   @override
-  CarouselState createState() =>
-      CarouselState();
+  CarouselState createState() => CarouselState();
 }
 
-class CarouselState
-    extends State<Carousel>
+class CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   late Animation<Offset> _animation;
   late AnimationController _animationController;
   late GlobalKey _tickerBarKey; // Added GlobalKey declaration
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 70,
+      width: double.infinity,
+      child: ClipRect(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (BuildContext context, Widget? child) {
+              return SlideTransition(
+                position: _animation,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    key: _tickerBarKey,
+                    children: widget.tickers.map((ticker) {
+                      MaterialColor color = getIndicationColor(ticker);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              ticker.name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 10),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Icon(
+                                  getArrow(ticker),
+                                  size: 16.0,
+                                  color: color,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  ticker.pointsUpDown.toStringAsFixed(2),
+                                  style: TextStyle(color: color, fontSize: 10),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '(${ticker.percentage.toStringAsFixed(2)}%)',
+                                  style: TextStyle(color: color, fontSize: 10),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  IconData getArrow(Ticker t) {
+    return t.pointsUpDown >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
+  }
+
+  MaterialColor getIndicationColor(Ticker t) {
+    return t.pointsUpDown >= 0 ? Colors.green : Colors.red;
+  }
 
   @override
   void initState() {
@@ -54,90 +129,16 @@ class CarouselState
 
     _animationController.forward();
   }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 70,
-      width: double.infinity,
-      child: ClipRect(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (BuildContext context, Widget? child) {
-              return SlideTransition(
-                position: _animation,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    key: _tickerBarKey,
-                    children: widget.tickers.map((ticker) {
-                      MaterialColor color = getIndicationColor(ticker);
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              ticker.name,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Icon(
-                                  getArrow(ticker),
-                                  size: 16.0,
-                                  color: color,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  ticker.pointsUpDown.toStringAsFixed(2),
-                                  style: TextStyle(
-                                    color: color,
-                                    fontSize: 10
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '(${ticker.percentage.toStringAsFixed(2)}%)',
-                                  style: TextStyle(
-                                    color: color,
-                                    fontSize: 10
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  IconData getArrow(Ticker t) {
-    return t.pointsUpDown >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
-  }
-
-  MaterialColor getIndicationColor(Ticker t) {
-    return t.pointsUpDown >= 0 ? Colors.green : Colors.red;
-  }
 }
 
+class Ticker {
+  final String name;
+  final double price;
+  final double pointsUpDown;
+  final double percentage;
+
+  Ticker(this.name, this.price, this.pointsUpDown, this.percentage);
+}
 
 class TickerCarousel extends StatefulWidget {
   const TickerCarousel({super.key});
@@ -177,13 +178,4 @@ class TickerCarouselState extends State<TickerCarousel> {
   Widget build(BuildContext context) {
     return Carousel(tickers: tickers);
   }
-}
-
-class Ticker {
-  final String name;
-  final double price;
-  final double pointsUpDown;
-  final double percentage;
-
-  Ticker(this.name, this.price, this.pointsUpDown, this.percentage);
 }

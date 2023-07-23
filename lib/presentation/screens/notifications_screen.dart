@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    setScreenName('/notifications');
-    return Scaffold(
-      body: ResponsiveLayout(
-        mobile: buildMobile(context),
-        desktop: buildDesktop(context),
-      ),
-    );
-  }
 
   allNotifications(BuildContext context) {
     return Expanded(
@@ -50,6 +38,33 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    setScreenName('/notifications');
+    return Scaffold(
+      body: ResponsiveLayout(
+        mobile: buildMobile(context),
+        desktop: buildDesktop(context),
+      ),
+    );
+  }
+
+  buildDesktop(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            allNotifications(context),
+            securityNotifications(context),
+          ],
+        ),
       ),
     );
   }
@@ -95,22 +110,6 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  buildDesktop(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            allNotifications(context),
-            securityNotifications(context),
-          ],
-        ),
       ),
     );
   }

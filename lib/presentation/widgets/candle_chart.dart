@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'package:rse/all.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CandleChart extends StatefulWidget {
   const CandleChart({Key? key}) : super(key: key);
@@ -15,12 +14,6 @@ class CandleChartState extends State<CandleChart> {
   late CandleStick? hoveredCandle;
   late ZoomPanBehavior _zoomPanBehavior;
   late TrackballBehavior _trackballBehavior;
-
-  @override
-  void initState() {
-    hoveredCandle = CandleStick.defaultCandleStick();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +98,12 @@ class CandleChartState extends State<CandleChart> {
         const PeriodSelector(),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    hoveredCandle = CandleStick.defaultCandleStick();
+    super.initState();
   }
 
   void _setupTheme(BuildContext context) {

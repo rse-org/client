@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'package:rse/all.dart';
 
 part 'chart.freezed.dart';
@@ -21,16 +20,16 @@ class Chart with _$Chart {
   }) = _Chart;
 
   factory Chart.defaultChart() => Chart(
-    time: '',
-    sym: '',
-    xOffSet: 0,
-    type: '',
-    startValue: 0,
-    latestValue: 0,
-    period: '',
-    focusedValue: 0,
-    candleSeries: [],
-    candle: CandleStick.defaultCandleStick(),
-    data: [DataPoint.defaultDataPoint()],
-  );
+        time: '',
+        sym: '',
+        xOffSet: 0,
+        type: '',
+        startValue: 0,
+        latestValue: 0,
+        period: '',
+        focusedValue: 0,
+        candleSeries: [],
+        candle: CandleStick.defaultCandleStick(),
+        data: [DataPoint.defaultDataPoint()],
+      );
 }

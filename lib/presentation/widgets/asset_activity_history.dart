@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class AssetActivityHistory extends StatelessWidget {
@@ -11,7 +10,8 @@ class AssetActivityHistory extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l.history, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text(context.l.history,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const Divider(),
         SizedBox(
           height: 100,

@@ -1,4 +1,4 @@
-export 'drawer.dart';
-export 'navbar_icons.dart';
-export 'bottom_navbar.dart';
-export 'root_navigator.dart';
+export 'bottom_nav.dart';
+export 'drawer_nav.dart';
+export 'root_nav.dart';
+export 'routes.dart';

@@ -13,14 +13,14 @@ class CandleStick with _$CandleStick {
     required String time,
   }) = _CandleStick;
 
+  factory CandleStick.defaultCandleStick() => CandleStick(
+        l: 0,
+        o: 0,
+        h: 0,
+        c: 0,
+        time: '',
+      );
+
   factory CandleStick.fromJson(Map<String, dynamic> j) =>
       _$CandleStickFromJson(j);
-
-  factory CandleStick.defaultCandleStick() => CandleStick(
-    l: 0,
-    o: 0,
-    h: 0,
-    c: 0,
-    time: '',
-  );
 }

@@ -5,12 +5,12 @@ part 'data_point.freezed.dart';
 @freezed
 class DataPoint with _$DataPoint {
   factory DataPoint(
-      String x,
-      double y,
-      ) = _DataPoint;
+    String x,
+    double y,
+  ) = _DataPoint;
 
   factory DataPoint.defaultDataPoint() => DataPoint(
-    '',
-    0,
-  );
+        '',
+        0,
+      );
 }

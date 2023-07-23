@@ -1,22 +1,9 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:rse/all.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
-  Future<void> saveData(String key, String value,
-      {bool overwrite = true}) async {
-    final prefs = await SharedPreferences.getInstance();
-    if (overwrite || !prefs.containsKey(key)) {
-      await prefs.setString(key, value);
-    }
-  }
-
-  Future<String?> loadData(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }
-
   Future<List<NewsArticle>> getCachedArticles() async {
     var data = await loadData('articles');
 
@@ -32,10 +19,18 @@ class LocalStorageService {
     return [];
   }
 
-  List<NewsArticle> _mapArticlesFromData(dynamic data) {
-    return (data as List<dynamic>)
-        .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
-        .toList();
+  Future<Asset> getCachedAsset(String symbol, period) async {
+    symbol = symbol.toLowerCase();
+    var data = await loadData('$symbol-$period');
+    if (data != null && data.isNotEmpty) {
+      return Asset.fromJson(jsonDecode(data));
+    } else {
+      final d = await loadJsonFile('assets/$symbol-$period.json');
+      if (d != null && d.isNotEmpty) {
+        return Asset.fromJson(d as Map<String, dynamic>);
+      }
+    }
+    return Asset.defaultAsset();
   }
 
   Future<Portfolio> getCachedPortfolio(period) async {
@@ -52,17 +47,22 @@ class LocalStorageService {
     return Portfolio.defaultPortfolio();
   }
 
-  Future<Asset> getCachedAsset(String symbol, period) async {
-    symbol = symbol.toLowerCase();
-    var data = await loadData('$symbol-$period');
-    if (data != null && data.isNotEmpty) {
-      return Asset.fromJson(jsonDecode(data));
-    } else {
-      final d = await loadJsonFile('assets/$symbol-$period.json');
-      if (d != null && d.isNotEmpty) {
-        return Asset.fromJson(d as Map<String, dynamic>);
-      }
+  Future<String?> loadData(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+
+  Future<void> saveData(String key, String value,
+      {bool overwrite = true}) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (overwrite || !prefs.containsKey(key)) {
+      await prefs.setString(key, value);
     }
-    return Asset.defaultAsset();
+  }
+
+  List<NewsArticle> _mapArticlesFromData(dynamic data) {
+    return (data as List<dynamic>)
+        .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
+        .toList();
   }
 }

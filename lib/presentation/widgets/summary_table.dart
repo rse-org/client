@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class SummaryTable extends StatefulWidget {
@@ -24,21 +23,6 @@ class SummaryTable extends StatefulWidget {
   State<SummaryTable> createState() => _SummaryTableState();
 }
 
-extension DataRowExtensions on DataRow {
-  Widget wrapWithMouseRegion({
-    required VoidCallback onEnter,
-    required VoidCallback onExit,
-  }) {
-    return MouseRegion(
-      onEnter: (event) => onEnter(),
-      onExit: (event) => onExit(),
-      child: Container(
-        child: this as Widget,
-      ),
-    );
-  }
-}
-
 class _SummaryTableState extends State<SummaryTable> {
   late final int num;
   late final String title;
@@ -48,34 +32,22 @@ class _SummaryTableState extends State<SummaryTable> {
   bool sortAscending = true;
 
   @override
-  void initState() {
-    num = widget.num;
-    title = widget.title;
-    items = widget.items;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DataTable(
       columnSpacing: 0,
       columns: rowHeaders(),
       showCheckboxColumn: false,
-      dataTextStyle: TextStyle(fontSize: 12, color: T(context, 'inversePrimary')),
+      dataTextStyle:
+          TextStyle(fontSize: 12, color: T(context, 'inversePrimary')),
       rows: List<DataRow>.generate(
-        num, (int idx) => DataRow(
+        num,
+        (int idx) => DataRow(
           cells: rowCells(idx),
           onSelectChanged: (bool? value) {
-            setState(() {
-            });
+            setState(() {});
           },
           color: MaterialStateProperty.resolveWith<Color?>(
-                (Set<MaterialState> states) {
+            (Set<MaterialState> states) {
               if (states.contains(MaterialState.selected)) {
                 return Theme.of(context).colorScheme.primary.withOpacity(0.08);
               }
@@ -85,6 +57,40 @@ class _SummaryTableState extends State<SummaryTable> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    num = widget.num;
+    title = widget.title;
+    items = widget.items;
+    super.initState();
+  }
+
+  List<DataCell> rowCells(int idx) {
+    var item = items[idx];
+    return [
+      DataCell(
+        wrapHover(item, item.name),
+      ),
+      DataCell(
+        wrapHover(item, item.quantity.toString()),
+      ),
+      DataCell(
+        wrapHover(item, formatMoney(item.value.toString())),
+      ),
+      DataCell(
+        wrapHover(item, '${item.percentage}%'),
+      ),
+      DataCell(
+        wrapHover(item, formatMoney(item.totalValue.toString())),
+      ),
+    ];
   }
 
   List<DataColumn> rowHeaders() {
@@ -126,7 +132,8 @@ class _SummaryTableState extends State<SummaryTable> {
     setState(() {
       if (columnIndex == sortedColumnIndex) {
         sortAscending = !sortAscending;
-        items.sort((a, b) => sortAscending ? a.compareTo(b, field) : b.compareTo(a, field));
+        items.sort((a, b) =>
+            sortAscending ? a.compareTo(b, field) : b.compareTo(a, field));
         widget.sortSecurities(items, field);
       } else {
         sortAscending = true;
@@ -137,41 +144,35 @@ class _SummaryTableState extends State<SummaryTable> {
     });
   }
 
-  List<DataCell> rowCells(int idx) {
-    var item = items[idx];
-    return [
-      DataCell(
-        wrapHover(item, item.name),
-      ),
-      DataCell(
-        wrapHover(item, item.quantity.toString()),
-      ),
-      DataCell(
-        wrapHover(item, formatMoney(item.value.toString())),
-      ),
-      DataCell(
-        wrapHover(item, '${item.percentage}%'),
-      ),
-      DataCell(
-        wrapHover(item, formatMoney(item.totalValue.toString())),
-      ),
-    ];
-  }
-
   MouseRegion wrapHover(Investment item, String val) {
     return MouseRegion(
-        onEnter: (_) {
-          widget.onCategoryHover(item.idx);
-        },
-        onExit: (_) {
-          widget.onCategoryExit(item.idx);
-        },
-        child: InkWell(
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(val),
-          ),
+      onEnter: (_) {
+        widget.onCategoryHover(item.idx);
+      },
+      onExit: (_) {
+        widget.onCategoryExit(item.idx);
+      },
+      child: InkWell(
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(val),
         ),
-      );
+      ),
+    );
+  }
+}
+
+extension DataRowExtensions on DataRow {
+  Widget wrapWithMouseRegion({
+    required VoidCallback onEnter,
+    required VoidCallback onExit,
+  }) {
+    return MouseRegion(
+      onEnter: (event) => onEnter(),
+      onExit: (event) => onExit(),
+      child: Container(
+        child: this as Widget,
+      ),
+    );
   }
 }

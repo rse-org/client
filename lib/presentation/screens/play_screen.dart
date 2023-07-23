@@ -10,13 +10,6 @@ class PlayScreen extends StatefulWidget {
 
 class PlayScreenState extends State<PlayScreen> {
   @override
-  void initState() {
-    super.initState();
-    setScreenName('/play');
-    logPlayLoadSuccess();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
@@ -26,23 +19,22 @@ class PlayScreenState extends State<PlayScreen> {
     );
   }
 
-  buildMobile() {
+  buildDesktop() {
     return const SingleChildScrollView(
-      child: Column(
-        children: [
-          PlaySetupScreen(),
-        ],
-      ),
+      child: PlaySetupScreen(),
     );
   }
 
-  buildDesktop() {
+  buildMobile() {
     return const SingleChildScrollView(
-      child: Column(
-        children: [
-          PlaySetupScreen(),
-        ],
-      ),
+      child: PlaySetupScreen(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/play');
+    logPlayLoadSuccess();
   }
 }

@@ -1,32 +1,26 @@
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:slider_button/slider_button.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-
 import 'package:rse/all.dart';
-
-const placeHolderAvatar = 'https://shorturl.at/yGISX';
+import 'package:slider_button/slider_button.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 const feedbackFormUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
 
-class MyDrawer extends StatefulWidget {
-  const MyDrawer({super.key});
+const placeHolderAvatar = 'https://shorturl.at/yGISX';
+
+class CustomDrawer extends StatefulWidget {
+  const CustomDrawer({super.key});
 
   @override
-  State<MyDrawer> createState() => DrawerState();
+  State<CustomDrawer> createState() => DrawerState();
 }
 
-class DrawerState extends State<MyDrawer> {
+class DrawerState extends State<CustomDrawer> {
   late bool isDark = isDarkMode(context);
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +44,69 @@ class DrawerState extends State<MyDrawer> {
           ),
         ),
       ),
+    );
+  }
+
+  Column buildBottom(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: Row(
+            children: [
+              Consumer<ThemeModel>(
+                builder: (context, themeModel, _) {
+                  return Toggler(
+                    type: 'theme',
+                    value: isDark,
+                    onChanged: (newValue) {
+                      toggleTheme(themeModel);
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+        Divider(
+          thickness: 0.5,
+          color: T(context, 'inversePrimary'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 40,
+          ),
+          child: Center(
+            child: SliderButton(
+              width: 125,
+              height: 30,
+              shimmer: false,
+              buttonSize: 30,
+              highlightedColor: Colors.red,
+              action: () {
+                Navigator.of(context).pop();
+              },
+              label: Text(
+                context.l.sign_out,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.red,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.red,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -123,67 +180,16 @@ class DrawerState extends State<MyDrawer> {
     );
   }
 
-  Column buildBottom(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10,
-          ),
-          child: Row(
-            children: [
-              Consumer<ThemeModel>(
-                builder: (context, themeModel, _) {
-                  return Toggler(
-                    type: 'theme',
-                    value: isDark,
-                    onChanged: (newValue) {
-                      toggleTheme(themeModel);
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        Divider(
-          thickness: 0.5,
-          color: T(context, 'inversePrimary'),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 40,
-          ),
-          child: Center(
-            child: SliderButton(
-              width: 125,
-              height: 30,
-              shimmer: false,
-              buttonSize: 30,
-              highlightedColor: Colors.red,
-              action: () {
-                Navigator.of(context).pop();
-              },
-              label: Text(
-                context.l.sign_out,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.red,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.red,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void toggleTheme(themeModel) {
+    setState(() {
+      isDark = !isDark;
+    });
+    themeModel.toggleTheme();
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -196,12 +202,5 @@ class DrawerState extends State<MyDrawer> {
         ),
       ),
     );
-  }
-
-  void toggleTheme(themeModel) {
-    setState(() {
-      isDark = !isDark;
-    });
-    themeModel.toggleTheme();
   }
 }

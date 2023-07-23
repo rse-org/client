@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class AssetScreen extends StatefulWidget {
@@ -13,30 +12,6 @@ class AssetScreen extends StatefulWidget {
 
 class _AssetScreeState extends State<AssetScreen> {
   static const _actionTitles = ['Options', 'Sell', 'Buy'];
-
-  @override
-  void initState() {
-    super.initState();
-    setScreenName('/securities/${widget.sym}');
-    logAssetView(widget.sym);
-  }
-
-  void _showAction(BuildContext context, int index) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(_actionTitles[index]),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('CLOSE'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,33 +29,6 @@ class _AssetScreeState extends State<AssetScreen> {
       ),
       floatingActionButton: _getFAB(context),
     );
-  }
-
-  Widget _getFAB(context) {
-    if (isS(context)) {
-      return ExpandableFab(
-        sym: widget.sym,
-        distance: 112,
-        children: [
-          ActionButton(
-            title: 'Options',
-            icon: const Icon(Icons.add_chart),
-            onPressed: () => _showAction(context, 0),
-          ),
-          ActionButton(
-            title: 'Sell',
-            icon: const Icon(Icons.sell),
-            onPressed: () => _showAction(context, 1),
-          ),
-          ActionButton(
-            title: 'Buy',
-            icon: const Icon(Icons.add),
-            onPressed: () => _showAction(context, 2),
-          ),
-        ],
-      );
-    }
-    return Container();
   }
 
   Widget buildOneColumn(context) {
@@ -130,6 +78,57 @@ class _AssetScreeState extends State<AssetScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/securities/${widget.sym}');
+    logAssetView(widget.sym);
+  }
+
+  Widget _getFAB(context) {
+    if (isS(context)) {
+      return ExpandableFab(
+        sym: widget.sym,
+        distance: 112,
+        children: [
+          ActionButton(
+            title: 'Options',
+            icon: const Icon(Icons.add_chart),
+            onPressed: () => _showAction(context, 0),
+          ),
+          ActionButton(
+            title: 'Sell',
+            icon: const Icon(Icons.sell),
+            onPressed: () => _showAction(context, 1),
+          ),
+          ActionButton(
+            title: 'Buy',
+            icon: const Icon(Icons.add),
+            onPressed: () => _showAction(context, 2),
+          ),
+        ],
+      );
+    }
+    return Container();
+  }
+
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(_actionTitles[index]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

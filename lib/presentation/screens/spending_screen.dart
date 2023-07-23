@@ -20,7 +20,10 @@ class SpendingScreen extends StatelessWidget {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(
-                        top: 20.0, bottom: 10.0, left: 10.0),
+                      top: 20.0,
+                      left: 10.0,
+                      bottom: 10.0,
+                    ),
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(

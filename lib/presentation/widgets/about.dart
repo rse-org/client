@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:rse/all.dart';
 
 class About extends StatelessWidget {
@@ -20,7 +19,8 @@ class About extends StatelessWidget {
             children: [
               Text(
                 context.l.about,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const Divider(),
               Text(faker.lorem.sentences(10).join(' ')),

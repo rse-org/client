@@ -24,10 +24,13 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
 
     return Column(
       children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * .9,
-          height: MediaQuery.of(context).size.height * .2,
-          child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 10),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * .9,
+            height: MediaQuery.of(context).size.height * .2,
+            child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
+          ),
         ),
         Stepper(
           currentStep: _index,

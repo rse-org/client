@@ -1,71 +1,17 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:rse/all.dart';
-
-@immutable
-abstract class ChartEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class ChartUpdate extends ChartEvent {
-  final Chart chart;
-  ChartUpdate(this.chart);
-
-  @override
-  List<Object?> get props => [chart];
-}
-
-class ChartFocused extends ChartEvent {
-  final Chart chart;
-  ChartFocused(this.chart);
-
-  @override
-  List<Object?> get props => [chart];
-}
-
-abstract class ChartState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class ChartInitial extends ChartState {
-  final Chart chart;
-  ChartInitial(this.chart);
-
-  @override
-  List<Object?> get props => [chart];
-}
-
-class ChartFocusSuccess extends ChartState {
-  final Chart chart;
-  ChartFocusSuccess(this.chart);
-
-  @override
-  List<Object?> get props => [chart];
-}
-
-class ChartUpdateSuccess extends ChartState {
-  final Chart chart;
-  ChartUpdateSuccess(this.chart);
-
-  @override
-  List<Object?> get props => [chart];
-}
 
 class ChartBloc extends Bloc<ChartEvent, ChartState> {
   late Chart chart;
   final AssetBloc assetBloc;
   final PortfolioBloc portfolioBloc;
 
-  ChartBloc({
-    required this.chart,
-    required this.assetBloc,
-    required this.portfolioBloc
-  }) : super(ChartInitial(chart)) {
+  ChartBloc(
+      {required this.chart,
+      required this.assetBloc,
+      required this.portfolioBloc})
+      : super(ChartInitial(chart)) {
     assetBloc.stream.listen((state) {
       if (state is AssetLoaded) {
         updateChart(state.asset, state.asset.sym);
@@ -96,16 +42,6 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
     add(ChartUpdate(newChart));
   }
 
-  void hoveredLineChart(DataPoint p, double xOffSet) {
-    final newChart = chart.copyWith(
-      time: p.x,
-      xOffSet: xOffSet,
-      focusedValue: p.y,
-    );
-    chart = newChart;
-    add(ChartFocused(newChart));
-  }
-
   void hoveredChart(CandleStick c, double xOffSet) {
     final newChart = chart.copyWith(
       candle: c,
@@ -114,6 +50,16 @@ class ChartBloc extends Bloc<ChartEvent, ChartState> {
       focusedValue: c.c,
     );
 
+    chart = newChart;
+    add(ChartFocused(newChart));
+  }
+
+  void hoveredLineChart(DataPoint p, double xOffSet) {
+    final newChart = chart.copyWith(
+      time: p.x,
+      xOffSet: xOffSet,
+      focusedValue: p.y,
+    );
     chart = newChart;
     add(ChartFocused(newChart));
   }

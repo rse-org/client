@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:rse/all.dart';
 
 class ChartHeader extends StatelessWidget {
@@ -20,7 +19,9 @@ class ChartHeader extends StatelessWidget {
               if (state is ChartFocusSuccess) {
                 final startValue = state.chart.startValue;
                 final focusedValue = state.chart.focusedValue;
-                final title = state.chart.sym == 'Investing' ? context.l.investing : state.chart.sym;
+                final title = state.chart.sym == 'Investing'
+                    ? context.l.investing
+                    : state.chart.sym;
                 return ChartHeaderDetails(
                   hovering: true,
                   title: title,

@@ -4,28 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> signUp(
-      {required String email,
-      required String password,
-      required String name}) async {
-    const String dummyProfilePicUrl = 'https://shorturl.at/fsCLR';
-    try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
-      await FirebaseAuth.instance.currentUser
-          ?.updatePhotoURL(dummyProfilePicUrl);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw Exception('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        throw Exception('The account already exists for that email.');
-      }
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
   Future<void> signIn({
     required String email,
     required String password,
@@ -65,6 +43,28 @@ class AuthService {
       await _firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future<void> signUp(
+      {required String email,
+      required String password,
+      required String name}) async {
+    const String dummyProfilePicUrl = 'https://shorturl.at/fsCLR';
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
+      await FirebaseAuth.instance.currentUser
+          ?.updatePhotoURL(dummyProfilePicUrl);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        throw Exception('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        throw Exception('The account already exists for that email.');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

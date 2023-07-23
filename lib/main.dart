@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 
-import './firebase_options.dart';
 import 'all.dart';
+import 'firebase_options.dart';
 
 // Notes: 1. Review Todo Tree
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'package:rse/all.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Doughnut extends StatefulWidget {
   final String field;
@@ -45,14 +44,12 @@ class DoughnutState extends State<Doughnut> {
             ),
             annotations: <CircularChartAnnotation>[
               CircularChartAnnotation(
-                widget: Text(
-                  field,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(216, 225, 227, 1),
-                  )
-                ),
+                widget: Text(field,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(216, 225, 227, 1),
+                    )),
               )
             ],
             series: <CircularSeries>[
@@ -62,14 +59,18 @@ class DoughnutState extends State<Doughnut> {
                 dataSource: widget.data,
                 strokeColor: Colors.white,
                 xValueMapper: (Investment data, _) => data.name,
-                dataLabelMapper: (Investment data, _) => formatField(data, widget.field),
-                yValueMapper: (Investment data, _) => widget.field == 'name' ? data.percentage : data.getValue(widget.field),
+                dataLabelMapper: (Investment data, _) =>
+                    formatField(data, widget.field),
+                yValueMapper: (Investment data, _) => widget.field == 'name'
+                    ? data.percentage
+                    : data.getValue(widget.field),
                 dataLabelSettings: DataLabelSettings(
                   isVisible: true,
                   color: dark ? Colors.black12 : Colors.white70,
                 ),
                 pointColorMapper: (Investment data, _) {
-                  if (widget.hoveredRowIndex != -1 && widget.hoveredRowIndex == data.idx) {
+                  if (widget.hoveredRowIndex != -1 &&
+                      widget.hoveredRowIndex == data.idx) {
                     return T(context, 'primary');
                   }
                   return Colors.green[200];

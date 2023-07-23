@@ -41,7 +41,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<QuestionAnswered>((event, emit) async {
       try {
-        print('Answer: ${event.ans}');
+        p('Answer: ${event.ans}');
       } catch (e) {
         // something else
       }

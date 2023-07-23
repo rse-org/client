@@ -1,36 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class Watchlist extends StatelessWidget {
   const Watchlist({
     super.key,
   });
-
-  getWidth(context) {
-    var width = MediaQuery.of(context).size.width;
-    if (isS(context)) {
-      return width * .1;
-    } else if (isM(context)) {
-      return width * .3;
-    } else if (isL(context)) {
-      return width * .3;
-    } else {
-      return width * .2;
-    }
-  }
-
-  getMargin(context) {
-    if (isS(context)) {
-      return const EdgeInsets.all(5);
-    } else if (isM(context)) {
-      return const EdgeInsets.all(5);
-    } else if (isL(context)) {
-      return const EdgeInsets.all(30);
-    } else {
-      return const EdgeInsets.all(40);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +27,8 @@ class Watchlist extends StatelessWidget {
             children: [
               Expanded(
                 child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: watched.length,
@@ -69,5 +44,30 @@ class Watchlist extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getMargin(context) {
+    if (isS(context)) {
+      return const EdgeInsets.all(5);
+    } else if (isM(context)) {
+      return const EdgeInsets.all(5);
+    } else if (isL(context)) {
+      return const EdgeInsets.all(30);
+    } else {
+      return const EdgeInsets.all(40);
+    }
+  }
+
+  getWidth(context) {
+    var width = MediaQuery.of(context).size.width;
+    if (isS(context)) {
+      return width * .1;
+    } else if (isM(context)) {
+      return width * .3;
+    } else if (isL(context)) {
+      return width * .3;
+    } else {
+      return width * .2;
+    }
   }
 }

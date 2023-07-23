@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:rse/all.dart';
 
 class InvestingSummaryScreen extends StatefulWidget {
@@ -16,12 +14,6 @@ class InvestingSummaryScreen extends StatefulWidget {
 
 class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
     with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-    setScreenName('/investing');
-  }
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
@@ -68,6 +60,12 @@ class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/investing');
   }
 
   Widget _buildTabContainer(BuildContext context) {

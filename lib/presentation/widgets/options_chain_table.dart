@@ -12,6 +12,47 @@ List<OptionData> optionsData = [
   ),
 ];
 
+class OptionData {
+  final double delta;
+  final int volume;
+  final double bid;
+  final double ask;
+  final double askIv;
+  final double strike;
+  final double bidIv;
+
+  OptionData({
+    required this.delta,
+    required this.volume,
+    required this.bid,
+    required this.ask,
+    required this.askIv,
+    required this.strike,
+    required this.bidIv,
+  });
+
+  dynamic getPropertyValue(String propertyName) {
+    switch (propertyName) {
+      case 'delta':
+        return delta;
+      case 'volume':
+        return volume;
+      case 'bid':
+        return bid;
+      case 'ask':
+        return ask;
+      case 'askIv':
+        return askIv;
+      case 'strike':
+        return strike;
+      case 'bidIv':
+        return bidIv;
+      default:
+        throw Exception('Invalid property name: $propertyName');
+    }
+  }
+}
+
 class OptionsTable extends StatefulWidget {
   final List<OptionData> optionsData;
 
@@ -149,46 +190,5 @@ class OptionsTableState extends State<OptionsTable> {
         ),
       ),
     );
-  }
-}
-
-class OptionData {
-  final double delta;
-  final int volume;
-  final double bid;
-  final double ask;
-  final double askIv;
-  final double strike;
-  final double bidIv;
-
-  OptionData({
-    required this.delta,
-    required this.volume,
-    required this.bid,
-    required this.ask,
-    required this.askIv,
-    required this.strike,
-    required this.bidIv,
-  });
-
-  dynamic getPropertyValue(String propertyName) {
-    switch (propertyName) {
-      case 'delta':
-        return delta;
-      case 'volume':
-        return volume;
-      case 'bid':
-        return bid;
-      case 'ask':
-        return ask;
-      case 'askIv':
-        return askIv;
-      case 'strike':
-        return strike;
-      case 'bidIv':
-        return bidIv;
-      default:
-        throw Exception('Invalid property name: $propertyName');
-    }
   }
 }

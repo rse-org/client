@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({required this.label, Key? key}) : super(key: key);
-
   final String label;
+
+  const HomeScreen({required this.label, Key? key}) : super(key: key);
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -12,47 +12,11 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    // Fix: FB screen name breaks tests
-    // ! For some reason this causes FB tests to fail.
-    // ! The test for checking if FB is setup correctly.
-    // ! Do not use until you know how to fix it.
-    // setScreenName('/home');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
         mobile: buildMobile(context),
         desktop: buildDesktop(context),
-      ),
-    );
-  }
-
-  Widget mobileWatchList(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        itemCount: watched.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = watched[index];
-          return WatchItem(item);
-        },
-      ),
-    );
-  }
-
-  Widget buildMobile(context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const LineChart(),
-          mobileWatchList(context),
-          const Articles(),
-        ],
       ),
     );
   }
@@ -77,6 +41,42 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         const Watchlist(),
       ],
+    );
+  }
+
+  Widget buildMobile(context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const LineChart(),
+          mobileWatchList(context),
+          const Articles(),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Fix: FB screen name breaks tests
+    // ! For some reason this causes FB tests to fail.
+    // ! The test for checking if FB is setup correctly.
+    // ! Do not use until you know how to fix it.
+    // setScreenName('/home');
+  }
+
+  Widget mobileWatchList(BuildContext context) {
+    return SingleChildScrollView(
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: watched.length,
+        itemBuilder: (BuildContext context, int index) {
+          final item = watched[index];
+          return WatchItem(item);
+        },
+      ),
     );
   }
 }

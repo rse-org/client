@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
 // * 7/18/23
@@ -11,18 +11,28 @@ import 'package:rse/all.dart';
 // * We can just load the entire sheet then filter.
 // * Good place to have a spinner/loading screen and prompts.
 
-class Point {
-  final double x;
-  final double y;
-  final Color pointColorMapper;
-  Point(this.x, this.y, this.pointColorMapper);
-}
+const chartUrl =
+    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 const sheetUrl =
     'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/questions!A2:J11?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
-const chartUrl =
-    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
+List<String> split(String str) {
+  final List<String> parts = str.split('. ');
+  return List<String>.from(parts);
+}
+
+List<Point> splitData(String str, bool isNew) {
+  String trimmed = str.trim().split(RegExp(r'\s+')).join(' ');
+
+  final parts = trimmed.split(' ');
+  return parts.asMap().entries.map((entry) {
+    final idx = entry.key.toDouble() + (isNew ? parts.length - 2 : 0);
+    final val = double.parse(entry.value);
+    return Point(idx, val,
+        isNew || idx == parts.length - 1 ? Colors.green : Colors.blue);
+  }).toList();
+}
 
 class PlayService {
   String skill = '';
@@ -35,15 +45,6 @@ class PlayService {
     loadQuestions();
   }
 
-  prepareQuiz() async {
-    final mcQuestions = await loadQuestions();
-    final chartQuestions = await getChartQuestions();
-    mcQuestions.shuffle();
-    chartQuestions.shuffle();
-    quizQuestions.addAll(mcQuestions.take(5).toList());
-    quizQuestions.addAll(chartQuestions.take(5).toList());
-  }
-
   Future<List<Question>> loadQuestions() async {
     String j = await rootBundle.loadString('assets/questions.json');
     List<dynamic> list = jsonDecode(j);
@@ -53,6 +54,15 @@ class PlayService {
     }
     questions.shuffle();
     return questions;
+  }
+
+  prepareQuiz() async {
+    final mcQuestions = await loadQuestions();
+    final chartQuestions = await getChartQuestions();
+    mcQuestions.shuffle();
+    chartQuestions.shuffle();
+    quizQuestions.addAll(mcQuestions.take(5).toList());
+    quizQuestions.addAll(chartQuestions.take(5).toList());
   }
 
   static Future getChartQuestions() async {
@@ -88,19 +98,9 @@ class PlayService {
   }
 }
 
-List<String> split(String str) {
-  final List<String> parts = str.split('. ');
-  return List<String>.from(parts);
-}
-
-List<Point> splitData(String str, bool isNew) {
-  String trimmed = str.trim().split(RegExp(r'\s+')).join(' ');
-
-  final parts = trimmed.split(' ');
-  return parts.asMap().entries.map((entry) {
-    final idx = entry.key.toDouble() + (isNew ? parts.length - 2 : 0);
-    final val = double.parse(entry.value);
-    return Point(idx, val,
-        isNew || idx == parts.length - 1 ? Colors.green : Colors.blue);
-  }).toList();
+class Point {
+  final double x;
+  final double y;
+  final Color pointColorMapper;
+  Point(this.x, this.y, this.pointColorMapper);
 }

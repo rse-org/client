@@ -9,16 +9,6 @@ class BottomNavBar extends StatelessWidget {
   const BottomNavBar(
       {super.key, required this.shell, required this.resetStack});
 
-  void _goBranch(int index) {
-    resetStack(index);
-  }
-
-  getIconColor(context, idx) {
-    return shell.currentIndex == idx
-        ? T(context, 'primaryContainer')
-        : T(context, 'inversePrimary');
-  }
-
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
@@ -64,5 +54,15 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  getIconColor(context, idx) {
+    return shell.currentIndex == idx
+        ? T(context, 'primaryContainer')
+        : T(context, 'inversePrimary');
+  }
+
+  void _goBranch(int index) {
+    resetStack(index);
   }
 }

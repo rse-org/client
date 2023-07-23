@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class YourPosition extends StatelessWidget {
   const YourPosition({super.key});
-
-  getFontSize(context) {
-    if (isS(context)) {
-      return 10.0;
-    } else if (isM(context)) {
-      return 12.0;
-    } else if (isL(context)) {
-      return 15.0;
-    } else if (isXL(context)) {
-      return 10.0;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,5 +107,17 @@ class YourPosition extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getFontSize(context) {
+    if (isS(context)) {
+      return 10.0;
+    } else if (isM(context)) {
+      return 12.0;
+    } else if (isL(context)) {
+      return 15.0;
+    } else if (isXL(context)) {
+      return 10.0;
+    }
   }
 }

@@ -1,10 +1,49 @@
 import 'dart:math' as math;
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 @immutable
+class ActionButton extends StatelessWidget {
+  final Widget icon;
+
+  final String title;
+  final VoidCallback? onPressed;
+  const ActionButton({
+    super.key,
+    this.onPressed,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      shape: const CircleBorder(),
+      child: TextButton(
+        onPressed: () {
+          logAssetTradeOptionSelect(title);
+          onPressed!();
+        },
+        style: TextButton.styleFrom(
+          shape: const CircleBorder(),
+          minimumSize: const Size(56, 56),
+          padding: const EdgeInsets.all(16),
+        ),
+        child: Text(title),
+      ),
+    );
+  }
+}
+
+@immutable
 class ExpandableFab extends StatefulWidget {
+  final String sym;
+
+  final double distance;
+  final bool? initialOpen;
+  final List<Widget> children;
   const ExpandableFab({
     super.key,
     this.initialOpen,
@@ -13,13 +52,30 @@ class ExpandableFab extends StatefulWidget {
     required this.children,
   });
 
-  final String sym;
-  final double distance;
-  final bool? initialOpen;
-  final List<Widget> children;
-
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
+}
+
+@immutable
+class FakeItem extends StatelessWidget {
+  final bool isBig;
+
+  const FakeItem({
+    super.key,
+    required this.isBig,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: isBig ? 128 : 36,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade300,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+      ),
+    );
+  }
 }
 
 class _ExpandableFabState extends State<ExpandableFab>
@@ -27,6 +83,27 @@ class _ExpandableFabState extends State<ExpandableFab>
   late final AnimationController _controller;
   late final Animation<double> _expandAnimation;
   bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomRight,
+        children: [
+          _buildTapToCloseFab(context),
+          ..._buildExpandingActionButtons(),
+          _buildTapToOpenFab(context),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -44,37 +121,23 @@ class _ExpandableFabState extends State<ExpandableFab>
     );
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _toggle() {
-    setState(() {
-      _open = !_open;
-      if (_open) {
-        logAssetTradeSelect(widget.sym);
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.bottomRight,
-        children: [
-          _buildTapToCloseFab(context),
-          ..._buildExpandingActionButtons(),
-          _buildTapToOpenFab(context),
-        ],
-      ),
-    );
+  List<Widget> _buildExpandingActionButtons() {
+    final children = <Widget>[];
+    final count = widget.children.length;
+    final step = 90.0 / (count - 1);
+    for (var i = 0, angleInDegrees = 0.0;
+        i < count;
+        i++, angleInDegrees += step) {
+      children.add(
+        _ExpandingActionButton(
+          progress: _expandAnimation,
+          maxDistance: widget.distance,
+          directionInDegrees: angleInDegrees,
+          child: widget.children[i],
+        ),
+      );
+    }
+    return children;
   }
 
   Widget _buildTapToCloseFab(context) {
@@ -99,25 +162,6 @@ class _ExpandableFabState extends State<ExpandableFab>
         ),
       ),
     );
-  }
-
-  List<Widget> _buildExpandingActionButtons() {
-    final children = <Widget>[];
-    final count = widget.children.length;
-    final step = 90.0 / (count - 1);
-    for (var i = 0, angleInDegrees = 0.0;
-        i < count;
-        i++, angleInDegrees += step) {
-      children.add(
-        _ExpandingActionButton(
-          progress: _expandAnimation,
-          maxDistance: widget.distance,
-          directionInDegrees: angleInDegrees,
-          child: widget.children[i],
-        ),
-      );
-    }
-    return children;
   }
 
   Widget _buildTapToOpenFab(context) {
@@ -145,21 +189,33 @@ class _ExpandableFabState extends State<ExpandableFab>
       ),
     );
   }
+
+  void _toggle() {
+    setState(() {
+      _open = !_open;
+      if (_open) {
+        logAssetTradeSelect(widget.sym);
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    });
+  }
 }
 
 @immutable
 class _ExpandingActionButton extends StatelessWidget {
+  final Widget child;
+
+  final double maxDistance;
+  final Animation<double> progress;
+  final double directionInDegrees;
   const _ExpandingActionButton({
     required this.child,
     required this.progress,
     required this.maxDistance,
     required this.directionInDegrees,
   });
-
-  final Widget child;
-  final double maxDistance;
-  final Animation<double> progress;
-  final double directionInDegrees;
 
   @override
   Widget build(BuildContext context) {
@@ -182,62 +238,6 @@ class _ExpandingActionButton extends StatelessWidget {
       child: FadeTransition(
         opacity: progress,
         child: child,
-      ),
-    );
-  }
-}
-
-@immutable
-class ActionButton extends StatelessWidget {
-  const ActionButton({
-    super.key,
-    this.onPressed,
-    required this.icon,
-    required this.title,
-  });
-
-  final Widget icon;
-  final String title;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 4,
-      shape: const CircleBorder(),
-      child: TextButton(
-        onPressed: () {
-          logAssetTradeOptionSelect(title);
-          onPressed!();
-        },
-        style: TextButton.styleFrom(
-          shape: const CircleBorder(),
-          minimumSize: const Size(56, 56),
-          padding: const EdgeInsets.all(16),
-        ),
-        child: Text(title),
-      ),
-    );
-  }
-}
-
-@immutable
-class FakeItem extends StatelessWidget {
-  const FakeItem({
-    super.key,
-    required this.isBig,
-  });
-
-  final bool isBig;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: isBig ? 128 : 36,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
     );
   }
