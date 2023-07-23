@@ -7,9 +7,10 @@ part 'play_event.dart';
 part 'play_state.dart';
 
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
-  final PlayService playService;
+  final PlayService playService = PlayService();
+  final List<String> answers = [];
 
-  PlayBloc({required this.playService}) : super(PlaySetup()) {
+  PlayBloc() : super(PlaySetup()) {
     on<PlayInitialized>((event, emit) async {
       try {
         // await playService
@@ -40,7 +41,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<QuestionAnswered>((event, emit) async {
       try {
-        // await playService
+        print('Answer: ${event.ans}');
       } catch (e) {
         // something else
       }

@@ -1,16 +1,29 @@
-import 'dart:math';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
-String _twoDigits(int n) {
-  if (n >= 10) {
-    return '$n';
-  }
-  return '0$n';
+int calculateIntervals(period, data) {
+  final map = {
+    'live': 5,
+    '1d': data.length ~/ 24,
+    '1w': 30,
+    '1m': 30,
+    '3m': 30,
+    'ytd': 12,
+    '1y': 12,
+  };
+
+  return map[period] ?? 0;
+}
+
+String calculatePercentageChange(double newVal, double oldVal) {
+  double gainLoss = getChangePercent(newVal, oldVal);
+  String formatted = formatPercentage(gainLoss);
+  return formatted;
 }
 
 String formatTime(DateTime startTime, DateTime endTime) {
@@ -18,7 +31,19 @@ String formatTime(DateTime startTime, DateTime endTime) {
   int hours = difference.inHours;
   int minutes = difference.inMinutes.remainder(60);
   int seconds = difference.inSeconds.remainder(60);
-  return '$hours:${_twoDigits(minutes)}:${_twoDigits(seconds)}';
+  return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
+}
+
+double getChangePercent(double newVal, double oldVal) {
+  return ((newVal - oldVal) / oldVal) * 100;
+}
+
+double getHighestVal(List<CandleStick> series) {
+  return series.reduce((v, e) => v.h > e.h ? v : e).h;
+}
+
+double getLowestVal(List<CandleStick> series) {
+  return series.reduce((v, e) => v.l < e.l ? v : e).l;
 }
 
 Future<dynamic> loadJsonFile(String path) async {
@@ -50,22 +75,15 @@ int randomInt(int to, int from) {
   return randomNumber;
 }
 
-String calculatePercentageChange(double newVal, double oldVal) {
-  double gainLoss = getChangePercent(newVal, oldVal);
-  String formatted = formatPercentage(gainLoss);
-  return formatted;
-}
+String regularizeSentence(String sentence) {
+  // Remove extra spaces between words
+  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
 
-double getChangePercent(double newVal, double oldVal) {
-  return ((newVal - oldVal) / oldVal) * 100;
-}
+  // Remove spaces between period and end
+  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+'), '.');
 
-double getLowestVal(List<CandleStick> series) {
-  return series.reduce((v, e) => v.l < e.l ? v : e).l;
-}
-
-double getHighestVal(List<CandleStick> series) {
-  return series.reduce((v, e) => v.h > e.h ? v : e).h;
+  // Remove any leading or trailing spaces
+  return normalizedSentence.trim();
 }
 
 DateTime roundDownToNearest5Minutes(DateTime dt) {
@@ -81,16 +99,9 @@ DateTime roundToNearestHour(DateTime dt) {
       .add(Duration(minutes: roundedMinutes));
 }
 
-int calculateIntervals(period, data) {
-  final map = {
-    'live': 5,
-    '1d': data.length ~/ 24,
-    '1w': 30,
-    '1m': 30,
-    '3m': 30,
-    'ytd': 12,
-    '1y': 12,
-  };
-
-  return map[period] ?? 0;
+String twoDigits(int n) {
+  if (n >= 10) {
+    return '$n';
+  }
+  return '0$n';
 }

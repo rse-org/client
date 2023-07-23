@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class MCQuestion extends StatelessWidget {
@@ -75,7 +74,7 @@ class MCQuestion extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            onAnswer();
+            onAnswer(a);
           },
           child: SingleChildScrollView(child: Text(a)),
         ),

@@ -2,25 +2,24 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import 'package:rse/all.dart';
-
-class MCChartQuestion extends StatefulWidget {
+class MCCQuestion extends StatefulWidget {
   final Widget prompt;
-  final Question question;
+  final Question q;
   final Function onAnswer;
-  const MCChartQuestion(
+  const MCCQuestion(
       {super.key,
-      required this.question,
+      required this.q,
       required this.onAnswer,
       required this.prompt});
 
   @override
-  State<MCChartQuestion> createState() => _MCChartQuestionState();
+  State<MCCQuestion> createState() => _MCCQuestionState();
 }
 
-class _MCChartQuestionState extends State<MCChartQuestion> {
+class _MCCQuestionState extends State<MCCQuestion> {
   int count = 0;
   late Timer timer;
   List<Point> data = [];
@@ -28,52 +27,6 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
   List<double> yMapper = [0, 10];
   // ignore: unused_field
   ChartSeriesController? _chartSeriesController;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      data = List.from(widget.question.data ?? []);
-      newData = List.from(widget.question.newData ?? []);
-    });
-    setHeight();
-    startTimer();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    timer.cancel();
-  }
-
-  void updateSource(Timer t) {
-    timer = t;
-    final renderNewDone = count > widget.question.newData!.length - 1;
-
-    if (renderNewDone) {
-      timer.cancel();
-      return;
-    }
-    // ! No blink but no animation
-    // final point = newData[count];
-    // data.add(point);
-    // _chartSeriesController?.updateDataSource(
-    //   addedDataIndexes: <int>[data.length - 1],
-    // );
-    // count = count + 1;
-
-    // ! Animation with blink
-    final point = newData[count];
-    data.add(point);
-    setState(() {
-      count += 1;
-      data = data;
-    });
-  }
-
-  startTimer() {
-    Timer.periodic(const Duration(seconds: 1), updateSource);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,45 +44,54 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
     );
   }
 
-  buildQuestionContainer(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        widget.prompt,
-        Row(
-          children: [
-            Flexible(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isS(context) ? 20 : 30,
-                  fontWeight: FontWeight.bold,
-                ),
-                child: Text(
-                  regularizeSentence(widget.question.context!),
-                ),
-              ),
-            ),
-          ],
+  Expanded buildAnswerButton(a) {
+    return Expanded(
+      flex: 1,
+      child: TextButton(
+        style: ButtonStyle(
+          minimumSize: MaterialStateProperty.all(
+            const Size(double.infinity, 50),
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Colors.green,
+          ),
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Colors.white,
+          ),
         ),
-        const SizedBox(height: 20),
-        Row(
-          children: [
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w100,
-              ),
-              child: Text(
-                regularizeSentence(widget.question.body),
-              ),
-            ),
-          ],
+        onPressed: () {
+          widget.onAnswer(a);
+        },
+        child: SingleChildScrollView(
+          child: Text(a),
         ),
-        const SizedBox(height: 20),
-      ],
+      ),
+    );
+  }
+
+  buildButtonContainer(BuildContext context) {
+    return SizedBox(
+      height: 250,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            children: [
+              buildAnswerButton(widget.q.answerBank![0]),
+              const SizedBox(width: 10),
+              buildAnswerButton(widget.q.answerBank![1]),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              buildAnswerButton(widget.q.answerBank![2]),
+              const SizedBox(width: 10),
+              buildAnswerButton(widget.q.answerBank![3]),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -160,119 +122,67 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
     );
   }
 
-  buildButtonContainer(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 50),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    widget.onAnswer();
-                  },
-                  child: SingleChildScrollView(
-                    child: Text(widget.question.answerBank![0]),
-                  ),
+  buildQuestionContainer(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget.prompt,
+        Row(
+          children: [
+            Flexible(
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isS(context) ? 20 : 30,
+                  fontWeight: FontWeight.bold,
+                ),
+                child: Text(
+                  regularizeSentence(widget.q.context!),
                 ),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 50),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    widget.onAnswer();
-                  },
-                  child: SingleChildScrollView(
-                    child: Text(widget.question.answerBank![1]),
-                  ),
-                ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            DefaultTextStyle(
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w100,
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 50),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    widget.onAnswer();
-                  },
-                  child: SingleChildScrollView(
-                    child: Text(widget.question.answerBank![2]),
-                  ),
-                ),
+              child: Text(
+                regularizeSentence(widget.q.body),
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(
-                      const Size(double.infinity, 50),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.green,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Colors.white,
-                    ),
-                  ),
-                  onPressed: () {
-                    widget.onAnswer();
-                  },
-                  child: SingleChildScrollView(
-                    child: Text(widget.question.answerBank![3]),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      data = List.from(widget.q.data ?? []);
+      newData = List.from(widget.q.newData ?? []);
+    });
+    setHeight();
+    startTimer();
+  }
+
   void setHeight() {
-    final all = (List.from(
-        (widget.question.data ?? []) + (widget.question.newData ?? [])));
+    final all = (List.from((widget.q.data ?? []) + (widget.q.newData ?? [])));
     final lo = all.map((d) => d.y as double).reduce(min);
     final hi = all.map((d) => d.y as double).reduce(max);
     yMapper = [lo, hi];
@@ -280,19 +190,36 @@ class _MCChartQuestionState extends State<MCChartQuestion> {
 
   double setWidth() {
     final length =
-        (widget.question.data!.length + widget.question.newData!.length)
-            .toDouble();
+        (widget.q.data!.length + widget.q.newData!.length).toDouble();
     return length == 0 ? 10 : length - 1;
   }
-}
 
-String regularizeSentence(String sentence) {
-  // Remove extra spaces between words
-  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
+  startTimer() {
+    Timer.periodic(const Duration(seconds: 1), updateSource);
+  }
 
-  // Remove spaces between period and end
-  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+'), '.');
+  void updateSource(Timer t) {
+    timer = t;
+    final renderNewDone = count > widget.q.newData!.length - 1;
 
-  // Remove any leading or trailing spaces
-  return normalizedSentence.trim();
+    if (renderNewDone) {
+      timer.cancel();
+      return;
+    }
+    // ! No blink but no animation
+    // final point = newData[count];
+    // data.add(point);
+    // _chartSeriesController?.updateDataSource(
+    //   addedDataIndexes: <int>[data.length - 1],
+    // );
+    // count = count + 1;
+
+    // ! Animation with blink
+    final point = newData[count];
+    data.add(point);
+    setState(() {
+      count += 1;
+      data = data;
+    });
+  }
 }

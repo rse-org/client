@@ -714,8 +714,8 @@
     "explanation": "A tax deduction is a legal provision that allows individuals and businesses to reduce their taxable income by deducting specific expenses or allowances. Deductions can include expenses related to education, homeownership, medical costs, charitable donations, and certain business expenses. By claiming eligible deductions, taxpayers can lower their taxable income, which ultimately reduces the amount of tax they owe. Tax deductions vary by jurisdiction and may be subject to specific rules and limitations.",
     "link": "https://www.investopedia.com/terms/t/taxdeduction.asp"
   },
-
   {
+    "type": "mc",
     "body": "What is an exchange-traded fund (ETF)?",
     "answer": "An exchange-traded fund (ETF) is an investment fund that trades on stock exchanges, similar to individual stocks. ETFs are designed to track the performance of a specific index, sector, commodity, or asset class. They offer diversification by investing in a basket of securities, allowing investors to gain exposure to a wide range of assets in a single trade. ETFs provide flexibility, liquidity, and transparency to investors and can be bought or sold throughout the trading day at market prices.",
     "c1": "An exchange-traded fund (ETF) is an investment fund that exclusively focuses on stocks of a specific industry or sector.",
@@ -727,8 +727,8 @@
     "explanation": "An exchange-traded fund (ETF) is a popular investment vehicle that combines the features of a mutual fund and a stock. ETFs are designed to track the performance of a specific index or asset class, providing investors with exposure to a diversified portfolio of securities. They are traded on stock exchanges and offer advantages such as intraday liquidity, transparency, and the ability to trade at market prices. ETFs have gained popularity among investors due to their flexibility and cost efficiency.",
     "link": "https://www.investopedia.com/terms/e/etf.asp"
   },
-
   {
+    "type": "mc",
     "body": "What is capital budgeting?",
     "answer": "Capital budgeting is the process of evaluating and selecting long-term investment projects or expenditures that are expected to generate future cash flows. It involves assessing the financial viability of potential investments, estimating their costs and benefits, and determining their potential impact on the organization's value. Capital budgeting helps companies allocate their resources effectively and make informed investment decisions to maximize shareholder wealth.",
     "c1": "Capital budgeting is the process of creating a budget for day-to-day operating expenses of a company.",
@@ -922,8 +922,8 @@
     "explanation": "A hedge fund is an investment vehicle that pools capital from accredited investors to pursue high returns. Hedge funds have more flexibility in their investment strategies compared to traditional funds and often employ complex investment techniques. They can invest in a wide range of assets and may use leverage and derivatives to amplify returns. Hedge funds are typically reserved for high-net-worth individuals and institutional investors due to their high minimum investment requirements and limited regulatory oversight.",
     "link": "https://www.investopedia.com/terms/h/hedgefund.asp"
   },
-
   {
+    "type": "mc",
     "body": "What is a dividend reinvestment plan (DRIP)?",
     "answer": "A dividend reinvestment plan (DRIP) is an investment program offered by companies that allows shareholders to automatically reinvest their cash dividends into additional shares of the company's stock. Instead of receiving cash dividends, participants in a DRIP receive additional shares, often at a discounted price. DRIPs are an attractive option for long-term investors who wish to compound their returns by reinvesting dividends and acquiring more shares over time. They can be a cost-effective way to accumulate wealth and increase ownership in a company.",
     "c1": "A dividend reinvestment plan (DRIP) is a loan program offered by financial institutions to invest in stocks.",

@@ -22,7 +22,9 @@ class PlayStarted extends PlayEvent {
 }
 
 class QuestionAnswered extends PlayEvent {
-  QuestionAnswered();
+  final String ans;
+  QuestionAnswered({required this.ans});
+  List<String> get props => [ans];
 }
 
 class HitNext extends PlayEvent {

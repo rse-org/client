@@ -51,6 +51,9 @@ Future<void> main() async {
           BlocProvider<NewsBloc>(
             create: (_) => NewsBloc(),
           ),
+          BlocProvider<PlayBloc>(
+            create: (_) => PlayBloc(),
+          ),
           BlocProvider<AssetBloc>(
             create: (_) => AssetBloc(
               asset: Asset.defaultAsset(),
@@ -89,19 +92,6 @@ class _MyAppState extends State<MyApp> {
   late AssetBloc _assetBloc;
 
   @override
-  void initState() {
-    super.initState();
-    _newsBloc = context.read<NewsBloc>();
-    _assetBloc = context.read<AssetBloc>();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    _newsBloc.fetchArticles();
-    _assetBloc.fetchAsset('BAC');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: setup(),
@@ -132,5 +122,18 @@ class _MyAppState extends State<MyApp> {
         return const SizedBox();
       },
     );
+  }
+
+  Future<void> fetchData() async {
+    _newsBloc.fetchArticles();
+    _assetBloc.fetchAsset('BAC');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _newsBloc = context.read<NewsBloc>();
+    _assetBloc = context.read<AssetBloc>();
+    fetchData();
   }
 }

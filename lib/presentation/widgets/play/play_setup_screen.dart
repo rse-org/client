@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:rse/all.dart';
 
 class PlaySetupScreen extends StatefulWidget {
@@ -12,15 +11,10 @@ class PlaySetupScreen extends StatefulWidget {
 }
 
 class _PlaySetupScreenState extends State<PlaySetupScreen> {
-  int _index = 0;
-  String cat = '';
-  String diff = '';
+  int _index = 2;
   bool start = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  String diff = 'Easy';
+  String cat = 'Personal';
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +70,68 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
     );
   }
 
+  buildCategories(l) {
+    return Column(
+      children: [
+        Picker(pick: pickCat, val: l.personal, picked: cat),
+        Picker(pick: pickCat, val: l.corporate, picked: cat),
+        Picker(pick: pickCat, val: l.public, picked: cat),
+      ],
+    );
+  }
+
+  buildDifficulties(l) {
+    return Column(
+      children: [
+        Picker(pick: pickDiff, val: l.easy, picked: diff),
+        Picker(pick: pickDiff, val: l.medium, picked: diff),
+        Picker(pick: pickDiff, val: l.hard, picked: diff),
+      ],
+    );
+  }
+
+  getCat(l) => cat != '' ? '${l.category}: $cat' : l.choose_category;
+
+  getDiff(l) => diff != '' ? '${l.difficulty}: $diff' : l.choose_difficulty;
+
+  getFinalPrompt(l, finalStep) {
+    if (finalStep && start) return Text(l.good_luck);
+    if (finalStep) return const SizedBox();
+    return Text(l.please_choose_diff_cat);
+  }
+
+  getFinalTitle(l, finalStep) {
+    if (!finalStep && !start) return Text(l.play);
+    if (!start && finalStep) return Text(l.ready);
+    return Row(children: [Text(l.starting), const CountDownTimer(time: 3)]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  pickCat(c) async {
+    logPlayCategorySelect(c);
+    setState(() {
+      cat = c;
+      _index++;
+    });
+  }
+
+  pickDiff(d) {
+    logPlayDifficultySelect(d);
+    setState(() {
+      diff = d;
+      _index++;
+    });
+  }
+
+  startQuiz() {
+    logPlayStart();
+    BlocProvider.of<NavBloc>(context).add(StartQuiz());
+  }
+
   Widget stepController(
     l,
     ControlsDetails details,
@@ -128,61 +184,5 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
         ),
       ],
     );
-  }
-
-  buildDifficulties(l) {
-    return Column(
-      children: [
-        Picker(pick: pickDiff, val: l.easy, picked: diff),
-        Picker(pick: pickDiff, val: l.medium, picked: diff),
-        Picker(pick: pickDiff, val: l.hard, picked: diff),
-      ],
-    );
-  }
-
-  buildCategories(l) {
-    return Column(
-      children: [
-        Picker(pick: pickCat, val: l.personal, picked: cat),
-        Picker(pick: pickCat, val: l.corporate, picked: cat),
-        Picker(pick: pickCat, val: l.public, picked: cat),
-      ],
-    );
-  }
-
-  pickDiff(d) {
-    logPlayDifficultySelect(d);
-    setState(() {
-      diff = d;
-      _index++;
-    });
-  }
-
-  pickCat(c) async {
-    logPlayCategorySelect(c);
-    setState(() {
-      cat = c;
-      _index++;
-    });
-  }
-
-  getFinalTitle(l, finalStep) {
-    if (!finalStep && !start) return Text(l.play);
-    if (!start && finalStep) return Text(l.ready);
-    return Row(children: [Text(l.starting), const CountDownTimer(time: 3)]);
-  }
-
-  getFinalPrompt(l, finalStep) {
-    if (finalStep && start) return Text(l.good_luck);
-    if (finalStep) return const SizedBox();
-    return Text(l.please_choose_diff_cat);
-  }
-
-  getCat(l) => cat != '' ? '${l.category}: $cat' : l.choose_category;
-  getDiff(l) => diff != '' ? '${l.difficulty}: $diff' : l.choose_difficulty;
-
-  startQuiz() {
-    logPlayStart();
-    BlocProvider.of<NavBloc>(context).add(StartQuiz());
   }
 }
