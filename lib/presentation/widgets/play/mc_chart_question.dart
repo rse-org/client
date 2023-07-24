@@ -70,6 +70,9 @@ class _MCCQuestionState extends State<MCCQuestion> {
   }
 
   buildButtonContainer(BuildContext context) {
+    var answers = List.from(widget.q.answerBank!);
+    answers.add(widget.q.answer);
+    answers.shuffle();
     return SizedBox(
       height: 250,
       child: Column(
@@ -77,17 +80,17 @@ class _MCCQuestionState extends State<MCCQuestion> {
         children: [
           Row(
             children: [
-              buildAnswerButton(widget.q.answerBank![0]),
+              buildAnswerButton(answers[0]),
               const SizedBox(width: 10),
-              buildAnswerButton(widget.q.answerBank![1]),
+              buildAnswerButton(answers[1]),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: [
-              buildAnswerButton(widget.q.answerBank![2]),
+              buildAnswerButton(answers[2]),
               const SizedBox(width: 10),
-              buildAnswerButton(widget.q.answerBank![3]),
+              buildAnswerButton(answers[3]),
             ],
           ),
         ],
@@ -138,7 +141,7 @@ class _MCCQuestionState extends State<MCCQuestion> {
                   fontWeight: FontWeight.bold,
                 ),
                 child: Text(
-                  regularizeSentence(widget.q.context!),
+                  regularizeSentence('${widget.q.sym} ${widget.q.context!}'),
                 ),
               ),
             ),

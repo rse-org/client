@@ -24,13 +24,12 @@ List<String> split(String str) {
 
 List<Point> splitData(String str, bool isNew) {
   String trimmed = str.trim().split(RegExp(r'\s+')).join(' ');
-
   final parts = trimmed.split(' ');
   return parts.asMap().entries.map((entry) {
-    final idx = entry.key.toDouble() + (isNew ? parts.length - 2 : 0);
+    final idx = entry.key.toDouble() + (isNew ? parts.length - 3 : 0);
     final val = double.parse(entry.value);
     return Point(idx, val,
-        isNew || idx == parts.length - 1 ? Colors.green : Colors.blue);
+        isNew || idx == parts.length - 3 ? Colors.green : Colors.blue);
   }).toList();
 }
 
@@ -78,14 +77,14 @@ class PlayService {
           final j = {
             'sym': question[0],
             'data': splitData(question[1], false),
-            'newData': splitData(question[2], true),
-            'context': question[3],
-            'body': question[4],
-            'answer': question[5],
-            'explanation': question[6],
+            'newData': splitData(question[3], true),
+            'context': question[4],
+            'body': question[5],
+            'answer': question[6],
             'answerBank': split(question[7]),
-            'explanationBank': split(question[8]),
-            'type': question[9],
+            'explanation': question[8],
+            'explanationBank': split(question[9]),
+            'type': question[10],
           };
           final q = Question.fromJson(j);
           questions.add(q);
