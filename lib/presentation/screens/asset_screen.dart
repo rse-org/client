@@ -15,6 +15,8 @@ class _AssetScreeState extends State<AssetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setTitle(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.sym),

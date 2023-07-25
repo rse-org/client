@@ -12,7 +12,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      onDestinationSelected: _goBranch,
+      onDestinationSelected: (idx) => _goBranch(idx, context),
       selectedIndex: shell.currentIndex,
       indicatorColor: Theme.of(context).indicatorColor,
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
@@ -62,7 +62,10 @@ class BottomNavBar extends StatelessWidget {
         : T(context, 'inversePrimary');
   }
 
-  void _goBranch(int index) {
+  void _goBranch(int index, context) {
     resetStack(index);
+    Future.delayed(const Duration(milliseconds: 25), () {
+      setTitle(context);
+    });
   }
 }

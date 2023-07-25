@@ -82,6 +82,9 @@ class _AppState extends State<App> {
       tabIdx,
       initialLocation: tabIdx == shell.currentIndex,
     );
+    Future.delayed(const Duration(milliseconds: 25), () {
+      setTitle(context);
+    });
   }
 
   PreferredSize? tabRootAppBar(int tabStackIdx) {
