@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
@@ -59,11 +60,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Fix: FB screen name breaks tests
-    // ! For some reason this causes FB tests to fail.
-    // ! The test for checking if FB is setup correctly.
-    // ! Do not use until you know how to fix it.
-    // setScreenName('/home');
+    // ! Fails tests if invoked so only invoke in release.
+    if (kReleaseMode) setScreenName('/home');
   }
 
   Widget mobileWatchList(BuildContext context) {
