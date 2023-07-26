@@ -3,7 +3,7 @@ import 'package:rse/all.dart';
 
 part 'result.freezed.dart';
 
-String getScore(val) {
+String getGrade(val) {
   var outcome = '';
   if (val >= 90) {
     outcome = 'A';
@@ -29,6 +29,7 @@ class Result with _$Result {
     @Default(0) int numWrong,
     @Default(0) double score,
     @Default('') String name,
+    @Default('') String grade,
     @Default('') String username,
     @Default([]) List correctAnswers,
     required List<Question> questions,
@@ -39,7 +40,6 @@ class Result with _$Result {
     String name = '',
     String username = '',
     required List answers,
-    // required List results,
     required DateTime start,
     required List<Question> questions,
   }) {
@@ -53,22 +53,24 @@ class Result with _$Result {
       correctAnswers.add(q.answer);
       results.add(q.answer == answers[i]);
     }
-    int numRight = 0;
-    int numWrong = 0;
+    int right = 0;
+    int wrong = 0;
     for (final answer in results) {
-      answer ? numRight++ : numWrong++;
+      answer ? right++ : wrong++;
     }
+    final score = questions.isNotEmpty ? (right / questions.length) * 100 : 0;
     return Result(
       name: name,
       time: time,
       userId: userId,
+      numRight: right,
+      numWrong: wrong,
       answers: answers,
-      numRight: numRight,
-      numWrong: numWrong,
       username: username,
       questions: questions,
+      grade: getGrade(score),
+      score: score.toDouble(),
       correctAnswers: correctAnswers,
-      score: questions.isNotEmpty ? (numRight / questions.length) * 100 : 0,
     );
   }
 }

@@ -7,12 +7,12 @@ var api = 'http://localhost:7254';
 var newsApi = 'https://newsdata.io/api/1/news?category=business&language=en';
 
 void setupAPI() {
-  // Platform isn't available on web.
+  // ? Platform isn't available on web.
   if (!kIsWeb) {
-    // Android has connection issues with localhost. "Connection refused..."
-    // https://stackoverflow.com/questions/4905315/error-connection-refused
-    // Could be a few other things as well though.
-    // https://loi-tran-blog.netlify.app/blog/flutter/flutter%20android%20connectivity%20issues%20-%20connection%20refused
+    // ? Android connection issues with localhost. "Connection refused..."
+    // ?  https://stackoverflow.com/questions/4905315/error-connection-refused
+    // ? Could be a few other things as well though:
+    // ?  https://rb.gy/u5kdq
     api = Platform.isAndroid ? 'http://10.0.2.2:7254' : 'http://localhost:7254';
   }
 

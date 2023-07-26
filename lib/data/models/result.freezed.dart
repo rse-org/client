@@ -18,14 +18,15 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Result {
   String? get userId => throw _privateConstructorUsedError;
   String get time => throw _privateConstructorUsedError;
+  List<dynamic> get answers => throw _privateConstructorUsedError;
   int get numRight => throw _privateConstructorUsedError;
   int get numWrong => throw _privateConstructorUsedError;
-  List<dynamic> get answers => throw _privateConstructorUsedError;
-  List<dynamic> get correctAnswers => throw _privateConstructorUsedError;
-  List<Question> get questions => throw _privateConstructorUsedError;
   double get score => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get grade => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  List<dynamic> get correctAnswers => throw _privateConstructorUsedError;
+  List<Question> get questions => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ResultCopyWith<Result> get copyWith => throw _privateConstructorUsedError;
@@ -39,14 +40,15 @@ abstract class $ResultCopyWith<$Res> {
   $Res call(
       {String? userId,
       String time,
+      List<dynamic> answers,
       int numRight,
       int numWrong,
-      List<dynamic> answers,
-      List<dynamic> correctAnswers,
-      List<Question> questions,
       double score,
       String name,
-      String username});
+      String grade,
+      String username,
+      List<dynamic> correctAnswers,
+      List<Question> questions});
 }
 
 /// @nodoc
@@ -64,14 +66,15 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
   $Res call({
     Object? userId = freezed,
     Object? time = null,
+    Object? answers = null,
     Object? numRight = null,
     Object? numWrong = null,
-    Object? answers = null,
-    Object? correctAnswers = null,
-    Object? questions = null,
     Object? score = null,
     Object? name = null,
+    Object? grade = null,
     Object? username = null,
+    Object? correctAnswers = null,
+    Object? questions = null,
   }) {
     return _then(_value.copyWith(
       userId: freezed == userId
@@ -82,6 +85,10 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       numRight: null == numRight
           ? _value.numRight
           : numRight // ignore: cast_nullable_to_non_nullable
@@ -90,18 +97,6 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
           ? _value.numWrong
           : numWrong // ignore: cast_nullable_to_non_nullable
               as int,
-      answers: null == answers
-          ? _value.answers
-          : answers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      correctAnswers: null == correctAnswers
-          ? _value.correctAnswers
-          : correctAnswers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      questions: null == questions
-          ? _value.questions
-          : questions // ignore: cast_nullable_to_non_nullable
-              as List<Question>,
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -110,10 +105,22 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      grade: null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      questions: null == questions
+          ? _value.questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<Question>,
     ) as $Val);
   }
 }
@@ -127,14 +134,15 @@ abstract class _$$_ResultCopyWith<$Res> implements $ResultCopyWith<$Res> {
   $Res call(
       {String? userId,
       String time,
+      List<dynamic> answers,
       int numRight,
       int numWrong,
-      List<dynamic> answers,
-      List<dynamic> correctAnswers,
-      List<Question> questions,
       double score,
       String name,
-      String username});
+      String grade,
+      String username,
+      List<dynamic> correctAnswers,
+      List<Question> questions});
 }
 
 /// @nodoc
@@ -149,14 +157,15 @@ class __$$_ResultCopyWithImpl<$Res>
   $Res call({
     Object? userId = freezed,
     Object? time = null,
+    Object? answers = null,
     Object? numRight = null,
     Object? numWrong = null,
-    Object? answers = null,
-    Object? correctAnswers = null,
-    Object? questions = null,
     Object? score = null,
     Object? name = null,
+    Object? grade = null,
     Object? username = null,
+    Object? correctAnswers = null,
+    Object? questions = null,
   }) {
     return _then(_$_Result(
       userId: freezed == userId
@@ -167,6 +176,10 @@ class __$$_ResultCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      answers: null == answers
+          ? _value._answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
       numRight: null == numRight
           ? _value.numRight
           : numRight // ignore: cast_nullable_to_non_nullable
@@ -175,18 +188,6 @@ class __$$_ResultCopyWithImpl<$Res>
           ? _value.numWrong
           : numWrong // ignore: cast_nullable_to_non_nullable
               as int,
-      answers: null == answers
-          ? _value._answers
-          : answers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      correctAnswers: null == correctAnswers
-          ? _value._correctAnswers
-          : correctAnswers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
-      questions: null == questions
-          ? _value._questions
-          : questions // ignore: cast_nullable_to_non_nullable
-              as List<Question>,
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -195,10 +196,22 @@ class __$$_ResultCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      grade: null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      correctAnswers: null == correctAnswers
+          ? _value._correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      questions: null == questions
+          ? _value._questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<Question>,
     ));
   }
 }
@@ -209,14 +222,15 @@ class _$_Result implements _Result {
   _$_Result(
       {this.userId,
       required this.time,
+      required final List<dynamic> answers,
       this.numRight = 0,
       this.numWrong = 0,
-      required final List<dynamic> answers,
-      final List<dynamic> correctAnswers = const [],
-      required final List<Question> questions,
       this.score = 0,
       this.name = '',
-      this.username = ''})
+      this.grade = '',
+      this.username = '',
+      final List<dynamic> correctAnswers = const [],
+      required final List<Question> questions})
       : _answers = answers,
         _correctAnswers = correctAnswers,
         _questions = questions;
@@ -225,12 +239,6 @@ class _$_Result implements _Result {
   final String? userId;
   @override
   final String time;
-  @override
-  @JsonKey()
-  final int numRight;
-  @override
-  @JsonKey()
-  final int numWrong;
   final List<dynamic> _answers;
   @override
   List<dynamic> get answers {
@@ -239,6 +247,24 @@ class _$_Result implements _Result {
     return EqualUnmodifiableListView(_answers);
   }
 
+  @override
+  @JsonKey()
+  final int numRight;
+  @override
+  @JsonKey()
+  final int numWrong;
+  @override
+  @JsonKey()
+  final double score;
+  @override
+  @JsonKey()
+  final String name;
+  @override
+  @JsonKey()
+  final String grade;
+  @override
+  @JsonKey()
+  final String username;
   final List<dynamic> _correctAnswers;
   @override
   @JsonKey()
@@ -257,18 +283,8 @@ class _$_Result implements _Result {
   }
 
   @override
-  @JsonKey()
-  final double score;
-  @override
-  @JsonKey()
-  final String name;
-  @override
-  @JsonKey()
-  final String username;
-
-  @override
   String toString() {
-    return 'Result(userId: $userId, time: $time, numRight: $numRight, numWrong: $numWrong, answers: $answers, correctAnswers: $correctAnswers, questions: $questions, score: $score, name: $name, username: $username)';
+    return 'Result(userId: $userId, time: $time, answers: $answers, numRight: $numRight, numWrong: $numWrong, score: $score, name: $name, grade: $grade, username: $username, correctAnswers: $correctAnswers, questions: $questions)';
   }
 
   @override
@@ -278,19 +294,20 @@ class _$_Result implements _Result {
             other is _$_Result &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.time, time) || other.time == time) &&
+            const DeepCollectionEquality().equals(other._answers, _answers) &&
             (identical(other.numRight, numRight) ||
                 other.numRight == numRight) &&
             (identical(other.numWrong, numWrong) ||
                 other.numWrong == numWrong) &&
-            const DeepCollectionEquality().equals(other._answers, _answers) &&
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             const DeepCollectionEquality()
                 .equals(other._correctAnswers, _correctAnswers) &&
             const DeepCollectionEquality()
-                .equals(other._questions, _questions) &&
-            (identical(other.score, score) || other.score == score) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.username, username) ||
-                other.username == username));
+                .equals(other._questions, _questions));
   }
 
   @override
@@ -298,14 +315,15 @@ class _$_Result implements _Result {
       runtimeType,
       userId,
       time,
+      const DeepCollectionEquality().hash(_answers),
       numRight,
       numWrong,
-      const DeepCollectionEquality().hash(_answers),
-      const DeepCollectionEquality().hash(_correctAnswers),
-      const DeepCollectionEquality().hash(_questions),
       score,
       name,
-      username);
+      grade,
+      username,
+      const DeepCollectionEquality().hash(_correctAnswers),
+      const DeepCollectionEquality().hash(_questions));
 
   @JsonKey(ignore: true)
   @override
@@ -318,35 +336,38 @@ abstract class _Result implements Result {
   factory _Result(
       {final String? userId,
       required final String time,
+      required final List<dynamic> answers,
       final int numRight,
       final int numWrong,
-      required final List<dynamic> answers,
-      final List<dynamic> correctAnswers,
-      required final List<Question> questions,
       final double score,
       final String name,
-      final String username}) = _$_Result;
+      final String grade,
+      final String username,
+      final List<dynamic> correctAnswers,
+      required final List<Question> questions}) = _$_Result;
 
   @override
   String? get userId;
   @override
   String get time;
   @override
+  List<dynamic> get answers;
+  @override
   int get numRight;
   @override
   int get numWrong;
-  @override
-  List<dynamic> get answers;
-  @override
-  List<dynamic> get correctAnswers;
-  @override
-  List<Question> get questions;
   @override
   double get score;
   @override
   String get name;
   @override
+  String get grade;
+  @override
   String get username;
+  @override
+  List<dynamic> get correctAnswers;
+  @override
+  List<Question> get questions;
   @override
   @JsonKey(ignore: true)
   _$$_ResultCopyWith<_$_Result> get copyWith =>

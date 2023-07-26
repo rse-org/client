@@ -26,9 +26,15 @@ String getTitle(context) {
 
 // Toggle print statements everywhere more easily.
 // Sometimes we do need to see print statements in prod.
-void p(v, {error = false}) {
+void p(v, {icon}) {
+  icon = icon ?? 'ℹ️';
+  switch (icon) {
+    case 'error':
+      icon = '❗️';
+      break;
+  }
   if (kDebugMode) {
-    print('${error ? '❗️' : 'ℹ️'} $v');
+    print('$icon $v');
   }
 }
 

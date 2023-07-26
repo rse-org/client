@@ -12,16 +12,18 @@ import 'package:rse/presentation/widgets/play/examples/everything_view.dart';
 import 'all.dart';
 import 'firebase_options.dart';
 
-// Notes: 1. Review Todo Tree
+// Note: Flutter style guide.
+// https://shorturl.at/rIUZ1
 
-// https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
-// Fix: Less than ideal fix but working.
-// Todo: Work to do later
+// Note: Todos VScode extension.
+// Fix: Not ideal fix.
+// Todo: Work to do later.
+// https://rb.gy/wpj5j
 
-// Learn to use better comments as well.
-// https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
-// ! Very important
-// ? Not sure of something
+// Note: Comments VSCode extension.
+// https://shorturl.at/ehADH
+// ! Very important!
+// ? Why is this here?
 // * Decorators !, ?, *
 
 Future<void> main() async {
@@ -33,7 +35,7 @@ Future<void> main() async {
 
   _loadShader(); // this is a touch hacky, but works for now.
 
-  // Notes: 2. Bloc entrypoint
+  // Note: Bloc entry.
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeModel(),
@@ -85,12 +87,14 @@ Future<void> main() async {
 
 Future<void> _loadShader() async {
   return FragmentProgram.fromAsset('assets/shader.frag').then(
-      (FragmentProgram prgm) {
-    EverythingView.shader = prgm.fragmentShader();
-  }, onError: (Object error, StackTrace stackTrace) {
-    FlutterError.reportError(
-        FlutterErrorDetails(exception: error, stack: stackTrace));
-  });
+    (FragmentProgram prgm) {
+      EverythingView.shader = prgm.fragmentShader();
+    },
+    onError: (Object error, StackTrace stackTrace) {
+      FlutterError.reportError(
+          FlutterErrorDetails(exception: error, stack: stackTrace));
+    },
+  );
 }
 
 class MyApp extends StatefulWidget {

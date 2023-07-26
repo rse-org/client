@@ -38,21 +38,17 @@ class _GameScreenState extends State<GameScreen> {
   Expanded buildCrossAndTimerBar(BuildContext context) {
     return Expanded(
       flex: 1,
-      child: Container(
-        // color: Colors.red,
-        padding: const EdgeInsets.all(5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                BlocProvider.of<NavBloc>(context).add(EndQuiz());
-              },
-              child: const Icon(Icons.close, color: Colors.white),
-            ),
-            const CountDownTimer(time: 60),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<NavBloc>(context).add(EndQuiz());
+            },
+            child: const Icon(Icons.close, color: Colors.white),
+          ),
+          const CountDownTimer(time: 60),
+        ],
       ),
     );
   }
@@ -102,10 +98,7 @@ class _GameScreenState extends State<GameScreen> {
                 flex: 13,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    // color: Colors.blue,
-                    child: buildQuestion(state),
-                  ),
+                  child: buildQuestion(state),
                 ),
               ),
             ],
@@ -151,10 +144,8 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   onAnswer(a, last) {
-    logPlayAnswerSelect();
     BlocProvider.of<PlayBloc>(context).add(QuestionAnswered(ans: a));
     if (last) {
-      logPlayEnd(start);
       BlocProvider.of<PlayBloc>(context).add(PlayDone(start));
     }
   }

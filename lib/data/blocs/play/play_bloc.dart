@@ -6,15 +6,13 @@ import 'package:rse/all.dart';
 part 'play_event.dart';
 part 'play_state.dart';
 
-calculateScore() {}
-
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   int idx = 0;
   List<bool> results = [];
   List<String> answers = [];
   List<Question> questions = [];
-  Question currentQuestion = Question.defaultQuestion();
   final PlayService playService = PlayService();
+  Question currentQuestion = Question.defaultQuestion();
 
   PlayBloc() : super(PlaySetup()) {
     on<PlayInitial>((event, emit) async {
@@ -63,6 +61,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<QuestionAnswered>((event, emit) async {
       try {
+        logPlayAnswerSelect();
         answers.add(event.ans);
         final answerCorrect = questions[idx].answer == event.ans;
         results.add(answerCorrect);
@@ -93,6 +92,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<PlayDone>((event, emit) async {
       try {
+        logPlayEnd(event.start);
         final result = Result.fromDateTime(
           // results: results,
           answers: answers,
@@ -104,9 +104,8 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
         answers = [];
         results = [];
         questions = [];
-        currentQuestion = Question.defaultQuestion();
         playService.clearQuizQuestions();
-
+        currentQuestion = Question.defaultQuestion();
         emit(PlayRoundFinished(result: result));
       } catch (e) {
         p(e);

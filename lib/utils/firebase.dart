@@ -43,8 +43,8 @@ void logAppLoadSuccess() async {
     name: 'app_load_success',
     parameters: {
       'platform': platform,
-      'device': '$version $buildNumber',
       'package_name': packageName,
+      'device': '$version $buildNumber',
       'env': kReleaseMode ? 'release' : 'debug',
     },
   );
@@ -162,8 +162,8 @@ setupFirebase() async {
       ),
     );
 
-    // ! Crashlytics isn't supported on web.
-    // ! https://github.com/firebase/flutterfire/issues/4631
+    // ? Crashlytics has no web support.
+    // ? https://github.com/firebase/flutterfire/issues/4631#issuecomment-758701699
     if (!kIsWeb) {
       if (subscription != null) {
         await subscription!.cancel();

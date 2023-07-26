@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rse/all.dart';
 
-// Notes: 4. Navigation configuration
+// Note: Routes.
 final goRouter = GoRouter(
   initialLocation: '/',
   // * Passing a navigatorKey causes an issue on hot reload:
