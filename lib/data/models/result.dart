@@ -53,7 +53,6 @@ class Result with _$Result {
       correctAnswers.add(q.answer);
       results.add(q.answer == answers[i]);
     }
-    print('results $results and answers $answers');
     int numRight = 0;
     int numWrong = 0;
     for (final answer in results) {

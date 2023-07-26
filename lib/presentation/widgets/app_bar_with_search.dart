@@ -5,31 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
-
-Future<String> getBuildString() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final packageName = packageInfo.packageName;
-    return packageName;
-  } on Exception catch (_) {
-    return '';
-  }
-}
-
-Future<String> getVersionId() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-    return '$version: $buildNumber';
-  } on Exception catch (_) {
-    return '';
-  }
-}
 
 Widget renderAuthOptions(context) {
   return BlocConsumer<AuthBloc, AuthState>(
@@ -76,7 +54,6 @@ void _handleLongPress(LongPressStartDetails details, context) {
 void _showModal(BuildContext context) {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
-  bool showAppConfig = remoteConfig.getValue('app_show_config').asBool();
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {
@@ -109,52 +86,7 @@ void _showModal(BuildContext context) {
             },
             child: const Text('Enable Debug Paint Size'),
           ),
-          TextButton(
-            onPressed: () {
-              // getSheetData();
-            },
-            child: const Text('Get Sheet Data'),
-          ),
           renderAuthOptions(context),
-          if (showAppConfig)
-            FutureBuilder<String>(
-              future: getVersionId(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return Text(snapshot.data ?? '');
-                }
-              },
-            ),
-          FutureBuilder<String>(
-            future: getVersionId(),
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return Text(
-                    'app_secret: ${remoteConfig.getValue('app_secret').asString()}');
-              }
-            },
-          ),
-          if (showAppConfig)
-            FutureBuilder<String>(
-              future: getBuildString(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return Text(snapshot.data ?? '');
-                }
-              },
-            ),
         ],
       );
     },

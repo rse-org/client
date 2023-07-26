@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
@@ -12,6 +13,27 @@ const feedbackFormUrl =
 
 const placeHolderAvatar = 'https://shorturl.at/yGISX';
 
+Future<String> getBuildString() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageName = packageInfo.packageName;
+    return packageName;
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
+Future<String> getVersionId() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return '$version+$buildNumber';
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
@@ -20,6 +42,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class DrawerState extends State<CustomDrawer> {
+  int taps = 0;
   late bool isDark = isDarkMode(context);
 
   @override
@@ -106,7 +129,33 @@ class DrawerState extends State<CustomDrawer> {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(5, 5, 10, 30),
+          child: Column(
+            children: [
+              if (taps > 2) buildFutureBuilder(getVersionId()),
+              if (taps > 2) buildFutureBuilder(getBuildString()),
+              if (taps <= 2) const SizedBox(height: 34)
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  buildFutureBuilder(d) {
+    return FutureBuilder<String>(
+      future: d,
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox(height: 17);
+        } else {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [Text(snapshot.data ?? '')],
+          );
+        }
+      },
     );
   }
 
@@ -151,11 +200,18 @@ class DrawerState extends State<CustomDrawer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Royal Stock Exchange',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  taps++;
+                });
+              },
+              child: const Text(
+                'Royal Stock Exchange',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
               ),
             ),
             const Spacer(),
