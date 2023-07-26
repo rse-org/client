@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rse/all.dart';
 
 class PlaySetupScreen extends StatefulWidget {
@@ -20,16 +20,22 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   Widget build(BuildContext context) {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
-    const String assetName = 'assets/play-learn.svg';
+    // const String assetName = 'assets/play-learn.svg';
 
     return Column(
       children: [
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 10),
+        //   child: SizedBox(
+        //     width: MediaQuery.of(context).size.width * .9,
+        //     height: MediaQuery.of(context).size.height * .2,
+        //     child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
+        //   ),
+        // ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 10),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * .9,
-            height: MediaQuery.of(context).size.height * .2,
-            child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
+          padding: const EdgeInsets.only(bottom: 30.0),
+          child: Container(
+            child: getTitle(getQuote()),
           ),
         ),
         Stepper(
@@ -123,7 +129,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   }
 
   getTitle(t) {
-  Widget quote = Text(
+    Widget quote = Text(
       t,
       style: const TextStyle(
         height: 1,

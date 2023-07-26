@@ -6,3 +6,4 @@ export 'picker.dart';
 export 'play_setup_screen.dart';
 export 'progress_bar.dart';
 export 'spinner.dart';
+export 'test.dart';

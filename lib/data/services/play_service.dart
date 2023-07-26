@@ -88,7 +88,7 @@ class PlayService {
     }
   }
 
-  loadMCQuestions() async {
+  Future loadMCQuestions() async {
     String j = await rootBundle.loadString('assets/questions.json');
     for (var q in jsonDecode(j)) {
       mcQuestions.add(Question.fromJson(q));

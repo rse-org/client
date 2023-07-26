@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
+import 'package:rse/presentation/widgets/play/examples/everything_view.dart';
 
 import 'all.dart';
 import 'firebase_options.dart';
@@ -28,6 +30,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  _loadShader(); // this is a touch hacky, but works for now.
+
   // Notes: 2. Bloc entrypoint
   runApp(
     ChangeNotifierProvider(
@@ -76,6 +81,16 @@ Future<void> main() async {
       ),
     ),
   );
+}
+
+Future<void> _loadShader() async {
+  return FragmentProgram.fromAsset('assets/shader.frag').then(
+      (FragmentProgram prgm) {
+    EverythingView.shader = prgm.fragmentShader();
+  }, onError: (Object error, StackTrace stackTrace) {
+    FlutterError.reportError(
+        FlutterErrorDetails(exception: error, stack: stackTrace));
+  });
 }
 
 class MyApp extends StatefulWidget {
