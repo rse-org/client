@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rse/all.dart';
 
-class AssetOverview extends StatelessWidget {
-  const AssetOverview({super.key});
+class Overview extends StatelessWidget {
+  const Overview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class AssetOverview extends StatelessWidget {
             const HoverDarken(child: UpcomingActivity()),
             HoverDarken(child: About(asset: asset)),
             HoverDarken(child: KeyStatistics(asset: asset)),
-            HoverDarken(child: AssetActivityHistory(asset: asset)),
+            HoverDarken(child: ActivityHistory(asset: asset)),
           ]),
         );
       } else {

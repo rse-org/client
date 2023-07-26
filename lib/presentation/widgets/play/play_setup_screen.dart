@@ -109,6 +109,52 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
     return Row(children: [Text(l.starting), const CountDownTimer(time: 3)]);
   }
 
+  getQuote() {
+    final quotes = [
+      '\n\nA journey \nof a thousand\nmiles begins\nwith one step...',
+      '\n\nMoney \ngrows on \nthe tree of \npersistence...',
+      '\n\nIt takes \nas much \nenergy to wish \nas it does to plan...',
+      "\n\nWealth is \nnot about having \na lot of money; \nit's about having a lot of options.",
+      '\n\nYou either \nmaster money, \nor, on some level, \nmoney masters you...',
+      "\n\nYou can \nbe young without money, \nbut you can't \nbe old without it...",
+    ];
+    quotes.shuffle();
+    return quotes.first;
+  }
+
+  getTitle(t) {
+  Widget quote = Text(
+      t,
+      style: const TextStyle(
+        height: 1,
+        fontSize: 40,
+        letterSpacing: 0,
+        color: Color(0xFFFFFFFF),
+        fontWeight: FontWeight.w900,
+      ),
+    );
+
+    quote = quote.animate(adapter: ValueAdapter(0.5)).shimmer(
+      colors: [
+        const Color(0xFF000000),
+        const Color(0xFFFFD700),
+      ],
+    );
+
+    quote = quote
+        .animate(onPlay: (controller) => controller.repeat(reverse: true))
+        .saturate(delay: 1.seconds, duration: 2.seconds)
+        .then()
+        .tint(
+          color: const Color(0xFFFFFFFF),
+        )
+        .then(delay: 1.5.seconds)
+        .blurXY(end: 24)
+        .fadeOut();
+
+    return quote;
+  }
+
   @override
   void initState() {
     super.initState();

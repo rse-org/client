@@ -8,27 +8,12 @@ part 'play_state.dart';
 
 calculateScore() {}
 
-String getScore(val) {
-  var outcome = '';
-  if (val >= 90) {
-    outcome = 'A';
-  } else if (val >= 80) {
-    outcome = 'B';
-  } else if (val >= 70) {
-    outcome = 'C';
-  } else if (val >= 60) {
-    outcome = 'D';
-  } else {
-    outcome = 'F';
-  }
-  return outcome;
-}
-
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   int idx = 0;
+  List<bool> results = [];
+  List<String> answers = [];
   List<Question> questions = [];
   Question currentQuestion = Question.defaultQuestion();
-  final List<String> answers = [];
   final PlayService playService = PlayService();
 
   PlayBloc() : super(PlaySetup()) {
@@ -79,6 +64,8 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     on<QuestionAnswered>((event, emit) async {
       try {
         answers.add(event.ans);
+        final answerCorrect = questions[idx].answer == event.ans;
+        results.add(answerCorrect);
         idx += 1;
         if (idx < questions.length) {
           currentQuestion = questions[idx];
@@ -106,35 +93,16 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<PlayDone>((event, emit) async {
       try {
-        final results = [];
-        final end = DateTime.now();
-        Duration diff = end.difference(event.start);
-        String time = formatTimeDifference(diff);
-
-        final correctAnswers = questions.map((q) => q.answer).toList();
-        for (int i = 0; i < questions.length; i++) {
-          String a = correctAnswers[i];
-          final isRight = a == answers[i];
-          results.add(isRight);
-        }
-
-        final numRight = results.where((r) => r).length;
-        final numWrong = results.where((r) => !r).length;
-
-        final score = (numRight / questions.length) * 100;
-
-        final result = Result(
-          time: time,
-          score: score,
-          username: '',
+        final result = Result.fromDateTime(
+          // results: results,
           answers: answers,
-          numRight: numRight,
-          numWrong: numWrong,
+          start: event.start,
           questions: questions,
-          correctAnswers: correctAnswers,
         );
 
         idx = 0;
+        answers = [];
+        results = [];
         questions = [];
         currentQuestion = Question.defaultQuestion();
         playService.clearQuizQuestions();

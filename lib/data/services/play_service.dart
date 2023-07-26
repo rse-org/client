@@ -18,9 +18,13 @@ const chartUrl =
 const sheetUrl =
     'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/questions!A2:J11?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
-List<String> split(String str) {
-  final List<String> parts = str.split('. ');
-  return List<String>.from(parts);
+List<String> splitAndNormalize(String str) {
+  final List<String> parts = str.trim().split('.');
+  final List<String> normalizedParts = parts
+      .where((part) => part.trim().isNotEmpty)
+      .map((part) => '${part.trim()}.')
+      .toList();
+  return normalizedParts;
 }
 
 List<Point> splitData(String str, bool isNew) {
@@ -68,9 +72,9 @@ class PlayService {
             'context': question[4],
             'body': question[5],
             'answer': question[6],
-            'answerBank': split(question[7]),
+            'answerBank': splitAndNormalize(question[7]),
             'explanation': question[8],
-            'explanationBank': split(question[9]),
+            'explanationBank': splitAndNormalize(question[9]),
             'type': question[10],
           };
           final q = Question.fromJson(j);

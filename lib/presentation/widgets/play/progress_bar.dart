@@ -68,13 +68,6 @@ const segments = [
 class ProgressBar extends StatelessWidget {
   const ProgressBar({super.key});
 
-  getPadding(context) {
-    if (isS(context)) {
-      return 10.0;
-    }
-    return 80.0 ;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,5 +97,12 @@ class ProgressBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  getPadding(context) {
+    if (isS(context)) {
+      return 10.0;
+    }
+    return 80.0;
   }
 }

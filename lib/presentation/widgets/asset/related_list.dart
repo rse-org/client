@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AssetAnalystRatings extends StatelessWidget {
-  const AssetAnalystRatings({super.key});
+class RelatedList extends StatelessWidget {
+  const RelatedList({super.key});
 
   @override
   Widget build(BuildContext context) {

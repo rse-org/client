@@ -38,7 +38,7 @@ class _AssetScreeState extends State<AssetScreen> {
       child: Column(
         children: [
           CandleChart(),
-          AssetOverview(),
+          Overview(),
         ],
       ),
     );
@@ -57,7 +57,7 @@ class _AssetScreeState extends State<AssetScreen> {
               child: Column(
                 children: [
                   CandleChart(),
-                  AssetOverview(),
+                  Overview(),
                 ],
               ),
             ),
