@@ -17,12 +17,17 @@ class PickedDifficulty extends PlayEvent {
 }
 
 class PlayDone extends PlayEvent {
-  PlayDone();
+  final DateTime start;
+  PlayDone(this.start);
 }
 
 abstract class PlayEvent extends Equatable {
   @override
   List<Object> get props => [];
+}
+
+class PlayInitial extends PlayEvent {
+  PlayInitial();
 }
 
 class PlayInitialized extends PlayEvent {
@@ -38,6 +43,13 @@ class QuestionAnswered extends PlayEvent {
   QuestionAnswered({required this.ans});
   @override
   List<String> get props => [ans];
+}
+
+class QuestionsRetrieved extends PlayEvent {
+  final List<Question> questions;
+  QuestionsRetrieved({required this.questions});
+  @override
+  List<Question> get props => questions;
 }
 
 class ResultsCalculated extends PlayEvent {

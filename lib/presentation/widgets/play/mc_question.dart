@@ -20,38 +20,35 @@ class MCQuestion extends StatelessWidget {
       buildAnswerButton(q.c3),
     ];
     answers.shuffle();
-    return Expanded(
-      flex: 3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                prompt,
-                Text(
-                  q.body,
-                  style: TextStyle(
-                    fontSize: isS(context) ? 20 : 30,
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              prompt,
+              Text(
+                q.body,
+                style: TextStyle(
+                  fontSize: isS(context) ? 20 : 30,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
                 ),
-                const SizedBox(height: 10),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Column(
-              children: answers,
-            ),
-          )
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            children: answers,
+          ),
+        )
+      ],
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rse/all.dart';
 
@@ -24,8 +25,8 @@ class Question with _$Question {
 
   factory Question.defaultQuestion() => Question(
         sym: '',
-        data: [],
-        newData: [],
+        data: [Point(0, 0, Colors.green)],
+        newData: [Point(0, 0, Colors.green)],
         context: '',
         body: '',
         answer: '',

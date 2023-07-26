@@ -37,35 +37,21 @@ List<Point> splitData(String str, bool isNew) {
 class PlayService {
   String skill = '';
   String category = '';
-  List<Question> game = [];
-  List<Question> questions = [];
+  List<Question> mcQuestions = [];
+  List<Question> chartQuestions = [];
   List<Question> quizQuestions = [];
 
   PlayService() {
-    loadQuestions();
+    loadMCQuestions();
   }
 
-  Future<List<Question>> loadQuestions() async {
-    String j = await rootBundle.loadString('assets/questions.json');
-    List<dynamic> list = jsonDecode(j);
-
-    for (var q in list) {
-      questions.add(Question.fromJson(q));
-    }
-    questions.shuffle();
-    return questions;
+  clearQuizQuestions() {
+    mcQuestions = [];
+    chartQuestions = [];
+    quizQuestions = [];
   }
 
-  prepareQuiz() async {
-    final mcQuestions = await loadQuestions();
-    final chartQuestions = await getChartQuestions();
-    mcQuestions.shuffle();
-    chartQuestions.shuffle();
-    quizQuestions.addAll(mcQuestions.take(5).toList());
-    quizQuestions.addAll(chartQuestions.take(5).toList());
-  }
-
-  static Future getChartQuestions() async {
+  Future loadMCCQuestions() async {
     try {
       final response = await http.get(Uri.parse(chartUrl));
       if (response.statusCode == 200) {
@@ -90,11 +76,27 @@ class PlayService {
           final q = Question.fromJson(j);
           questions.add(q);
         }
-        return questions;
+        questions.shuffle();
+        chartQuestions.addAll(questions);
       }
     } catch (e) {
       p('Error: $e');
     }
+  }
+
+  loadMCQuestions() async {
+    String j = await rootBundle.loadString('assets/questions.json');
+    for (var q in jsonDecode(j)) {
+      mcQuestions.add(Question.fromJson(q));
+    }
+    mcQuestions.shuffle();
+  }
+
+  prepareQuiz() async {
+    await loadMCQuestions();
+    await loadMCCQuestions();
+    quizQuestions.addAll(mcQuestions.take(5).toList());
+    quizQuestions.addAll(chartQuestions.take(5).toList());
   }
 }
 

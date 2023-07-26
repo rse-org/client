@@ -30,17 +30,14 @@ class _MCCQuestionState extends State<MCCQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          buildQuestionContainer(context),
-          buildChart(),
-          buildButtonContainer(context),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        buildQuestionContainer(context),
+        buildChart(),
+        buildButtonContainer(context),
+      ],
     );
   }
 
