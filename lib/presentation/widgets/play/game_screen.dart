@@ -24,6 +24,8 @@ class _GameScreenState extends State<GameScreen> {
           child: BlocConsumer<PlayBloc, PlayState>(
             listener: (context, state) {},
             builder: (context, state) {
+              // Todo: Style dialog for score.
+              // return buildResultDialog(context, state);
               if (state is PlayRoundFinished) {
                 return buildResultDialog(context, state);
               }
@@ -110,7 +112,8 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Dialog buildResultDialog(BuildContext context, state) {
-    final score = state.result.score;
+    final r = state.result;
+    final score = r.score;
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -119,21 +122,52 @@ class _GameScreenState extends State<GameScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Congratulations! $score',
+              '${getPromptFromGrade(r.grade)} \n$score',
               style: const TextStyle(fontSize: 25),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 15),
-            TextButton(
-              onPressed: () {
-                BlocProvider.of<PlayBloc>(context).add(PlayInitial());
-                BlocProvider.of<NavBloc>(context).add(EndQuiz());
-              },
-              child: const Text('Finish'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Finish'),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    BlocProvider.of<PlayBloc>(context).add(PlayInitial());
+                    BlocProvider.of<NavBloc>(context).add(EndQuiz());
+                  },
+                  child: const Text('Finish'),
+                ),
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  getPromptFromGrade(grade) {
+    String val;
+    switch (grade) {
+      case 'A':
+        val = 'Excellent!';
+        break;
+      case 'B':
+        val = 'Great!';
+        break;
+      case 'C':
+        val = 'A for effort!';
+        break;
+      case 'D':
+        val = 'Needs improvement!';
+        break;
+      default:
+        val = 'Lost a lot of money!';
+    }
+    return val;
   }
 
   @override

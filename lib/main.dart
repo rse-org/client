@@ -33,7 +33,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  _loadShader(); // this is a touch hacky, but works for now.
+  // Fix: Hacky package solution. https://shorturl.at/DYZ02
+  _loadShader();
 
   // Note: Bloc entry.
   runApp(
@@ -118,7 +119,6 @@ class _MyAppState extends State<MyApp> {
         if (snapshot.hasError) {
           return const SizedBox();
         }
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return BlocBuilder<LangBloc, LangState>(
             builder: (context, state) {

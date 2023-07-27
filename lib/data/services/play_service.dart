@@ -65,18 +65,7 @@ class PlayService {
         // ! Don't reorder these guys.
         // ! Google sheets returns an array so the order of question[index] matters
         for (final question in data['values']) {
-          final j = {
-            'sym': question[0],
-            'data': splitData(question[1], false),
-            'newData': splitData(question[3], true),
-            'context': question[4],
-            'body': question[5],
-            'answer': question[6],
-            'answerBank': splitAndNormalize(question[7]),
-            'explanation': question[8],
-            'explanationBank': splitAndNormalize(question[9]),
-            'type': question[10],
-          };
+          final j = _getQuestionObject(question);
           final q = Question.fromJson(j);
           questions.add(q);
         }
@@ -101,6 +90,21 @@ class PlayService {
     await loadMCCQuestions();
     quizQuestions.addAll(mcQuestions.take(5).toList());
     quizQuestions.addAll(chartQuestions.take(5).toList());
+  }
+
+  Map<String, dynamic> _getQuestionObject(question) {
+    return {
+      'sym': question[0],
+      'data': splitData(question[1], false),
+      'newData': splitData(question[3], true),
+      'context': question[4],
+      'body': question[5],
+      'answer': question[6],
+      'answerBank': splitAndNormalize(question[7]),
+      'explanation': question[8],
+      'explanationBank': splitAndNormalize(question[9]),
+      'type': question[10],
+    };
   }
 }
 

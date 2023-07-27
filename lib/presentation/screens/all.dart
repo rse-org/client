@@ -6,3 +6,4 @@ export 'play_screen.dart';
 export 'profile_screen.dart';
 export 'profile_settings_screen.dart';
 export 'spending_screen.dart';
+export 'style_screen.dart';

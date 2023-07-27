@@ -223,7 +223,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           buildForm(context),
           const SizedBox(height: 20),
           buildBankAccounts(context),
-          const ExpansionPanelListExample(),
+          // const ExpansionPanelListExample(),
           const SizedBox(height: 100),
         ],
       ),
