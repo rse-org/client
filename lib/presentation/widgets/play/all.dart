@@ -5,5 +5,6 @@ export 'mcc_question.dart';
 export 'picker.dart';
 export 'play_setup_screen.dart';
 export 'progress_bar.dart';
+export 'results_screen.dart';
 export 'spinner.dart';
 export 'test.dart';

@@ -86,6 +86,12 @@ void _showModal(BuildContext context) {
             },
             child: const Text('Enable Debug Paint Size'),
           ),
+          TextButton(
+            onPressed: () {
+              GoRouter.of(context).go('/style');
+            },
+            child: const Text('Style Screen'),
+          ),
           renderAuthOptions(context),
         ],
       );

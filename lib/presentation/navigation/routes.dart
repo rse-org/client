@@ -55,6 +55,13 @@ final goRouter = GoRouter(
                 ),
               ],
             ),
+            GoRoute(
+              path: '/style',
+              pageBuilder: (context, state) => NoTransitionPage(
+                key: state.pageKey,
+                child: const StyleScreen(),
+              ),
+            ),
           ],
         ),
         StatefulShellBranch(
