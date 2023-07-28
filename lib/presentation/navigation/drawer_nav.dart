@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 import 'package:slider_button/slider_button.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 
 const feedbackFormUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
@@ -43,7 +44,7 @@ class CustomDrawer extends StatefulWidget {
 
 class DrawerState extends State<CustomDrawer> {
   int taps = 0;
-  late WebViewController controller;
+  // late WebViewController controller;
   late bool isDark = isDarkMode(context);
 
   @override
@@ -179,7 +180,8 @@ class DrawerState extends State<CustomDrawer> {
             if (isWeb) {
               launchUrlString(feedbackFormUrl);
             } else {
-              _showWebViewFullScreen();
+              _dialogBuilder(context);
+              // _showWebViewFullScreen();
             }
           },
         ),
@@ -232,24 +234,24 @@ class DrawerState extends State<CustomDrawer> {
   void initState() {
     super.initState();
 
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {},
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(feedbackFormUrl));
+    // controller = WebViewController()
+    //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    //   ..setBackgroundColor(const Color(0x00000000))
+    //   ..setNavigationDelegate(
+    //     NavigationDelegate(
+    //       onProgress: (int progress) {},
+    //       onPageStarted: (String url) {},
+    //       onPageFinished: (String url) {},
+    //       onWebResourceError: (WebResourceError error) {},
+    //       onNavigationRequest: (NavigationRequest request) {
+    //         if (request.url.startsWith('https://www.youtube.com/')) {
+    //           return NavigationDecision.prevent;
+    //         }
+    //         return NavigationDecision.navigate;
+    //       },
+    //     ),
+    //   )
+    //   ..loadRequest(Uri.parse(feedbackFormUrl));
   }
 
   void toggleTheme(themeModel) {
@@ -259,21 +261,33 @@ class DrawerState extends State<CustomDrawer> {
     themeModel.toggleTheme();
   }
 
-  void _showWebViewFullScreen() {
-    showDialog(
+  // void _showWebViewFullScreen() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return WillPopScope(
+  //         onWillPop: () async {
+  //           Navigator.pop(context);
+  //           return true;
+  //         },
+  //         child: Scaffold(
+  //           appBar: AppBar(),
+  //           body: WebViewWidget(controller: controller),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async {
-            Navigator.pop(context);
-            return true;
-          },
-          child: Scaffold(
-            appBar: AppBar(),
-            body: WebViewWidget(controller: controller),
-          ),
-        );
-      },
+      builder: (_) => WebviewScaffold(
+        url: feedbackFormUrl,
+        appBar: AppBar(
+          title: const Text('RSE'),
+        ),
+      ),
     );
   }
 }
