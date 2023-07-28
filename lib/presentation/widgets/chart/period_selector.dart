@@ -29,7 +29,7 @@ class PeriodSelectorState extends State<PeriodSelector> {
 
   buildSelector(context) {
     final highlightColor = T(context, 'primary');
-    final unselectedColor = Theme.of(context).unselectedWidgetColor;
+    final unselectedColor = T(context, 'inversePrimary');
 
     final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
     final assetBloc = BlocProvider.of<AssetBloc>(context);
