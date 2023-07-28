@@ -71,7 +71,7 @@ class _AssetScreeState extends State<AssetScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: T(context, 'outline'),
+                    color: C(context, 'outline'),
                   ),
                 ),
                 child: const OrderPanel(),

@@ -28,8 +28,8 @@ class PeriodSelectorState extends State<PeriodSelector> {
   }
 
   buildSelector(context) {
-    final highlightColor = T(context, 'primary');
-    final unselectedColor = T(context, 'inversePrimary');
+    final highlightColor = C(context, 'primary');
+    final unselectedColor = C(context, 'inversePrimary');
 
     final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
     final assetBloc = BlocProvider.of<AssetBloc>(context);
@@ -49,7 +49,7 @@ class PeriodSelectorState extends State<PeriodSelector> {
                 : MainAxisAlignment.start,
             children: periods.map((p) {
               final color = period == p
-                  ? T(context, 'primary')
+                  ? C(context, 'primary')
                   : hoveredPeriod == p
                       ? highlightColor
                       : unselectedColor;

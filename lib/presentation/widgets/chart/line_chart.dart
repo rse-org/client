@@ -70,7 +70,7 @@ class LineChartState extends State<LineChart> {
                       end: data.first.y,
                       start: data.first.y,
                       dashArray: const [1, 3],
-                      borderColor: T(context, 'inversePrimary'),
+                      borderColor: C(context, 'inversePrimary'),
                     ),
                   ],
                 ),

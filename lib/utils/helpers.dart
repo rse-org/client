@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 String getTitle(context) {
   final location = GoRouterState.of(context).location;
-  var title = 'Royal Stock Exchange(RSE)';
+  var title = 'RSE - Royal Stock Exchange';
   if (location.contains('/securities')) {
     String name = location
         .substring(location.indexOf('/securities') + '/securities/'.length);

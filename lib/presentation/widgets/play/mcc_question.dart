@@ -120,32 +120,17 @@ class _MCCQuestionState extends State<MCCQuestion> {
         Row(
           children: [
             Flexible(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isS(context) ? 20 : 30,
-                  fontWeight: FontWeight.bold,
-                ),
-                child: Text(
+              child: Text(
                   regularizeSentence('${widget.q.sym} ${widget.q.context!}'),
-                ),
-              ),
+                  style: Theme.of(context).textTheme.titleLarge),
             ),
           ],
         ),
         const SizedBox(height: 20),
         Row(
           children: [
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.w100,
-              ),
-              child: Text(
-                regularizeSentence(widget.q.body),
-              ),
-            ),
+            Text(regularizeSentence(widget.q.body),
+                style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         const SizedBox(height: 20),
@@ -206,7 +191,7 @@ class _MCCQuestionState extends State<MCCQuestion> {
     // ! Animation with blink
     final point = newData[count];
     data.add(point);
-      setState(() {
+    setState(() {
       count += 1;
       data = data;
     });

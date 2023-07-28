@@ -11,14 +11,14 @@ class OrderPanel extends StatefulWidget {
 class OrderPanelState extends State<OrderPanel> {
   @override
   Widget build(BuildContext context) {
-    final color = T(context, 'primary');
+    final color = C(context, 'primary');
     final l = context.l;
     return Column(
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.5,
           child: Container(
-            color: T(context, 'secondaryContainer'),
+            color: C(context, 'secondaryContainer'),
             child: DefaultTabController(
               length: 2,
               animationDuration: const Duration(milliseconds: 0),

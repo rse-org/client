@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rse/all.dart';
 
 int calculateIntervals(period, data) {
@@ -34,6 +35,16 @@ String formatTime(DateTime startTime, DateTime endTime) {
   return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
 }
 
+Future<String> getBuildString() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageName = packageInfo.packageName;
+    return packageName;
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
 double getChangePercent(double newVal, double oldVal) {
   return ((newVal - oldVal) / oldVal) * 100;
 }
@@ -44,6 +55,22 @@ double getHighestVal(List<CandleStick> series) {
 
 double getLowestVal(List<CandleStick> series) {
   return series.reduce((v, e) => v.l < e.l ? v : e).l;
+}
+
+Future<String> getVersionId() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return '$version+$buildNumber';
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
+void haltAndFire({required int milliseconds, required Function fn}) async {
+  await Future.delayed(Duration(milliseconds: milliseconds));
+  fn();
 }
 
 Future<dynamic> loadJsonFile(String path) async {

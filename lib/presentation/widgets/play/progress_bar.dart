@@ -76,7 +76,7 @@ class ProgressBar extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: T(context, 'outline'),
+          color: C(context, 'outline'),
         ),
       ),
       child: Padding(

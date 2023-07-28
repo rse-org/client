@@ -201,11 +201,6 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
               minimumSize: MaterialStateProperty.all(
                 Size(isS(context) ? 300 : 1000, 50),
               ),
-              side: MaterialStateProperty.all<BorderSide>(
-                const BorderSide(
-                  color: Colors.green,
-                ),
-              ),
             ),
             onPressed: () async {
               if (diff != '' && cat != '') {

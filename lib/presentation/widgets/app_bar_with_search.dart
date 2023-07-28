@@ -35,15 +35,6 @@ Widget renderAuthOptions(context) {
               );
             },
           ),
-          SignInButton(
-            Buttons.Google,
-            text: 'Sign up with Google',
-            onPressed: () {
-              BlocProvider.of<AuthBloc>(context).add(
-                GoogleSignInRequested(),
-              );
-            },
-          ),
         ],
       );
     },
@@ -132,9 +123,23 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
       context.go('/profile/settings');
     }
 
+    String name;
+    switch (widget.tabIndex) {
+      case 1:
+        name = context.l.investing;
+      case 2:
+        name = context.l.play;
+      case 3:
+        name = context.l.notifications;
+      case 4:
+        name = context.l.profile;
+      default:
+        name = 'Royal Stock Exchange';
+    }
+
     return AppBar(
       leading: _buildLeading(),
-      title: _buildTitle(context),
+      title: _buildTitle(context, name),
       actions: _buildActions(context, navigate),
     );
   }
@@ -225,25 +230,13 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     );
   }
 
-  _buildTitle(BuildContext context) {
+  _buildTitle(BuildContext context, String name) {
     return _isSearching
         ? _buildSearchField(context)
-        : _buildTitleHelper(context);
+        : _buildTitleHelper(context, name);
   }
 
-  _buildTitleHelper(context) {
-    String title = 'Royal Stock Exchange';
-    switch (widget.tabIndex) {
-      case 1:
-        title = 'Investing';
-      case 2:
-        title = 'Play';
-      case 3:
-        title = 'Notifications';
-      case 4:
-        title = 'Profile';
-      default:
-    }
+  _buildTitleHelper(context, String name) {
     return Consumer<ThemeModel>(
       builder: (context, themeModel, _) {
         return GestureDetector(
@@ -251,7 +244,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
           onLongPressStart: (details) {
             _handleLongPress(details, context);
           },
-          child: Text(title),
+          child: Text(name),
         );
       },
     );
@@ -281,9 +274,9 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     });
   }
 
-  void _updateSearchQuery(String newQuery) {
+  void _updateSearchQuery(String q) {
     setState(() {
-      searchQuery = newQuery;
+      searchQuery = q;
     });
   }
 }

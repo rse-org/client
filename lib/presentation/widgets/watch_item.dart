@@ -84,7 +84,7 @@ class WatchItemState extends State<WatchItem> {
             border: Border(
               bottom: BorderSide(
                 width: 2,
-                color: T(context, 'outline'),
+                color: C(context, 'outline'),
               ),
             ),
           ),
@@ -275,7 +275,7 @@ class WatchItemState extends State<WatchItem> {
                   end: data.last.y,
                   start: data.last.y,
                   dashArray: const [4, 3],
-                  borderColor: T(context, 'inversePrimary'),
+                  borderColor: C(context, 'inversePrimary'),
                 ),
               ],
             ),

@@ -205,9 +205,9 @@ class ProfileScreenState extends State<ProfileScreen> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter some text';
+        validator: (v) {
+          if (v == null || v.isEmpty) {
+            return 'Please enter valid input';
           }
           return null;
         },

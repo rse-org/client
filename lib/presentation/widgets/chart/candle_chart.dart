@@ -80,7 +80,7 @@ class CandleChartState extends State<CandleChart> {
                         end: data.first.c,
                         start: data.first.c,
                         dashArray: const [1, 3],
-                        borderColor: T(context, 'inversePrimary'),
+                        borderColor: C(context, 'inversePrimary'),
                       ),
                     ],
                   ),
@@ -107,7 +107,7 @@ class CandleChartState extends State<CandleChart> {
   }
 
   void _setupTheme(BuildContext context) {
-    final color = T(context, 'primary');
+    final color = C(context, 'primary');
     _zoomPanBehavior = ZoomPanBehavior(
       enablePanning: true,
       enablePinching: true,

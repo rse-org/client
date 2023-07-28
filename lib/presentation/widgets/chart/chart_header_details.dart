@@ -51,7 +51,7 @@ class ChartHeaderDetails extends StatelessWidget {
                   thousandSeparator: ',',
                   duration: const Duration(milliseconds: 500),
                   textStyle: TextStyle(
-                    color: T(context, 'inversePrimary'),
+                    color: C(context, 'inversePrimary'),
                     fontSize: getFontSize(context) + 8,
                     fontWeight: FontWeight.bold,
                   )),
@@ -64,14 +64,14 @@ class ChartHeaderDetails extends StatelessWidget {
                     value: focusValue - startValue,
                     duration: const Duration(milliseconds: 500),
                     textStyle: TextStyle(
-                      color: gained ? T(context, 'primary') : Colors.red,
+                      color: gained ? C(context, 'primary') : Colors.red,
                       fontSize: 14,
                     ),
                   ),
                   Text(
                     ' ($gain)',
                     style: TextStyle(
-                      color: gained ? T(context, 'primary') : Colors.red,
+                      color: gained ? C(context, 'primary') : Colors.red,
                       fontSize: 14,
                     ),
                   ),

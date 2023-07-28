@@ -36,7 +36,7 @@ class TimeLabel extends StatelessWidget {
           time == '' ? '' : formatted,
           style: TextStyle(
             fontSize: 10,
-            color: T(c, 'inversePrimary'),
+            color: C(c, 'inversePrimary'),
           ),
         ),
       ),

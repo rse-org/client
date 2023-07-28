@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
@@ -13,27 +12,6 @@ const feedbackFormUrl =
     'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
 
 const placeHolderAvatar = 'https://shorturl.at/yGISX';
-
-Future<String> getBuildString() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final packageName = packageInfo.packageName;
-    return packageName;
-  } on Exception catch (_) {
-    return '';
-  }
-}
-
-Future<String> getVersionId() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-    return '$version+$buildNumber';
-  } on Exception catch (_) {
-    return '';
-  }
-}
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -54,15 +32,16 @@ class DrawerState extends State<CustomDrawer> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
+            buildTop(),
             Expanded(
               child: ListView(
                 children: [
-                  buildTop(),
                   buildOptions(context),
+                  const SizedBox(height: 200),
+                  buildBottom(context)
                 ],
               ),
             ),
-            buildBottom(context)
           ],
         ),
       ),
@@ -201,12 +180,11 @@ class DrawerState extends State<CustomDrawer> {
         children: [
           GestureDetector(
             onTap: () {
-              if (taps <= 2) {
-                setState(() => taps++);
-              }
+              if (taps <= 2) setState(() => taps++);
             },
-            child: const Text(
+            child: Text(
               'Royal Stock Exchange',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           const Spacer(),
@@ -233,6 +211,9 @@ class DrawerState extends State<CustomDrawer> {
   @override
   void initState() {
     super.initState();
+
+    // Fix: Fixes startup warning about future webview
+    // deprecation but introduces drawer error on web.
 
     // controller = WebViewController()
     //   ..setJavaScriptMode(JavaScriptMode.unrestricted)

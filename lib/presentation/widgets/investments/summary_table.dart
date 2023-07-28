@@ -38,7 +38,7 @@ class _SummaryTableState extends State<SummaryTable> {
       columns: rowHeaders(),
       showCheckboxColumn: false,
       dataTextStyle:
-          TextStyle(fontSize: 12, color: T(context, 'inversePrimary')),
+          TextStyle(fontSize: 12, color: C(context, 'inversePrimary')),
       rows: List<DataRow>.generate(
         num,
         (int idx) => DataRow(

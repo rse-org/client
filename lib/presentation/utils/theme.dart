@@ -4,42 +4,55 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// Note:
+// Note: No base themes.
 // ! Cannot start with 'base' theme.
-// ! Although no colors applied, having base class which
+// ! Although no colors applied, having base class instance
 // ! both dark/light copyWith() from results in funky ness related to colors.
 
-// ! Make sure to hot restart not reload
-// ! after editing themes to see changes reflected in UI.
+// ! https://stackoverflow.com/questions/76791329/how-to-share-base-theme-between-light-dark-theme-material-3-flutter
+
+// final base = ThemeData(
+//   useMaterial3: true,
+//   colorSchemeSeed: const Color(0xFF2C6C2F),
+//   ...
+// );
+
+// Note: Hot restart not reload after editing themes to see changes reflected in UI.
 
 final darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
-  indicatorColor: Colors.white,
   colorSchemeSeed: const Color(0xFF2C6C2F),
-  appBarTheme: const AppBarTheme(
-    titleTextStyle: TextStyle(fontSize: 20, color: Colors.white),
-  ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(),
     bodyMedium: TextStyle(),
     bodyLarge: TextStyle(),
     titleSmall: TextStyle(),
     titleMedium: TextStyle(),
-    titleLarge: TextStyle(fontSize: 25),
+    titleLarge: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
   ).apply(),
-  cardTheme: const CardTheme(),
-  iconTheme: const IconThemeData(
-    color: Colors.white,
-  ),
-  inputDecorationTheme: const InputDecorationTheme(
-    labelStyle: TextStyle(color: Colors.grey),
-  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
       textStyle: const TextStyle(fontSize: 15),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+  ),
+  filledButtonTheme: FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 15),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -47,12 +60,18 @@ final darkTheme = ThemeData(
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -63,32 +82,25 @@ final darkTheme = ThemeData(
 final lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  indicatorColor: Colors.black,
   colorSchemeSeed: const Color(0xFF2C6C2F),
-  appBarTheme: const AppBarTheme(
-    titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
-  ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(),
     bodyMedium: TextStyle(),
     bodyLarge: TextStyle(),
     titleSmall: TextStyle(),
     titleMedium: TextStyle(),
-    titleLarge: TextStyle(fontSize: 25),
+    titleLarge: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
   ).apply(),
-  cardTheme: const CardTheme(),
-  iconTheme: const IconThemeData(
-    color: Colors.black,
-  ),
-  inputDecorationTheme: const InputDecorationTheme(
-    labelStyle: TextStyle(color: Colors.grey),
-  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
-      backgroundColor: const Color(0xFF2C6C2F),
       textStyle: const TextStyle(fontSize: 15),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -96,15 +108,17 @@ final lightTheme = ThemeData(
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
+      ),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      foregroundColor: const Color(0xFF2C6C2F),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      side: const BorderSide(
-        color: Color(0xFF2C6C2F),
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 30,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -113,12 +127,7 @@ final lightTheme = ThemeData(
   ),
 );
 
-bool isDarkMode(BuildContext context) {
-  final theme = Theme.of(context).brightness;
-  return theme == Brightness.dark;
-}
-
-Color T(BuildContext context, String key) {
+Color C(BuildContext context, String key) {
   final colorScheme = Theme.of(context).colorScheme;
   switch (key) {
     case 'primary':
@@ -129,6 +138,12 @@ Color T(BuildContext context, String key) {
       return colorScheme.secondary;
     case 'surface':
       return colorScheme.surface;
+    case 'surfaceVariant':
+      return colorScheme.surfaceVariant;
+    case 'inverseSurface':
+      return colorScheme.inverseSurface;
+    case 'onInverseSurface':
+      return colorScheme.onInverseSurface;
     case 'inversePrimary':
       return colorScheme.inversePrimary;
     case 'onPrimaryContainer':
@@ -136,14 +151,68 @@ Color T(BuildContext context, String key) {
     case 'outline':
       return colorScheme.outline;
     case 'tertiary':
+      return colorScheme.tertiary;
     case 'background':
       return colorScheme.background;
     case 'secondaryContainer':
       return colorScheme.secondaryContainer;
+    case 'error':
+      return colorScheme.error;
     case 'onError':
       return colorScheme.onError;
     case 'onErrorContainer':
       return colorScheme.onErrorContainer;
+    case 'shadow':
+      return colorScheme.shadow;
+    default:
+      throw Exception('Invalid color key: $key');
+  }
+}
+
+bool isDarkMode(BuildContext context) {
+  final theme = Theme.of(context).brightness;
+  return theme == Brightness.dark;
+}
+
+TextStyle styleWithColor({required TextStyle type, Color? color}) {
+  return type.copyWith(
+    color: color ?? type.color,
+  );
+}
+
+T(BuildContext context, String key) {
+  final theme = Theme.of(context);
+  switch (key) {
+    case 'bodySmall':
+      return theme.textTheme.bodySmall;
+    case 'bodyMedium':
+      return theme.textTheme.bodyMedium;
+    case 'bodyLarge':
+      return theme.textTheme.bodyLarge;
+    case 'labelSmall':
+      return theme.textTheme.labelSmall;
+    case 'labelMedium':
+      return theme.textTheme.labelMedium;
+    case 'labelLarge':
+      return theme.textTheme.labelLarge;
+    case 'titleSmall':
+      return theme.textTheme.titleSmall;
+    case 'titleMedium':
+      return theme.textTheme.titleMedium;
+    case 'titleLarge':
+      return theme.textTheme.titleLarge;
+    case 'headlineSmall':
+      return theme.textTheme.headlineSmall;
+    case 'headlineMedium':
+      return theme.textTheme.headlineMedium;
+    case 'headlineLarge':
+      return theme.textTheme.headlineLarge;
+    case 'displaySmall':
+      return theme.textTheme.displaySmall;
+    case 'displayMedium':
+      return theme.textTheme.displayMedium;
+    case 'displayLarge':
+      return theme.textTheme.displayLarge;
     default:
       throw Exception('Invalid color key: $key');
   }

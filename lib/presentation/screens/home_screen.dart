@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // return const StyleScreen();
     return Scaffold(
       body: ResponsiveLayout(
         mobile: buildMobile(context),
@@ -61,8 +60,10 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // ! Fails tests if invoked so only invoke in release.
+    // ! Fails during tests env so only invoke in release env.
     if (kReleaseMode) setScreenName('/home');
+
+    haltAndFire(milliseconds: 250, fn: () => setTitle(context));
   }
 
   Widget mobileWatchList(BuildContext context) {

@@ -71,7 +71,7 @@ class DoughnutState extends State<Doughnut> {
                 pointColorMapper: (Investment data, _) {
                   if (widget.hoveredRowIndex != -1 &&
                       widget.hoveredRowIndex == data.idx) {
-                    return T(context, 'primary');
+                    return C(context, 'primary');
                   }
                   return Colors.green[200];
                 },

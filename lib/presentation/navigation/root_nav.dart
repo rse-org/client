@@ -14,7 +14,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-// Note:  Navigation.
+// Note: Navigation considerations.
 // A drawer wraps a bottom tab bar wraps nested stacks:
 // - Drawer:
 //   - Hamburger menu icon in app bar leading of all root bottom tab screens.
