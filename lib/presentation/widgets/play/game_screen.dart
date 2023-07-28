@@ -83,6 +83,7 @@ class _GameScreenState extends State<GameScreen> {
     return MCCQuestion(
       q: q,
       prompt: prompt,
+      key: UniqueKey(),
       onAnswer: (a) => onAnswer(a, last),
     );
   }
