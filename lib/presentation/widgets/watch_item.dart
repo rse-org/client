@@ -210,13 +210,13 @@ class WatchItemState extends State<WatchItem> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
-                        onPressed: () {
-                          navigate();
-                        },
+                        onPressed: navigate,
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
                             const Size(100, 35),
                           ),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(5)),
                           foregroundColor: MaterialStateProperty.all<Color>(
                             color,
                           ),

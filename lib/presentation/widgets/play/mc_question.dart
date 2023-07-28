@@ -34,7 +34,6 @@ class MCQuestion extends StatelessWidget {
                 q.body,
                 style: TextStyle(
                   fontSize: isS(context) ? 20 : 30,
-                  color: Colors.white,
                   decoration: TextDecoration.none,
                 ),
               ),
@@ -58,16 +57,10 @@ class MCQuestion extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
         height: 100,
-        child: TextButton(
+        child: ElevatedButton(
           style: ButtonStyle(
             minimumSize: MaterialStateProperty.all(
               const Size(double.infinity, 50),
-            ),
-            backgroundColor: MaterialStateProperty.all<Color>(
-              Colors.green,
-            ),
-            foregroundColor: MaterialStateProperty.all<Color>(
-              Colors.white,
             ),
           ),
           onPressed: () {

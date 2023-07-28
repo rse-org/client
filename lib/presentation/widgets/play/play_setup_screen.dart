@@ -201,12 +201,6 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
               minimumSize: MaterialStateProperty.all(
                 Size(isS(context) ? 300 : 1000, 50),
               ),
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Colors.green,
-              ),
-              foregroundColor: MaterialStateProperty.all<Color>(
-                Colors.green,
-              ),
               side: MaterialStateProperty.all<BorderSide>(
                 const BorderSide(
                   color: Colors.green,
@@ -222,7 +216,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
                 startQuiz();
               }
             },
-            child: Text(l.play, style: const TextStyle(color: Colors.white)),
+            child: Text(l.play),
           ),
         ],
       );

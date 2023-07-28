@@ -51,21 +51,18 @@ class DrawerState extends State<CustomDrawer> {
     return Drawer(
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: Container(
-          color: T(context, 'primaryContainer'),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  children: [
-                    buildTop(),
-                    buildOptions(context),
-                  ],
-                ),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  buildTop(),
+                  buildOptions(context),
+                ],
               ),
-              buildBottom(context)
-            ],
-          ),
+            ),
+            buildBottom(context)
+          ],
         ),
       ),
     );
@@ -96,10 +93,7 @@ class DrawerState extends State<CustomDrawer> {
             ],
           ),
         ),
-        Divider(
-          thickness: 0.5,
-          color: T(context, 'inversePrimary'),
-        ),
+        const Divider(thickness: 0.5),
         Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 20,
@@ -193,46 +187,43 @@ class DrawerState extends State<CustomDrawer> {
     );
   }
 
-  Container buildTop() {
-    return Container(
-      color: Colors.grey[900],
-      child: DrawerHeader(
-        decoration: const BoxDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (taps <= 2) {
-                  setState(() => taps++);
-                }
-              },
-              child: const Text(
-                'Royal Stock Exchange',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const Spacer(),
-            StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.userChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(snapshot.data!.photoURL!),
-                  );
-                }
-                return const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(placeHolderAvatar),
-                );
-              },
-            ),
-          ],
+  DrawerHeader buildTop() {
+    return DrawerHeader(
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.black),
         ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () {
+              if (taps <= 2) {
+                setState(() => taps++);
+              }
+            },
+            child: const Text(
+              'Royal Stock Exchange',
+            ),
+          ),
+          const Spacer(),
+          StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.userChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(snapshot.data!.photoURL!),
+                );
+              }
+              return const CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(placeHolderAvatar),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

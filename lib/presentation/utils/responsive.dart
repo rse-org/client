@@ -47,17 +47,18 @@ class ResponsiveLayout extends StatelessWidget {
           return Container(
             color: Colors.transparent,
             child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                child: desktop),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: desktop,
+            ),
           );
         } else {
           return Container(
             color: Colors.transparent,
             child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 200, vertical: 10),
-                child: desktop),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 200, vertical: 10),
+              child: desktop,
+            ),
           );
         }
       },

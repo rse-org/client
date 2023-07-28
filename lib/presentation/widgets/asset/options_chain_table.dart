@@ -117,74 +117,46 @@ class OptionsTableState extends State<OptionsTable> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: FittedBox(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 1.0),
-              ),
-              child: DataTable(
-                columnSpacing: 1.0,
-                columns: propertiesOrder.asMap().entries.map((entry) {
-                  final int index = entry.key;
-                  final String name = entry.value['name'];
-                  final IconData? icon = entry.value['icon'];
-                  return DataColumn(
-                    label: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          right: BorderSide(
-                            color: Colors.black,
-                            width:
-                                index < propertiesOrder.length - 1 ? 1.0 : 0.0,
-                          ),
+            child: DataTable(
+              columnSpacing: 1.0,
+              columns: propertiesOrder.asMap().entries.map((entry) {
+                final String name = entry.value['name'];
+                final IconData? icon = entry.value['icon'];
+                return DataColumn(
+                  label: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        if (icon != null) Icon(icon),
+                        Text(
+                          name,
+                          style: const TextStyle(fontSize: 20.0),
                         ),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        children: [
-                          if (icon != null) Icon(icon),
-                          Text(
-                            name,
-                            style: const TextStyle(fontSize: 20.0),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                  );
-                }).toList(),
-                rows: optionsData.map((o) {
-                  return DataRow(
-                    cells: propertiesOrder.asMap().entries.map((entry) {
-                      final int index = entry.key;
-                      final String name = entry.value['name'];
-                      final dynamic value = o.getPropertyValue(name);
-                      return DataCell(
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              right: BorderSide(
-                                color: Colors.black,
-                                width: index < propertiesOrder.length - 1
-                                    ? 1.0
-                                    : 0.0,
-                              ),
-                            ),
-                          ),
-                          child: FractionallySizedBox(
-                            widthFactor: 1.0,
-                            heightFactor: 1.0,
-                            child: Center(
-                              child: Text(
-                                value.toString(),
-                                style: const TextStyle(fontSize: 25),
-                              ),
-                            ),
+                  ),
+                );
+              }).toList(),
+              rows: optionsData.map((o) {
+                return DataRow(
+                  cells: propertiesOrder.asMap().entries.map((entry) {
+                    final String name = entry.value['name'];
+                    final dynamic value = o.getPropertyValue(name);
+                    return DataCell(
+                      FractionallySizedBox(
+                        widthFactor: 1.0,
+                        heightFactor: 1.0,
+                        child: Center(
+                          child: Text(
+                            value.toString(),
+                            style: const TextStyle(fontSize: 25),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  );
-                }).toList(),
-              ),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }).toList(),
             ),
           ),
         ),

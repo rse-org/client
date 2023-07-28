@@ -16,22 +16,16 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          // color: playBackgroundColors[faker.randomGenerator.integer(4)],
-          color: Colors.black,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: BlocConsumer<PlayBloc, PlayState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              // Todo: Style dialog for score.
-              // return buildResultDialog(context, state);
-              if (state is PlayRoundFinished) {
-                return buildResultDialog(context, state);
-              }
-              return buildQuestionContainer(context);
-            },
-          ),
+        body: BlocConsumer<PlayBloc, PlayState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            // Todo: Style dialog for score.
+            // return buildResultDialog(context, state);
+            if (state is PlayRoundFinished) {
+              return buildResultDialog(context, state);
+            }
+            return buildQuestionContainer(context);
+          },
         ),
       ),
     );
@@ -47,7 +41,7 @@ class _GameScreenState extends State<GameScreen> {
             onTap: () {
               BlocProvider.of<NavBloc>(context).add(EndQuiz());
             },
-            child: const Icon(Icons.close, color: Colors.white),
+            child: const Icon(Icons.close),
           ),
           const CountDownTimer(time: 60),
         ],
@@ -58,10 +52,9 @@ class _GameScreenState extends State<GameScreen> {
   buildPrompt(length, int i) {
     return Text(
       '${i + 1} of $length',
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 15,
         decoration: TextDecoration.none,
-        color: Colors.white.withOpacity(0.6),
       ),
     );
   }

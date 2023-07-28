@@ -40,7 +40,6 @@ class SpendingScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
-                          color: Colors.black,
                         ),
                       ),
                       child: ListView.builder(
@@ -75,21 +74,13 @@ class SpendingScreen extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.black,
-                        ),
-                      ),
-                      child: ListView.builder(
-                        itemCount: 100,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text('Transaction Details $index'),
-                          );
-                        },
-                      ),
+                    child: ListView.builder(
+                      itemCount: 100,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text('Transaction Details $index'),
+                        );
+                      },
                     ),
                   ),
                 ],

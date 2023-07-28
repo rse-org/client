@@ -19,7 +19,6 @@ class Watchlist extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               width: 2,
-              color: T(context, 'outline'),
             ),
           ),
           child: Column(

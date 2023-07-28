@@ -113,7 +113,6 @@ class OrderPanelState extends State<OrderPanel> {
                                 ),
                                 child: Text(
                                   l.review_order,
-                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),

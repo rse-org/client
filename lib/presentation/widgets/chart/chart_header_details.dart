@@ -40,7 +40,6 @@ class ChartHeaderDetails extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: T(context, 'inversePrimary'),
                   fontSize: getFontSize(context) + 12,
                   fontWeight: FontWeight.bold,
                 ),

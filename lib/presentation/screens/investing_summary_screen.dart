@@ -69,9 +69,6 @@ class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
   }
 
   Widget _buildTabContainer(BuildContext context) {
-    final color = T(context, 'primary');
-    final unselectedColor = T(context, 'inversePrimary');
-
     getTextSize() {
       if (isS(context)) {
         return 14.0;
@@ -87,10 +84,7 @@ class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
       child: Column(
         children: [
           TabBar(
-            labelColor: color,
-            indicatorColor: color,
             isScrollable: isS(context),
-            unselectedLabelColor: unselectedColor,
             labelStyle: TextStyle(
               fontSize: getTextSize(),
               fontWeight: FontWeight.w600,

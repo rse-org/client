@@ -173,8 +173,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           onPressed: () {
             submitForm();
           },
-          child: Text(context.l.submit,
-              style: const TextStyle(color: Colors.white)),
+          child: Text(context.l.submit),
         ),
       ],
     );

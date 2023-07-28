@@ -24,7 +24,6 @@ class NotificationsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,
-                  color: Colors.black,
                 ),
               ),
               child: ListView.builder(
@@ -96,7 +95,6 @@ class NotificationsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,
-                  color: Colors.black,
                 ),
               ),
               child: ListView.builder(

@@ -67,10 +67,9 @@ class _AlertIconState extends State<AlertIcon> {
               color: Colors.grey,
             ),
           ),
-          child: Icon(
+          child: const Icon(
             size: 20,
             Icons.notifications,
-            color: T(context, 'outline'),
           ),
         ),
       ),

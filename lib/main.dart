@@ -22,8 +22,8 @@ import 'firebase_options.dart';
 
 // Note: Comments VSCode extension.
 // https://shorturl.at/ehADH
-// ! Very important!
-// ? Why is this here?
+// ? Why?
+// ! Important!
 // * Decorators !, ?, *
 
 Future<void> main() async {
@@ -93,7 +93,8 @@ Future<void> _loadShader() async {
     },
     onError: (Object error, StackTrace stackTrace) {
       FlutterError.reportError(
-          FlutterErrorDetails(exception: error, stack: stackTrace));
+        FlutterErrorDetails(exception: error, stack: stackTrace),
+      );
     },
   );
 }

@@ -14,7 +14,10 @@ Widget renderAuthOptions(context) {
     listener: (context, state) {},
     builder: (context, state) {
       if (FirebaseAuth.instance.currentUser != null) {
-        return TextButton(
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.red,
+          ),
           onPressed: () {
             BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
           },
@@ -57,43 +60,51 @@ void _showModal(BuildContext context) {
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {
-      return Column(
-        children: [
-          Text('Screen Width: ${width.toStringAsFixed(2)}'),
-          Text('Screen Height: ${height.toStringAsFixed(2)}'),
-          TextButton(
-            onPressed: () {
-              BlocProvider.of<LangBloc>(context).changeLang('es');
-            },
-            child: const Text('es'),
+      return SizedBox(
+        width: width,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 25),
+              Text('Screen Width: ${width.toStringAsFixed(2)}'),
+              Text('Screen Height: ${height.toStringAsFixed(2)}'),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<LangBloc>(context).changeLang('es');
+                },
+                child: const Text('es'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<LangBloc>(context).changeLang('en');
+                },
+                child: const Text('en'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<LangBloc>(context).changeLang('vi');
+                },
+                child: const Text('vi'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final bool value = debugPaintSizeEnabled;
+                  debugPaintSizeEnabled = !value;
+                },
+                child: const Text('Enable Debug Paint Size'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  GoRouter.of(context).go('/style');
+                },
+                child: const Text('Style Screen'),
+              ),
+              renderAuthOptions(context),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              BlocProvider.of<LangBloc>(context).changeLang('en');
-            },
-            child: const Text('en'),
-          ),
-          TextButton(
-            onPressed: () {
-              BlocProvider.of<LangBloc>(context).changeLang('vi');
-            },
-            child: const Text('vi'),
-          ),
-          TextButton(
-            onPressed: () {
-              final bool value = debugPaintSizeEnabled;
-              debugPaintSizeEnabled = !value;
-            },
-            child: const Text('Enable Debug Paint Size'),
-          ),
-          TextButton(
-            onPressed: () {
-              GoRouter.of(context).go('/style');
-            },
-            child: const Text('Style Screen'),
-          ),
-          renderAuthOptions(context),
-        ],
+        ),
       );
     },
   );

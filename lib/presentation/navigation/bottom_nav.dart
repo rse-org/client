@@ -12,54 +12,41 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      onDestinationSelected: (idx) => _goBranch(idx, context),
       selectedIndex: shell.currentIndex,
-      indicatorColor: Theme.of(context).indicatorColor,
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      onDestinationSelected: (idx) => _goBranch(idx, context),
       destinations: [
         NavigationDestination(
           label: context.l.home,
-          icon: Icon(
+          icon: const Icon(
             Icons.home,
-            color: getIconColor(context, 0),
           ),
         ),
         NavigationDestination(
           label: context.l.investing,
-          icon: Icon(
+          icon: const Icon(
             Icons.candlestick_chart,
-            color: getIconColor(context, 1),
           ),
         ),
         NavigationDestination(
           label: context.l.play,
-          icon: Icon(
+          icon: const Icon(
             Icons.play_arrow,
-            color: getIconColor(context, 2),
           ),
         ),
         NavigationDestination(
           label: context.l.notifications,
-          icon: Icon(
+          icon: const Icon(
             Icons.notifications,
-            color: getIconColor(context, 3),
           ),
         ),
         NavigationDestination(
           label: context.l.profile,
-          icon: Icon(
+          icon: const Icon(
             Icons.person,
-            color: getIconColor(context, 4),
           ),
         ),
       ],
     );
-  }
-
-  getIconColor(context, idx) {
-    return shell.currentIndex == idx
-        ? T(context, 'primaryContainer')
-        : T(context, 'inversePrimary');
   }
 
   void _goBranch(int index, context) {

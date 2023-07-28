@@ -130,7 +130,5 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
-
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
-
 final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');

@@ -44,18 +44,7 @@ class _MCCQuestionState extends State<MCCQuestion> {
   Expanded buildAnswerButton(a) {
     return Expanded(
       flex: 1,
-      child: TextButton(
-        style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(
-            const Size(double.infinity, 50),
-          ),
-          backgroundColor: MaterialStateProperty.all<Color>(
-            Colors.green,
-          ),
-          foregroundColor: MaterialStateProperty.all<Color>(
-            Colors.white,
-          ),
-        ),
+      child: ElevatedButton(
         onPressed: () {
           widget.onAnswer(a);
         },
@@ -217,7 +206,7 @@ class _MCCQuestionState extends State<MCCQuestion> {
     // ! Animation with blink
     final point = newData[count];
     data.add(point);
-    setState(() {
+      setState(() {
       count += 1;
       data = data;
     });
