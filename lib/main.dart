@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:rse/presentation/widgets/play/examples/everything_view.dart';
 
 import 'all.dart';
 import 'firebase_options.dart';
@@ -34,7 +32,7 @@ Future<void> main() async {
   );
 
   // Fix: Hacky package solution. https://shorturl.at/DYZ02
-  _loadShader();
+  loadShader();
 
   // Note: Bloc entry.
   runApp(
@@ -83,19 +81,6 @@ Future<void> main() async {
         child: const MyApp(),
       ),
     ),
-  );
-}
-
-Future<void> _loadShader() async {
-  return FragmentProgram.fromAsset('assets/shader.frag').then(
-    (FragmentProgram prgm) {
-      EverythingView.shader = prgm.fragmentShader();
-    },
-    onError: (Object error, StackTrace stackTrace) {
-      FlutterError.reportError(
-        FlutterErrorDetails(exception: error, stack: stackTrace),
-      );
-    },
   );
 }
 

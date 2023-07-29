@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:rse/all.dart';
 
 class GameScreen extends StatefulWidget {
@@ -108,33 +109,94 @@ class _GameScreenState extends State<GameScreen> {
   Dialog buildResultDialog(BuildContext context, state) {
     final r = state.result;
     final score = r.score;
+    // final r = {'grade': 'A'};
+    // const score = 100;
     return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: H(context) * .5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              '${getPromptFromGrade(r.grade)} \n$score',
-              style: const TextStyle(fontSize: 25),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Finish'),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${getPromptFromGrade(r.grade)}',
+                      style: T(context, 'displaySmall'),
+                    ),
+                    RatingBarIndicator(
+                      itemCount: 5,
+                      itemSize: 50.0,
+                      rating: getStars(r.grade),
+                      direction: Axis.horizontal,
+                      unratedColor: Colors.amber.withAlpha(50),
+                      itemBuilder: (context, index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    ),
+                    Text(
+                      '$score%',
+                      style: const TextStyle(fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-                OutlinedButton(
-                  onPressed: () {
-                    BlocProvider.of<PlayBloc>(context).add(PlayInitial());
-                    BlocProvider.of<NavBloc>(context).add(EndQuiz());
-                  },
-                  child: const Text('Finish'),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Column(
+                  children: [
+                    IconButton(
+                      iconSize: 40,
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<PlayBloc>(context).add(PlayInitial());
+                        BlocProvider.of<NavBloc>(context).add(EndQuiz());
+                      },
+                    ),
+                    Text('Done', style: T(context, 'bodySmall'))
+                  ],
                 ),
+                const Spacer(),
+                Column(
+                  children: [
+                    IconButton(
+                      iconSize: 40,
+                      icon: const Icon(
+                        Icons.description,
+                      ),
+                      onPressed: () {},
+                    ),
+                    Text('Results', style: T(context, 'bodySmall'))
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  children: [
+                    IconButton(
+                      iconSize: 40,
+                      icon: const Icon(
+                        Icons.replay,
+                      ),
+                      onPressed: () {
+                        BlocProvider.of<PlayBloc>(context)
+                            .add(PlayInitialized());
+                      },
+                    ),
+                    Text('Replay', style: T(context, 'bodySmall'))
+                  ],
+                ),
+                const Spacer(),
               ],
             )
           ],
@@ -160,6 +222,27 @@ class _GameScreenState extends State<GameScreen> {
         break;
       default:
         val = 'Lost a lot of money!';
+    }
+    return val;
+  }
+
+  getStars(grade) {
+    double val;
+    switch (grade) {
+      case 'A':
+        val = 5;
+        break;
+      case 'B':
+        val = 4;
+        break;
+      case 'C':
+        val = 3;
+        break;
+      case 'D':
+        val = 2;
+        break;
+      default:
+        val = 1;
     }
     return val;
   }

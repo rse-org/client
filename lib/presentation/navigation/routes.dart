@@ -59,7 +59,7 @@ final goRouter = GoRouter(
               path: '/style',
               pageBuilder: (context, state) => NoTransitionPage(
                 key: state.pageKey,
-                child: const StyleScreen(),
+                child: const DesignGuideScreen(),
               ),
             ),
           ],

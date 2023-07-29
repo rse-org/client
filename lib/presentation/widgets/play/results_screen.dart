@@ -33,7 +33,6 @@ class _ResultsScreenState extends State<ResultsScreen> {
             ),
             OutlinedButton(
               onPressed: () {
-                BlocProvider.of<PlayBloc>(context).add(PlayInitial());
                 BlocProvider.of<NavBloc>(context).add(EndQuiz());
               },
               child: const Text('Finish'),

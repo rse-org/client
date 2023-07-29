@@ -4,14 +4,14 @@ import 'package:rse/all.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-class StyleScreen extends StatefulWidget {
-  const StyleScreen({super.key});
+class DesignGuideScreen extends StatefulWidget {
+  const DesignGuideScreen({super.key});
 
   @override
-  State<StyleScreen> createState() => StyleScreenState();
+  State<DesignGuideScreen> createState() => DesignGuideScreenState();
 }
 
-class StyleScreenState extends State<StyleScreen> {
+class DesignGuideScreenState extends State<DesignGuideScreen> {
   List selectedContacts = [];
   Calendar calendarView = Calendar.day;
   Set<Sizes> selection = <Sizes>{Sizes.large, Sizes.extraLarge};
