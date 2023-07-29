@@ -105,6 +105,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
         results = [];
         questions = [];
         playService.clearQuizQuestions();
+        LocalStorageService.updateStreak();
         currentQuestion = Question.defaultQuestion();
         emit(PlayRoundFinished(result: result));
       } catch (e) {

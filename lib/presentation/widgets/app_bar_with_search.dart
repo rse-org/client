@@ -9,98 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
 
-Widget renderAuthOptions(context) {
-  return BlocConsumer<AuthBloc, AuthState>(
-    listener: (context, state) {},
-    builder: (context, state) {
-      if (FirebaseAuth.instance.currentUser != null) {
-        return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.red,
-          ),
-          onPressed: () {
-            BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
-          },
-          child: const Text('Sign Out'),
-        );
-      }
-      return Column(
-        children: [
-          SignInButton(
-            Buttons.Google,
-            text: 'Sign up with Google',
-            onPressed: () {
-              BlocProvider.of<AuthBloc>(context).add(
-                GoogleSignInRequested(),
-              );
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-void _handleLongPress(LongPressStartDetails details, context) {
-  _showModal(context);
-}
-
-void _showModal(BuildContext context) {
-  double width = W(context);
-  double height = H(context);
-  showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return SizedBox(
-        width: width,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 25),
-              Text('Screen Width: ${width.toStringAsFixed(2)}'),
-              Text('Screen Height: ${height.toStringAsFixed(2)}'),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<LangBloc>(context).changeLang('es');
-                },
-                child: const Text('es'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<LangBloc>(context).changeLang('en');
-                },
-                child: const Text('en'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<LangBloc>(context).changeLang('vi');
-                },
-                child: const Text('vi'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final bool value = debugPaintSizeEnabled;
-                  debugPaintSizeEnabled = !value;
-                },
-                child: const Text('Enable Debug Paint Size'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  GoRouter.of(context).go('/style');
-                },
-                child: const Text('Style Screen'),
-              ),
-              renderAuthOptions(context),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
-
 class AppBarWithSearch extends StatefulWidget {
   final int tabIndex;
 
@@ -112,7 +20,7 @@ class AppBarWithSearch extends StatefulWidget {
 
 class _AppBarWithSearchState extends State<AppBarWithSearch> {
   bool _isSearching = false;
-  late FocusNode myFocusNode;
+  late FocusNode _myFocusNode;
   String searchQuery = 'Search query';
   final TextEditingController _searchQueryController = TextEditingController();
 
@@ -146,14 +54,14 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
 
   @override
   void dispose() {
-    myFocusNode.dispose();
+    _myFocusNode.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    myFocusNode = FocusNode();
+    _myFocusNode = FocusNode();
   }
 
   List<Widget> _buildActions(context, navigate) {
@@ -200,7 +108,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
       IconButton(
         icon: const Icon(Icons.search),
         onPressed: () {
-          myFocusNode.requestFocus();
+          _myFocusNode.requestFocus();
           _startSearch();
         },
       ),
@@ -219,7 +127,7 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
   Widget _buildSearchField(BuildContext c) {
     return TextField(
       autofocus: true,
-      focusNode: myFocusNode,
+      focusNode: _myFocusNode,
       controller: _searchQueryController,
       style: const TextStyle(fontSize: 16.0),
       onChanged: (q) => _updateSearchQuery(q),
@@ -255,6 +163,98 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
       _searchQueryController.clear();
       _updateSearchQuery('');
     });
+  }
+
+  void _handleLongPress(LongPressStartDetails details, context) {
+    _showModal(context);
+  }
+
+  Widget _renderAuthOptions(context) {
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (FirebaseAuth.instance.currentUser != null) {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
+            },
+            child: const Text('Sign Out'),
+          );
+        }
+        return Column(
+          children: [
+            SignInButton(
+              Buttons.Google,
+              text: 'Sign up with Google',
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(
+                  GoogleSignInRequested(),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showModal(BuildContext context) {
+    double width = W(context);
+    double height = H(context);
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          width: width,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 25),
+                Text('Screen Width: ${width.toStringAsFixed(2)}'),
+                Text('Screen Height: ${height.toStringAsFixed(2)}'),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('es');
+                  },
+                  child: const Text('es'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('en');
+                  },
+                  child: const Text('en'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('vi');
+                  },
+                  child: const Text('vi'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final bool value = debugPaintSizeEnabled;
+                    debugPaintSizeEnabled = !value;
+                  },
+                  child: const Text('Enable Debug Paint Size'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/style');
+                  },
+                  child: const Text('Style Screen'),
+                ),
+                _renderAuthOptions(context),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _startSearch() {

@@ -65,4 +65,20 @@ class LocalStorageService {
         .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
         .toList();
   }
+
+  static updateStreak() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> streak = prefs.getStringList('streak dates') ?? [];
+    final now = DateTime.now();
+    // final yesterday = now.subtract(const Duration(days: 1));
+    // final dayBefore = now.subtract(const Duration(days: 2));
+    // final lastWeek = now.subtract(const Duration(days: 7));
+    streak.addAll([
+      now.toString(),
+      // yesterday.toString(),
+      // dayBefore.toString(),
+      // lastWeek.toString()
+    ]);
+    await prefs.setStringList('streak dates', streak);
+  }
 }

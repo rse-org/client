@@ -10,6 +10,7 @@ export 'hover_text.dart';
 export 'investments/all.dart';
 export 'play/all.dart';
 export 'shimmer_loading.dart';
+export 'streak_calendar.dart';
 export 'ticker_carousel.dart';
 export 'toggler.dart';
 export 'watch_item.dart';
