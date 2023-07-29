@@ -118,10 +118,10 @@ class ArticleState extends State<Article> {
   }
 
   Widget _buildArticleImage(BuildContext context) {
-    double width = MediaQuery.of(context).size.width / 3;
+    double width = W(context) / 3;
 
     if (isS(context) || isM(context)) {
-      width = MediaQuery.of(context).size.width;
+      width = W(context);
     }
 
     return ClipRRect(

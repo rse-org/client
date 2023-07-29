@@ -3,20 +3,28 @@ import 'package:flutter/material.dart';
 
 const bool isWeb = kIsWeb;
 
-bool isL(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 1366;
+double H(BuildContext c) {
+  return MediaQuery.of(c).size.height;
 }
 
-bool isM(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 820;
+bool isL(BuildContext c) {
+  return W(c) <= 1366;
 }
 
-bool isS(BuildContext context) {
-  return MediaQuery.of(context).size.width <= 431;
+bool isM(BuildContext c) {
+  return W(c) <= 820;
 }
 
-bool isXL(BuildContext context) {
-  return MediaQuery.of(context).size.width > 1366;
+bool isS(BuildContext c) {
+  return W(c) <= 431;
+}
+
+bool isXL(BuildContext c) {
+  return W(c) > 1366;
+}
+
+double W(BuildContext c) {
+  return MediaQuery.of(c).size.width;
 }
 
 class ResponsiveLayout extends StatelessWidget {

@@ -12,7 +12,7 @@ class Watchlist extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: SizedBox(
         width: getWidth(context),
-        height: MediaQuery.of(context).size.height,
+        height: H(context),
         child: Container(
           margin: getMargin(context),
           decoration: BoxDecoration(
@@ -58,15 +58,15 @@ class Watchlist extends StatelessWidget {
   }
 
   getWidth(context) {
-    var width = MediaQuery.of(context).size.width;
+    var w = W(context);
     if (isS(context)) {
-      return width * .1;
+      return w * .1;
     } else if (isM(context)) {
-      return width * .3;
+      return w * .3;
     } else if (isL(context)) {
-      return width * .3;
+      return w * .3;
     } else {
-      return width * .2;
+      return w * .2;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 class Carousel extends StatefulWidget {
   final List<Ticker> tickers;
@@ -104,8 +105,8 @@ class CarouselState extends State<Carousel>
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         final widgetWidth = _tickerBarKey.currentContext?.size?.width ?? 0.0;
-        final screenWidth = MediaQuery.of(context).size.width;
-        final offsetX = screenWidth / widgetWidth;
+        final width = W(context);
+        final offsetX = width / widgetWidth;
 
         _animation = Tween<Offset>(
           begin: Offset(offsetX, 0.0),

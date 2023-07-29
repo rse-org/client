@@ -93,27 +93,27 @@ class InvestmentGroupState extends State<InvestmentGroup> {
   }
 
   getHeight() {
-    final height = MediaQuery.of(context).size.height;
+    final h = H(context);
     if (isS(context)) {
-      return height * .4;
+      return h * .4;
     } else if (isM(context)) {
-      return height * .8;
+      return h * .8;
     } else if (isL(context)) {
-      return height * .7;
+      return h * .7;
     }
-    return height * .9;
+    return h * .9;
   }
 
   getWidth() {
-    final width = MediaQuery.of(context).size.width;
+    final w = W(context);
     if (isS(context)) {
-      return width * .4;
+      return w * .4;
     } else if (isM(context)) {
-      return width * .8;
+      return w * .8;
     } else if (isL(context)) {
-      return width * .7;
+      return w * .7;
     }
-    return width * .9;
+    return w * .9;
   }
 
   void handleHover(int idx) {

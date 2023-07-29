@@ -46,8 +46,8 @@ void _handleLongPress(LongPressStartDetails details, context) {
 }
 
 void _showModal(BuildContext context) {
-  double width = MediaQuery.of(context).size.width;
-  double height = MediaQuery.of(context).size.height;
+  double width = W(context);
+  double height = H(context);
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext context) {

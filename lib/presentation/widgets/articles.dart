@@ -48,13 +48,13 @@ class Articles extends StatelessWidget {
   }
 
   getWidth(context) {
-    var width = MediaQuery.of(context).size.width;
+    var w = W(context);
     if (isS(context)) {
-      return width;
+      return w;
     } else if (isM(context)) {
-      return width * .9;
+      return w * .9;
     } else {
-      return width * .6;
+      return w * .6;
     }
   }
 }

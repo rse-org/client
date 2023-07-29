@@ -16,7 +16,7 @@ class OrderPanelState extends State<OrderPanel> {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: H(context) * 0.5,
           child: Container(
             color: C(context, 'secondaryContainer'),
             child: DefaultTabController(

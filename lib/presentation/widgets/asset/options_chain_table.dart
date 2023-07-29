@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 List<OptionData> optionsData = [
   OptionData(
@@ -113,7 +114,7 @@ class OptionsTableState extends State<OptionsTable> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: W(context),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: FittedBox(

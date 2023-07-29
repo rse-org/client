@@ -42,7 +42,7 @@ class PeriodSelectorState extends State<PeriodSelector> {
       child: Container(
         margin: const EdgeInsets.only(bottom: 30.0),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * getWidth(context),
+          width: W(context) * getWidth(context),
           child: Row(
             mainAxisAlignment: isM(context)
                 ? MainAxisAlignment.start

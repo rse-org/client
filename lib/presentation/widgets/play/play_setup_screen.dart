@@ -27,8 +27,8 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
         // Padding(
         //   padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 10),
         //   child: SizedBox(
-        //     width: MediaQuery.of(context).size.width * .9,
-        //     height: MediaQuery.of(context).size.height * .2,
+        //     width: W(context) * .9,
+        //     height: H(context) * .2,
         //     child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
         //   ),
         // ),

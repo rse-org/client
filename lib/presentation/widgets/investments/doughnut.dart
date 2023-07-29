@@ -33,7 +33,7 @@ class DoughnutState extends State<Doughnut> {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * .7,
+          height: H(context) * .7,
           child: SfCircularChart(
             legend: const Legend(
               isVisible: true,

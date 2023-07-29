@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 class SpendingScreen extends StatelessWidget {
   const SpendingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
+    final width = W(context);
+    final isMobile = width < 600;
 
     final horizontalPadding = isMobile ? 0.0 : 200.0;
     return Center(

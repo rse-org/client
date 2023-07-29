@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 class Spinner extends StatefulWidget {
   const Spinner({super.key});
@@ -14,7 +15,7 @@ class _SpinnerState extends State<Spinner> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .7,
+      height: H(context) * .7,
       child: Center(
         child: CircularProgressIndicator(
           value: controller.value,
