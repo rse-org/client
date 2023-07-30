@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:rse/all.dart';
+import 'package:rse/presentation/widgets/ad_interstitial.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -21,96 +23,18 @@ class _GameScreenState extends State<GameScreen> {
           listener: (context, state) {},
           builder: (context, state) {
             // Todo: Style dialog for score.
-            // return buildResultDialog(context, state);
+            // return _buildResultDialog(context, state);
             if (state is PlayRoundFinished) {
-              return buildResultDialog(context, state);
+              return _buildResultDialog(context, state);
             }
-            return buildQuestionContainer(context);
+            return _buildQuestionContainer(context);
           },
         ),
       ),
     );
   }
 
-  Expanded buildCrossAndTimerBar(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              BlocProvider.of<NavBloc>(context).add(EndQuiz());
-            },
-            child: const Icon(Icons.close),
-          ),
-          const CountDownTimer(time: 60),
-        ],
-      ),
-    );
-  }
-
-  buildPrompt(length, int i) {
-    return Text(
-      '${i + 1} of $length',
-      style: const TextStyle(
-        fontSize: 15,
-        decoration: TextDecoration.none,
-      ),
-    );
-  }
-
-  buildQuestion(state) {
-    final i = state.idx;
-    final q = state.currentQuestion;
-    final questions = state.questions;
-    final length = questions.length;
-    final prompt = buildPrompt(length, i);
-    final last = length == 1 + i;
-    if (q.type == 'mc') {
-      return MCQuestion(
-        q: q,
-        prompt: prompt,
-        onAnswer: (a) => onAnswer(a, last),
-      );
-    }
-    return MCCQuestion(
-      q: q,
-      prompt: prompt,
-      key: UniqueKey(),
-      onAnswer: (a) => onAnswer(a, last),
-    );
-  }
-
-  buildQuestionContainer(context) {
-    return BlocBuilder<PlayBloc, PlayState>(
-      builder: (context, state) {
-        if (state is QuestionsLoadSuccess) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildCrossAndTimerBar(context),
-              Expanded(
-                flex: 13,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: buildQuestion(state),
-                ),
-              ),
-            ],
-          );
-        }
-        return const SizedBox();
-      },
-    );
-  }
-
-  Dialog buildResultDialog(BuildContext context, state) {
-    final r = state.result;
-    final score = r.score;
-    // final r = {'grade': 'A'};
-    // const score = 100;
+  Dialog buildCompletedScreen(BuildContext context, r, score) {
     return Dialog(
       child: SizedBox(
         height: H(context) * .5,
@@ -125,13 +49,13 @@ class _GameScreenState extends State<GameScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '${getPromptFromGrade(r.grade)}',
+                      '${_getPromptFromGrade(r.grade)}',
                       style: T(context, 'displaySmall'),
                     ),
                     RatingBarIndicator(
                       itemCount: 5,
                       itemSize: 50.0,
-                      rating: getStars(r.grade),
+                      rating: _getStars(r.grade),
                       direction: Axis.horizontal,
                       unratedColor: Colors.amber.withAlpha(50),
                       itemBuilder: (context, index) => const Icon(
@@ -205,7 +129,107 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  getPromptFromGrade(grade) {
+  Expanded buildCrossAndTimerBar(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<NavBloc>(context).add(EndQuiz());
+            },
+            child: const Icon(Icons.close),
+          ),
+          const CountDownTimer(time: 60),
+        ],
+      ),
+    );
+  }
+
+  buildPrompt(length, int i) {
+    return Text(
+      '${i + 1} of $length',
+      style: const TextStyle(
+        fontSize: 15,
+        decoration: TextDecoration.none,
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/play/game');
+    BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+  }
+
+  onAnswer(a, last) {
+    BlocProvider.of<PlayBloc>(context).add(QuestionAnswered(ans: a));
+    if (last) {
+      BlocProvider.of<PlayBloc>(context).add(PlayDone(start));
+    }
+  }
+
+  _buildQuestion(state) {
+    final i = state.idx;
+    final q = state.currentQuestion;
+    final questions = state.questions;
+    final length = questions.length;
+    final prompt = buildPrompt(length, i);
+    final last = length == 1 + i;
+    if (q.type == 'mc') {
+      return MCQuestion(
+        q: q,
+        prompt: prompt,
+        onAnswer: (a) => onAnswer(a, last),
+      );
+    }
+    return MCCQuestion(
+      q: q,
+      prompt: prompt,
+      key: UniqueKey(),
+      onAnswer: (a) => onAnswer(a, last),
+    );
+  }
+
+  _buildQuestionContainer(context) {
+    return BlocBuilder<PlayBloc, PlayState>(
+      builder: (context, state) {
+        if (state is QuestionsLoadSuccess) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildCrossAndTimerBar(context),
+              Expanded(
+                flex: 13,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: _buildQuestion(state),
+                ),
+              ),
+            ],
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+
+  _buildResultDialog(BuildContext context, state) {
+    final r = state.result;
+    final score = r.score;
+    // final r = {'grade': 'A'};
+    // const score = 100;
+    if (kIsWeb) return buildCompletedScreen(context, r, score);
+    return AdInterstitial(
+      show: true,
+      child: buildCompletedScreen(context, r, score),
+    );
+  }
+
+  _getPromptFromGrade(grade) {
     String val;
     switch (grade) {
       case 'A':
@@ -226,7 +250,7 @@ class _GameScreenState extends State<GameScreen> {
     return val;
   }
 
-  getStars(grade) {
+  _getStars(grade) {
     double val;
     switch (grade) {
       case 'A':
@@ -245,19 +269,5 @@ class _GameScreenState extends State<GameScreen> {
         val = 1;
     }
     return val;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setScreenName('/play/game');
-    BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
-  }
-
-  onAnswer(a, last) {
-    BlocProvider.of<PlayBloc>(context).add(QuestionAnswered(ans: a));
-    if (last) {
-      BlocProvider.of<PlayBloc>(context).add(PlayDone(start));
-    }
   }
 }

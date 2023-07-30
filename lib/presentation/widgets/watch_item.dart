@@ -156,7 +156,6 @@ class WatchItemState extends State<WatchItem> {
     // The nested container with transparent color
     // ensures that a tap on the entire row results in a navigate.
     // Without a color the tap on the container is not registered and navigation fails.
-    print(item.shares);
     return GestureDetector(
       onTap: () {
         navigate();

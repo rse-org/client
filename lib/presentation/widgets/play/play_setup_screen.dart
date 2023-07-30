@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +19,26 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) return buildContent();
+    return AdBanner(
+      child: buildContent(),
+    );
+  }
+
+  buildCategories(l) {
+    return Column(
+      children: [
+        Picker(pick: pickCat, val: l.personal, picked: cat),
+        Picker(pick: pickCat, val: l.corporate, picked: cat),
+        Picker(pick: pickCat, val: l.public, picked: cat),
+      ],
+    );
+  }
+
+  buildContent() {
     final finalStep = diff != '' && cat != '';
     final l = context.l;
     // const String assetName = 'assets/play-learn.svg';
-
     return Column(
       children: [
         // Padding(
@@ -75,16 +92,6 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
             ),
           ],
         ),
-      ],
-    );
-  }
-
-  buildCategories(l) {
-    return Column(
-      children: [
-        Picker(pick: pickCat, val: l.personal, picked: cat),
-        Picker(pick: pickCat, val: l.corporate, picked: cat),
-        Picker(pick: pickCat, val: l.public, picked: cat),
       ],
     );
   }
@@ -159,11 +166,6 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
         .fadeOut();
 
     return quote;
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   pickCat(c) async {

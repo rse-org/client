@@ -150,6 +150,7 @@ class TickerCarousel extends StatefulWidget {
 
 class TickerCarouselState extends State<TickerCarousel> {
   final List<Ticker> tickers = [
+    // sym, price, $, percentage
     Ticker('WMT', 152.51, 1.32, 0.87),
     Ticker('AMZN', 3311.37, 11.61, 0.35),
     Ticker('XOM', 280.48, -0.29, -0.10),

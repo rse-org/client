@@ -31,9 +31,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Fix: Hacky package solution. https://shorturl.at/DYZ02
-  loadShader();
-
   // Note: Bloc entry.
   runApp(
     ChangeNotifierProvider(

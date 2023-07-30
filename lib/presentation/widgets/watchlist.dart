@@ -43,27 +43,30 @@ class Watchlist extends StatelessWidget {
   }
 
   getMargin(context) {
+    double val;
     if (isS(context)) {
-      return const EdgeInsets.all(5);
+      val = 5;
     } else if (isM(context)) {
-      return const EdgeInsets.all(5);
+      val = 5;
     } else if (isL(context)) {
-      return const EdgeInsets.all(30);
+      val = 30;
     } else {
-      return const EdgeInsets.all(40);
+      val = 40;
     }
+    return EdgeInsets.all(val);
   }
 
   getWidth(context) {
-    var w = W(context);
+    double val;
     if (isS(context)) {
-      return w * .1;
+      val = .1;
     } else if (isM(context)) {
-      return w * .3;
+      val = .3;
     } else if (isL(context)) {
-      return w * .3;
+      val = .3;
     } else {
-      return w * .25;
+      val = .25;
     }
+    return W(context) * val;
   }
 }
