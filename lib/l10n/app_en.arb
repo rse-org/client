@@ -114,5 +114,6 @@
   "category": "Category",
   "choose_difficulty": "Choose your difficulty",
   "choose_category": "Choose your category",
-  "good_luck": "Good Luck!"
+  "good_luck": "Good Luck!",
+  "leaderboard": "Leaderboard"
 }

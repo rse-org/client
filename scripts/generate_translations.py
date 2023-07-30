@@ -20,9 +20,8 @@ def translate_dict(data, dest_language):
             print(translated_dict[key])
     return translated_dict
 
-
 script_dir = os.path.dirname(__file__) 
-rel_path = "../lib/l10n/app_en.arb"
+rel_path = '../lib/l10n/app_en.arb'
 abs_file_path = os.path.join(script_dir, rel_path)
 
 for l in languages:
@@ -30,7 +29,7 @@ for l in languages:
         data = json.load(file)
         translated_data = translate_dict(data, l)
 
-        with codecs.open(os.path.join(script_dir, '../lib/l10n/app_')  + l + ".arb", "w", encoding='utf8') as f:
+        with codecs.open(os.path.join(script_dir, '../lib/l10n/app_')  + l + '.arb', 'w', encoding='utf8') as f:
             json.dump(translated_data, f, ensure_ascii=False)
 
 print('Successfully translated!')

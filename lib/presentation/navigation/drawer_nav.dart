@@ -10,11 +10,6 @@ import 'package:slider_button/slider_button.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 
-const feedbackFormUrl =
-    'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
-
-const placeHolderAvatar = 'https://shorturl.at/yGISX';
-
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
@@ -39,7 +34,7 @@ class DrawerState extends State<CustomDrawer> {
               child: ListView(
                 children: [
                   buildOptions(context),
-                  const SizedBox(height: 200),
+                  const SizedBox(height: 100),
                   buildBottom(context)
                 ],
               ),
@@ -54,69 +49,23 @@ class DrawerState extends State<CustomDrawer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10,
-          ),
-          child: Row(
-            children: [
-              Consumer<ThemeModel>(
-                builder: (context, themeModel, _) {
-                  return Toggler(
-                    type: 'theme',
-                    value: isDark,
-                    onChanged: (newValue) {
-                      toggleTheme(themeModel);
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+        buildThemeToggler(),
         const Divider(thickness: 0.5),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 40,
-          ),
-          child: Center(
-            child: SliderButton(
-              width: 125,
-              height: 30,
-              shimmer: false,
-              buttonSize: 30,
-              highlightedColor: Colors.red,
-              action: () {
-                Navigator.of(context).pop();
-              },
-              label: Text(
-                context.l.sign_out,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.red,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.red,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(5, 5, 10, 30),
-          child: Column(
-            children: [
-              if (taps > 2) buildFutureBuilder(getVersionId()),
-              if (taps > 2) buildFutureBuilder(getBuildString()),
-              if (taps <= 2) const SizedBox(height: 34)
-            ],
-          ),
-        ),
+        buildSignoutSlider(context),
+        buildBuildInfo(),
       ],
+    );
+  }
+
+  Padding buildBuildInfo() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5, 5, 10, 30),
+      child: Column(
+        children: [
+          if (taps > 2) buildFutureBuilder(getVersionId()),
+          if (taps > 2) buildFutureBuilder(getBuildString()),
+        ],
+      ),
     );
   }
 
@@ -138,80 +87,168 @@ class DrawerState extends State<CustomDrawer> {
 
   Column buildOptions(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTile(
-          title: Text(context.l.home),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(context.l.investing),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(context.l.account),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(context.l.settings),
-          onTap: () {
-            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
-            context.go('/profile/settings');
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          title: Text(context.l.send_feedback),
-          onTap: () {
-            if (isWeb) {
-              launchUrlString(feedbackFormUrl);
-            } else {
-              _dialogBuilder(context);
-              // _showWebViewFullScreen();
-            }
-          },
-        ),
+        rowItem(context.l.home, Icons.home, () {
+          BlocProvider.of<NavBloc>(context).add(NavChanged('0-0'));
+          context.go('/');
+          Navigator.pop(context);
+        }),
+        rowItem(context.l.investing, Icons.candlestick_chart, () {
+          BlocProvider.of<NavBloc>(context).add(NavChanged('1-0'));
+          context.go('/investing');
+          Navigator.pop(context);
+        }),
+        rowItem(context.l.account, Icons.person, () {
+          BlocProvider.of<NavBloc>(context).add(NavChanged('4-0'));
+          context.go('/profile');
+          Navigator.pop(context);
+        }),
+        rowItem(context.l.leaderboard, Icons.leaderboard, () {
+          BlocProvider.of<NavBloc>(context).add(NavChanged('4-0'));
+          context.go('/profile');
+          Navigator.pop(context);
+        }),
+        rowItem(context.l.settings, Icons.settings, () {
+          BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+          context.go('/profile/settings');
+          Navigator.pop(context);
+        }),
+        rowItem(context.l.send_feedback, Icons.edit, () {
+          if (isWeb) {
+            launchUrlString(urlFeedbackForm);
+          } else {
+            _dialogBuilder(context);
+            // _showWebViewFullScreen();
+          }
+        }),
       ],
     );
   }
 
-  DrawerHeader buildTop() {
-    return DrawerHeader(
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.black),
+  Padding buildSignoutSlider(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 20,
+        horizontal: 10,
+      ),
+      child: SliderButton(
+        width: 125,
+        height: 50,
+        shimmer: false,
+        buttonSize: 50,
+        highlightedColor: Colors.red,
+        action: () {
+          Navigator.of(context).pop();
+        },
+        label: Text(
+          context.l.sign_out,
+          style: const TextStyle(
+            fontSize: 12,
+            color: Colors.red,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        icon: const Icon(
+          Icons.logout,
+          color: Colors.red,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    );
+  }
+
+  Padding buildThemeToggler() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 10,
+      ),
+      child: Row(
         children: [
-          GestureDetector(
-            onTap: () {
-              if (taps <= 2) setState(() => taps++);
-            },
-            child: Text(
-              'Royal Stock Exchange',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-          const Spacer(),
-          StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.userChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(snapshot.data!.photoURL!),
-                );
-              }
-              return const CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(placeHolderAvatar),
+          Consumer<ThemeModel>(
+            builder: (context, themeModel, _) {
+              return Toggler(
+                type: 'theme',
+                value: isDark,
+                onChanged: (newValue) {
+                  toggleTheme(themeModel);
+                },
               );
             },
           ),
         ],
       ),
     );
+  }
+
+  buildTop() {
+    return SizedBox(
+      height: H(context) * .3,
+      child: DrawerHeader(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (taps <= 2) setState(() => taps++);
+              },
+              child: Text(
+                'Royal Stock Exchange',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            const SizedBox(height: 5),
+            StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.userChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(snapshot.data!.photoURL!),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        getTimeAgo(),
+                      ),
+                    ],
+                  );
+                }
+                return const CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(urlPlaceholderAvatar),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String formatTimeAgo(Duration duration) {
+    if (duration.inDays >= 365) {
+      final years = (duration.inDays / 365).floor();
+      return '$years ${years == 1 ? 'year' : 'years'} ago';
+    } else if (duration.inDays >= 1) {
+      return '${duration.inDays} ${duration.inDays == 1 ? 'day' : 'days'} ago';
+    } else if (duration.inHours >= 1) {
+      return '${duration.inHours} ${duration.inHours == 1 ? 'hour' : 'hours'} ago';
+    } else if (duration.inMinutes >= 1) {
+      return '${duration.inMinutes} ${duration.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+    } else {
+      return 'Just now';
+    }
+  }
+
+  getTimeAgo() {
+    final now = DateTime.now();
+    final then = FirebaseAuth.instance.currentUser!.metadata.creationTime;
+    final timeDifference = now.difference(then!);
+    final formatted = formatTimeAgo(timeDifference);
+    return formatted;
   }
 
   @override
@@ -238,7 +275,22 @@ class DrawerState extends State<CustomDrawer> {
     //       },
     //     ),
     //   )
-    //   ..loadRequest(Uri.parse(feedbackFormUrl));
+    //   ..loadRequest(Uri.parse(urlFeedbackForm));
+  }
+
+  rowItem(text, icon, onTap) {
+    return ListTile(
+      title: Row(children: [
+        Icon(
+          icon,
+          size: 24.0,
+          color: C(context, 'primary'),
+        ),
+        const SizedBox(width: 10),
+        Text(text, style: TextStyle(color: C(context, 'primary')))
+      ]),
+      onTap: onTap,
+    );
   }
 
   void toggleTheme(themeModel) {
@@ -270,7 +322,7 @@ class DrawerState extends State<CustomDrawer> {
     return showDialog(
       context: context,
       builder: (_) => WebviewScaffold(
-        url: feedbackFormUrl,
+        url: urlFeedbackForm,
         appBar: AppBar(
           title: const Text('RSE'),
         ),
