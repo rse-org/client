@@ -15,6 +15,8 @@ class HomeScreenState extends State<HomeScreen> {
   List<Watch> watched = [];
   @override
   Widget build(BuildContext context) {
+    // Note: Design guide.
+    // return const DesignGuideScreen();
     return Scaffold(
       body: ResponsiveLayout(
         mobile: buildMobile(context),

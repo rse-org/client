@@ -1,6 +1,10 @@
 import 'dart:collection';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:intl/intl.dart';
 import 'package:rse/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -141,34 +145,35 @@ class StreakCalendarState extends State<StreakCalendar> {
             ),
           ),
           const SizedBox(height: 8.0),
-          Expanded(
-            child: ValueListenableBuilder<List<Event>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => {
-                          // print('${value[index]}')
-                        },
-                        title: Text('${value[index]}'),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
+          _buildAuthPrompt(),
+          // Expanded(
+          //   child: ValueListenableBuilder<List<Event>>(
+          //     valueListenable: _selectedEvents,
+          //     builder: (context, value, _) {
+          //       return ListView.builder(
+          //         itemCount: value.length,
+          //         itemBuilder: (context, index) {
+          //           return Container(
+          //             margin: const EdgeInsets.symmetric(
+          //               horizontal: 12.0,
+          //               vertical: 4.0,
+          //             ),
+          //             decoration: BoxDecoration(
+          //               border: Border.all(),
+          //               borderRadius: BorderRadius.circular(12.0),
+          //             ),
+          //             child: ListTile(
+          //               onTap: () => {
+          //                 // print('${value[index]}')
+          //               },
+          //               title: Text('${value[index]}'),
+          //             ),
+          //           );
+          //         },
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
@@ -228,6 +233,37 @@ class StreakCalendarState extends State<StreakCalendar> {
     DateTime d = DateTime.parse(str);
     String format = DateFormat('yyyy-MM-dd').format(d);
     return format;
+  }
+
+  _buildAuthPrompt() {
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (FirebaseAuth.instance.currentUser != null) {
+          return const SizedBox(height: 0);
+        }
+        return Column(
+          children: [
+            const SizedBox(height: 20),
+            buildText(
+              context,
+              'headlineSmall',
+              'Sign up/in with Google to save your progress across devices',
+            ),
+            const SizedBox(height: 20),
+            SignInButton(
+              Buttons.Google,
+              text: 'Sign up/in with Google',
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(
+                  GoogleSignInRequested(),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   List<Event> _getEventsForDay(DateTime day) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
@@ -35,6 +36,21 @@ String formatTime(DateTime startTime, DateTime endTime) {
   return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
 }
 
+String formatTimeAgo(Duration duration) {
+  if (duration.inDays >= 365) {
+    final years = (duration.inDays / 365).floor();
+    return '$years ${years == 1 ? 'year' : 'years'} ago';
+  } else if (duration.inDays >= 1) {
+    return '${duration.inDays} ${duration.inDays == 1 ? 'day' : 'days'} ago';
+  } else if (duration.inHours >= 1) {
+    return '${duration.inHours} ${duration.inHours == 1 ? 'hour' : 'hours'} ago';
+  } else if (duration.inMinutes >= 1) {
+    return '${duration.inMinutes} ${duration.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+  } else {
+    return 'Just now';
+  }
+}
+
 Future<String> getBuildString() async {
   try {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -55,6 +71,14 @@ double getHighestVal(List<CandleStick> series) {
 
 double getLowestVal(List<CandleStick> series) {
   return series.reduce((v, e) => v.l < e.l ? v : e).l;
+}
+
+getTimeAgo() {
+  final now = DateTime.now();
+  final then = FirebaseAuth.instance.currentUser!.metadata.creationTime;
+  final timeDifference = now.difference(then!);
+  final formatted = formatTimeAgo(timeDifference);
+  return formatted;
 }
 
 Future<String> getVersionId() async {
