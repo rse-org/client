@@ -80,10 +80,16 @@ class StreakCalendarState extends State<StreakCalendar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Current Streak: $streak',
-                style: T(context, 'headlineSmall'),
-              ),
+              if (streak != null)
+                Text(
+                  'Current Streak: $streak',
+                  style: T(context, 'headlineSmall'),
+                ),
+              if (streak == null)
+                Text(
+                  'Play a game to start your streak',
+                  style: T(context, 'headlineSmall'),
+                )
             ],
           ),
           TableCalendar<Event>(

@@ -44,7 +44,7 @@ class PlayService {
 
   Future loadMCCQuestions() async {
     try {
-      final response = await http.get(Uri.parse(chartUrl));
+      final response = await http.get(Uri.parse(urlChart));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final List<Question> questions = [];

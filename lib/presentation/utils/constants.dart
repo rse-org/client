@@ -11,7 +11,11 @@ const urlChart =
 const urlFeedbackForm =
     'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
 
-const urlPlaceholderAvatar = 'https://shorturl.at/yGISX';
+const urlPlaceholderAvatar =
+    'https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg';
+
+const urlTickers =
+    'https://sheets.googleapis.com/v4/spreadsheets/1o3nuHw2AxQyM8OqbwWwhbRudMm1No577f_yCsP00cKo/values/A2:F7290?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 List<Map<String, String>> countries = [
   {'name': 'Afghanistan', 'abbr': 'AF', 'emoji': '🇦🇫'},

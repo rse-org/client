@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 class Watchlist extends StatelessWidget {
-  const Watchlist({
-    super.key,
-  });
+  final List<Watch> watched;
+  const Watchlist({super.key, required this.watched});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +16,7 @@ class Watchlist extends StatelessWidget {
           margin: getMargin(context),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 2,
-            ),
+            border: Border.all(width: 2, color: C(context, 'outline')),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +63,7 @@ class Watchlist extends StatelessWidget {
     } else if (isL(context)) {
       return w * .3;
     } else {
-      return w * .2;
+      return w * .25;
     }
   }
 }

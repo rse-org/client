@@ -66,7 +66,7 @@ class WatchItemState extends State<WatchItem> {
       ChartData(2014, randomInt(20, 40))
     ];
     final item = widget.item;
-    final color = data.first.y < data.last.y ? Colors.green : Colors.red;
+    final color = item.change >= 0 ? Colors.green : Colors.red;
 
     if (isS(context)) {
       return buildSmall(context, navigate, data, item, color);
@@ -105,13 +105,14 @@ class WatchItemState extends State<WatchItem> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        item.shares.toString(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+                      if (item.shares > 0)
+                        Text(
+                          item.shares.toString(),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -133,7 +134,7 @@ class WatchItemState extends State<WatchItem> {
                         ),
                       ),
                       Text(
-                        formatMoney(item.change),
+                        formatPercentage(item.change),
                         style: TextStyle(
                           color: color,
                           fontSize: 10,
@@ -155,6 +156,7 @@ class WatchItemState extends State<WatchItem> {
     // The nested container with transparent color
     // ensures that a tap on the entire row results in a navigate.
     // Without a color the tap on the container is not registered and navigation fails.
+    print(item.shares);
     return GestureDetector(
       onTap: () {
         navigate();
@@ -186,8 +188,7 @@ class WatchItemState extends State<WatchItem> {
                       Text(
                         item.shares.toString(),
                         style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
+                          fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

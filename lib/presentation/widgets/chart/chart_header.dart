@@ -13,7 +13,7 @@ class ChartHeader extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: SizedBox(
-          height: 100,
+          height: 120,
           child: BlocConsumer<ChartBloc, ChartState>(
             builder: (context, state) {
               if (state is ChartFocusSuccess) {

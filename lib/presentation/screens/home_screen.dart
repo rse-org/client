@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  List<Watch> watched = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +41,7 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        const Watchlist(),
+        Watchlist(watched: watched),
       ],
     );
   }
@@ -57,6 +58,13 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  fetchWatched() async {
+    final List<Watch> data = await getWatched();
+    setState(() {
+      watched = data;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -64,6 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
     if (kReleaseMode) setScreenName('/home');
 
     haltAndFire(milliseconds: 250, fn: () => setTitle(context));
+    fetchWatched();
   }
 
   Widget mobileWatchList(BuildContext context) {

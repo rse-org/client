@@ -21,7 +21,9 @@ class About extends StatelessWidget {
                 Text(
                   context.l.about,
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const Divider(),
                 Text(faker.lorem.sentences(10).join(' ')),
@@ -96,22 +98,24 @@ class About extends StatelessWidget {
   buildDataPoint(String title, value, [big = false]) {
     return SizedBox(
       height: big ? 70 : 60,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
+      child: ListView(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          Text(value),
-        ],
-      ),
+            Text(value),
+          ],
+        ),
+      ]),
     );
   }
 }
