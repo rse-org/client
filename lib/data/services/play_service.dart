@@ -5,19 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
-// Note: GSheets data technique.
-// * 7/18/23
-// * No way to filter rows on a sheet.
-// * https://rb.gy/zk4bt
-// * We can just load the entire sheet then filter.
-// * Good place to have a spinner/loading screen and prompts.
-
-const chartUrl =
-    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
-
-const sheetUrl =
-    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/questions!A2:J11?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
-
 List<String> splitAndNormalize(String str) {
   final List<String> parts = str.trim().split('.');
   final List<String> normalizedParts = parts

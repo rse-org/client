@@ -1,4 +1,12 @@
-import 'package:flutter/material.dart';
+// Note: GSheets data technique.
+// * 7/18/23
+// * No way to filter rows on a sheet.
+// * https://rb.gy/zk4bt
+// * We can just load the entire sheet then filter.
+// * Good place to have a spinner/loading screen and prompts.
+
+const chartUrl =
+    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 List<Map<String, String>> countries = [
   {'name': 'Afghanistan', 'abbr': 'AF', 'emoji': '🇦🇫'},
@@ -207,14 +215,6 @@ Map<String, dynamic> periodMapping = {
   '1y': 'oneYear',
   'all': 'allData',
 };
-
-List<Color> playBackgroundColors = [
-  const Color(0xFFF44336),
-  const Color(0xFF009688),
-  const Color(0xFF8BC34A),
-  const Color(0xFFE91E63),
-  const Color(0xFF03A9F4),
-];
 
 List<Map<String, String>> states = [
   {'name': 'Alabama', 'abbr': 'AL'},

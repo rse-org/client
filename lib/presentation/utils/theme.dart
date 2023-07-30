@@ -4,169 +4,89 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// Note: No base themes.
-// ! Cannot start with 'base' theme.
-// ! Although no colors applied, having base class instance
-// ! both dark/light copyWith() from results in funky ness related to colors.
-
-// ! https://stackoverflow.com/questions/76791329/how-to-share-base-theme-between-light-dark-theme-material-3-flutter
-
-// final base = ThemeData(
-//   useMaterial3: true,
-//   colorSchemeSeed: const Color(0xFF2C6C2F),
-//   ...
-// );
-
 // Note: Hot restart not reload after editing themes to see changes reflected in UI.
 
-final darkTheme = ThemeData(
-  useMaterial3: true,
-  brightness: Brightness.dark,
-  colorSchemeSeed: const Color(0xFF2C6C2F),
-  textTheme: const TextTheme(
-    bodySmall: TextStyle(),
-    bodyMedium: TextStyle(),
-    bodyLarge: TextStyle(),
-    titleSmall: TextStyle(),
-    titleMedium: TextStyle(),
-    titleLarge: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-  ).apply(),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 15),
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  ),
-  filledButtonTheme: FilledButtonThemeData(
-    style: FilledButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 15),
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  ),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-    ),
-  ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  ),
-);
+ThemeData darkTheme = createTheme(Brightness.dark, shape);
+ThemeData lightTheme = createTheme(Brightness.light, shape);
 
-final lightTheme = ThemeData(
-  useMaterial3: true,
-  brightness: Brightness.light,
-  colorSchemeSeed: const Color(0xFF2C6C2F),
-  textTheme: const TextTheme(
-    bodySmall: TextStyle(),
-    bodyMedium: TextStyle(),
-    bodyLarge: TextStyle(),
-    titleSmall: TextStyle(),
-    titleMedium: TextStyle(),
-    titleLarge: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-  ).apply(),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontSize: 15),
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  ),
-  textButtonTheme: TextButtonThemeData(
-    style: TextButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-    ),
-  ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 30,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-  ),
+RoundedRectangleBorder shape = RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(10),
 );
 
 Color C(BuildContext context, String key) {
-  final colorScheme = Theme.of(context).colorScheme;
+  final cs = Theme.of(context).colorScheme;
   switch (key) {
     case 'primary':
-      return colorScheme.primary;
+      return cs.primary;
+    case 'onPrimary':
+      return cs.onPrimary;
     case 'primaryContainer':
-      return colorScheme.primaryContainer;
+      return cs.primaryContainer;
     case 'secondary':
-      return colorScheme.secondary;
+      return cs.secondary;
+    case 'onSecondary':
+      return cs.onSecondary;
     case 'surface':
-      return colorScheme.surface;
+      return cs.surface;
     case 'surfaceVariant':
-      return colorScheme.surfaceVariant;
+      return cs.surfaceVariant;
     case 'inverseSurface':
-      return colorScheme.inverseSurface;
+      return cs.inverseSurface;
     case 'onInverseSurface':
-      return colorScheme.onInverseSurface;
+      return cs.onInverseSurface;
     case 'inversePrimary':
-      return colorScheme.inversePrimary;
+      return cs.inversePrimary;
     case 'onPrimaryContainer':
-      return colorScheme.onPrimaryContainer;
+      return cs.onPrimaryContainer;
     case 'outline':
-      return colorScheme.outline;
+      return cs.outline;
     case 'tertiary':
-      return colorScheme.tertiary;
+      return cs.tertiary;
     case 'background':
-      return colorScheme.background;
+      return cs.background;
+    case 'onBackground':
+      return cs.onBackground;
     case 'secondaryContainer':
-      return colorScheme.secondaryContainer;
+      return cs.secondaryContainer;
     case 'error':
-      return colorScheme.error;
+      return cs.error;
     case 'onError':
-      return colorScheme.onError;
+      return cs.onError;
     case 'onErrorContainer':
-      return colorScheme.onErrorContainer;
+      return cs.onErrorContainer;
     case 'shadow':
-      return colorScheme.shadow;
+      return cs.shadow;
     default:
       throw Exception('Invalid color key: $key');
   }
+}
+
+ThemeData createTheme(Brightness brightness, s) {
+  return ThemeData(
+    useMaterial3: true,
+    brightness: brightness,
+    colorSchemeSeed: const Color(0xFF2C6C2F),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: s,
+      ),
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        shape: s,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        shape: s,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        shape: s,
+      ),
+    ),
+  );
 }
 
 bool isDarkMode(BuildContext context) {

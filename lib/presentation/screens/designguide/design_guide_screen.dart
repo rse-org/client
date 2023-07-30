@@ -14,6 +14,7 @@ class DesignGuideScreen extends StatefulWidget {
 class DesignGuideScreenState extends State<DesignGuideScreen> {
   List selectedContacts = [];
   Calendar calendarView = Calendar.day;
+  late bool isDark = isDarkMode(context);
   Set<Sizes> selection = <Sizes>{Sizes.large, Sizes.extraLarge};
 
   @override
@@ -40,8 +41,8 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    buildThemeDark(context),
-                    buildThemeLight(context),
+                    buildThemeDark(),
+                    buildThemeLight(),
                   ],
                 ),
               ),
@@ -52,63 +53,84 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
     );
   }
 
+  buildColor(color) {
+    return Column(
+      children: [
+        Text(
+          color,
+          style: styleWithColor(
+            type: T(context, 'titleLarge'),
+            color: C(context, color),
+          ),
+        ),
+        const SizedBox(height: 5),
+      ],
+    );
+  }
+
+  buildColors() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildColor('primary'),
+        buildColor('onPrimary'),
+        buildColor('secondary'),
+        buildColor('tertiary'),
+        buildColor('error'),
+        buildColor('onError'),
+        buildColor('outline'),
+        buildColor('shadow'),
+        buildColor('inverseSurface'),
+        buildColor('onInverseSurface'),
+        buildColor('inversePrimary'),
+        const SizedBox(height: 50),
+      ],
+    );
+  }
+
+  buildIcon(icon) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 30,
+        ),
+        const SizedBox(width: 10),
+      ],
+    );
+  }
+
   buildIcons() {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 50),
-      child: Row(
-        children: [
-          Icon(
-            FontAwesomeIcons.instagram,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.facebook,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.whatsapp,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.linkedin,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.tiktok,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.twitter,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.github,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.stackOverflow,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.microsoft,
-            size: 30,
-          ),
-          SizedBox(width: 10),
-          Icon(
-            FontAwesomeIcons.google,
-            size: 30,
-          ),
-          SizedBox(height: 50),
-        ],
-      ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            buildIcon(FontAwesomeIcons.instagram),
+            buildIcon(FontAwesomeIcons.facebook),
+            buildIcon(FontAwesomeIcons.whatsapp),
+            buildIcon(FontAwesomeIcons.linkedin),
+            buildIcon(FontAwesomeIcons.tiktok),
+            buildIcon(FontAwesomeIcons.twitter),
+            buildIcon(FontAwesomeIcons.github),
+            buildIcon(FontAwesomeIcons.stackOverflow),
+            buildIcon(FontAwesomeIcons.microsoft),
+            buildIcon(FontAwesomeIcons.google),
+          ],
+        ),
+        const SizedBox(height: 50),
+      ],
+    );
+  }
+
+  buildText(text, size) {
+    return Column(
+      children: [
+        Text(
+          text,
+          style: T(context, size),
+        ),
+        const SizedBox(height: 5),
+      ],
     );
   }
 
@@ -118,163 +140,36 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Body Small',
-            style: T(context, 'bodySmall'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Body Medium',
-            style: T(context, 'bodyMedium'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Body Large',
-            style: T(context, 'bodyLarge'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Label Small',
-            style: T(context, 'labelSmall'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Label Medium',
-            style: T(context, 'labelMedium'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Label Large',
-            style: T(context, 'labelLarge'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Title Small',
-            style: T(context, 'headlineSmall'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Title Medium',
-            style: T(context, 'headlineMedium'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Title Large',
-            style: T(context, 'headlineLarge'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Headline Small',
-            style: T(context, 'displaySmall'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Headline Medium',
-            style: T(context, 'displayMedium'),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Headline Large',
-            style: T(context, 'displayLarge'),
-          ),
-          const SizedBox(height: 50),
-          Text(
-            'Primary',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'primary'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Secondary',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'secondary'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Tertiary',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'tertiary'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Error',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'error'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'onError',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'onError'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Outline',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'outline'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Shadow',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'shadow'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Inverse Surface',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'inverseSurface'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'on Inverse Surface',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'onInverseSurface'),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'inversePrimary',
-            style: styleWithColor(
-              type: T(context, 'titleLarge'),
-              color: C(context, 'inversePrimary'),
-            ),
-          ),
+          buildText('Body Small', 'bodySmall'),
+          buildText('Body Medium', 'bodyMedium'),
+          buildText('Body Large', 'bodyLarge'),
+          buildText('Label Small', 'labelSmall'),
+          buildText('Label Medium', 'labelMedium'),
+          buildText('Label Large', 'labelLarge'),
+          buildText('Title Small', 'titleSmall'),
+          buildText('Title Medium', 'titleMedium'),
+          buildText('Title Large', 'titleLarge'),
+          buildText('Headline Small', 'headlineSmall'),
+          buildText('Headline Medium', 'headlineMedium'),
+          buildText('Headline Large', 'headlineLarge'),
           const SizedBox(height: 50),
         ],
       ),
     );
   }
 
-  buildThemeDark(context) {
+  buildThemeDark() {
     return Theme(
       data: darkTheme,
       child: Builder(
-        builder: (context) {
+        builder: (BuildContext context) {
           return Container(
             color: C(context, 'background'),
             padding: const EdgeInsets.all(8),
             child: ListView(
               children: [
-                const CustomForm(),
                 buildTexts(context),
+                buildColors(),
                 buildIcons(),
                 ElevatedButton(
                   onPressed: () {},
@@ -300,6 +195,7 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
                 const CustomButtons(),
                 const Cards(),
                 const CustomTable(),
+                const CustomForm(),
               ],
             ),
           );
@@ -308,20 +204,19 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
     );
   }
 
-  buildThemeLight(context) {
+  buildThemeLight() {
     return Theme(
       data: lightTheme,
       child: Builder(
-        builder: (context) {
+        builder: (BuildContext context) {
           return Container(
             color: C(context, 'background'),
             padding: const EdgeInsets.all(8),
             child: ListView(
               children: [
-                const CustomForm(),
                 buildTexts(context),
+                buildColors(),
                 buildIcons(),
-                const CustomButtons(),
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text(
@@ -342,10 +237,11 @@ class DesignGuideScreenState extends State<DesignGuideScreen> {
                     'OutlinedButton ListView',
                   ),
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 50),
+                const CustomButtons(),
                 const Cards(),
-                const SizedBox(height: 5),
                 const CustomTable(),
+                const CustomForm(),
               ],
             ),
           );

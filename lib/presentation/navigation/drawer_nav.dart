@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:go_router/go_router.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:rse/all.dart';
@@ -151,7 +153,11 @@ class DrawerState extends State<CustomDrawer> {
         ),
         ListTile(
           title: Text(context.l.settings),
-          onTap: () {},
+          onTap: () {
+            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+            context.go('/profile/settings');
+            Navigator.pop(context);
+          },
         ),
         ListTile(
           title: Text(context.l.send_feedback),

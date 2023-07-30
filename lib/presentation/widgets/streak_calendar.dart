@@ -206,7 +206,6 @@ class StreakCalendarState extends State<StreakCalendar> {
       setState(() {
         _markedDates = _markedDates;
       });
-      print(_markedDates);
       countConsecutiveDays(_markedDates);
     }
   }
