@@ -3,7 +3,10 @@ import 'dart:developer' as devtools show log;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:rse/all.dart';
 
 String getTitle(context) {
   final location = GoRouterState.of(context).location;
@@ -48,5 +51,16 @@ void setTitle(context) {
 extension Log on Object {
   void log([String tag = '']) {
     devtools.log(toString(), name: tag);
+  }
+}
+
+selectPeriod(context, p) {
+  final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
+  final assetBloc = BlocProvider.of<AssetBloc>(context);
+  final isHome = GoRouterState.of(context).location == '/';
+  if (isHome) {
+    portfolioBloc.setPeriod(p);
+  } else {
+    assetBloc.setPeriod(p);
   }
 }

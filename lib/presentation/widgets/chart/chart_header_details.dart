@@ -37,13 +37,13 @@ class ChartHeaderDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: getFontSize(context) + 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // Text(
+              //   title,
+              //   style: TextStyle(
+              //     fontSize: getFontSize(context) + 12,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               AnimatedFlipCounter(
                   prefix: '\$',
                   value: focusValue,

@@ -57,11 +57,7 @@ class PeriodSelectorState extends State<PeriodSelector> {
                   onTap: () {
                     logPeriodSelect(p);
                     if (period == p) return;
-                    if (isHome) {
-                      portfolioBloc.setPeriod(p);
-                    } else {
-                      assetBloc.setPeriod(p);
-                    }
+                    selectPeriod(context, p);
                   },
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,

@@ -88,6 +88,11 @@ class _AssetScreeState extends State<AssetScreen> {
     super.initState();
     setScreenName('/securities/${widget.sym}');
     logAssetView(widget.sym);
+    haltAndFire(milliseconds: 10, fn: setHeader);
+  }
+
+  setHeader() {
+    selectPeriod(context, '1d');
   }
 
   Widget _getFAB(context) {

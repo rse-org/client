@@ -184,13 +184,14 @@ class WatchItemState extends State<WatchItem> {
                           ),
                         ),
                       ),
-                      Text(
-                        item.shares.toString(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+                      if (item.shares > 0)
+                        Text(
+                          item.shares.toString(),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
