@@ -51,11 +51,8 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
         //     child: SvgPicture.asset(assetName, semanticsLabel: 'Play - Learn'),
         //   ),
         // ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 30.0),
-          child: Container(
-            child: getTitle(getQuote()),
-          ),
+        Container(
+          child: getTitle(getQuote()),
         ),
         Stepper(
           currentStep: _index,

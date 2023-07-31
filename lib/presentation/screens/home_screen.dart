@@ -31,8 +31,8 @@ class HomeScreenState extends State<HomeScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const LineChart(),
-          mobileWatchList(context),
+          _buildLineChart(),
+          _mobileWatchList(context),
           const Articles(),
         ],
       ),
@@ -64,8 +64,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildMobile(context) {
-    if (kIsWeb) return buildContent(context);
-    return AdBanner(child: buildContent(context));
+    return buildContent(context);
   }
 
   fetchWatched() async {
@@ -85,7 +84,19 @@ class HomeScreenState extends State<HomeScreen> {
     fetchWatched();
   }
 
-  Widget mobileWatchList(BuildContext context) {
+  _buildLineChart() {
+    if (kIsWeb) return const LineChart();
+    return const AdBanner(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 80,
+        ),
+        child: LineChart(),
+      ),
+    );
+  }
+
+  Widget _mobileWatchList(BuildContext context) {
     return SingleChildScrollView(
       child: ListView.builder(
         shrinkWrap: true,

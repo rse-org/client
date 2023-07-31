@@ -18,10 +18,7 @@ class _AdBannerState extends State<AdBanner> {
     return SafeArea(
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 100.0),
-            child: Center(child: widget.child),
-          ),
+          Center(child: widget.child),
           if (_bannerAd != null)
             Align(
               alignment: Alignment.topCenter,

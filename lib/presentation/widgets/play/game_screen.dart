@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rse/all.dart';
 
 class GameScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   DateTime start = DateTime.now();
+  InterstitialAd? _interstitialAd;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     setScreenName('/play/game');
     BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+    _loAdInterstitialAd();
   }
 
   onAnswer(a, last) {
@@ -208,24 +211,23 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   _buildResultButton(r) {
-    if (kIsWeb) {
-      return Column(
-        children: [
-          IconButton(
-            iconSize: 40,
-            icon: const Icon(
-              Icons.description,
-            ),
-            onPressed: () {
-              logResultsRequest(r);
-            },
+    return Column(
+      children: [
+        IconButton(
+          iconSize: 40,
+          icon: const Icon(
+            Icons.description,
           ),
-          Text('Results', style: T(context, 'bodySmall'))
-        ],
-      );
-    } else {
-      return AdInterstitial(onPress: () => logResultsRequest(r));
-    }
+          onPressed: () {
+            logResultsRequest(r);
+            if (!kIsWeb) {
+              _interstitialAd?.show();
+            }
+          },
+        ),
+        Text('Results', style: T(context, 'bodySmall'))
+      ],
+    );
   }
 
   _getPromptFromGrade(grade) {
@@ -268,5 +270,33 @@ class _GameScreenState extends State<GameScreen> {
         val = 1;
     }
     return val;
+  }
+
+  void _loAdInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: AdHelper.interstitialAdUnitId,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              _moveToHome();
+            },
+          );
+
+          setState(() {
+            _interstitialAd = ad;
+          });
+        },
+        onAdFailedToLoad: (err) {
+          p('Failed to load an interstitial ad: ${err.message}');
+        },
+      ),
+    );
+  }
+
+  _moveToHome() {
+    BlocProvider.of<PlayBloc>(context).add(PlayInitial());
+    BlocProvider.of<NavBloc>(context).add(EndQuiz());
   }
 }
