@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
@@ -16,16 +17,17 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: ResponsiveLayout(
         mobile: mobile(context),
-        desktop: mobile(context),
+        desktop: desktop(context),
       ),
     );
   }
 
   Widget desktop(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
-          StreakCalendar(),
+          if (kIsWeb) WebAd(type: 'display'),
+          const StreakCalendar(),
         ],
       ),
     );

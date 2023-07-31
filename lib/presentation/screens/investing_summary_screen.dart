@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rse/all.dart';
@@ -26,6 +27,7 @@ class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
     return SingleChildScrollView(
       child: Column(
         children: [
+          if (kIsWeb) WebAd(type: 'display'),
           BlocConsumer<PortfolioBloc, PortfolioState>(
             builder: (context, state) {
               if (state is PortfolioLoading) {

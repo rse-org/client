@@ -32,12 +32,13 @@ class HomeScreenState extends State<HomeScreen> {
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  LineChart(),
-                  TickerCarousel(),
-                  Articles(),
+                  if (kIsWeb) WebAd(type: 'display'),
+                  const LineChart(),
+                  const TickerCarousel(),
+                  const Articles(),
                 ],
               ),
             ),
