@@ -127,6 +127,15 @@ void logPlayEnd(start) async {
   );
 }
 
+void logResultsRequest(Result r) async {
+  await FirebaseAnalytics.instance.logEvent(
+    name: 'play_results_request',
+    parameters: {
+      'score': r.score,
+    },
+  );
+}
+
 void logPlayLoadSuccess() async {
   await FirebaseAnalytics.instance.logEvent(
     name: 'play_load_success',

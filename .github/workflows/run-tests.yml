@@ -31,6 +31,10 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: "Remove Adsense logic due to dart:html being unavailable on mobile"
+        run: ./scripts/clean-adsense-for-mobile-build-android.sh
+        shell: bash
+
       - name: Analyze code
         run: flutter analyze
 

@@ -14,10 +14,14 @@ class _AdBannerState extends State<AdBanner> {
   BannerAd? _bannerAd;
   @override
   Widget build(BuildContext context) {
+    p('AdBanner', icon: '🏦');
     return SafeArea(
       child: Stack(
         children: [
-          Center(child: widget.child),
+          Padding(
+            padding: const EdgeInsets.only(top: 100.0),
+            child: Center(child: widget.child),
+          ),
           if (_bannerAd != null)
             Align(
               alignment: Alignment.topCenter,

@@ -4,9 +4,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rse/all.dart';
 
 class AdInterstitial extends StatefulWidget {
-  final Widget child;
-  final bool show;
-  const AdInterstitial({super.key, required this.child, required this.show});
+  final Function onPress;
+  const AdInterstitial({super.key, required this.onPress});
 
   @override
   State<AdInterstitial> createState() => _AdInterstitialState();
@@ -17,7 +16,22 @@ class _AdInterstitialState extends State<AdInterstitial> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    p('AdInterstitial', icon: '🏦');
+    return Column(
+      children: [
+        IconButton(
+          iconSize: 40,
+          icon: const Icon(
+            Icons.description,
+          ),
+          onPressed: () {
+            widget.onPress();
+            _interstitialAd?.show();
+          },
+        ),
+        Text('Results', style: T(context, 'bodySmall'))
+      ],
+    );
   }
 
   @override
@@ -29,35 +43,10 @@ class _AdInterstitialState extends State<AdInterstitial> {
   @override
   void initState() {
     super.initState();
-    _loadInterstitialAd();
+    _loAdInterstitialAd();
   }
 
-  // @override
-  void onGameOver() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Game over!'),
-          content: const Text('Score: 5/5'),
-          actions: [
-            ElevatedButton(
-              child: Text('close'.toUpperCase()),
-              onPressed: () {
-                if (_interstitialAd != null) {
-                  _interstitialAd?.show();
-                } else {
-                  _moveToHome();
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _loadInterstitialAd() {
+  void _loAdInterstitialAd() {
     InterstitialAd.load(
       adUnitId: AdHelper.interstitialAdUnitId,
       request: const AdRequest(),

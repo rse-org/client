@@ -27,6 +27,18 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  SingleChildScrollView buildContent(context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const LineChart(),
+          mobileWatchList(context),
+          const Articles(),
+        ],
+      ),
+    );
+  }
+
   Widget buildDesktop(context) {
     return Row(
       children: [
@@ -52,15 +64,8 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildMobile(context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const LineChart(),
-          mobileWatchList(context),
-          const Articles(),
-        ],
-      ),
-    );
+    if (kIsWeb) return buildContent(context);
+    return AdBanner(child: buildContent(context));
   }
 
   fetchWatched() async {

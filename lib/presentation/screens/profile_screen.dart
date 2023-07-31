@@ -25,11 +25,11 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget desktop(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
-          // if (kIsWeb) WebAd(type: 'display'),
-          StreakCalendar(),
+          if (kIsWeb) WebAd(type: 'display'),
+          const StreakCalendar(),
         ],
       ),
     );

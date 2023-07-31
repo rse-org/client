@@ -24,7 +24,7 @@ class _GameScreenState extends State<GameScreen> {
             // Todo: Style dialog for score.
             // return _buildResultDialog(context, state);
             if (state is PlayRoundFinished) {
-              return _buildResultDialog(context, state);
+              return _buildCompletedScreen(context, state.result);
             }
             return _buildQuestionContainer(context);
           },
@@ -33,7 +33,51 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Dialog buildCompletedScreen(BuildContext context, r, score) {
+  Expanded buildCrossAndTimerBar(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<NavBloc>(context).add(EndQuiz());
+            },
+            child: const Icon(Icons.close),
+          ),
+          const CountDownTimer(time: 60),
+        ],
+      ),
+    );
+  }
+
+  buildPrompt(length, int i) {
+    return Text(
+      '${i + 1} of $length',
+      style: const TextStyle(
+        fontSize: 15,
+        decoration: TextDecoration.none,
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/play/game');
+    BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+  }
+
+  onAnswer(a, last) {
+    BlocProvider.of<PlayBloc>(context).add(QuestionAnswered(ans: a));
+    if (last) {
+      BlocProvider.of<PlayBloc>(context).add(PlayDone(start));
+    }
+  }
+
+  Dialog _buildCompletedScreen(BuildContext context, result) {
+    final r = result;
+    final score = r.score;
     return Dialog(
       child: SizedBox(
         height: H(context) * .5,
@@ -91,18 +135,7 @@ class _GameScreenState extends State<GameScreen> {
                   ],
                 ),
                 const Spacer(),
-                Column(
-                  children: [
-                    IconButton(
-                      iconSize: 40,
-                      icon: const Icon(
-                        Icons.description,
-                      ),
-                      onPressed: () {},
-                    ),
-                    Text('Results', style: T(context, 'bodySmall'))
-                  ],
-                ),
+                _buildResultButton(r),
                 const Spacer(),
                 Column(
                   children: [
@@ -126,48 +159,6 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ),
     );
-  }
-
-  Expanded buildCrossAndTimerBar(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              BlocProvider.of<NavBloc>(context).add(EndQuiz());
-            },
-            child: const Icon(Icons.close),
-          ),
-          const CountDownTimer(time: 60),
-        ],
-      ),
-    );
-  }
-
-  buildPrompt(length, int i) {
-    return Text(
-      '${i + 1} of $length',
-      style: const TextStyle(
-        fontSize: 15,
-        decoration: TextDecoration.none,
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setScreenName('/play/game');
-    BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
-  }
-
-  onAnswer(a, last) {
-    BlocProvider.of<PlayBloc>(context).add(QuestionAnswered(ans: a));
-    if (last) {
-      BlocProvider.of<PlayBloc>(context).add(PlayDone(start));
-    }
   }
 
   _buildQuestion(state) {
@@ -216,16 +207,25 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  _buildResultDialog(BuildContext context, state) {
-    final r = state.result;
-    final score = r.score;
-    // final r = {'grade': 'A'};
-    // const score = 100;
-    if (kIsWeb) return buildCompletedScreen(context, r, score);
-    return AdInterstitial(
-      show: true,
-      child: buildCompletedScreen(context, r, score),
-    );
+  _buildResultButton(r) {
+    if (kIsWeb) {
+      return Column(
+        children: [
+          IconButton(
+            iconSize: 40,
+            icon: const Icon(
+              Icons.description,
+            ),
+            onPressed: () {
+              logResultsRequest(r);
+            },
+          ),
+          Text('Results', style: T(context, 'bodySmall'))
+        ],
+      );
+    } else {
+      return AdInterstitial(onPress: () => logResultsRequest(r));
+    }
   }
 
   _getPromptFromGrade(grade) {
