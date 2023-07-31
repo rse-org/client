@@ -93,16 +93,17 @@ class _WebAdState extends State<WebAd> {
   }
 
   getType() {
+    String val;
     switch (widget.type) {
       case 'article':
-        return adArticleHtml;
+        val = adArticleHtml;
       case 'multi':
-        return adMultiplexHtml;
+        val = adMultiplexHtml;
       case 'display':
-        return adDisplayHtml;
-      case 'feed':
-        return adFeedHtml;
+        val = adDisplayHtml;
       default:
+        val = adFeedHtml;
     }
+    return val;
   }
 }

@@ -62,6 +62,10 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: "Remove Adsense logic due to dart:html being unavailable on mobile"
+        run: ./scripts/clean-adsense-for-mobile-build-ios.sh
+        shell: bash
+
       - name: Build IPA
         run: |
           flutter --version
@@ -78,8 +82,8 @@ jobs:
           name: built-ipa
           path: dist
 
-  # * A linux machine is needed firebase app distribution action.
-  # * Benefit of allowing us rerun only failing jobs when we've configured environments incorrectly though.
+  # * A linux machine is needed for firebase app distribution action.
+  # * Also helps to rerun only failing jobs when environment configured wrong.
   distribute:
     needs: build
     runs-on: ubuntu-latest
@@ -101,7 +105,7 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
-      # TODO: Add DSYM to Crashlytics
+      # Fix: Add DSYM to Crashlytics when you figure how to.
       # - name: Upload dSYMs to Crashlytics
       #   uses: w9jds/firebase-action@v11.5.0
       #   with:

@@ -71,7 +71,7 @@ final goRouter = GoRouter(
               path: '/investing',
               pageBuilder: (context, state) => NoTransitionPage(
                 key: state.pageKey,
-                child: const InvestingSummaryScreen(title: 'Investing'),
+                child: const InvestingScreen(title: 'Investing'),
               ),
             ),
           ],

@@ -33,6 +33,10 @@ jobs:
           versionCode: ${{ github.run_number }}
           gradlePath: ./android/app/build.gradle
 
+      - name: "Remove Adsense logic due to dart:html being unavailable on mobile"
+        run: ./scripts/clean-adsense-for-mobile-build-android.sh
+        shell: bash
+
       - name: Build APK
         run: |
           flutter --version

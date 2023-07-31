@@ -1,19 +1,20 @@
+// Fix: Adsense cleaning script & auto remove unused imports will make foundation go missing
+// ignore: unnecessary_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rse/all.dart';
 
-class InvestingSummaryScreen extends StatefulWidget {
+class InvestingScreen extends StatefulWidget {
   final String title;
 
-  const InvestingSummaryScreen({Key? key, required this.title})
-      : super(key: key);
+  const InvestingScreen({Key? key, required this.title}) : super(key: key);
 
   @override
-  InvestingSummaryScreenState createState() => InvestingSummaryScreenState();
+  InvestingScreenState createState() => InvestingScreenState();
 }
 
-class InvestingSummaryScreenState extends State<InvestingSummaryScreen>
+class InvestingScreenState extends State<InvestingScreen>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
