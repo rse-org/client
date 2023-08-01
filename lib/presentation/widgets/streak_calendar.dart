@@ -63,16 +63,15 @@ class StreakCalendar extends StatefulWidget {
 }
 
 class StreakCalendarState extends State<StreakCalendar> {
+  int? streak;
+  DateTime? _rangeEnd;
+  DateTime? _rangeStart;
+  DateTime? _selectedDay;
+  List<String> _markedDates = [];
+  DateTime _focusedDay = DateTime.now();
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
-  int? streak;
-
-  List<String> _markedDates = [];
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +145,8 @@ class StreakCalendarState extends State<StreakCalendar> {
           ),
           const SizedBox(height: 8.0),
           _buildAuthPrompt(),
+
+          // Fix: After we decide what to show
           // Expanded(
           //   child: ValueListenableBuilder<List<Event>>(
           //     valueListenable: _selectedEvents,
@@ -179,46 +180,10 @@ class StreakCalendarState extends State<StreakCalendar> {
     );
   }
 
-  countConsecutiveDays(List<String> list) {
-    if (list.isEmpty) return 0;
-    list = list.toSet().toList();
-    list.sort();
-    DateTime current = DateTime.now();
-    List<DateTime> dates = list.map((d) => DateTime.parse(d)).toList();
-    int consecutiveDays = 1;
-
-    for (int i = dates.length - 2; i >= 0; i--) {
-      Duration difference = current.difference(dates[i]);
-
-      if (difference.inDays == 1) {
-        consecutiveDays++;
-        current = dates[i];
-      } else {
-        break;
-      }
-    }
-
-    setState(() {
-      streak = consecutiveDays;
-    });
-  }
-
   @override
   void dispose() {
     _selectedEvents.dispose();
     super.dispose();
-  }
-
-  getStreakDates() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String>? streak = prefs.getStringList('streak dates');
-    if (streak != null && streak.isNotEmpty) {
-      _markedDates = streak.map((s) => parseDateToString(s)).toList();
-      setState(() {
-        _markedDates = _markedDates;
-      });
-      countConsecutiveDays(_markedDates);
-    }
   }
 
   @override
@@ -226,7 +191,7 @@ class StreakCalendarState extends State<StreakCalendar> {
     super.initState();
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    getStreakDates();
+    _setStreak();
   }
 
   String parseDateToString(String str) {
@@ -266,6 +231,21 @@ class StreakCalendarState extends State<StreakCalendar> {
     );
   }
 
+  int _countConsecutive(List<String> list) {
+    int max = 0, consecutive = 0;
+    DateTime current = DateTime.now();
+    List<DateTime> dates = list.toSet().map((d) => DateTime.parse(d)).toList();
+    dates.sort((a, b) => b.compareTo(a));
+    for (int i = 0; i < dates.length; i++) {
+      Duration diff = current.difference(dates[i]);
+      if (!(diff.inDays == 1 || diff.inDays == 0)) break;
+      consecutive++;
+      current = dates[i];
+      if (consecutive > max) max = consecutive;
+    }
+    return max;
+  }
+
   List<Event> _getEventsForDay(DateTime day) {
     return kEvents[day] ?? [];
   }
@@ -281,10 +261,10 @@ class StreakCalendarState extends State<StreakCalendar> {
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _rangeStart = null;
         _rangeEnd = null;
+        _rangeStart = null;
+        _focusedDay = focusedDay;
+        _selectedDay = selectedDay;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
 
@@ -301,13 +281,25 @@ class StreakCalendarState extends State<StreakCalendar> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
     } else if (start != null) {
       _selectedEvents.value = _getEventsForDay(start);
     } else if (end != null) {
       _selectedEvents.value = _getEventsForDay(end);
+    }
+  }
+
+  _setStreak() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> dates = prefs.getStringList('streak dates') ?? [];
+    if (dates.isNotEmpty) {
+      _markedDates = dates.map((s) => parseDateToString(s)).toList();
+      final max = _countConsecutive(_markedDates);
+      setState(() {
+        streak = max;
+        _markedDates = _markedDates;
+      });
     }
   }
 }
