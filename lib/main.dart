@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
+import 'package:rse/bootstrap.dart';
 
 import 'all.dart';
 import 'firebase_options.dart';
@@ -31,54 +32,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Note: Bloc entry.
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeModel(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<LangBloc>(
-            create: (_) => LangBloc(),
-          ),
-          BlocProvider<AuthBloc>(
-            create: (_) => AuthBloc(authService: AuthService()),
-          ),
-          BlocProvider<NavBloc>(
-            create: (_) => NavBloc(),
-          ),
-          BlocProvider<PortfolioBloc>(
-            create: (_) => PortfolioBloc(
-              portfolio: Portfolio.defaultPortfolio(),
-            ),
-          ),
-          BlocProvider<NewsBloc>(
-            create: (_) => NewsBloc(),
-          ),
-          BlocProvider<PlayBloc>(
-            create: (_) => PlayBloc(),
-          ),
-          BlocProvider<AssetBloc>(
-            create: (_) => AssetBloc(
-              asset: Asset.defaultAsset(),
-              assetService: AssetService(),
-            ),
-          ),
-          BlocProvider<ChartBloc>(
-            create: (context) {
-              final assetBloc = BlocProvider.of<AssetBloc>(context);
-              final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
-              return ChartBloc(
-                assetBloc: assetBloc,
-                chart: Chart.defaultChart(),
-                portfolioBloc: portfolioBloc,
-              );
-            },
-          ),
-        ],
-        child: const MyApp(),
-      ),
-    ),
-  );
+  // View bloc events in debug console
+  bootstrap(() => const _Providers());
+  // Or don't
+  // runApp(const _Providers());
 }
 
 class MyApp extends StatefulWidget {
@@ -137,5 +94,59 @@ class _MyAppState extends State<MyApp> {
     _newsBloc = context.read<NewsBloc>();
     _assetBloc = context.read<AssetBloc>();
     fetchData();
+  }
+}
+
+class _Providers extends StatelessWidget {
+  const _Providers();
+
+  @override
+  Widget build(BuildContext context) {
+    // Note: Bloc entry.
+    return ChangeNotifierProvider(
+      create: (_) => ThemeModel(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<LangBloc>(
+            create: (_) => LangBloc(),
+          ),
+          BlocProvider<AuthBloc>(
+            create: (_) => AuthBloc(authService: AuthService()),
+          ),
+          BlocProvider<NavBloc>(
+            create: (_) => NavBloc(),
+          ),
+          BlocProvider<PortfolioBloc>(
+            create: (_) => PortfolioBloc(
+              portfolio: Portfolio.defaultPortfolio(),
+            ),
+          ),
+          BlocProvider<NewsBloc>(
+            create: (_) => NewsBloc(),
+          ),
+          BlocProvider<PlayBloc>(
+            create: (_) => PlayBloc(),
+          ),
+          BlocProvider<AssetBloc>(
+            create: (_) => AssetBloc(
+              asset: Asset.defaultAsset(),
+              assetService: AssetService(),
+            ),
+          ),
+          BlocProvider<ChartBloc>(
+            create: (context) {
+              final assetBloc = BlocProvider.of<AssetBloc>(context);
+              final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
+              return ChartBloc(
+                assetBloc: assetBloc,
+                chart: Chart.defaultChart(),
+                portfolioBloc: portfolioBloc,
+              );
+            },
+          ),
+        ],
+        child: const MyApp(),
+      ),
+    );
   }
 }
