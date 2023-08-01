@@ -3,7 +3,7 @@ name: Run tests & code analysis
 on:
   push:
     branches: [main, feature/*, hotfix/*, bugfix/*]
-    paths: ["lib/**"]
+    paths: ['lib/**']
   pull_request:
     branches: [develop]
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.5"
+          flutter-version: '3.10.5'
 
       - name: Install packages
         run: flutter pub get
@@ -29,9 +29,9 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
-      - name: "Remove Adsense logic due to dart:html being unavailable on mobile"
+      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
         run: ./scripts/clean-adsense-for-mobile-build-android.sh
         shell: bash
 
@@ -39,13 +39,16 @@ jobs:
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test --coverage
+        run: |
+          flutter test --coverage
 
       - name: Generate coverage report
         id: covReport
         run: |
           flutter pub global activate test_cov_console
           flutter pub global run test_cov_console -c
+          dart pub global activate remove_from_coverage
+          remove_from_coverage -f coverage/lcov.info -r '.*\.g\.dart'
           export COV="$(python scripts/coverage.py | tr '\n' ' ' | cut -d' ' -f2-)"
 
           # Value of COV:
@@ -95,4 +98,4 @@ jobs:
       - name: Deploy Badges
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Update badges [skip ci]"
+          commit_message: Update badges [skip ci]

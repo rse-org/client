@@ -7,4 +7,4 @@ export 'profile_screen.dart';
 export 'profile_settings_screen.dart';
 export 'spending_screen.dart';
 export 'auth_screen.dart';
-export 'designguide/all.dart';
+export 'design_guide/all.dart';
