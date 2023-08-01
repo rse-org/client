@@ -7,19 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  # Note: Conditional jobs
+  # Needed because we don't have access to matrix.platform in the
+  # if conditional of jobs(to run or not run, that is the question 🤔)
   setup:
-    strategy:
-      max-parallel: 2
-      fail-fast: false
-      matrix:
-        platform: [ios, android]
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     outputs:
-      platform: ${{ steps.step1.outputs.platform }}
+      platform: ${{ steps.setPlatform.outputs.platform }}
     steps:
       - uses: actions/checkout@v3
-      - name: Set chosen_runner
-        id: step1
+      - name: Set platform for jobs
+        id: setPlatform
         run: |
           if [ '${{ matrix.platform }}' == 'android' ]; then
             export "platform='android'"
@@ -39,17 +39,18 @@ jobs:
           echo "value_three='value_three'" >> $GITHUB_OUTPUT
           echo "value_four='value_four'" >> $GITHUB_ENV
 
-      - name: Setup step 2
+      # Different ways to pass env vars between steps, jobs, actions
+      # Leaving because documentation on the internet is fragmented between older versions
+      # Might as well see it as an example so next time we need to update we don't have to find & set to view again.
+      - name: View env variables
         run: |
-          # Leaving here as future example when
-          # you second guess yourself from old documentation
           echo value_one: ${{ env.value_one }}
           echo value_two: ${{ env.value_two }}
 
           echo value_three: ${{ env.value_three }}
           echo value_four: ${{ env.value_four }}
 
-  build-android:
+  android-build:
     needs: setup
     runs-on: ubuntu-latest
     if: ${{ needs.setup.outputs.platform }} == 'android'
@@ -95,8 +96,8 @@ jobs:
           name: built-apk
           path: dist/rse.apk
 
-  distribute-android:
-    needs: build-android
+  android-distribute:
+    needs: android-build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -115,7 +116,9 @@ jobs:
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
-  build-ios:
+  # A macOS machine needed to build IPA.
+  # Otherwise we'd have reused several of the steps from above(or combined to one job)
+  ios-build:
     needs: setup
     runs-on: macOS-latest
     if: ${{ needs.setup.outputs.platform }} == 'ios'
@@ -190,10 +193,10 @@ jobs:
           name: built-ipa
           path: dist
 
-  # * A linux machine is needed for firebase app distribution action.
-  # * Also helps to rerun only failing jobs when environment configured wrong.
-  distribute-ios:
-    needs: build-ios
+  # A linux machine is needed for firebase app distribution action.
+  # Also helps to rerun only failing jobs when environment configured wrong.
+  ios-distribute:
+    needs: ios-build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

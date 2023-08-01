@@ -1,6 +1,6 @@
 # Royal Stock Exchange(RSE)
 
-## [![Build & distribute to Android](https://github.com/rse-org/client/actions/workflows/build-distribute-android.yml/badge.svg)](https://github.com/rse-org/client/actions/workflows/build-distribute-android.yml)[![Build & distribute to iOS](https://github.com/rse-org/client/actions/workflows/build-distribute-ios.yml/badge.svg)](https://github.com/rse-org/client/actions/workflows/build-distribute-ios.yml)[![cov](https://rse-org.github.io/client/badges/coverage.svg)](https://github.com/rse-org/client/actions/workflows/run-tests.yml)
+## [![Build & distribute mobile apps](https://github.com/rse-org/client/actions/workflows/build-app.yml/badge.svg)](https://github.com/rse-org/client/actions/workflows/build-app.yml/badge.svg)[![cov](https://rse-org.github.io/client/badges/coverage.svg)](https://github.com/rse-org/client/actions/workflows/run-tests.yml)
 
 A stock exchange for the next generation.
 
