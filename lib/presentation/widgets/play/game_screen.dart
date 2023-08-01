@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rse/all.dart';
+import 'package:rse/presentation/widgets/play/result_dialog.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -14,7 +12,6 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   DateTime start = DateTime.now();
-  InterstitialAd? _interstitialAd;
 
   @override
   Widget build(BuildContext context) {
@@ -23,32 +20,12 @@ class _GameScreenState extends State<GameScreen> {
         body: BlocConsumer<PlayBloc, PlayState>(
           listener: (context, state) {},
           builder: (context, state) {
-            // Todo: Style dialog for score.
-            // return _buildResultDialog(context, state);
             if (state is PlayRoundFinished) {
-              return _buildCompletedScreen(context, state.result);
+              return ResultDialog(result: state.result);
             }
             return _buildQuestionContainer(context);
           },
         ),
-      ),
-    );
-  }
-
-  Expanded buildCrossAndTimerBar(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              BlocProvider.of<NavBloc>(context).add(EndQuiz());
-            },
-            child: const Icon(Icons.close),
-          ),
-          const CountDownTimer(time: 60),
-        ],
       ),
     );
   }
@@ -68,7 +45,6 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     setScreenName('/play/game');
     BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
-    _loAdInterstitialAd();
   }
 
   onAnswer(a, last) {
@@ -78,88 +54,20 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  Dialog _buildCompletedScreen(BuildContext context, result) {
-    final r = result;
-    final score = r.score;
-    return Dialog(
-      child: SizedBox(
-        height: H(context) * .5,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${_getPromptFromGrade(r.grade)}',
-                      style: T(context, 'displaySmall'),
-                    ),
-                    RatingBarIndicator(
-                      itemCount: 5,
-                      itemSize: 50.0,
-                      rating: _getStars(r.grade),
-                      direction: Axis.horizontal,
-                      unratedColor: Colors.amber.withAlpha(50),
-                      itemBuilder: (context, index) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ),
-                    Text(
-                      '$score%',
-                      style: const TextStyle(fontSize: 25),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Column(
-                  children: [
-                    IconButton(
-                      iconSize: 40,
-                      icon: const Icon(
-                        Icons.exit_to_app,
-                      ),
-                      onPressed: () {
-                        BlocProvider.of<PlayBloc>(context).add(PlayInitial());
-                        BlocProvider.of<NavBloc>(context).add(EndQuiz());
-                      },
-                    ),
-                    Text('Done', style: T(context, 'bodySmall'))
-                  ],
-                ),
-                const Spacer(),
-                _buildResultButton(r),
-                const Spacer(),
-                Column(
-                  children: [
-                    IconButton(
-                      iconSize: 40,
-                      icon: const Icon(
-                        Icons.replay,
-                      ),
-                      onPressed: () {
-                        BlocProvider.of<PlayBloc>(context)
-                            .add(PlayInitialized());
-                      },
-                    ),
-                    Text('Replay', style: T(context, 'bodySmall'))
-                  ],
-                ),
-                const Spacer(),
-              ],
-            )
-          ],
-        ),
+  Expanded _buildCrossAndTimerBar(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<NavBloc>(context).add(EndQuiz());
+            },
+            child: const Icon(Icons.close),
+          ),
+          const CountDownTimer(time: 60),
+        ],
       ),
     );
   }
@@ -194,7 +102,7 @@ class _GameScreenState extends State<GameScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildCrossAndTimerBar(context),
+              _buildCrossAndTimerBar(context),
               Expanded(
                 flex: 13,
                 child: Padding(
@@ -208,95 +116,5 @@ class _GameScreenState extends State<GameScreen> {
         return const SizedBox();
       },
     );
-  }
-
-  _buildResultButton(r) {
-    return Column(
-      children: [
-        IconButton(
-          iconSize: 40,
-          icon: const Icon(
-            Icons.description,
-          ),
-          onPressed: () {
-            logResultsRequest(r);
-            if (!kIsWeb) {
-              _interstitialAd?.show();
-            }
-          },
-        ),
-        Text('Results', style: T(context, 'bodySmall'))
-      ],
-    );
-  }
-
-  _getPromptFromGrade(grade) {
-    String val;
-    switch (grade) {
-      case 'A':
-        val = 'Excellent!';
-        break;
-      case 'B':
-        val = 'Great!';
-        break;
-      case 'C':
-        val = 'A for effort!';
-        break;
-      case 'D':
-        val = 'Needs improvement!';
-        break;
-      default:
-        val = 'Lost a lot of money!';
-    }
-    return val;
-  }
-
-  _getStars(grade) {
-    double val;
-    switch (grade) {
-      case 'A':
-        val = 5;
-        break;
-      case 'B':
-        val = 4;
-        break;
-      case 'C':
-        val = 3;
-        break;
-      case 'D':
-        val = 2;
-        break;
-      default:
-        val = 1;
-    }
-    return val;
-  }
-
-  void _loAdInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: AdHelper.interstitialAdUnitId,
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              _moveToHome();
-            },
-          );
-
-          setState(() {
-            _interstitialAd = ad;
-          });
-        },
-        onAdFailedToLoad: (err) {
-          p('Failed to load an interstitial ad: ${err.message}');
-        },
-      ),
-    );
-  }
-
-  _moveToHome() {
-    BlocProvider.of<PlayBloc>(context).add(PlayInitial());
-    BlocProvider.of<NavBloc>(context).add(EndQuiz());
   }
 }
