@@ -23,7 +23,7 @@ import 'firebase_options.dart';
 // https://shorturl.at/ehADH
 // ? Why?
 // ! Important!
-// * Decorators !, ?, *
+// * Decorators !, ?, *,
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,14 +1,58 @@
-name: Build & distribute to iOS
+name: Build & distribute apps
 
 on:
   push:
     branches: [main]
-    paths: ["lib/**"]
+    paths: ['lib/**']
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: macOS-latest
+  setup:
+    strategy:
+      max-parallel: 2
+      fail-fast: false
+      matrix:
+        platform: [ios, android]
+    runs-on: ubuntu-latest
+    outputs:
+      platform: ${{ steps.step1.outputs.platform }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set chosen_runner
+        id: step1
+        run: |
+          if [ '${{ matrix.platform }}' == 'android' ]; then
+            export "platform='android'"
+            echo "##[set-output name=platform]$platform"
+          else
+            export "platform='ios'"
+            echo "##[set-output name=platform]$platform"
+          fi
+
+          # Check runner & platform set
+          echo Platform: $platform
+
+          # Pass to next step
+          echo "value_one='value_one'" >> $GITHUB_OUTPUT
+          echo "value_two='value_two'" >> $GITHUB_ENV
+
+          echo "value_three='value_three'" >> $GITHUB_OUTPUT
+          echo "value_four='value_four'" >> $GITHUB_ENV
+
+      - name: Setup step 2
+        run: |
+          # Leaving here as future example when
+          # you second guess yourself from old documentation
+          echo value_one: ${{ env.value_one }}
+          echo value_two: ${{ env.value_two }}
+
+          echo value_three: ${{ env.value_three }}
+          echo value_four: ${{ env.value_four }}
+
+  build-android:
+    needs: setup
+    runs-on: ubuntu-latest
+    if: ${{ needs.setup.outputs.platform }} == 'android'
     strategy:
       fail-fast: false
     steps:
@@ -17,14 +61,78 @@ jobs:
       - name: Install Java
         uses: actions/setup-java@v2
         with:
-          java-version: "11"
-          distribution: "zulu"
+          java-version: 11
+          distribution: zulu
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: "stable"
-          flutter-version: "3.10.5"
+          channel: stable
+          flutter-version: 3.10.5
+
+      - name: Bump version name & code
+        uses: Devofure/advance-android-version-actions@v1.4
+        with:
+          versionName: ${{ vars.APP_VERSION }}
+          versionCode: ${{ github.run_number }}
+          gradlePath: ./android/app/build.gradle
+
+      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
+        run: ./scripts/clean-adsense-for-mobile-build-android.sh
+        shell: bash
+
+      - name: Build APK
+        run: |
+          flutter --version
+          flutter pub get
+          flutter build apk --flavor=preview
+          mkdir -p dist
+          mv ./build/app/outputs/flutter-apk/app-preview-release.apk dist/rse.apk
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: built-apk
+          path: dist/rse.apk
+
+  distribute-android:
+    needs: build-android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: built-apk
+          path: dist/
+
+      - name: Upload to Firebase App Distribution
+        uses: w9jds/firebase-action@v11.5.0
+        with:
+          args: appdistribution:distribute dist/rse.apk --app ${{ secrets.FIREBASE_APP_ID_ANDROID }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
+
+  build-ios:
+    needs: setup
+    runs-on: macOS-latest
+    if: ${{ needs.setup.outputs.platform }} == 'ios'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: zulu
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.10.5
 
       - name: Bump version name & code
         uses: yanamura/ios-bump-version@v1
@@ -62,7 +170,7 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: "Remove Adsense logic due to dart:html being unavailable on mobile"
+      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
         run: ./scripts/clean-adsense-for-mobile-build-ios.sh
         shell: bash
 
@@ -84,10 +192,9 @@ jobs:
 
   # * A linux machine is needed for firebase app distribution action.
   # * Also helps to rerun only failing jobs when environment configured wrong.
-  distribute:
-    needs: build
+  distribute-ios:
+    needs: build-ios
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
