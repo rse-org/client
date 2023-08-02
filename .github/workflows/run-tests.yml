@@ -31,10 +31,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
-        run: ./scripts/clean-adsense-for-mobile-build-android.sh
-        shell: bash
-
       - name: Analyze code
         run: flutter analyze
 
@@ -56,10 +52,7 @@ jobs:
 
           # Value for next step:
           # Makes output1: ${{ steps.covReport.outputs.COV }} work.
-          echo "##[set-output name=COV]$COV"
-
-          # Makes $COV available in subsequent steps in this job.
-          echo "COV='$COV'" >> $GITHUB_ENV
+          echo "platform='$COV'" >> "$GITHUB_OUTPUT"
 
   update-badges:
     needs: run-tests-and-code-analysis

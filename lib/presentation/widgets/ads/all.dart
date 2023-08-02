@@ -1,7 +1,8 @@
 export 'ad_banner.dart';
 export 'ad_interstitial.dart';
 // Note: AdSense support
-// This code will fail for mobile builds
-// because it depends on dart:html which is web only.
-// We run a script which removes it in ./scripts/clean-adsense-for-mobile-build-ios.sh or android.sh
-export 'web_ad.dart';
+// Stub import web lib import for mobile so we don't fail tests/builds.
+// https://dart.dev/guides/libraries/create-packages#conditionally-importing-and-exporting-library-files
+export 'adsense_none.dart'
+    if (dart.library.io) 'adsense_mobile.dart'
+    if (dart.library.html) 'adsense_web.dart';

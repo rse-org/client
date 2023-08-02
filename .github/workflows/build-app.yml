@@ -10,6 +10,7 @@ jobs:
   # Note: Conditional jobs
   # Needed because we don't have access to matrix.platform in the
   # if conditional of jobs(to run or not run, that is the question 🤔)
+  # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
   setup:
     runs-on: ubuntu-latest
     strategy:
@@ -21,16 +22,7 @@ jobs:
       - name: Set platform for jobs
         id: setPlatform
         run: |
-          if [ '${{ matrix.platform }}' == 'android' ]; then
-            export "platform='android'"
-            echo "##[set-output name=platform]$platform"
-          else
-            export "platform='ios'"
-            echo "##[set-output name=platform]$platform"
-          fi
-
-          # Check runner & platform set
-          echo Platform: $platform
+          echo "platform='${{ matrix.platform }}'" >> "$GITHUB_OUTPUT"
 
           # Pass to next step
           echo "value_one='value_one'" >> $GITHUB_OUTPUT
@@ -40,7 +32,7 @@ jobs:
           echo "value_four='value_four'" >> $GITHUB_ENV
 
       # Different ways to pass env vars between steps, jobs, actions
-      # Leaving because documentation on the internet is fragmented between older versions
+      # Leaving because documentation on the internet is fragmented between older/newer versions
       # Might as well see it as an example so next time we need to update we don't have to find & set to view again.
       - name: View env variables
         run: |
@@ -77,10 +69,6 @@ jobs:
           versionName: ${{ vars.APP_VERSION }}
           versionCode: ${{ github.run_number }}
           gradlePath: ./android/app/build.gradle
-
-      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
-        run: ./scripts/clean-adsense-for-mobile-build-android.sh
-        shell: bash
 
       - name: Build APK
         run: |
@@ -153,7 +141,7 @@ jobs:
         run: |
           # create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision 
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
           # import certificate and provisioning profile from secrets
@@ -172,10 +160,6 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
-      - name: 'Remove Adsense logic due to dart:html being unavailable on mobile'
-        run: ./scripts/clean-adsense-for-mobile-build-ios.sh
-        shell: bash
 
       - name: Build IPA
         run: |

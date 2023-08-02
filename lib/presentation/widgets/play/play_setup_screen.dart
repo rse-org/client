@@ -118,7 +118,10 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   getFinalTitle(l, finalStep) {
     if (!finalStep && !start) return Text(l.play);
     if (!start && finalStep) return Text(l.ready);
-    return Row(children: [Text(l.starting), const CountDownTimer(time: 3)]);
+    return Row(children: [
+      Text(l.starting),
+      const CountDownTimer(time: kDebugMode ? 1 : 3)
+    ]);
   }
 
   getQuote() {
@@ -208,7 +211,10 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
                 setState(() {
                   start = true;
                 });
-                haltAndFire(milliseconds: 3000, fn: startQuiz);
+                haltAndFire(
+                  fn: startQuiz,
+                  milliseconds: kDebugMode ? 1000 : 3000,
+                );
               }
             },
             child: Text(l.play),

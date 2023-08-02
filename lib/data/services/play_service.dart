@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -76,7 +77,7 @@ class PlayService {
     await loadMCQuestions();
     await loadMCCQuestions();
 
-    if (dev) {
+    if (dev || kDebugMode) {
       quizQuestions.addAll(mcQuestions.take(1).toList());
       // quizQuestions.addAll(chartQuestions.take(1).toList());
     } else {

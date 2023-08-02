@@ -28,6 +28,7 @@ class InvestingScreenState extends State<InvestingScreen>
     return SingleChildScrollView(
       child: Column(
         children: [
+          // ignore: prefer_const_constructors
           if (kIsWeb) WebAd(type: 'display'),
           BlocConsumer<PortfolioBloc, PortfolioState>(
             builder: (context, state) {

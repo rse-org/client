@@ -111,6 +111,8 @@ class _ResultDialogState extends State<ResultDialog> {
                 _interstitialAd?.dispose();
                 haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
               } else if (request == 'Replay') {
+                _interstitialAd?.dispose();
+                haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
                 BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
               }
             },

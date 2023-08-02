@@ -48,7 +48,9 @@ class HomeScreenState extends State<HomeScreen> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: SingleChildScrollView(
               child: Column(
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
+                  // ignore: prefer_const_constructors
                   if (kIsWeb) WebAd(type: 'display'),
                   const LineChart(),
                   const TickerCarousel(),
