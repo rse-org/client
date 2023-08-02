@@ -1,6 +1,6 @@
 export 'ad_banner.dart';
 export 'ad_interstitial.dart';
-// Note: AdSense support
+// Info: Conditional import for AdSense
 // Stub import web lib import for mobile so we don't fail tests/builds.
 // https://dart.dev/guides/libraries/create-packages#conditionally-importing-and-exporting-library-files
 export 'adsense_none.dart'

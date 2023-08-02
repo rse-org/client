@@ -4,7 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// Note: Hot restart not reload after editing themes to see changes reflected in UI.
+// Info: Hot restart not reload after editing themes to see changes reflected in UI.
 
 ThemeData darkTheme = createTheme(Brightness.dark, shape);
 ThemeData lightTheme = createTheme(Brightness.light, shape);

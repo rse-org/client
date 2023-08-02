@@ -1,4 +1,4 @@
-// Note: GSheets data technique.
+// Info: Why GSheets isn't "clean"
 // * 7/18/23
 // * No way to filter rows on a sheet.
 // * https://rb.gy/zk4bt
