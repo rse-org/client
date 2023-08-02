@@ -43,7 +43,14 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-.env
 
-/notes/*
-/secrets/*
+.env
+/notes
+/secrets
+
+
+dist/
+/scripts/venv
+/scripts/build
+/scripts/build/*
+coverage

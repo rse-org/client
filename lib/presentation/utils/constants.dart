@@ -1,66 +1,21 @@
-Map<String, dynamic> periodMapping = {
-  "live": "live",
-  "1d": "oneDay",
-  "1w": "oneWeek",
-  "1m": "oneMonth",
-  "3m": "threeMonths",
-  "ytd": "ytd",
-  "1y": "oneYear",
-  "all": "allData",
-};
+// Info: Why GSheets isn't "clean"
+// * 7/18/23
+// * No way to filter rows on a sheet.
+// * https://rb.gy/zk4bt
+// * We can just load the entire sheet then filter.
+// * Good place to have a spinner/loading screen and prompts.
 
-List<Map<String, String>> states = [
-  {'name': 'Alabama', 'abbr': 'AL'},
-  {'name': 'Alaska', 'abbr': 'AK'},
-  {'name': 'Arizona', 'abbr': 'AZ'},
-  {'name': 'Arkansas', 'abbr': 'AR'},
-  {'name': 'California', 'abbr': 'CA'},
-  {'name': 'Colorado', 'abbr': 'CO'},
-  {'name': 'Connecticut', 'abbr': 'CT'},
-  {'name': 'Delaware', 'abbr': 'DE'},
-  {'name': 'Florida', 'abbr': 'FL'},
-  {'name': 'Georgia', 'abbr': 'GA'},
-  {'name': 'Hawaii', 'abbr': 'HI'},
-  {'name': 'Idaho', 'abbr': 'ID'},
-  {'name': 'Illinois', 'abbr': 'IL'},
-  {'name': 'Indiana', 'abbr': 'IN'},
-  {'name': 'Iowa', 'abbr': 'IA'},
-  {'name': 'Kansas', 'abbr': 'KS'},
-  {'name': 'Kentucky', 'abbr': 'KY'},
-  {'name': 'Louisiana', 'abbr': 'LA'},
-  {'name': 'Maine', 'abbr': 'ME'},
-  {'name': 'Maryland', 'abbr': 'MD'},
-  {'name': 'Massachusetts', 'abbr': 'MA'},
-  {'name': 'Michigan', 'abbr': 'MI'},
-  {'name': 'Minnesota', 'abbr': 'MN'},
-  {'name': 'Mississippi', 'abbr': 'MS'},
-  {'name': 'Missouri', 'abbr': 'MO'},
-  {'name': 'Montana', 'abbr': 'MT'},
-  {'name': 'Nebraska', 'abbr': 'NE'},
-  {'name': 'Nevada', 'abbr': 'NV'},
-  {'name': 'New Hampshire', 'abbr': 'NH'},
-  {'name': 'New Jersey', 'abbr': 'NJ'},
-  {'name': 'New Mexico', 'abbr': 'NM'},
-  {'name': 'New York', 'abbr': 'NY'},
-  {'name': 'North Carolina', 'abbr': 'NC'},
-  {'name': 'North Dakota', 'abbr': 'ND'},
-  {'name': 'Ohio', 'abbr': 'OH'},
-  {'name': 'Oklahoma', 'abbr': 'OK'},
-  {'name': 'Oregon', 'abbr': 'OR'},
-  {'name': 'Pennsylvania', 'abbr': 'PA'},
-  {'name': 'Rhode Island', 'abbr': 'RI'},
-  {'name': 'South Carolina', 'abbr': 'SC'},
-  {'name': 'South Dakota', 'abbr': 'SD'},
-  {'name': 'Tennessee', 'abbr': 'TN'},
-  {'name': 'Texas', 'abbr': 'TX'},
-  {'name': 'Utah', 'abbr': 'UT'},
-  {'name': 'Vermont', 'abbr': 'VT'},
-  {'name': 'Virginia', 'abbr': 'VA'},
-  {'name': 'Washington', 'abbr': 'WA'},
-  {'name': 'West Virginia', 'abbr': 'WV'},
-  {'name': 'Wisconsin', 'abbr': 'WI'},
-  {'name': 'Wyoming', 'abbr': 'WY'},
-];
+const urlChart =
+    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
+
+const urlFeedbackForm =
+    'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
+
+const urlPlaceholderAvatar =
+    'https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg';
+
+const urlTickers =
+    'https://sheets.googleapis.com/v4/spreadsheets/1o3nuHw2AxQyM8OqbwWwhbRudMm1No577f_yCsP00cKo/values/A2:F7290?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 List<Map<String, String>> countries = [
   {'name': 'Afghanistan', 'abbr': 'AF', 'emoji': '🇦🇫'},
@@ -257,4 +212,68 @@ List<Map<String, String>> countries = [
   {'name': 'Yemen', 'abbr': 'YE', 'emoji': '🇾🇪'},
   {'name': 'Zambia', 'abbr': 'ZM', 'emoji': '🇿🇲'},
   {'name': 'Zimbabwe', 'abbr': 'ZW', 'emoji': '🇿🇼'}
+];
+
+Map<String, dynamic> periodMapping = {
+  'live': 'live',
+  '1d': 'oneDay',
+  '1w': 'oneWeek',
+  '1m': 'oneMonth',
+  '3m': 'threeMonths',
+  'ytd': 'ytd',
+  '1y': 'oneYear',
+  'all': 'allData',
+};
+
+List<Map<String, String>> states = [
+  {'name': 'Alabama', 'abbr': 'AL'},
+  {'name': 'Alaska', 'abbr': 'AK'},
+  {'name': 'Arizona', 'abbr': 'AZ'},
+  {'name': 'Arkansas', 'abbr': 'AR'},
+  {'name': 'California', 'abbr': 'CA'},
+  {'name': 'Colorado', 'abbr': 'CO'},
+  {'name': 'Connecticut', 'abbr': 'CT'},
+  {'name': 'Delaware', 'abbr': 'DE'},
+  {'name': 'Florida', 'abbr': 'FL'},
+  {'name': 'Georgia', 'abbr': 'GA'},
+  {'name': 'Hawaii', 'abbr': 'HI'},
+  {'name': 'Idaho', 'abbr': 'ID'},
+  {'name': 'Illinois', 'abbr': 'IL'},
+  {'name': 'Indiana', 'abbr': 'IN'},
+  {'name': 'Iowa', 'abbr': 'IA'},
+  {'name': 'Kansas', 'abbr': 'KS'},
+  {'name': 'Kentucky', 'abbr': 'KY'},
+  {'name': 'Louisiana', 'abbr': 'LA'},
+  {'name': 'Maine', 'abbr': 'ME'},
+  {'name': 'Maryland', 'abbr': 'MD'},
+  {'name': 'Massachusetts', 'abbr': 'MA'},
+  {'name': 'Michigan', 'abbr': 'MI'},
+  {'name': 'Minnesota', 'abbr': 'MN'},
+  {'name': 'Mississippi', 'abbr': 'MS'},
+  {'name': 'Missouri', 'abbr': 'MO'},
+  {'name': 'Montana', 'abbr': 'MT'},
+  {'name': 'Nebraska', 'abbr': 'NE'},
+  {'name': 'Nevada', 'abbr': 'NV'},
+  {'name': 'New Hampshire', 'abbr': 'NH'},
+  {'name': 'New Jersey', 'abbr': 'NJ'},
+  {'name': 'New Mexico', 'abbr': 'NM'},
+  {'name': 'New York', 'abbr': 'NY'},
+  {'name': 'North Carolina', 'abbr': 'NC'},
+  {'name': 'North Dakota', 'abbr': 'ND'},
+  {'name': 'Ohio', 'abbr': 'OH'},
+  {'name': 'Oklahoma', 'abbr': 'OK'},
+  {'name': 'Oregon', 'abbr': 'OR'},
+  {'name': 'Pennsylvania', 'abbr': 'PA'},
+  {'name': 'Rhode Island', 'abbr': 'RI'},
+  {'name': 'South Carolina', 'abbr': 'SC'},
+  {'name': 'South Dakota', 'abbr': 'SD'},
+  {'name': 'Tennessee', 'abbr': 'TN'},
+  {'name': 'Texas', 'abbr': 'TX'},
+  {'name': 'Utah', 'abbr': 'UT'},
+  {'name': 'Vermont', 'abbr': 'VT'},
+  {'name': 'Virginia', 'abbr': 'VA'},
+  {'name': 'Washington', 'abbr': 'WA'},
+  {'name': 'West Virginia', 'abbr': 'WV'},
+  {'name': 'Wisconsin', 'abbr': 'WI'},
+  {'name': 'Wyoming', 'abbr': 'WY'},
 ];

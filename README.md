@@ -1,50 +1,17 @@
-# Royal Stock Exchange(RSE) [![cov](https://primetimetran.github.io/f-RSE/badges/coverage.svg)](https://github.com/primetimetran/f-RSE/actions)
+# Royal Stock Exchange(RSE)
 
+## [![Build & distribute mobile apps](https://github.com/rse-org/client/actions/workflows/build-app.yml/badge.svg)](https://github.com/rse-org/client/actions/workflows/build-app.yml/badge.svg)[![cov](https://rse-org.github.io/client/badges/coverage.svg)](https://github.com/rse-org/client/actions/workflows/run-tests.yml)
 
 A stock exchange for the next generation.
 
 - [Demo](https://royal-stock-exchange.netlify.app/)
-- [Client Code](https://github.com/PrimeTimeTran/f-RSE)
-
-## Dependencies
-
-- Flutter
-- Bloc
-- SyncFusion
+- [Client Code](https://github.com/rse-org/client)
 
 ## Getting Started
 
+- Checkout our [wiki](https://github.com/rse-org/client/wiki)
 - Get a copy of `.env`
-- Create `./notes` for notes.
+- Create `./notes` for code snippets, meeting notes, scratchpads, etc.
+- Create `./secrets` for sensitive items.
 
 ### Deployment
-
-#### Web
-
-- flutter build web
-- flutter run -d chrome
-
-#### iOS
-
-#### Android
-
-- Make sure asset files are in Android as well?
-
-## FAQ
-
-- Why isn't an asset in assets available on web?
-  - Because we have to include them in web/assets & declare them in web/manifest.json for them to be bundled in the build process
-
-- How to ensure firebase events are sent to the correct project?
-  - iOS:
-    - Open from XCode so CLI args respected:
-      - These guys: -FIRDebugEnabled, -FIRAnalyticsDebugEnabled
-    - Restart emulator.
-    - Open issue:
-      - https://github.com/flutter/flutter/issues/17043
-      - https://github.com/flutter/flutter/issues/17043
-  - Android:
-    - [Enable live debugging of events](https://stackoverflow.com/questions/42769236/firebase-analytics-debug-view-does-not-show-anything):
-      - `adb shell setprop debug.firebase.analytics.app 231022961791`
-      - `adb shell setprop debug.firebase.analytics.app com.example.rse`
-    - Restart emulator

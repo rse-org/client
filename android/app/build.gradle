@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.rse"
+        applicationId "com.primetimetran.rse"
         versionCode 1
         versionName "1.0.0"
         minSdkVersion 19
@@ -57,12 +57,20 @@ android {
     productFlavors {
         production {
             dimension "env"
-            applicationId "com.example.rse"
+            applicationId "com.primetimetran.rse"
             resValue "string", "app_name", "RSE"
         }
-        development {
+
+        preview {
             dimension "env"
-            resValue "string", "app_name", "RSE - DEV"
+            applicationId "com.primetimetran.rse.dev"
+            resValue "string", "app_name", "Preview"
+        }
+
+        development {
+            applicationId "com.primetimetran.rse.dev"
+            dimension "env"
+            resValue "string", "app_name", "Dev"
         }
     }
 }

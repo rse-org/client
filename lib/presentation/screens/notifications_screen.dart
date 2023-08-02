@@ -1,9 +1,45 @@
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
+
+  allNotifications(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              context.l.notifications,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                ),
+              ),
+              child: ListView.builder(
+                itemCount: 100,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('${context.l.notifications} $index'),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,40 +52,18 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-  allNotifications(context) {
-    return Expanded(
-      flex: 2,
-      child: Column(
-        children: [
-          const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Notifications",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: Colors.black,
-                ),
-              ),
-              child: ListView.builder(
-                itemCount: 100,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("Notifications $index"),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+  buildDesktop(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            allNotifications(context),
+            securityNotifications(context),
+          ],
+        ),
       ),
     );
   }
@@ -69,7 +83,7 @@ class NotificationsScreen extends StatelessWidget {
         children: [
           const Align(
             child: Text(
-              "Name",
+              'Name',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -81,37 +95,19 @@ class NotificationsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1,
-                  color: Colors.black,
                 ),
               ),
               child: ListView.builder(
                 itemCount: 100,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text("Message $index"),
+                    title: Text('Message $index'),
                   );
                 },
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  buildDesktop(BuildContext context) {
-    return Container(
-      // color: Colors.blue,
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            allNotifications(context),
-            securityNotifications(context),
-          ],
-        ),
       ),
     );
   }

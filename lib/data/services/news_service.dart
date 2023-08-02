@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
 class NewsService {
@@ -20,7 +20,7 @@ class NewsService {
         throw Error();
       }
     } catch (e) {
-      p("Error: Fetching articles. Loading from cache.");
+      p('Error: Fetching articles. Loading from cache.', icon: 'error');
       return await _localStorage.getCachedArticles();
     }
   }

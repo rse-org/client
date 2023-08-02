@@ -1,4 +1,4 @@
 export 'api.dart';
-export 'helpers.dart';
 export 'firebase.dart';
+export 'helpers.dart';
 export 'setup_app.dart';

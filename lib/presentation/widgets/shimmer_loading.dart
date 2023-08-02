@@ -17,14 +17,14 @@ const _shimmerGradient = LinearGradient(
 );
 
 class ShimmerLoading extends StatefulWidget {
+  final bool isLoading;
+  final Widget child;
+
   const ShimmerLoading({
     super.key,
     required this.isLoading,
     required this.child,
   });
-
-  final bool isLoading;
-  final Widget child;
 
   @override
   State<ShimmerLoading> createState() => _ShimmerLoadingState();

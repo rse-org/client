@@ -1,3 +1,55 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:rse/all.dart';
+
+filterInvalid(d) {
+  List cleansed = d['values']
+      .where((t) =>
+          t[0] != '' &&
+          t[3] != '' &&
+          t[3] != '#N/A' &&
+          double.tryParse(t[4]) != null &&
+          double.tryParse(t[5]) != null)
+      .toList();
+  sortDes(cleansed);
+  return cleansed;
+}
+
+Future<List<Watch>> getWatched() async {
+  List<Watch> keep = [];
+  try {
+    final response = await http.get(Uri.parse(urlTickers));
+    if (response.statusCode == 200) {
+      final d = json.decode(response.body);
+      List filtered = filterInvalid(d);
+
+      for (final t in filtered) {
+        keep.add(
+          Watch(
+            sym: t[1],
+            shares: 0,
+            price: double.parse(t[4]),
+            change: double.parse(t[5]),
+            changePercent: double.parse(t[5]),
+          ),
+        );
+      }
+      keep = keep.take(25).toList();
+    }
+  } catch (e) {
+    p('Error: $e', icon: '😡');
+  }
+  return keep;
+}
+
+sortDes(d) {
+  return d.sort((a, b) {
+    double marketCapA = double.parse(a[3].replaceAll(RegExp(r'[\$,]'), ''));
+    double marketCapB = double.parse(b[3].replaceAll(RegExp(r'[\$,]'), ''));
+    return marketCapB.compareTo(marketCapA);
+  });
+}
 
 class Watch {
   final String sym;
@@ -15,19 +67,3 @@ class Watch {
     required this.changePercent,
   });
 }
-
-List<Watch> watched = [
-  Watch(sym: 'GOOGL', shares: 200, price: 399.00, change: 4.43, changePercent: 0.00),
-  Watch(sym: 'META', shares: 200, price: 30.00, change: 3.23, changePercent: 0.00),
-  Watch(sym: 'BRK.A', shares: 5, price: 4000.30, change: 5.69, changePercent: 0.00),
-  Watch(sym: 'BAC', shares: 200, price: 30.00, change: 3.23, changePercent: 0.00),
-  Watch(sym: 'COIN', shares: 300, price: 70.32, change: 4.31, changePercent: 0.00),
-  Watch(sym: 'TSLA', shares: 500, price: 275.98, change: 10.41, changePercent: 0.00),
-  Watch(sym: 'T', shares: 1000, price: 16.15, change: 4.02, changePercent: 0.00),
-  Watch(sym: 'JPM', shares: 1100, price: 36.77, change: 1.03, changePercent: 0.00),
-  Watch(sym: 'HOOD', shares: 200, price: 39.03, change: 1.87, changePercent: 0.00),
-  Watch(sym: 'NKE', shares: 790, price: 24.05, change: 3.30, changePercent: 0.00),
-  Watch(sym: 'NFLX', shares: 450, price: 440.70, change: 8.21, changePercent: 0.00),
-  Watch(sym: 'ADBE', shares: 350, price: 140.62, change: 8.59, changePercent: 0.00),
-  Watch(sym: 'ORCL', shares: 2000, price: 440.93, change: 5.41, changePercent: 0.00),
-];

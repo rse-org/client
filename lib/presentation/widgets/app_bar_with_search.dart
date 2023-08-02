@@ -1,12 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:rse/all.dart';
 
 class AppBarWithSearch extends StatefulWidget {
@@ -20,82 +20,69 @@ class AppBarWithSearch extends StatefulWidget {
 
 class _AppBarWithSearchState extends State<AppBarWithSearch> {
   bool _isSearching = false;
-  late FocusNode myFocusNode;
-  String searchQuery = "Search query";
+  late FocusNode _myFocusNode;
+  String searchQuery = 'Search query';
   final TextEditingController _searchQueryController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    myFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    myFocusNode.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    navigate() => context.go('/profile/settings');
+    navigate() {
+      BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
+      context.go('/profile/settings');
+    }
+
+    String name;
+    switch (widget.tabIndex) {
+      case 1:
+        name = context.l.investing;
+      case 2:
+        name = context.l.play;
+      case 3:
+        name = context.l.notifications;
+      case 4:
+        name = context.l.profile;
+      default:
+        name = 'Royal Stock Exchange';
+    }
+
     return AppBar(
       leading: _buildLeading(),
-      title: _buildTitle(context),
+      title: _buildTitle(context, name),
       actions: _buildActions(context, navigate),
     );
   }
 
-  _buildLeading() {
-    return IconButton(
-      icon: const Icon(Icons.menu),
-      onPressed: () {
-        Scaffold.of(context).openDrawer();
-      },
-    );
+  @override
+  void dispose() {
+    _myFocusNode.dispose();
+    super.dispose();
   }
 
-  _buildTitle(context) {
-    return _isSearching ? _buildSearchField() : _buildTitleHelper(context);
-  }
-
-  Widget _buildSearchField() {
-    return TextField(
-      focusNode: myFocusNode,
-      controller: _searchQueryController,
-      autofocus: true,
-      decoration: const InputDecoration(
-        hintText: "Search Assets...",
-        border: InputBorder.none,
-        hintStyle: TextStyle(),
-      ),
-      style: const TextStyle(fontSize: 16.0),
-      onChanged: (query) => updateSearchQuery(query),
-    );
-  }
-
-  _buildTitleHelper(context) {
-    return Consumer<ThemeModel>(
-      builder: (context, themeModel, _) {
-        return GestureDetector(
-          onDoubleTap: themeModel.toggleTheme,
-          onLongPressStart: (details) {
-            _handleLongPress(details, context);
-          },
-          child: const Text('Royal Stock Exchange'),
-        );
-      },
-    );
+  @override
+  void initState() {
+    super.initState();
+    _myFocusNode = FocusNode();
   }
 
   List<Widget> _buildActions(context, navigate) {
-    if (widget.tabIndex == 3) {
+    if (widget.tabIndex == 2) {
+      return <Widget>[
+        IconButton(
+          icon: const Icon(Icons.switch_left),
+          onPressed: () {
+            // BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
+            // navigate();
+          },
+        ),
+      ];
+    }
+
+    if (widget.tabIndex == 4) {
       return <Widget>[
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
-            BlocProvider.of<NavBloc>(context).add(NavChanged('3-1'));
+            BlocProvider.of<NavBloc>(context).add(NavChanged('4-1'));
             navigate();
           },
         ),
@@ -121,11 +108,154 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
       IconButton(
         icon: const Icon(Icons.search),
         onPressed: () {
-          myFocusNode.requestFocus();
+          _myFocusNode.requestFocus();
           _startSearch();
         },
       ),
     ];
+  }
+
+  _buildLeading() {
+    return IconButton(
+      icon: const Icon(Icons.menu),
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
+    );
+  }
+
+  Widget _buildSearchField(BuildContext c) {
+    return TextField(
+      autofocus: true,
+      focusNode: _myFocusNode,
+      controller: _searchQueryController,
+      style: const TextStyle(fontSize: 16.0),
+      onChanged: (q) => _updateSearchQuery(q),
+      decoration: InputDecoration(
+        hintText: c.l.search_assets,
+        border: InputBorder.none,
+      ),
+    );
+  }
+
+  _buildTitle(BuildContext context, String name) {
+    return _isSearching
+        ? _buildSearchField(context)
+        : _buildTitleHelper(context, name);
+  }
+
+  _buildTitleHelper(context, String name) {
+    return Consumer<ThemeModel>(
+      builder: (context, themeModel, _) {
+        return GestureDetector(
+          // onDoubleTap: () => themeModel.toggleTheme,
+          onDoubleTap: () => BlocProvider.of<PlayBloc>(context).add(SetDev()),
+          onLongPressStart: (details) {
+            _handleLongPress(details, context);
+          },
+          child: Text(name),
+        );
+      },
+    );
+  }
+
+  void _clearSearchQuery() {
+    setState(() {
+      _searchQueryController.clear();
+      _updateSearchQuery('');
+    });
+  }
+
+  void _handleLongPress(LongPressStartDetails details, context) {
+    _showModal(context);
+  }
+
+  Widget _renderAuthOptions(context) {
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (FirebaseAuth.instance.currentUser != null) {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+            onPressed: () {
+              BlocProvider.of<AuthBloc>(context).add(SignOutRequested());
+            },
+            child: const Text('Sign Out'),
+          );
+        }
+        return Column(
+          children: [
+            SignInButton(
+              Buttons.Google,
+              text: 'Sign up with Google',
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(
+                  GoogleSignInRequested(),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showModal(BuildContext context) {
+    double width = W(context);
+    double height = H(context);
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          width: width,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 25),
+                Text('Screen Width: ${width.toStringAsFixed(2)}'),
+                Text('Screen Height: ${height.toStringAsFixed(2)}'),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('es');
+                  },
+                  child: const Text('es'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('en');
+                  },
+                  child: const Text('en'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<LangBloc>(context).changeLang('vi');
+                  },
+                  child: const Text('vi'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final bool value = debugPaintSizeEnabled;
+                    debugPaintSizeEnabled = !value;
+                  },
+                  child: const Text('Enable Debug Paint Size'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/style');
+                  },
+                  child: const Text('Style Screen'),
+                ),
+                _renderAuthOptions(context),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void _startSearch() {
@@ -137,12 +267,6 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     });
   }
 
-  void updateSearchQuery(String newQuery) {
-    setState(() {
-      searchQuery = newQuery;
-    });
-  }
-
   void _stopSearching() {
     _clearSearchQuery();
 
@@ -151,79 +275,9 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     });
   }
 
-  void _clearSearchQuery() {
+  void _updateSearchQuery(String q) {
     setState(() {
-      _searchQueryController.clear();
-      updateSearchQuery("");
+      searchQuery = q;
     });
   }
-}
-
-Future<String> getVersionId() async {
-  try {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
-    return '$version $buildNumber';
-  } on Exception catch (_) {
-    return '';
-  }
-}
-
-void _showModal(BuildContext context) {
-  double width = MediaQuery.of(context).size.width;
-  double height = MediaQuery.of(context).size.height;
-  bool showAppConfig = remoteConfig.getValue('app_show_config').asBool();
-  showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return Column(
-        children: [
-          Text('Screen Width: ${width.toStringAsFixed(2)}'),
-          Text('Screen Height: ${height.toStringAsFixed(2)}'),
-          TextButton(
-            onPressed: () => throw Exception(),
-            child: const Text("Throw Test Exception"),
-          ),
-          TextButton(
-            onPressed: () {
-              final bool value = debugPaintSizeEnabled;
-              debugPaintSizeEnabled = !value;
-            },
-            child: const Text("Enable Debug Paint Size"),
-          ),
-          if (showAppConfig)
-            FutureBuilder<String>(
-              future: getVersionId(),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return Text(snapshot.data ?? '');
-                }
-              },
-            ),
-          FutureBuilder<String>(
-            future: getVersionId(),
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return Text(
-                    remoteConfig.getValue('app_secret').asString());
-              }
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-void _handleLongPress(LongPressStartDetails details, context) {
-  _showModal(context);
 }

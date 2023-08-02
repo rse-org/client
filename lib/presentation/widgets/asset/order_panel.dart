@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
+
+class OrderPanel extends StatefulWidget {
+  const OrderPanel({super.key});
+
+  @override
+  State<OrderPanel> createState() => OrderPanelState();
+}
+
+class OrderPanelState extends State<OrderPanel> {
+  @override
+  Widget build(BuildContext context) {
+    final color = C(context, 'primary');
+    final l = context.l;
+    return Column(
+      children: [
+        SizedBox(
+          height: H(context) * 0.5,
+          child: DefaultTabController(
+            length: 2,
+            animationDuration: const Duration(milliseconds: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: TabBar(
+                    labelColor: color,
+                    indicatorColor: color,
+                    unselectedLabelColor: Theme.of(context).indicatorColor,
+                    tabs: [
+                      SizedBox(
+                        width: 30,
+                        child: Tab(text: l.buy),
+                      ),
+                      SizedBox(
+                        width: 30,
+                        child: Tab(text: l.sell),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 30,
+                        ),
+                        child: Column(children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(l.order_type),
+                                const Spacer(),
+                                const Text('0.00000000'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(l.buy_in),
+                                const Spacer(),
+                                const Text('0.00000000'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(l.shares),
+                                const Spacer(),
+                                const Text('0.00000000'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(l.market_price),
+                                const Spacer(),
+                                const Text('0.00000000'),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(l.estimated_cost),
+                                const Spacer(),
+                                const Text('0.00000000'),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(double.infinity, 50),
+                              ),
+                              child: Text(
+                                l.review_order,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('${l.buying_power} \$100,000'),
+                            ],
+                          ),
+                        ]),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 30,
+                        ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(l.order_type),
+                                  const Spacer(),
+                                  const Text('0.00000000'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(l.sell_in),
+                                  const Spacer(),
+                                  const Text('0.00000000'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(l.shares),
+                                  const Spacer(),
+                                  const Text('0.00000000'),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(l.market_price),
+                                  const Spacer(),
+                                  const Text('0.00000000'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              height: 1,
+                              color: Colors.grey[300],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(l.estimated_credit),
+                                  const Spacer(),
+                                  const Text('0.00000000'),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.infinity, 50),
+                                ),
+                                child: Text(
+                                  l.review_order,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('${l.buying_power} \$100,000'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

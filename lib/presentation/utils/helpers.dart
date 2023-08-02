@@ -1,16 +1,31 @@
-import 'dart:math';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rse/all.dart';
 
-String _twoDigits(int n) {
-  if (n >= 10) {
-    return "$n";
-  }
-  return "0$n";
+int calculateIntervals(period, data) {
+  final map = {
+    'live': 5,
+    '1d': data.length ~/ 24,
+    '1w': 30,
+    '1m': 30,
+    '3m': 30,
+    'ytd': 12,
+    '1y': 12,
+  };
+
+  return map[period] ?? 0;
+}
+
+String calculatePercentageChange(double newVal, double oldVal) {
+  double gainLoss = getChangePercent(newVal, oldVal);
+  String formatted = formatPercentage(gainLoss);
+  return formatted;
 }
 
 String formatTime(DateTime startTime, DateTime endTime) {
@@ -18,7 +33,68 @@ String formatTime(DateTime startTime, DateTime endTime) {
   int hours = difference.inHours;
   int minutes = difference.inMinutes.remainder(60);
   int seconds = difference.inSeconds.remainder(60);
-  return '$hours:${_twoDigits(minutes)}:${_twoDigits(seconds)}';
+  return '$hours:${twoDigits(minutes)}:${twoDigits(seconds)}';
+}
+
+String formatTimeAgo(Duration duration) {
+  if (duration.inDays >= 365) {
+    final years = (duration.inDays / 365).floor();
+    return '$years ${years == 1 ? 'year' : 'years'} ago';
+  } else if (duration.inDays >= 1) {
+    return '${duration.inDays} ${duration.inDays == 1 ? 'day' : 'days'} ago';
+  } else if (duration.inHours >= 1) {
+    return '${duration.inHours} ${duration.inHours == 1 ? 'hour' : 'hours'} ago';
+  } else if (duration.inMinutes >= 1) {
+    return '${duration.inMinutes} ${duration.inMinutes == 1 ? 'minute' : 'minutes'} ago';
+  } else {
+    return 'Just now';
+  }
+}
+
+Future<String> getBuildString() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final packageName = packageInfo.packageName;
+    return packageName;
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
+double getChangePercent(double newVal, double oldVal) {
+  return ((newVal - oldVal) / oldVal) * 100;
+}
+
+double getHighestVal(List<CandleStick> series) {
+  return series.reduce((v, e) => v.h > e.h ? v : e).h;
+}
+
+double getLowestVal(List<CandleStick> series) {
+  return series.reduce((v, e) => v.l < e.l ? v : e).l;
+}
+
+getTimeAgo() {
+  final now = DateTime.now();
+  final then = FirebaseAuth.instance.currentUser!.metadata.creationTime;
+  final timeDifference = now.difference(then!);
+  final formatted = formatTimeAgo(timeDifference);
+  return formatted;
+}
+
+Future<String> getVersionId() async {
+  try {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+    return '$version+$buildNumber';
+  } on Exception catch (_) {
+    return '';
+  }
+}
+
+void haltAndFire({required int milliseconds, required Function fn}) async {
+  await Future.delayed(Duration(milliseconds: milliseconds));
+  fn();
 }
 
 Future<dynamic> loadJsonFile(String path) async {
@@ -29,12 +105,10 @@ Future<dynamic> loadJsonFile(String path) async {
     final decoded = json.decode(jsonContent);
     DateTime endTime = DateTime.now();
 
-    logJsonLoadTime(formatTime(startTime, endTime));
+    logJsonLoadSuccess(formatTime(startTime, endTime));
     return decoded;
   } catch (e) {
-    if (kDebugMode) {
-      debugPrint('Error loading JSON file: $e');
-    }
+    p('Error loading JSON file: $e');
   }
   return null;
 }
@@ -42,9 +116,7 @@ Future<dynamic> loadJsonFile(String path) async {
 void printResponse(http.Response response) {
   final responseMap = json.decode(response.body) as Map<String, dynamic>;
   responseMap.forEach((key, v) {
-    if (kDebugMode) {
-      debugPrint('$key: $v');
-    }
+    p('$key: $v');
   });
 }
 
@@ -54,22 +126,15 @@ int randomInt(int to, int from) {
   return randomNumber;
 }
 
-String calculatePercentageChange(double newVal, double oldVal) {
-  double gainLoss = getChangePercent(newVal, oldVal);
-  String formatted = formatPercentage(gainLoss);
-  return formatted;
-}
+String regularizeSentence(String sentence) {
+  // Remove extra spaces between words
+  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
 
-double getChangePercent(double newVal, double oldVal) {
-  return ((newVal - oldVal) / oldVal) * 100;
-}
+  // Remove spaces between period and end
+  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+'), '.');
 
-double getLowestVal(List<CandleStick> series) {
-  return series.reduce((v, e) => v.low < e.low ? v : e).low;
-}
-
-double getHighestVal(List<CandleStick> series) {
-  return series.reduce((v, e) => v.high > e.high ? v : e).high;
+  // Remove any leading or trailing spaces
+  return normalizedSentence.trim();
 }
 
 DateTime roundDownToNearest5Minutes(DateTime dt) {
@@ -85,18 +150,9 @@ DateTime roundToNearestHour(DateTime dt) {
       .add(Duration(minutes: roundedMinutes));
 }
 
-int calculateIntervals(period, data){
-  final map = {
-    'live': 5,
-    '1d': data.length ~/ 24,
-    '1w': 30,
-    '1m': 30,
-    '3m': 30,
-    'ytd': 12,
-    '1y': 12,
-  };
-
-  return map[period] ?? 0;
+String twoDigits(int n) {
+  if (n >= 10) {
+    return '$n';
+  }
+  return '0$n';
 }
-
-

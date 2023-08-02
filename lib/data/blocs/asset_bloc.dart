@@ -1,57 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:rse/all.dart';
-
-abstract class AssetEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class AssetInitialized extends AssetEvent {
-  final Asset asset;
-
-  AssetInitialized(this.asset);
-
-  @override
-  List<Object?> get props => [asset];
-}
-
-class AssetErrored extends AssetEvent {}
-
-abstract class AssetState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class AssetInitial extends AssetState {
-  final Asset asset;
-
-  AssetInitial(this.asset);
-
-  @override
-  List<Object?> get props => [asset];
-}
-
-class AssetLoading extends AssetState {}
-
-class AssetLoaded extends AssetState {
-  final Asset asset;
-
-  AssetLoaded(this.asset);
-
-  @override
-  List<Object?> get props => [asset];
-}
-
-class AssetError extends AssetState {
-  final String errorMessage;
-
-  AssetError(this.errorMessage);
-
-  @override
-  List<Object?> get props => [errorMessage];
-}
 
 class AssetBloc extends Bloc<AssetEvent, AssetState> {
   late Asset asset;
@@ -83,4 +32,54 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
     period = p;
     fetchAsset(asset.sym);
   }
+}
+
+class AssetError extends AssetState {
+  final String errorMessage;
+
+  AssetError(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class AssetErrored extends AssetEvent {}
+
+abstract class AssetEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class AssetInitial extends AssetState {
+  final Asset asset;
+
+  AssetInitial(this.asset);
+
+  @override
+  List<Object?> get props => [asset];
+}
+
+class AssetInitialized extends AssetEvent {
+  final Asset asset;
+
+  AssetInitialized(this.asset);
+
+  @override
+  List<Object?> get props => [asset];
+}
+
+class AssetLoaded extends AssetState {
+  final Asset asset;
+
+  AssetLoaded(this.asset);
+
+  @override
+  List<Object?> get props => [asset];
+}
+
+class AssetLoading extends AssetState {}
+
+abstract class AssetState extends Equatable {
+  @override
+  List<Object?> get props => [];
 }

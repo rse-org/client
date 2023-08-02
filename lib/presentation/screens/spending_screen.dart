@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 class SpendingScreen extends StatelessWidget {
   const SpendingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
+    final width = W(context);
+    final isMobile = width < 600;
 
     final horizontalPadding = isMobile ? 0.0 : 200.0;
     return Center(
@@ -20,11 +21,14 @@ class SpendingScreen extends StatelessWidget {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(
-                        top: 20.0, bottom: 10.0, left: 10.0),
+                      top: 20.0,
+                      left: 10.0,
+                      bottom: 10.0,
+                    ),
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Transactions",
+                        'Transactions',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -37,14 +41,13 @@ class SpendingScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
-                          color: Colors.black,
                         ),
                       ),
                       child: ListView.builder(
                         itemCount: 100,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text("Transaction $index"),
+                            title: Text('Transaction $index'),
                           );
                         },
                       ),
@@ -63,7 +66,7 @@ class SpendingScreen extends StatelessWidget {
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Transaction Details",
+                        'Transaction Details',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -72,21 +75,13 @@ class SpendingScreen extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.black,
-                        ),
-                      ),
-                      child: ListView.builder(
-                        itemCount: 100,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text("Transaction Details $index"),
-                          );
-                        },
-                      ),
+                    child: ListView.builder(
+                      itemCount: 100,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text('Transaction Details $index'),
+                        );
+                      },
                     ),
                   ),
                 ],

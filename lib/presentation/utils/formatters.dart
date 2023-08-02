@@ -1,35 +1,5 @@
 import 'package:intl/intl.dart';
 
-String formatMoney(value) {
-  value = value.toString();
-  final numberFormat = NumberFormat.currency(symbol: '\$');
-  final moneyValue = double.parse(value.replaceAll(',', ''));
-  return numberFormat.format(moneyValue);
-}
-
-String formatField(data, field) {
-  switch (field) {
-    case 'name':
-      return data.name;
-    case 'value' || 'totalValue':
-      return formatMoney(data.getValue(field).toString());
-    case 'quantity':
-      return data.quantity.toString();
-    default:
-      return "${data.getValue(field)}%";
-  }
-}
-
-String formatPercent(double value) {
-  return '${(value * 100).toStringAsFixed(2)}%';
-}
-
-String formatPercentage(double gainLoss) {
-  String sign = (gainLoss >= 0) ? '+' : '-';
-  double absoluteChange = gainLoss.abs();
-  return '$sign ${absoluteChange.toStringAsFixed(2)} %';
-}
-
 String chooseFormat(String period, time) {
   final map = {
     'live': 'h:mma',
@@ -46,6 +16,36 @@ String chooseFormat(String period, time) {
     return DateFormat(dateFormat).format(DateTime.parse(time)).toString();
   }
   return DateFormat(dateFormat).format(DateTime.parse(time)).toString();
+}
+
+String formatField(data, field) {
+  switch (field) {
+    case 'name':
+      return data.name;
+    case 'value' || 'totalValue':
+      return formatMoney(data.getValue(field).toString());
+    case 'quantity':
+      return data.quantity.toString();
+    default:
+      return '${data.getValue(field)}%';
+  }
+}
+
+String formatMoney(value) {
+  value = value.toString();
+  final numberFormat = NumberFormat.currency(symbol: '\$');
+  final moneyValue = double.parse(value.replaceAll(',', ''));
+  return numberFormat.format(moneyValue);
+}
+
+String formatPercent(double value) {
+  return '${(value * 100).toStringAsFixed(2)}%';
+}
+
+String formatPercentage(double gainLoss) {
+  String sign = (gainLoss >= 0) ? '+' : '-';
+  double absoluteChange = gainLoss.abs();
+  return '$sign ${absoluteChange.toStringAsFixed(2)} %';
 }
 
 String formatValueChange(double newValue, double oldValue) {

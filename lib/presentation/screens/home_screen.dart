@@ -1,25 +1,22 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:rse/all.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({required this.label, Key? key}) : super(key: key);
-
   final String label;
+
+  const HomeScreen({required this.label, Key? key}) : super(key: key);
 
   @override
   HomeScreenState createState() => HomeScreenState();
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // setScreenName('/home');
-  }
-
+  List<Watch> watched = [];
   @override
   Widget build(BuildContext context) {
+    // Note: Design guide.
+    // return const DesignGuideScreen();
     return Scaffold(
       body: ResponsiveLayout(
         mobile: buildMobile(context),
@@ -28,26 +25,12 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget mobileWatchList(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        itemCount: watched.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = watched[index];
-          return WatchItem(item);
-        },
-      ),
-    );
-  }
-
-  Widget buildMobile(context) {
+  SingleChildScrollView buildContent(context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const LineChart(),
-          mobileWatchList(context),
+          _buildLineChart(),
+          _mobileWatchList(context),
           const Articles(),
         ],
       ),
@@ -61,19 +44,70 @@ class HomeScreenState extends State<HomeScreen> {
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
+                // Fix: Analysis tool complains otherwise
+                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  LineChart(),
-                  TickerCarousel(),
-                  Articles(),
+                  // ignore: prefer_const_constructors
+                  if (kIsWeb) WebAd(type: 'display'),
+                  const LineChart(),
+                  const TickerCarousel(),
+                  const Articles(),
                 ],
               ),
             ),
           ),
         ),
-        const Watchlist(),
+        Watchlist(watched: watched),
       ],
+    );
+  }
+
+  Widget buildMobile(context) {
+    return buildContent(context);
+  }
+
+  fetchWatched() async {
+    final List<Watch> data = await getWatched();
+    setState(() {
+      watched = data;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // ! Fails during tests env so only invoke in release env.
+    if (kReleaseMode) setScreenName('/home');
+
+    haltAndFire(milliseconds: 250, fn: () => setTitle(context));
+    fetchWatched();
+  }
+
+  _buildLineChart() {
+    if (kIsWeb) return const LineChart();
+    return const AdBanner(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: 80,
+        ),
+        child: LineChart(),
+      ),
+    );
+  }
+
+  Widget _mobileWatchList(BuildContext context) {
+    return SingleChildScrollView(
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: watched.length,
+        itemBuilder: (BuildContext context, int index) {
+          final item = watched[index];
+          return WatchItem(item);
+        },
+      ),
     );
   }
 }

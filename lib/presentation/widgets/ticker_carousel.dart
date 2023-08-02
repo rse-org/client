@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rse/all.dart';
 
 class Carousel extends StatefulWidget {
   final List<Ticker> tickers;
@@ -6,60 +7,14 @@ class Carousel extends StatefulWidget {
   const Carousel({super.key, required this.tickers});
 
   @override
-  CarouselState createState() =>
-      CarouselState();
+  CarouselState createState() => CarouselState();
 }
 
-class CarouselState
-    extends State<Carousel>
+class CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   late Animation<Offset> _animation;
   late AnimationController _animationController;
   late GlobalKey _tickerBarKey; // Added GlobalKey declaration
-
-  @override
-  void initState() {
-    super.initState();
-    _tickerBarKey = GlobalKey(); // Initialize GlobalKey
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 100),
-    );
-
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        final widgetWidth = _tickerBarKey.currentContext?.size?.width ?? 0.0;
-        final screenWidth = MediaQuery.of(context).size.width;
-        final offsetX = screenWidth / widgetWidth;
-
-        _animation = Tween<Offset>(
-          begin: Offset(offsetX, 0.0),
-          end: const Offset(-1.0, 0.0),
-        ).animate(CurvedAnimation(
-          curve: Curves.linear,
-          parent: _animationController,
-        ));
-        _animationController.reset();
-        _animationController.forward();
-      }
-    });
-
-    _animation = Tween<Offset>(
-      end: const Offset(-1.0, 0.0),
-      begin: const Offset(0, 0),
-    ).animate(CurvedAnimation(
-      curve: Curves.linear,
-      parent: _animationController,
-    ));
-
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +42,8 @@ class CarouselState
                           children: [
                             Text(
                               ticker.name,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 10),
                             ),
                             const SizedBox(height: 4),
                             Row(
@@ -100,18 +56,12 @@ class CarouselState
                                 const SizedBox(width: 4),
                                 Text(
                                   ticker.pointsUpDown.toStringAsFixed(2),
-                                  style: TextStyle(
-                                    color: color,
-                                    fontSize: 10
-                                  ),
+                                  style: TextStyle(color: color, fontSize: 10),
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
                                   '(${ticker.percentage.toStringAsFixed(2)}%)',
-                                  style: TextStyle(
-                                    color: color,
-                                    fontSize: 10
-                                  ),
+                                  style: TextStyle(color: color, fontSize: 10),
                                 ),
                               ],
                             ),
@@ -129,6 +79,12 @@ class CarouselState
     );
   }
 
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   IconData getArrow(Ticker t) {
     return t.pointsUpDown >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
   }
@@ -136,8 +92,54 @@ class CarouselState
   MaterialColor getIndicationColor(Ticker t) {
     return t.pointsUpDown >= 0 ? Colors.green : Colors.red;
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _tickerBarKey = GlobalKey(); // Initialize GlobalKey
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 100),
+    );
+
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        final widgetWidth = _tickerBarKey.currentContext?.size?.width ?? 0.0;
+        final width = W(context);
+        final offsetX = width / widgetWidth;
+
+        _animation = Tween<Offset>(
+          begin: Offset(offsetX, 0.0),
+          end: const Offset(-1.0, 0.0),
+        ).animate(CurvedAnimation(
+          curve: Curves.linear,
+          parent: _animationController,
+        ));
+        _animationController.reset();
+        _animationController.forward();
+      }
+    });
+
+    _animation = Tween<Offset>(
+      end: const Offset(-1.0, 0.0),
+      begin: const Offset(0, 0),
+    ).animate(CurvedAnimation(
+      curve: Curves.linear,
+      parent: _animationController,
+    ));
+
+    _animationController.forward();
+  }
 }
 
+class Ticker {
+  final String name;
+  final double price;
+  final double pointsUpDown;
+  final double percentage;
+
+  Ticker(this.name, this.price, this.pointsUpDown, this.percentage);
+}
 
 class TickerCarousel extends StatefulWidget {
   const TickerCarousel({super.key});
@@ -148,6 +150,7 @@ class TickerCarousel extends StatefulWidget {
 
 class TickerCarouselState extends State<TickerCarousel> {
   final List<Ticker> tickers = [
+    // sym, price, $, percentage
     Ticker('WMT', 152.51, 1.32, 0.87),
     Ticker('AMZN', 3311.37, 11.61, 0.35),
     Ticker('XOM', 280.48, -0.29, -0.10),
@@ -177,13 +180,4 @@ class TickerCarouselState extends State<TickerCarousel> {
   Widget build(BuildContext context) {
     return Carousel(tickers: tickers);
   }
-}
-
-class Ticker {
-  final String name;
-  final double price;
-  final double pointsUpDown;
-  final double percentage;
-
-  Ticker(this.name, this.price, this.pointsUpDown, this.percentage);
 }

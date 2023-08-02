@@ -1,24 +1,9 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+
+import 'package:rse/all.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:rse/data/all.dart';
-import 'package:rse/presentation/utils/all.dart';
-
 class LocalStorageService {
-  Future<void> saveData(String key, String value,
-      {bool overwrite = true}) async {
-    final prefs = await SharedPreferences.getInstance();
-    if (overwrite || !prefs.containsKey(key)) {
-      await prefs.setString(key, value);
-    }
-  }
-
-  Future<String?> loadData(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }
-
   Future<List<NewsArticle>> getCachedArticles() async {
     var data = await loadData('articles');
 
@@ -30,14 +15,22 @@ class LocalStorageService {
         return _mapArticlesFromData(d['results']);
       }
     }
-    debugPrint('Error: Error loading cached articles');
+    p('Error: Error loading cached articles');
     return [];
   }
 
-  List<NewsArticle> _mapArticlesFromData(dynamic data) {
-    return (data as List<dynamic>)
-      .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
-      .toList();
+  Future<Asset> getCachedAsset(String symbol, period) async {
+    symbol = symbol.toLowerCase();
+    var data = await loadData('$symbol-$period');
+    if (data != null && data.isNotEmpty) {
+      return Asset.fromJson(jsonDecode(data));
+    } else {
+      final d = await loadJsonFile('assets/$symbol-$period.json');
+      if (d != null && d.isNotEmpty) {
+        return Asset.fromJson(d as Map<String, dynamic>);
+      }
+    }
+    return Asset.defaultAsset();
   }
 
   Future<Portfolio> getCachedPortfolio(period) async {
@@ -54,17 +47,38 @@ class LocalStorageService {
     return Portfolio.defaultPortfolio();
   }
 
-  Future<Asset> getCachedAsset(String symbol, period) async {
-    symbol = symbol.toLowerCase();
-    var data = await loadData('$symbol-$period');
-    if (data != null && data.isNotEmpty) {
-      return Asset.fromJson(jsonDecode(data), period);
-    } else {
-      final d = await loadJsonFile('assets/$symbol-$period.json');
-      if (d != null && d.isNotEmpty) {
-        return Asset.fromJson(d as Map<String, dynamic>, period);
-      }
+  Future<String?> loadData(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+
+  Future<void> saveData(String key, String value,
+      {bool overwrite = true}) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (overwrite || !prefs.containsKey(key)) {
+      await prefs.setString(key, value);
     }
-    return Asset.defaultAsset();
+  }
+
+  List<NewsArticle> _mapArticlesFromData(dynamic data) {
+    return (data as List<dynamic>)
+        .map((item) => NewsArticle.fromJson(item as Map<String, dynamic>))
+        .toList();
+  }
+
+  static updateStreak() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> streak = prefs.getStringList('streak dates') ?? [];
+    final now = DateTime.now();
+    // final yesterday = now.subtract(const Duration(days: 1));
+    // final dayBefore = now.subtract(const Duration(days: 2));
+    // final lastWeek = now.subtract(const Duration(days: 7));
+    streak.addAll([
+      now.toString(),
+      // yesterday.toString(),
+      // dayBefore.toString(),
+      // lastWeek.toString()
+    ]);
+    await prefs.setStringList('streak dates', streak);
   }
 }

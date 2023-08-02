@@ -19,6 +19,16 @@ class NewsArticle {
     required this.source,
   });
 
+  factory NewsArticle.defaultNewsArticle() => NewsArticle(
+      url: '',
+      title: '',
+      author: '',
+      content: '',
+      urlToImage: '',
+      description: '',
+      publishedAt: DateTime.now(),
+      source: Source(id: 'default', name: 'Default'));
+
   NewsArticle.fromJson(Map<String, dynamic> j) {
     url = j['link'];
     title = j['title'];
@@ -30,20 +40,15 @@ class NewsArticle {
     source = Source(id: j['source_id'], name: '');
   }
 
-  factory NewsArticle.defaultNewsArticle() => NewsArticle(
-    url: '',
-    title: '',
-    author: '',
-    content: '',
-    urlToImage: '',
-    description: '',
-    publishedAt: DateTime.now(),
-    source: Source(id: 'default', name: 'Default')
-  );
-
   bool isValid() {
-    return (url != null && title != null && author != null && content != null && urlToImage != null &&
-        description != null && publishedAt != null && source.isValid());
+    return (url != null &&
+        title != null &&
+        author != null &&
+        content != null &&
+        urlToImage != null &&
+        description != null &&
+        publishedAt != null &&
+        source.isValid());
   }
 
   @override

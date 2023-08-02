@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:rse/all.dart';
 
 class AssetScreen extends StatefulWidget {
   final String sym;
+
   const AssetScreen({super.key, required this.sym});
 
   @override
@@ -15,39 +14,15 @@ class _AssetScreeState extends State<AssetScreen> {
   static const _actionTitles = ['Options', 'Sell', 'Buy'];
 
   @override
-  void initState() {
-    super.initState();
-    setScreenName('/securities/${widget.sym}');
-  }
-
-  void _showAction(BuildContext context, int index) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text(_actionTitles[index]),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('CLOSE'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    setTitle(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.sym),
         leading: const ArrowBackButton(screenCode: '0-0', root: '/'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => context.go('/search'),
-          ),
+          AlertIcon(sym: widget.sym),
         ],
       ),
       body: ResponsiveLayout(
@@ -56,6 +31,68 @@ class _AssetScreeState extends State<AssetScreen> {
       ),
       floatingActionButton: _getFAB(context),
     );
+  }
+
+  Widget buildOneColumn(context) {
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          CandleChart(),
+          Overview(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTwoColumn() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: const SingleChildScrollView(
+              child: Column(
+                children: [
+                  CandleChart(),
+                  Overview(),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: C(context, 'outline'),
+                  ),
+                ),
+                child: const OrderPanel(),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/securities/${widget.sym}');
+    logAssetView(widget.sym);
+    haltAndFire(milliseconds: 10, fn: setHeader);
+  }
+
+  setHeader() {
+    selectPeriod(context, '1d');
   }
 
   Widget _getFAB(context) {
@@ -85,50 +122,20 @@ class _AssetScreeState extends State<AssetScreen> {
     return Container();
   }
 
-  Widget buildOneColumn(context) {
-    return const SingleChildScrollView(
-      child: Column(
-        children: [
-          CandleChart(),
-          AssetOverview(),
-        ],
-      ),
-    );
-  }
-
-  Widget buildTwoColumn() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 5,
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: const SingleChildScrollView(
-              child: Column(
-                children: [
-                  CandleChart(),
-                  AssetOverview(),
-                ],
-              ),
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(_actionTitles[index]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: T(context, 'outline'),)
-                ),
-                child: const OrderPanel(),
-              ),
-            ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
