@@ -72,11 +72,17 @@ class PlayService {
     mcQuestions.shuffle();
   }
 
-  prepareQuiz() async {
+  prepareQuiz(dev) async {
     await loadMCQuestions();
     await loadMCCQuestions();
-    quizQuestions.addAll(mcQuestions.take(5).toList());
-    quizQuestions.addAll(chartQuestions.take(5).toList());
+
+    if (dev) {
+      quizQuestions.addAll(mcQuestions.take(1).toList());
+      // quizQuestions.addAll(chartQuestions.take(1).toList());
+    } else {
+      quizQuestions.addAll(mcQuestions.take(5).toList());
+      quizQuestions.addAll(chartQuestions.take(5).toList());
+    }
   }
 
   Map<String, dynamic> _getQuestionObject(question) {

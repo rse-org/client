@@ -241,7 +241,12 @@ class DrawerState extends State<CustomDrawer> {
           children: [
             GestureDetector(
               onTap: () {
-                if (taps <= 2) setState(() => taps++);
+                if (taps <= 2) {
+                  setState(() => taps++);
+                  if (taps >= 2) {
+                    BlocProvider.of<PlayBloc>(context).add(SetDev());
+                  }
+                }
               },
               child: Text(
                 'Royal Stock Exchange',

@@ -8,6 +8,7 @@ part 'play_state.dart';
 
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   int idx = 0;
+  bool dev = false;
   List<bool> results = [];
   List<String> answers = [];
   List<Question> questions = [];
@@ -15,6 +16,13 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
   Question currentQuestion = Question.defaultQuestion();
 
   PlayBloc() : super(PlaySetup()) {
+    on<SetDev>((event, emit) async {
+      try {
+        dev = true;
+      } catch (e) {
+        p(e);
+      }
+    });
     on<PlayInitial>((event, emit) async {
       try {
         emit(PlaySetup());
@@ -24,7 +32,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<PlayInitialized>((event, emit) async {
       try {
-        await playService.prepareQuiz();
+        await playService.prepareQuiz(dev);
         final qs = playService.quizQuestions;
         questions = qs;
         currentQuestion = qs.first;

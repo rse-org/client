@@ -148,7 +148,8 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
     return Consumer<ThemeModel>(
       builder: (context, themeModel, _) {
         return GestureDetector(
-          onDoubleTap: themeModel.toggleTheme,
+          // onDoubleTap: () => themeModel.toggleTheme,
+          onDoubleTap: () => BlocProvider.of<PlayBloc>(context).add(SetDev()),
           onLongPressStart: (details) {
             _handleLongPress(details, context);
           },

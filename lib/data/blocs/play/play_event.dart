@@ -55,3 +55,7 @@ class QuestionsRetrieved extends PlayEvent {
 class ResultsCalculated extends PlayEvent {
   ResultsCalculated();
 }
+
+class SetDev extends PlayEvent {
+  SetDev();
+}
