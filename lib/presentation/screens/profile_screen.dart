@@ -1,5 +1,3 @@
-// Fix: Adsense cleaning script & auto remove unused imports will make foundation go missing
-// ignore: unused_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';

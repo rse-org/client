@@ -11,15 +11,16 @@ import 'package:rse/bootstrap.dart';
 import 'all.dart';
 import 'firebase_options.dart';
 
-// Note: Flutter style guide.
+// Info: Flutter style guide.
 // https://shorturl.at/rIUZ1
 
-// Note: Todos VScode extension.
-// Fix: Not ideal fix.
-// Todo: Work to do later.
-// https://rb.gy/wpj5j
+// Info: Todos VScode extension. https://rb.gy/wpj5j
+// Fix: Temp workaround.
+// Todo: Nice to have.
+// Note: Project specific.
+// Info: Useful for any project.
 
-// Note: Comments VSCode extension.
+// Info: Comments VSCode extension.
 // https://shorturl.at/ehADH
 // ? Why?
 // ! Important!

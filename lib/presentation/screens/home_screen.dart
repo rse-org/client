@@ -1,5 +1,3 @@
-// Fix: Adsense cleaning script & auto remove unused imports will make foundation go missing
-// ignore: unused_import
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
@@ -48,6 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: SingleChildScrollView(
               child: Column(
+                // Fix: Analysis tool complains otherwise
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   // ignore: prefer_const_constructors
