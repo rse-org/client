@@ -203,6 +203,15 @@ class _ResultDialogState extends State<ResultDialog> {
   }
 
   _showMobileAds(r) {
+    if (kIsWeb) {
+      if (r == 'Exit') {
+        _exit();
+      } else if (r == 'Result') {
+        logResultsRequest(widget.result);
+      } else if (r == 'Replay') {
+        BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+      }
+    }
     setState(() {
       request = r;
     });
