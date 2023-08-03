@@ -1,20 +1,20 @@
-<svg width="166.1" height="20" viewBox="0 0 1661 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="code coverage: &apos;19.99&apos;%">
-  <title>code coverage: &apos;19.99&apos;%</title>
-  <linearGradient id="vQCCb" x2="0" y2="100%">
+<svg width="173.9" height="20" viewBox="0 0 1739 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="code coverage: &apos; 13.44 &apos;%">
+  <title>code coverage: &apos; 13.44 &apos;%</title>
+  <linearGradient id="LTMeo" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="LFzZf"><rect width="1661" height="200" rx="30" fill="#FFF"/></mask>
-  <g mask="url(#LFzZf)">
+  <mask id="yYnPk"><rect width="1739" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#yYnPk)">
     <rect width="1061" height="200" fill="#555"/>
-    <rect width="600" height="200" fill="#F73" x="1061"/>
-    <rect width="1661" height="200" fill="url(#vQCCb)"/>
+    <rect width="678" height="200" fill="#F73" x="1061"/>
+    <rect width="1739" height="200" fill="url(#LTMeo)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="220" y="148" textLength="801" fill="#000" opacity="0.25">code coverage</text>
     <text x="210" y="138" textLength="801">code coverage</text>
-    <text x="1116" y="148" textLength="500" fill="#000" opacity="0.25">&apos;19.99&apos;%</text>
-    <text x="1106" y="138" textLength="500">&apos;19.99&apos;%</text>
+    <text x="1116" y="148" textLength="578" fill="#000" opacity="0.25">&apos; 13.44 &apos;%</text>
+    <text x="1106" y="138" textLength="578">&apos; 13.44 &apos;%</text>
   </g>
   <image x="40" y="35" width="130" height="130" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMTIgMTIgNDAgNDAiPgo8cGF0aCBmaWxsPSIjRkZGIiBkPSJNMzIsMTMuNGMtMTAuNSwwLTE5LDguNS0xOSwxOWMwLDguNCw1LjUsMTUuNSwxMywxOGMxLDAuMiwxLjMtMC40LDEuMy0wLjljMC0wLjUsMC0xLjcsMC0zLjIgYy01LjMsMS4xLTYuNC0yLjYtNi40LTIuNkMyMCw0MS42LDE4LjgsNDEsMTguOCw0MWMtMS43LTEuMiwwLjEtMS4xLDAuMS0xLjFjMS45LDAuMSwyLjksMiwyLjksMmMxLjcsMi45LDQuNSwyLjEsNS41LDEuNiBjMC4yLTEuMiwwLjctMi4xLDEuMi0yLjZjLTQuMi0wLjUtOC43LTIuMS04LjctOS40YzAtMi4xLDAuNy0zLjcsMi01LjFjLTAuMi0wLjUtMC44LTIuNCwwLjItNWMwLDAsMS42LTAuNSw1LjIsMiBjMS41LTAuNCwzLjEtMC43LDQuOC0wLjdjMS42LDAsMy4zLDAuMiw0LjcsMC43YzMuNi0yLjQsNS4yLTIsNS4yLTJjMSwyLjYsMC40LDQuNiwwLjIsNWMxLjIsMS4zLDIsMywyLDUuMWMwLDcuMy00LjUsOC45LTguNyw5LjQgYzAuNywwLjYsMS4zLDEuNywxLjMsMy41YzAsMi42LDAsNC42LDAsNS4yYzAsMC41LDAuNCwxLjEsMS4zLDAuOWM3LjUtMi42LDEzLTkuNywxMy0xOC4xQzUxLDIxLjksNDIuNSwxMy40LDMyLDEzLjR6Ii8+Cjwvc3ZnPgo="/>
 </svg>
