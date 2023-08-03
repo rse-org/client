@@ -207,6 +207,8 @@ class _ResultDialogState extends State<ResultDialog> {
       if (r == 'Exit') {
         _exit();
       } else if (r == 'Result') {
+        // Todo: Add prompt for account if not created yet.
+        // Also show add on Web when Adsense done.
         logResultsRequest(widget.result);
       } else if (r == 'Replay') {
         BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
