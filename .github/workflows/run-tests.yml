@@ -12,7 +12,7 @@ jobs:
   run-tests-and-code-analysis:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.covReport.outputs.COV }}
+      coverage: ${{ steps.coverage_report.outputs.coverage }}
 
     steps:
       - name: Checkout branch
@@ -39,27 +39,25 @@ jobs:
           flutter test --coverage
 
       - name: Generate coverage report
-        id: covReport
+        id: coverage_report
         run: |
           flutter pub global activate test_cov_console
           flutter pub global run test_cov_console -c
           dart pub global activate remove_from_coverage
           remove_from_coverage -f coverage/lcov.info -r '.*\.g\.dart'
-          export COV="$(python scripts/coverage.py | tr '\n' ' ' | cut -d' ' -f2-)"
+          export coverage="$(python scripts/coverage.py | tr '\n' ' ' | cut -d' ' -f2-)"
 
           # Value of COV:
-          echo $COV
+          echo $coverage
 
           # Value for next step:
-          # Makes output1: ${{ steps.covReport.outputs.COV }} work.
-          echo "platform='$COV'" >> "$GITHUB_OUTPUT"
+          # Makes coverage: ${{ steps.coverage_report.outputs.coverage }} work.
+          echo "coverage='$coverage'" >> "$GITHUB_OUTPUT"
 
   update-badges:
     needs: run-tests-and-code-analysis
     runs-on: ubuntu-latest
-    if: |
-      github.ref == 'refs/heads/main' &&
-      needs.run-tests-and-code-analysis.result == 'success'
+    # if: ${{ github.ref == 'refs/heads/main' && needs.run-tests-and-code-analysis.result == 'success' }}
 
     steps:
       - name: Checkout gh-pages
@@ -70,18 +68,20 @@ jobs:
       - name: Create Badges
         shell: bash
         env:
-          COV: ${{ needs.run-tests-and-code-analysis.outputs.output1 }}
+          coverage: ${{ needs.run-tests-and-code-analysis.outputs.coverage }}
         run: |
           npm i -g badgen-cli
 
           # Both available
-          echo "Bash syntax: $COV"
-          echo "Brace syntax: ${{ env.COV }}"
+          echo "Bash syntax: $coverage"
+          echo "Brace syntax: ${{ env.coverage }}"
 
-          COLOR=$(node -p "const cov = process.env.COV.split(' ')[1]; +cov >= 95 ? 'green' : 'orange'")
+          echo $GITHUB_OUTPUT
+
+          COLOR=$(node -p "const cov = process.env.coverage.split(' ')[1]; +cov >= 95 ? 'green' : 'orange'")
 
           mkdir -p badges
-          badgen -j "code coverage" -i github -s "${COV#*: }%" -c $COLOR > badges/coverage.svg
+          badgen -j "code coverage" -i github -s "${coverage#*: }%" -c $COLOR > badges/coverage.svg
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

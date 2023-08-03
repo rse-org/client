@@ -29,6 +29,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         children: [
           // ignore: prefer_const_constructors
           if (kIsWeb) WebAd(type: 'display'),
+          const ProgressBar(),
           const StreakCalendar(),
         ],
       ),
@@ -45,6 +46,8 @@ class ProfileScreenState extends State<ProfileScreen> {
     return const SingleChildScrollView(
       child: Column(
         children: [
+          ProgressBar(),
+          SizedBox(height: 40),
           StreakCalendar(),
         ],
       ),

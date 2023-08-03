@@ -70,7 +70,7 @@ class _ResultDialogState extends State<ResultDialog> {
         val = 'Needs improvement!';
         break;
       default:
-        val = 'Lost a lot of money!';
+        val = 'Lost a lot';
     }
     return val;
   }
@@ -131,7 +131,7 @@ class _ResultDialogState extends State<ResultDialog> {
 
   _show() {
     final r = widget.result;
-    final score = r.score;
+    final score = r.score.toStringAsFixed(2);
     return Dialog(
       child: SizedBox(
         height: H(context) * .5,

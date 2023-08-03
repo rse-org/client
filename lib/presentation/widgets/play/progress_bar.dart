@@ -6,49 +6,82 @@ const segments = [
   Segment(
     color: Colors.green,
     value: 24,
-    label: Text('Dart'),
+    label: Text('Income'),
     valueLabel: Text('24%'),
   ),
   Segment(
     color: Colors.lime,
     value: 11,
-    label: Text('CSS'),
+    label: Text('Spending'),
     valueLabel: Text('11%'),
   ),
   Segment(
     color: Colors.purple,
     value: 9,
-    label: Text('HTML'),
+    label: Text('Savings'),
     valueLabel: Text('9%'),
   ),
   Segment(
     color: Colors.lightBlue,
     value: 6,
-    label: Text('Typescript'),
+    label: Text('Investing'),
     valueLabel: Text('6%'),
   ),
   Segment(
     color: Colors.orange,
     value: 4,
-    label: Text('Javascript'),
+    label: Text('Protection'),
+    valueLabel: Text('4%'),
+  ),
+];
+
+const segmentsProgress = [
+  Segment(
+    color: Colors.green,
+    value: 24,
+    label: Text('Income'),
+    valueLabel: Text('24%'),
+  ),
+  Segment(
+    color: Colors.lime,
+    value: 11,
+    label: Text('Spending'),
+    valueLabel: Text('11%'),
+  ),
+  Segment(
+    color: Colors.purple,
+    value: 9,
+    label: Text('Savings'),
+    valueLabel: Text('9%'),
+  ),
+  Segment(
+    color: Colors.lightBlue,
+    value: 6,
+    label: Text('Investing'),
+    valueLabel: Text('6%'),
+  ),
+  Segment(
+    color: Colors.orange,
+    value: 4,
+    label: Text('Protection'),
     valueLabel: Text('4%'),
   ),
   Segment(
     color: Colors.grey,
     value: 4,
-    label: Text('Shell'),
+    label: Text('Spending'),
     valueLabel: Text('4%'),
   ),
   Segment(
     color: Colors.indigo,
     value: 4,
-    label: Text('Java'),
+    label: Text('Savings'),
     valueLabel: Text('4%'),
   ),
   Segment(
     color: Colors.red,
     value: 4,
-    label: Text('Objective-C'),
+    label: Text('Investing'),
     valueLabel: Text('4%'),
   ),
   Segment(
@@ -60,7 +93,7 @@ const segments = [
   Segment(
     color: Colors.brown,
     value: 2,
-    label: Text('Swift'),
+    label: Text('Protection'),
     valueLabel: Text('2%'),
   ),
 ];
@@ -86,10 +119,7 @@ class ProgressBar extends StatelessWidget {
           children: [
             Text(
               context.l.progress,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: isS(context) ? 20 : 30,
-              ),
+              style: T(context, 'headlineSmall'),
             ),
             const Spacer(),
             const PrimerProgressBar(segments: segments)
