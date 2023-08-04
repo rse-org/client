@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rse/data/models/all.dart' as models;
-import 'package:rse/presentation/utils/all.dart';
-import 'package:rse/presentation/widgets/all.dart';
+import 'package:rse/view/utils/all.dart';
+import 'package:rse/view/widgets/all.dart';
 
 const placeholder =
     'https://awlights.com/wp-content/uploads/sites/31/2017/05/placeholder-news.jpg';
