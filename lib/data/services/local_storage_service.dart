@@ -81,4 +81,10 @@ class LocalStorageService {
     ]);
     await prefs.setStringList('streak dates', streak);
   }
+
+  static checkTutorialStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> tutorial = prefs.getStringList('tutorial') ?? [];
+    print(tutorial);
+  }
 }
