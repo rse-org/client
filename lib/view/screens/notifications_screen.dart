@@ -9,16 +9,6 @@ class NotificationsScreen extends StatelessWidget {
       flex: 2,
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              context.l.notifications,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: 1,

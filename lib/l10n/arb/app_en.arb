@@ -115,5 +115,17 @@
   "choose_difficulty": "Choose your difficulty",
   "choose_category": "Choose your category",
   "good_luck": "Good Luck!",
-  "leaderboard": "Leaderboard"
+  "leaderboard": "Leaderboard",
+  "topics_covered": "Topics Covered",
+  "current_streak": "Current Streak",
+  "lessons_completed": "Lessons Completed",
+  "play_to_start": "Play a game to start your streak",
+  "signup_message_google": "Sign up/in with Google to save your progress across devices",
+  "signup_button_google": "Sign up/in with Google",
+  "income": "Income",
+  "spending": "Spending",
+  "savings": "Savings",
+  "investing": "Investing",
+  "protection": "Protection",
+  "trending_news": "Trending News"
 }

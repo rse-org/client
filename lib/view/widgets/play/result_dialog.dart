@@ -191,6 +191,20 @@ class _ResultDialogState extends State<ResultDialog> {
                   ),
                 ),
               ],
+            ),
+            FutureBuilder(
+              future: LocalStorageService.incrementCompleted(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const SizedBox();
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    'Congrats on your ${snapshot.data} completed lessons!',
+                  );
+                }
+                return const SizedBox();
+              },
             )
           ],
         ),

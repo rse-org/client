@@ -13,13 +13,13 @@ class Articles extends StatelessWidget {
       width: getWidth(context),
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 8.0, bottom: 8),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, bottom: 8),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Trending News',
-                style: TextStyle(
+                context.l.trending_news,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),

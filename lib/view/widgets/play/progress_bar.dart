@@ -2,107 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 import 'package:rse/all.dart';
 
-const segments = [
-  Segment(
-    color: Colors.green,
-    value: 24,
-    label: Text('Income'),
-    valueLabel: Text('24%'),
-  ),
-  Segment(
-    color: Colors.lime,
-    value: 11,
-    label: Text('Spending'),
-    valueLabel: Text('11%'),
-  ),
-  Segment(
-    color: Colors.purple,
-    value: 9,
-    label: Text('Savings'),
-    valueLabel: Text('9%'),
-  ),
-  Segment(
-    color: Colors.lightBlue,
-    value: 6,
-    label: Text('Investing'),
-    valueLabel: Text('6%'),
-  ),
-  Segment(
-    color: Colors.orange,
-    value: 4,
-    label: Text('Protection'),
-    valueLabel: Text('4%'),
-  ),
-];
-
-const segmentsProgress = [
-  Segment(
-    color: Colors.green,
-    value: 24,
-    label: Text('Income'),
-    valueLabel: Text('24%'),
-  ),
-  Segment(
-    color: Colors.lime,
-    value: 11,
-    label: Text('Spending'),
-    valueLabel: Text('11%'),
-  ),
-  Segment(
-    color: Colors.purple,
-    value: 9,
-    label: Text('Savings'),
-    valueLabel: Text('9%'),
-  ),
-  Segment(
-    color: Colors.lightBlue,
-    value: 6,
-    label: Text('Investing'),
-    valueLabel: Text('6%'),
-  ),
-  Segment(
-    color: Colors.orange,
-    value: 4,
-    label: Text('Protection'),
-    valueLabel: Text('4%'),
-  ),
-  Segment(
-    color: Colors.grey,
-    value: 4,
-    label: Text('Spending'),
-    valueLabel: Text('4%'),
-  ),
-  Segment(
-    color: Colors.indigo,
-    value: 4,
-    label: Text('Savings'),
-    valueLabel: Text('4%'),
-  ),
-  Segment(
-    color: Colors.red,
-    value: 4,
-    label: Text('Investing'),
-    valueLabel: Text('4%'),
-  ),
-  Segment(
-    color: Colors.teal,
-    value: 2,
-    label: Text('Rust'),
-    valueLabel: Text('2%'),
-  ),
-  Segment(
-    color: Colors.brown,
-    value: 2,
-    label: Text('Protection'),
-    valueLabel: Text('2%'),
-  ),
-];
-
 class ProgressBar extends StatelessWidget {
   const ProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final segments = [
+      Segment(
+        color: Colors.green,
+        value: 24,
+        label: Text(context.l.income),
+        valueLabel: const Text('24%'),
+      ),
+      Segment(
+        color: Colors.lime,
+        value: 11,
+        label: Text(context.l.spending),
+        valueLabel: const Text('11%'),
+      ),
+      Segment(
+        color: Colors.purple,
+        value: 9,
+        label: Text(context.l.savings),
+        valueLabel: const Text('9%'),
+      ),
+      Segment(
+        color: Colors.lightBlue,
+        value: 6,
+        label: Text(context.l.investing),
+        valueLabel: const Text('6%'),
+      ),
+      Segment(
+        color: Colors.orange,
+        value: 4,
+        label: Text(context.l.protection),
+        valueLabel: const Text('4%'),
+      ),
+    ];
     return Container(
       height: isS(context) ? 200 : 300,
       width: double.infinity,
@@ -121,8 +57,26 @@ class ProgressBar extends StatelessWidget {
               context.l.progress,
               style: T(context, 'headlineSmall'),
             ),
+            FutureBuilder(
+              future: LocalStorageService.incrementCompleted(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const SizedBox();
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    '${context.l.lessons_completed}: ${snapshot.data}',
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
             const Spacer(),
-            const PrimerProgressBar(segments: segments)
+            Text(
+              context.l.topics_covered,
+              style: T(context, 'titleLarge'),
+            ),
+            PrimerProgressBar(segments: segments)
           ],
         ),
       ),

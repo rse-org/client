@@ -85,12 +85,13 @@ class StreakCalendarState extends State<StreakCalendar> {
             children: [
               if (streak != null)
                 Text(
-                  'Current Streak: $streak',
+                  // Todo: Fix the Placeholders, plurals, and selects to work with script to generate translations.
+                  '${context.l.current_streak}: $streak',
                   style: T(context, 'headlineSmall'),
                 ),
               if (streak == null)
                 Text(
-                  'Play a game to start your streak',
+                  context.l.play_to_start,
                   style: T(context, 'headlineSmall'),
                 )
             ],
@@ -213,12 +214,12 @@ class StreakCalendarState extends State<StreakCalendar> {
             buildText(
               context,
               'headlineSmall',
-              'Sign up/in with Google to save your progress across devices',
+              context.l.signup_message_google,
             ),
             const SizedBox(height: 20),
             SignInButton(
               Buttons.Google,
-              text: 'Sign up/in with Google',
+              text: context.l.signup_button_google,
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(
                   GoogleSignInRequested(),
