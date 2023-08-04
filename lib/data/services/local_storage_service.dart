@@ -66,6 +66,23 @@ class LocalStorageService {
         .toList();
   }
 
+  static checkTutorialDone(name) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> names = prefs.getStringList('tutorial') ?? [];
+
+    if (names.contains(name)) {
+      return true;
+    }
+    return false;
+  }
+
+  static markTutorialDone(name) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> names = prefs.getStringList('tutorial') ?? [];
+    names.add(name);
+    await prefs.setStringList('tutorial', names);
+  }
+
   static updateStreak() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> streak = prefs.getStringList('streak dates') ?? [];
@@ -80,11 +97,5 @@ class LocalStorageService {
       // lastWeek.toString()
     ]);
     await prefs.setStringList('streak dates', streak);
-  }
-
-  static checkTutorialStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String> tutorial = prefs.getStringList('tutorial') ?? [];
-    print(tutorial);
   }
 }

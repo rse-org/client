@@ -70,8 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
-    _createTutorial();
-    Future.delayed(Duration.zero, _showTutorial);
+    _setupTutorial();
     super.initState();
   }
 
@@ -123,7 +122,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<TargetFocus> _createTargets() {
     List<TargetFocus> targets = [];
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 1; i++) {
       targets.add(
         _buildTarget(
           _tabKeys[i],
@@ -143,7 +142,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       opacityShadow: 0.6,
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
-        print('finish');
+        LocalStorageService.markTutorialDone('intro');
+        
       },
       onClickTarget: (target) {
         print('onClickTarget: $target');
@@ -167,6 +167,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Future.delayed(const Duration(milliseconds: 25), () {
       setTitle(context);
     });
+  }
+
+  _setupTutorial() async {
+    final done = await LocalStorageService.checkTutorialDone('intro');
+    if (!done) {
+      _createTutorial();
+      Future.delayed(Duration.zero, _showTutorial);
+    } else {
+
+    }
   }
 
   void _showTutorial() {

@@ -20,20 +20,11 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                ),
-              ),
-              child: ListView.builder(
-                itemCount: 100,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('${context.l.notifications} $index'),
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return _buildNotificationItem();
+              },
             ),
           ),
         ],
@@ -98,7 +89,7 @@ class NotificationsScreen extends StatelessWidget {
                 ),
               ),
               child: ListView.builder(
-                itemCount: 100,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text('Message $index'),
@@ -108,6 +99,27 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  ListTile _buildNotificationItem() {
+    return ListTile(
+      leading: const CircleAvatar(
+        backgroundColor: Colors.blue,
+        child: Text('RSE'),
+      ),
+      title: const Text('Welcome!'),
+      isThreeLine: true,
+      subtitle: const Text(
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          'Thank you for joining. Watch investment assets and you\'ll receive notifications about them here.'),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+        side: const BorderSide(
+          width: 1,
+        ),
       ),
     );
   }
