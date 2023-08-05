@@ -76,18 +76,19 @@ class LocalStorageService {
     return false;
   }
 
+  static getCompletedCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final result = prefs.getString('completed') ?? '0';
+    var count = int.parse(result);
+    return count;
+  }
+
   static incrementCompleted() async {
     final prefs = await SharedPreferences.getInstance();
     final result = prefs.getString('completed') ?? '0';
     var count = int.parse(result);
     count += 1;
     await prefs.setString('completed', count.toString());
-    return count;
-  }
-  static getCompletedCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final result = prefs.getString('completed') ?? '0';
-    var count = int.parse(result);
     return count;
   }
 

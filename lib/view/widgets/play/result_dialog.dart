@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rse/all.dart';
 
@@ -78,8 +79,6 @@ class _ResultDialogState extends State<ResultDialog> {
   }
 
   _buttonPress(r) {
-    p('_buttonPress $r');
-
     setState(() {
       request = r;
     });
@@ -95,11 +94,15 @@ class _ResultDialogState extends State<ResultDialog> {
       }
     } else {
       if (adError) {
+        p('Ad Error: No ad despite mobile $r', icon: 'e');
         if (r == 'Exit') {
           _exit();
         } else if (r == 'Result') {
           // Todo: Add prompt for account if not created yet.
           logResult();
+          BlocProvider.of<PlayBloc>(context).add(PlayInitial());
+          BlocProvider.of<NavBloc>(context).add(QuizResults());
+          GoRouter.of(context).go('/play/results');
           // Also show add on Web when Adsense done.
         } else if (r == 'Replay') {
           BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
@@ -164,7 +167,7 @@ class _ResultDialogState extends State<ResultDialog> {
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: onAdLoaded,
         onAdFailedToLoad: (err) {
-          p('Failed to load an interstitial ad: ${err.message}');
+          p('Failed to load an interstitial ad: ${err.message}', icon: 'e');
           setState(() {
             adError = true;
           });

@@ -92,6 +92,15 @@ final goRouter = GoRouter(
                 key: state.pageKey,
                 child: const PlayScreen(),
               ),
+              routes: [
+                GoRoute(
+                  path: 'results',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                    key: state.pageKey,
+                    child: const ResultScreen(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

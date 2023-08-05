@@ -19,6 +19,9 @@ class NavBloc extends Bloc<NavEvent, NavState> {
     on<EndQuiz>((e, emit) async {
       emit(QuizFinishSuccess(tabStates));
     });
+    on<QuizResults>((e, emit) async {
+      emit(ResultsShow(tabStates));
+    });
   }
 }
 
@@ -60,10 +63,21 @@ class QuizFinishSuccess extends NavState {
   List<Object?> get props => [states];
 }
 
+class QuizResults extends NavEvent {}
+
 class QuizStartSuccess extends NavState {
   @override
   final List<int> states;
   QuizStartSuccess(this.states);
+
+  @override
+  List<Object?> get props => [states];
+}
+
+class ResultsShow extends NavState {
+  @override
+  final List<int> states;
+  ResultsShow(this.states);
 
   @override
   List<Object?> get props => [states];
