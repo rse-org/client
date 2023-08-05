@@ -58,7 +58,7 @@ class ProgressBar extends StatelessWidget {
               style: T(context, 'headlineSmall'),
             ),
             FutureBuilder(
-              future: LocalStorageService.incrementCompleted(),
+              future: LocalStorageService.getCompletedCount(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const SizedBox();

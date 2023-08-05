@@ -55,7 +55,7 @@ class PeriodSelectorState extends State<PeriodSelector> {
                 fit: FlexFit.tight,
                 child: GestureDetector(
                   onTap: () {
-                    logPeriodSelect(p);
+                    logEvent({'name': 'chart_period_select', 'period': p});
                     if (period == p) return;
                     selectPeriod(context, p);
                   },

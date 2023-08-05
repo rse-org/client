@@ -35,6 +35,6 @@ class PlayScreenState extends State<PlayScreen> {
   void initState() {
     super.initState();
     setScreenName('/play');
-    logPlayLoadSuccess();
+    logEvent({'name': 'play_load_success'});
   }
 }

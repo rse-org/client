@@ -52,13 +52,12 @@ jobs:
 
           # Value for next step:
           # Makes coverage: ${{ steps.coverage_report.outputs.coverage }} work.
-          echo "coverage='$coverage'" >> "$GITHUB_OUTPUT"
+          echo "coverage=$coverage" >> "$GITHUB_OUTPUT"
 
   update-badges:
     needs: run-tests-and-code-analysis
     runs-on: ubuntu-latest
-    # if: ${{ github.ref == 'refs/heads/main' && needs.run-tests-and-code-analysis.result == 'success' }}
-
+    if: ${{ github.ref == 'refs/heads/main' && needs.run-tests-and-code-analysis.result == 'success' }}
     steps:
       - name: Checkout gh-pages
         uses: actions/checkout@v3

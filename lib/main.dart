@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
@@ -93,7 +94,9 @@ class _MyAppState extends State<MyApp> {
     _newsBloc = context.read<NewsBloc>();
     _assetBloc = context.read<AssetBloc>();
     fetchData();
-    // _fb();
+    if (kDebugMode) {
+      _fb();
+    }
   }
 
   _fb() async {

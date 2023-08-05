@@ -14,8 +14,9 @@ class ResultDialog extends StatefulWidget {
 }
 
 class _ResultDialogState extends State<ResultDialog> {
-  InterstitialAd? _interstitialAd;
   String request = '';
+  bool adError = false;
+  InterstitialAd? _interstitialAd;
   @override
   Widget build(BuildContext context) {
     return _show();
@@ -27,6 +28,33 @@ class _ResultDialogState extends State<ResultDialog> {
     if (!kIsWeb) {
       _loadMobileInterstitialAd();
     }
+    LocalStorageService.incrementCompleted();
+  }
+
+  logResult() {
+    logEvent({'name': 'play_results_request', 'score': widget.result.score});
+  }
+
+  void onAdLoaded(ad) {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (ad) {
+        if (request == 'Exit') {
+          _exit();
+        } else if (request == 'Result') {
+          logResult();
+          _interstitialAd?.dispose();
+          haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
+        } else if (request == 'Replay') {
+          _interstitialAd?.dispose();
+          haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
+          BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+        }
+      },
+    );
+
+    setState(() {
+      _interstitialAd = ad;
+    });
   }
 
   _buildButton(title, icon) {
@@ -39,7 +67,7 @@ class _ResultDialogState extends State<ResultDialog> {
               iconSize: 40,
               icon: icon,
               onPressed: () {
-                _showMobileAds(title);
+                _buttonPress(title);
               },
             ),
             Text(title, style: T(context, 'bodySmall'))
@@ -47,6 +75,39 @@ class _ResultDialogState extends State<ResultDialog> {
         ),
       ),
     );
+  }
+
+  _buttonPress(r) {
+    p('_buttonPress $r');
+
+    setState(() {
+      request = r;
+    });
+    if (kIsWeb) {
+      if (r == 'Exit') {
+        _exit();
+      } else if (r == 'Result') {
+        // Todo: Add prompt for account if not created yet.
+        // Also show add on Web when Adsense done.
+        logResult();
+      } else if (r == 'Replay') {
+        BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+      }
+    } else {
+      if (adError) {
+        if (r == 'Exit') {
+          _exit();
+        } else if (r == 'Result') {
+          // Todo: Add prompt for account if not created yet.
+          logResult();
+          // Also show add on Web when Adsense done.
+        } else if (r == 'Replay') {
+          BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
+        }
+      } else {
+        _interstitialAd?.show();
+      }
+    }
   }
 
   _exit() {
@@ -101,29 +162,12 @@ class _ResultDialogState extends State<ResultDialog> {
       adUnitId: AdHelper.interstitialAdUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              if (request == 'Exit') {
-                _exit();
-              } else if (request == 'Result') {
-                logResultsRequest(widget.result);
-                _interstitialAd?.dispose();
-                haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
-              } else if (request == 'Replay') {
-                _interstitialAd?.dispose();
-                haltAndFire(milliseconds: 100, fn: _loadMobileInterstitialAd);
-                BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
-              }
-            },
-          );
-
-          setState(() {
-            _interstitialAd = ad;
-          });
-        },
+        onAdLoaded: onAdLoaded,
         onAdFailedToLoad: (err) {
           p('Failed to load an interstitial ad: ${err.message}');
+          setState(() {
+            adError = true;
+          });
         },
       ),
     );
@@ -192,45 +236,26 @@ class _ResultDialogState extends State<ResultDialog> {
                 ),
               ],
             ),
-            FutureBuilder(
-              future: LocalStorageService.incrementCompleted(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
+            SizedBox(
+              height: 20,
+              child: FutureBuilder(
+                future: LocalStorageService.getCompletedCount(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const SizedBox();
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(
+                      'Congrats on your ${snapshot.data} completed lessons!',
+                    );
+                  }
                   return const SizedBox();
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Text(
-                    'Congrats on your ${snapshot.data} completed lessons!',
-                  );
-                }
-                return const SizedBox();
-              },
+                },
+              ),
             )
           ],
         ),
       ),
     );
-  }
-
-  _showAd() {
-    if (!kIsWeb) _interstitialAd?.show();
-  }
-
-  _showMobileAds(r) {
-    if (kIsWeb) {
-      if (r == 'Exit') {
-        _exit();
-      } else if (r == 'Result') {
-        // Todo: Add prompt for account if not created yet.
-        // Also show add on Web when Adsense done.
-        logResultsRequest(widget.result);
-      } else if (r == 'Replay') {
-        BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
-      }
-    }
-    setState(() {
-      request = r;
-    });
-    _showAd();
   }
 }

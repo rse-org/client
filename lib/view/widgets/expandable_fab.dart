@@ -23,7 +23,7 @@ class ActionButton extends StatelessWidget {
       shape: const CircleBorder(),
       child: TextButton(
         onPressed: () {
-          logAssetTradeOptionSelect(title);
+          logEvent({'name': 'asset_trade_option_selected', 'option': title});
           onPressed!();
         },
         style: TextButton.styleFrom(
@@ -194,7 +194,7 @@ class _ExpandableFabState extends State<ExpandableFab>
     setState(() {
       _open = !_open;
       if (_open) {
-        logAssetTradeSelect(widget.sym);
+        logEvent({'name': 'asset_trade_select', 'sym': widget.sym});
         _controller.forward();
       } else {
         _controller.reverse();

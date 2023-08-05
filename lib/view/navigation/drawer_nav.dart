@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -95,8 +96,8 @@ class DrawerState extends State<CustomDrawer> {
       padding: const EdgeInsets.fromLTRB(5, 5, 10, 30),
       child: Column(
         children: [
-          if (taps > 2) _buildFutureBuilder(getVersionId()),
-          if (taps > 2) _buildFutureBuilder(getBuildString()),
+          if (taps > 2 || kDebugMode) _buildFutureBuilder(getVersionId()),
+          if (taps > 2 || kDebugMode) _buildFutureBuilder(getBuildString()),
         ],
       ),
     );

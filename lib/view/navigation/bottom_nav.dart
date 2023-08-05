@@ -122,7 +122,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<TargetFocus> _createTargets() {
     List<TargetFocus> targets = [];
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < 5; i++) {
       targets.add(
         _buildTarget(
           _tabKeys[i],

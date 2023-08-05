@@ -20,16 +20,6 @@ final remoteConfig = FirebaseRemoteConfig.instance;
 
 StreamSubscription? subscription;
 
-String formatTimeDifference(Duration duration) {
-  String twoDigits(int n) => n.toString().padLeft(2, '0');
-
-  int hours = duration.inHours;
-  int minutes = duration.inMinutes.remainder(60);
-  int seconds = duration.inSeconds.remainder(60);
-
-  return '${twoDigits(hours)}:${twoDigits(minutes)}:${twoDigits(seconds)}';
-}
-
 // * Use this naming convention
 // * https://bloclibrary.dev/#/blocnamingconventions
 
@@ -50,30 +40,18 @@ void logAppLoadSuccess() async {
   );
 }
 
-void logAssetTradeOptionSelect(String name) async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_trade_option_selected',
-    parameters: {
-      'name': name,
-    },
-  );
-}
+void logEvent(Map<String, dynamic> params) async {
+  Map<String, dynamic> parameters = {};
 
-void logAssetTradeSelect(String name) async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_trade_select',
-    parameters: {
-      'name': name,
-    },
-  );
-}
+  params.forEach((key, value) {
+    if (key != 'name') {
+      parameters[key] = value;
+    }
+  });
 
-void logAssetView(String name) async {
   await FirebaseAnalytics.instance.logEvent(
-    name: 'asset_view',
-    parameters: {
-      'name': name,
-    },
+    name: params['name'],
+    parameters: parameters.isNotEmpty ? parameters : null,
   );
 }
 
@@ -90,29 +68,6 @@ void logJsonLoadSuccess(String duration) async {
   );
 }
 
-void logPeriodSelect(String name) async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'chart_period_select',
-    parameters: {
-      'name': name,
-    },
-  );
-}
-
-void logPlayAnswerSelect() async {
-  await FirebaseAnalytics.instance.logEvent(name: 'play_answer_select');
-}
-
-void logPlayCategorySelect(c) async {
-  await FirebaseAnalytics.instance
-      .logEvent(name: 'play_category_select', parameters: {'category': c});
-}
-
-void logPlayDifficultySelect(d) async {
-  await FirebaseAnalytics.instance
-      .logEvent(name: 'play_difficulty_select', parameters: {'difficulty': d});
-}
-
 void logPlayEnd(start) async {
   var end = DateTime.now();
   Duration difference = end.difference(start);
@@ -124,21 +79,6 @@ void logPlayEnd(start) async {
       'end_time': DateFormat().format(end),
       'time': diff
     },
-  );
-}
-
-void logResultsRequest(Result r) async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'play_results_request',
-    parameters: {
-      'score': r.score,
-    },
-  );
-}
-
-void logPlayLoadSuccess() async {
-  await FirebaseAnalytics.instance.logEvent(
-    name: 'play_load_success',
   );
 }
 

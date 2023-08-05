@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:rse/all.dart';
 
 part 'play_event.dart';
@@ -8,7 +8,7 @@ part 'play_state.dart';
 
 class PlayBloc extends Bloc<PlayEvent, PlayState> {
   int idx = 0;
-  bool dev = false;
+  bool dev = kDebugMode;
   List<bool> results = [];
   List<String> answers = [];
   List<Question> questions = [];
@@ -69,7 +69,7 @@ class PlayBloc extends Bloc<PlayEvent, PlayState> {
     });
     on<QuestionAnswered>((event, emit) async {
       try {
-        logPlayAnswerSelect();
+        logEvent({'name': 'play_answer_select'});
         answers.add(event.ans);
         final answerCorrect = questions[idx].answer == event.ans;
         results.add(answerCorrect);

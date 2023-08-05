@@ -118,7 +118,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
     if (!start && finalStep) return Text(l.ready);
     return Row(children: [
       Text(l.starting),
-      const CountDownTimer(time: kDebugMode ? 1 : 3)
+      const CountDownTimer(time: kDebugMode ? 0 : 3)
     ]);
   }
 
@@ -169,7 +169,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   }
 
   pickCat(c) async {
-    logPlayCategorySelect(c);
+    logEvent({'name': 'play_category_select', 'category': c});
     setState(() {
       cat = c;
       _index++;
@@ -177,7 +177,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
   }
 
   pickDiff(d) {
-    logPlayDifficultySelect(d);
+    logEvent({'name': 'play_difficulty_select', 'difficulty': d});
     setState(() {
       diff = d;
       _index++;
@@ -211,7 +211,7 @@ class _PlaySetupScreenState extends State<PlaySetupScreen> {
                 });
                 haltAndFire(
                   fn: startQuiz,
-                  milliseconds: kDebugMode ? 1000 : 3000,
+                  milliseconds: kDebugMode ? 10 : 3000,
                 );
               }
             },

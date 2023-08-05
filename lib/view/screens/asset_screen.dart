@@ -87,7 +87,7 @@ class _AssetScreeState extends State<AssetScreen> {
   void initState() {
     super.initState();
     setScreenName('/securities/${widget.sym}');
-    logAssetView(widget.sym);
+    logEvent({'name': 'asset_view', 'sym': widget.sym });
     haltAndFire(milliseconds: 10, fn: setHeader);
   }
 
