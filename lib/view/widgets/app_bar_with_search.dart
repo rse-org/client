@@ -245,12 +245,14 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    GoRouter.of(context).go('/style');
+                    Navigator.pop(context);
+                    GoRouter.of(context).go('/design');
                   },
-                  child: const Text('Style Screen'),
+                  child: const Text('Design Guide Screen'),
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.pop(context);
                     GoRouter.of(context).go('/test');
                   },
                   child: const Text('Test Screen'),

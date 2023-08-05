@@ -41,12 +41,10 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           navigatorKey: _shellNavigatorAKey,
           routes: [
-            GoRoute(
-              path: '/',
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: HomeScreen(label: 'Home'),
-              ),
-              routes: [
+            buildRoute(
+              '/',
+              const HomeScreen(),
+              [
                 GoRoute(
                   path: 'securities/:sym',
                   pageBuilder: (context, state) => NoTransitionPage(
@@ -55,84 +53,43 @@ final goRouter = GoRouter(
                 ),
               ],
             ),
-            GoRoute(
-              path: '/style',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const DesignGuideScreen(),
-              ),
-            ),
-            GoRoute(
-              path: '/test',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const TestScreen(),
-              ),
-            ),
+            buildRoute('/design', const DesignGuideScreen()),
+            buildRoute('/test', const TestScreen())
           ],
         ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorBKey,
           routes: [
-            GoRoute(
-              path: '/investing',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const InvestingScreen(title: 'Investing'),
-              ),
+            buildRoute(
+              '/investing',
+              const InvestingScreen(title: 'Investing'),
             ),
           ],
         ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorCKey,
           routes: [
-            GoRoute(
-              path: '/play',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const PlayScreen(),
-              ),
-              routes: [
-                GoRoute(
-                  path: 'results',
-                  pageBuilder: (context, state) => NoTransitionPage(
-                    key: state.pageKey,
-                    child: const ResultScreen(),
-                  ),
-                ),
+            buildRoute(
+              '/play',
+              const PlayScreen(),
+              [
+                buildRoute('results', const ResultScreen()),
               ],
             ),
           ],
         ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorDKey,
-          routes: [
-            GoRoute(
-              path: '/notifications',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const NotificationsScreen(),
-              ),
-            ),
-          ],
+          routes: [buildRoute('/notifications', const NotificationsScreen())],
         ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorEKey,
           routes: [
-            GoRoute(
-              path: '/profile',
-              pageBuilder: (context, state) => NoTransitionPage(
-                key: state.pageKey,
-                child: const ProfileScreen(),
-              ),
-              routes: [
-                GoRoute(
-                  path: 'settings',
-                  pageBuilder: (context, state) => NoTransitionPage(
-                    key: state.pageKey,
-                    child: const ProfileSettingsScreen(),
-                  ),
-                ),
+            buildRoute(
+              '/profile',
+              const ProfileScreen(),
+              [
+                buildRoute('settings', const ProfileSettingsScreen()),
               ],
             ),
           ],
@@ -143,8 +100,20 @@ final goRouter = GoRouter(
 );
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');
+
+buildRoute(path, Widget widget, [List<RouteBase>? routes]) {
+  return GoRoute(
+    path: path,
+    pageBuilder: (context, state) => NoTransitionPage(
+      key: state.pageKey,
+      child: widget,
+    ),
+    routes: (routes ?? <RouteBase>[]),
+  );
+}

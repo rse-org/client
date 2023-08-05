@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String label;
-
-  const HomeScreen({required this.label, Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   HomeScreenState createState() => HomeScreenState();
