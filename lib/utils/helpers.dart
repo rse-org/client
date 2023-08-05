@@ -1,11 +1,10 @@
-import 'dart:developer' as devtools show log;
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:rse/all.dart';
 
 String getTitle(context) {
@@ -27,30 +26,17 @@ String getTitle(context) {
   return title;
 }
 
-// Toggle print statements everywhere more easily.
-// Sometimes we do need to see print statements in prod.
+// Toggle print statements everywhere easily.
+// Sometimes we do need to see print in prod.
 void p(v, {icon}) {
   icon = icon ?? 'ℹ️';
   switch (icon) {
-    case 'error':
+    case 'error' || 'e':
       icon = '❗️';
       break;
   }
   if (kDebugMode) {
-    print('$icon $v');
-  }
-}
-
-void setTitle(context) {
-  SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
-    label: getTitle(context),
-    primaryColor: Theme.of(context).primaryColor.value,
-  ));
-}
-
-extension Log on Object {
-  void log([String tag = '']) {
-    devtools.log(toString(), name: tag);
+    log('\x1B[32m$icon $v');
   }
 }
 
@@ -63,4 +49,11 @@ selectPeriod(context, p) {
   } else {
     assetBloc.setPeriod(p);
   }
+}
+
+void setTitle(context) {
+  SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    label: getTitle(context),
+    primaryColor: Theme.of(context).primaryColor.value,
+  ));
 }

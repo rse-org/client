@@ -21,7 +21,7 @@ class AssetService {
         throw Error();
       }
     } catch (e) {
-      p('Error: Fetching asset. Loading from cache.', icon: 'error');
+      p('Error: Fetching asset. Loading from cache.', icon: 'e');
       return await _localStorage.getCachedAsset('GOOGL', period);
     }
   }

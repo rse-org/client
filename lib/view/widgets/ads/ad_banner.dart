@@ -53,7 +53,7 @@ class _AdBannerState extends State<AdBanner> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          p('Failed to load a banner ad: ${err.message}');
+          p('Error: Loading ad banner. ${err.message}', icon: 'e');
           ad.dispose();
         },
       ),

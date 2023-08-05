@@ -146,18 +146,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
         
       },
       onClickTarget: (target) {
-        print('onClickTarget: $target');
+        p('onClickTarget: $target');
       },
       onClickTargetWithTapPosition: (target, tapDetails) {
-        print('target: $target');
-        print(
+        p('target: $target');
+        p(
             'clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}');
       },
       onClickOverlay: (target) {
-        print('onClickOverlay: $target');
+        p('onClickOverlay: $target');
       },
       onSkip: () {
-        print('skip');
+        p('skip');
       },
     );
   }

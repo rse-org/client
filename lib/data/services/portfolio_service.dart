@@ -19,7 +19,7 @@ class PortfolioService {
         throw Error();
       }
     } catch (e) {
-      p('Error: Fetching portfolio. Loading from cache.', icon: 'error');
+      p('Error: Fetching portfolio. Loading from cache.', icon: 'e');
       return await _localStorage.getCachedPortfolio(period);
     }
   }

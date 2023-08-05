@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
-import 'package:rse/bootstrap.dart';
 
 import 'all.dart';
-import 'firebase_options.dart';
 
 // Info: Flutter style guide.
 // https://shorturl.at/rIUZ1
@@ -33,10 +31,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // View bloc events in debug console
-  bootstrap(() => const _Providers());
+  // Log bloc events
+  // bootstrap(() => const _Providers());
   // Or don't
-  // runApp(const _Providers());
+  runApp(const Providers());
 }
 
 class MyApp extends StatefulWidget {
@@ -95,59 +93,49 @@ class _MyAppState extends State<MyApp> {
     _newsBloc = context.read<NewsBloc>();
     _assetBloc = context.read<AssetBloc>();
     fetchData();
+    // _fb();
   }
-}
 
-class _Providers extends StatelessWidget {
-  const _Providers();
+  _fb() async {
+    await _set();
+    _read();
+    await _update();
+    _read();
+    await _updatePath('users/123/', 'address/home/street');
+    _read();
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    // Note: Bloc entry.
-    return ChangeNotifierProvider(
-      create: (_) => ThemeModel(),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<LangBloc>(
-            create: (_) => LangBloc(),
-          ),
-          BlocProvider<AuthBloc>(
-            create: (_) => AuthBloc(authService: AuthService()),
-          ),
-          BlocProvider<NavBloc>(
-            create: (_) => NavBloc(),
-          ),
-          BlocProvider<PortfolioBloc>(
-            create: (_) => PortfolioBloc(
-              portfolio: Portfolio.defaultPortfolio(),
-            ),
-          ),
-          BlocProvider<NewsBloc>(
-            create: (_) => NewsBloc(),
-          ),
-          BlocProvider<PlayBloc>(
-            create: (_) => PlayBloc(),
-          ),
-          BlocProvider<AssetBloc>(
-            create: (_) => AssetBloc(
-              asset: Asset.defaultAsset(),
-              assetService: AssetService(),
-            ),
-          ),
-          BlocProvider<ChartBloc>(
-            create: (context) {
-              final assetBloc = BlocProvider.of<AssetBloc>(context);
-              final portfolioBloc = BlocProvider.of<PortfolioBloc>(context);
-              return ChartBloc(
-                assetBloc: assetBloc,
-                chart: Chart.defaultChart(),
-                portfolioBloc: portfolioBloc,
-              );
-            },
-          ),
-        ],
-        child: const MyApp(),
-      ),
+  _read() async {
+    final snapshot = await FB.dbGet('users/123');
+    if (snapshot.exists) {
+      p(snapshot.value, icon: '🔥');
+    } else {
+      p('No data available.', icon: '🔥');
+    }
+  }
+
+  _set() async {
+    final ref = FB.db('users/123');
+
+    await ref.set(
+      {
+        'age': 18,
+        'name': 'Loi',
+        'address': {
+          'home': {'street': '123 Morgana'},
+        }
+      },
     );
+  }
+
+  _update() async {
+    final ref = FB.db('users/123');
+    await ref.update({'age': 66, 'name': 'Old Loi'});
+  }
+
+  _updatePath(String db, field) async {
+    final ref = FB.db(db);
+    await ref.update(
+        {'age': 100, 'name': 'Oldest Loi', field: '456 Cranes Landing'});
   }
 }

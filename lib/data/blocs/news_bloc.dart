@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rse/data/all.dart';
+import 'package:rse/all.dart';
 
 class FetchNews extends NewsEvent {
   final List<NewsArticle> articles;
