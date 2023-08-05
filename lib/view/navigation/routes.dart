@@ -62,6 +62,13 @@ final goRouter = GoRouter(
                 child: const DesignGuideScreen(),
               ),
             ),
+            GoRoute(
+              path: '/test',
+              pageBuilder: (context, state) => NoTransitionPage(
+                key: state.pageKey,
+                child: const TestScreen(),
+              ),
+            ),
           ],
         ),
         StatefulShellBranch(

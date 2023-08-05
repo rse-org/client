@@ -104,6 +104,7 @@ class StreakCalendarState extends State<StreakCalendar> {
             rangeStartDay: _rangeStart,
             eventLoader: _getEventsForDay,
             onDaySelected: _onDaySelected,
+            // calendarFormat: CalendarFormat.month,
             calendarFormat: _calendarFormat,
             onRangeSelected: _onRangeSelected,
             rangeSelectionMode: _rangeSelectionMode,
@@ -112,11 +113,15 @@ class StreakCalendarState extends State<StreakCalendar> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            headerStyle: const HeaderStyle(
+              formatButtonVisible: false,
+            ),
             calendarStyle: const CalendarStyle(
               outsideDaysVisible: false,
             ),
             onFormatChanged: (format) {
               if (_calendarFormat != format) {
+                p(_calendarFormat);
                 setState(() {
                   _calendarFormat = format;
                 });

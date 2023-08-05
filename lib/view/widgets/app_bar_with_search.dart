@@ -249,6 +249,12 @@ class _AppBarWithSearchState extends State<AppBarWithSearch> {
                   },
                   child: const Text('Style Screen'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/test');
+                  },
+                  child: const Text('Test Screen'),
+                ),
                 _renderAuthOptions(context),
               ],
             ),

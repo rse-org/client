@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
@@ -94,51 +93,5 @@ class _MyAppState extends State<MyApp> {
     _newsBloc = context.read<NewsBloc>();
     _assetBloc = context.read<AssetBloc>();
     fetchData();
-    if (kDebugMode) {
-      _fb();
-    }
-  }
-
-  _fb() async {
-    await _set();
-    _read();
-    await _update();
-    _read();
-    await _updatePath('users/123/', 'address/home/street');
-    _read();
-  }
-
-  _read() async {
-    final snapshot = await FB.dbGet('users/123');
-    if (snapshot.exists) {
-      p(snapshot.value, icon: '🔥');
-    } else {
-      p('No data available.', icon: '🔥');
-    }
-  }
-
-  _set() async {
-    final ref = FB.db('users/123');
-
-    await ref.set(
-      {
-        'age': 18,
-        'name': 'Loi',
-        'address': {
-          'home': {'street': '123 Morgana'},
-        }
-      },
-    );
-  }
-
-  _update() async {
-    final ref = FB.db('users/123');
-    await ref.update({'age': 66, 'name': 'Old Loi'});
-  }
-
-  _updatePath(String db, field) async {
-    final ref = FB.db(db);
-    await ref.update(
-        {'age': 100, 'name': 'Oldest Loi', field: '456 Cranes Landing'});
   }
 }
