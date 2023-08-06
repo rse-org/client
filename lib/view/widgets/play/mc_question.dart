@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 
@@ -16,8 +17,8 @@ class MCQuestion extends StatelessWidget {
     List<Widget> answers = [
       buildAnswerButton(q.c1),
       buildAnswerButton(q.c2),
-      buildAnswerButton(q.answer),
       buildAnswerButton(q.c3),
+      buildAnswerButton(q.answer),
     ];
     answers.shuffle();
     return Column(
@@ -30,13 +31,8 @@ class MCQuestion extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               prompt,
-              Text(
-                q.body,
-                style: TextStyle(
-                  fontSize: isS(context) ? 20 : 30,
-                  decoration: TextDecoration.none,
-                ),
-              ),
+              buildText(
+                  context, kIsWeb ? 'headlineLarge' : 'headlineSmall', q.body),
               const SizedBox(height: 10),
             ],
           ),

@@ -23,11 +23,22 @@ class _GameScreenState extends State<GameScreen> {
             if (state is PlayRoundFinished) {
               return ResultDialog(result: state.result);
             }
-            return _buildQuestionContainer(context);
+            return ResponsiveLayout(
+              mobile: buildMobile(context),
+              desktop: buildDesktop(context),
+            );
           },
         ),
       ),
     );
+  }
+
+  buildDesktop(context) {
+    return _buildQuestionContainer(context);
+  }
+
+  buildMobile(context) {
+    return _buildQuestionContainer(context);
   }
 
   buildPrompt(length, int i) {
@@ -77,20 +88,25 @@ class _GameScreenState extends State<GameScreen> {
     final q = state.currentQuestion;
     final questions = state.questions;
     final length = questions.length;
-    final prompt = buildPrompt(length, i);
     final last = length == 1 + i;
+
+    // [ ] MC & MCC consistent layout
+    // Refactor to make beautiful on both mobile & web buttons not too large on web & large enough on mobile.
+    // [ ] MC & MCC consistent button layout
+    // [ ] MC & MCC consistent size on web
+    // [ ] MC & MCC consistent size on mobile
     if (q.type == 'mc') {
       return MCQuestion(
         q: q,
-        prompt: prompt,
         onAnswer: (a) => onAnswer(a, last),
+        prompt: NumberPrompt(idx: i, length: length),
       );
     }
     return MCCQuestion(
       q: q,
-      prompt: prompt,
       key: UniqueKey(),
       onAnswer: (a) => onAnswer(a, last),
+      prompt: NumberPrompt(idx: i, length: length),
     );
   }
 
@@ -105,10 +121,7 @@ class _GameScreenState extends State<GameScreen> {
               _buildCrossAndTimerBar(context),
               Expanded(
                 flex: 13,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: _buildQuestion(state),
-                ),
+                child: _buildQuestion(state),
               ),
             ],
           );

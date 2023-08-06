@@ -9,6 +9,27 @@ String calculatePercentageChange(double newVal, double oldVal) {
   return formatted;
 }
 
+String cleanse(String sentence) {
+  // Remove extra spaces between words
+  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
+
+  // Split the sentence into individual sentences based on periods
+  List<String> sentences = normalizedSentence.split('.');
+
+  // Remove any leading or trailing spaces for each sentence
+  for (int i = 0; i < sentences.length; i++) {
+    sentences[i] = sentences[i].trim();
+  }
+
+  // Join the sentences back together
+  normalizedSentence = sentences.join('. ');
+
+  // Remove any trailing space after the last sentence
+  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+$'), '.');
+
+  return normalizedSentence;
+}
+
 Future<String> getBuildString() async {
   try {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -53,13 +74,15 @@ int randomInt(int to, int from) {
   return randomNumber;
 }
 
-String regularizeSentence(String sentence) {
-  // Remove extra spaces between words
-  String normalizedSentence = sentence.replaceAll(RegExp(r'\s+'), ' ');
+DateTime roundDownToNearest5Minutes(DateTime dt) {
+  final minute = dt.minute;
+  final roundedMinute = (minute ~/ 5) * 5;
+  return DateTime(dt.year, dt.month, dt.day, dt.hour, roundedMinute);
+}
 
-  // Remove spaces between period and end
-  normalizedSentence = normalizedSentence.replaceAll(RegExp(r'\.\s+'), '.');
-
-  // Remove any leading or trailing spaces
-  return normalizedSentence.trim();
+DateTime roundToNearestHour(DateTime dt) {
+  final minutes = dt.minute;
+  final roundedMinutes = (minutes >= 30) ? 0 : 30;
+  return DateTime(dt.year, dt.month, dt.day, dt.hour)
+      .add(Duration(minutes: roundedMinutes));
 }

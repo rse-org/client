@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rse/all.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -41,15 +42,21 @@ class _MCCQuestionState extends State<MCCQuestion> {
     );
   }
 
-  Expanded buildAnswerButton(a) {
-    return Expanded(
-      flex: 1,
-      child: ElevatedButton(
-        onPressed: () {
-          widget.onAnswer(a);
-        },
-        child: SingleChildScrollView(
-          child: Text(a),
+  buildAnswerButton(a) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: kIsWeb ? 10 : 5),
+      child: SizedBox(
+        height: kIsWeb ? 100 : 50,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all(
+              const Size(double.infinity, 50),
+            ),
+          ),
+          onPressed: () {
+            widget.onAnswer(a);
+          },
+          child: SingleChildScrollView(child: Text(a)),
         ),
       ),
     );
@@ -59,26 +66,14 @@ class _MCCQuestionState extends State<MCCQuestion> {
     var answers = List.from(widget.q.answerBank!);
     answers.add(widget.q.answer);
     answers.shuffle();
-    return SizedBox(
-      height: 250,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Row(
-            children: [
-              buildAnswerButton(answers[0]),
-              const SizedBox(width: 10),
-              buildAnswerButton(answers[1]),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              buildAnswerButton(answers[2]),
-              const SizedBox(width: 10),
-              buildAnswerButton(answers[3]),
-            ],
-          ),
+          buildAnswerButton(answers[0]),
+          buildAnswerButton(answers[1]),
+          buildAnswerButton(answers[2]),
+          buildAnswerButton(answers[3])
         ],
       ),
     );
@@ -112,36 +107,33 @@ class _MCCQuestionState extends State<MCCQuestion> {
   }
 
   buildQuestionContainer(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        widget.prompt,
-        Row(
-          children: [
-            Flexible(
-              child: Text(
-                  regularizeSentence('${widget.q.sym} ${widget.q.context!}'),
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(
-          children: [
-            Text(regularizeSentence(widget.q.body),
-                style: Theme.of(context).textTheme.titleLarge),
-          ],
-        ),
-        const SizedBox(height: 20),
-      ],
+    final heading = cleanse('${widget.q.sym} ${widget.q.context!}');
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          widget.prompt,
+          buildText(
+              context, kIsWeb ? 'headlineLarge' : 'headlineSmall', heading),
+          const SizedBox(height: 10),
+          buildText(
+              context, kIsWeb ? 'headlineSmall' : 'titleLarge', widget.q.body),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 
   @override
   void dispose() {
     super.dispose();
-    timer.cancel();
+    try {
+      timer.cancel();
+    } catch (e) {
+      p('MCC lag');
+    }
   }
 
   @override
@@ -152,7 +144,7 @@ class _MCCQuestionState extends State<MCCQuestion> {
       newData = List.from(widget.q.newData ?? []);
     });
     setHeight();
-    startTimer();
+    haltAndFire(milliseconds: 250, fn: startTimer);
   }
 
   void setHeight() {
@@ -189,11 +181,15 @@ class _MCCQuestionState extends State<MCCQuestion> {
     // count = count + 1;
 
     // ! Animation with blink
-    final point = newData[count];
-    data.add(point);
-    setState(() {
-      count += 1;
-      data = data;
-    });
+    try {
+      final point = newData[count];
+      data.add(point);
+      setState(() {
+        count += 1;
+        data = data;
+      });
+    } catch (e) {
+      p('MCC lag');
+    }
   }
 }
