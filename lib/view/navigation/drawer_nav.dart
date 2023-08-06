@@ -178,7 +178,7 @@ class DrawerState extends State<CustomDrawer> {
           context.go('/investing');
           Navigator.pop(context);
         }),
-        _buildDrawerItem(context.l.account, Icons.person, () {
+        _buildDrawerItem(context.l.profile, Icons.person, () {
           BlocProvider.of<NavBloc>(context).add(NavChanged('4-0'));
           context.go('/profile');
           Navigator.pop(context);

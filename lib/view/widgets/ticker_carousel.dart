@@ -14,7 +14,7 @@ class CarouselState extends State<Carousel>
     with SingleTickerProviderStateMixin {
   late Animation<Offset> _animation;
   late AnimationController _animationController;
-  late GlobalKey _tickerBarKey; // Added GlobalKey declaration
+  late GlobalKey _tickerBarKey;
 
   @override
   Widget build(BuildContext context) {

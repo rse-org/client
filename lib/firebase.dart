@@ -20,6 +20,14 @@ class FS {
     return database;
   }
 
+  static Future<void> deleteAll() async {
+    QuerySnapshot snapshot = await database.collection('users').get();
+
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
+
   static read() async {
     await database.collection('users').get().then(
       (event) {

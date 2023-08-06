@@ -12,28 +12,30 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Text('TestScreen');
+    return Wrap(
+      children: _buildMany(),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    if (kDebugMode) {
-      _fb();
+    if (kDebugMode && kReleaseMode) {
+      _rtdb();
       _fs();
     }
   }
 
-  _fb() async {
-    await _set();
-    _read();
-    await _update();
-    _read();
-    await _updatePath('users/123/', 'address/home/street');
-    _read();
+  _buildMany() {
+    final go = <Widget>[];
+    for (var i = 0; i < 40; i++) {
+      go.add(const Text('Go'));
+    }
+    return go;
   }
 
   _fs() {
+    FS.deleteAll();
     FS.read();
     final user = <String, dynamic>{
       'first': 'Ada',
@@ -49,8 +51,6 @@ class _TestScreenState extends State<TestScreen> {
     };
     FS.write(user);
     FS.write(user2);
-    FS.write(user);
-    FS.write(user2);
   }
 
   _read() async {
@@ -60,6 +60,15 @@ class _TestScreenState extends State<TestScreen> {
     } else {
       p('No data available.', icon: '🔥');
     }
+  }
+
+  _rtdb() async {
+    await _set();
+    _read();
+    await _update();
+    _read();
+    await _updatePath('users/123/', 'address/home/street');
+    _read();
   }
 
   _set() async {

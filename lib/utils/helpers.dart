@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
 String getTitle(context) {
@@ -26,6 +28,22 @@ String getTitle(context) {
   return title;
 }
 
+Future<dynamic> loadJsonFile(String path) async {
+  try {
+    DateTime startTime = DateTime.now();
+    final ByteData data = await rootBundle.load(path);
+    String jsonContent = utf8.decode(data.buffer.asUint8List());
+    final decoded = json.decode(jsonContent);
+    DateTime endTime = DateTime.now();
+
+    logJsonLoadSuccess(formatTime(startTime, endTime));
+    return decoded;
+  } catch (e) {
+    p('Error loading JSON file: $e');
+  }
+  return null;
+}
+
 // Toggle print statements everywhere easily.
 // Sometimes we do need to see print in prod.
 void p(v, {icon}) {
@@ -38,6 +56,13 @@ void p(v, {icon}) {
   if (kDebugMode) {
     log('\x1B[32m$icon $v');
   }
+}
+
+void printResponse(http.Response response) {
+  final responseMap = json.decode(response.body) as Map<String, dynamic>;
+  responseMap.forEach((key, v) {
+    p('$key: $v');
+  });
 }
 
 selectPeriod(context, p) {

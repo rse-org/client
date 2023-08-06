@@ -301,10 +301,12 @@ class StreakCalendarState extends State<StreakCalendar> {
     if (dates.isNotEmpty) {
       _markedDates = dates.map((s) => parseDateToString(s)).toList();
       final max = _countConsecutive(_markedDates);
-      setState(() {
-        streak = max;
-        _markedDates = _markedDates;
-      });
+      setState(
+        () {
+          streak = max;
+          _markedDates = _markedDates;
+        },
+      );
     }
   }
 }
