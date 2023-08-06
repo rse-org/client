@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rse/all.dart';
@@ -17,9 +20,11 @@ class ResultDialog extends StatefulWidget {
 class _ResultDialogState extends State<ResultDialog> {
   String request = '';
   bool adError = false;
+  bool isNotAuth = false;
   InterstitialAd? _interstitialAd;
   @override
   Widget build(BuildContext context) {
+    if (request != '' && adError && isNotAuth) return _showLoginPrompt();
     return _show();
   }
 
@@ -56,6 +61,62 @@ class _ResultDialogState extends State<ResultDialog> {
     setState(() {
       _interstitialAd = ad;
     });
+  }
+
+  _buildAuthPrompt() {
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is Authenticated) {
+          p('is now Authenticated');
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              const Text('Thank you!'),
+              const SizedBox(height: 20),
+              IntrinsicHeight(
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    IconButton(
+                      iconSize: 40,
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                      ),
+                      onPressed: () {
+                        _buttonPress('Result');
+                      },
+                    ),
+                    Text('Results', style: T(context, 'bodySmall'))
+                  ],
+                ),
+              ),
+            ],
+          );
+        }
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            buildText(
+              context,
+              'headlineSmall',
+              context.l.signup_message_google,
+            ),
+            const SizedBox(height: 20),
+            SignInButton(
+              Buttons.Google,
+              text: context.l.signup_button_google,
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(
+                  GoogleSignInRequested(),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   _buildButton(title, icon) {
@@ -98,12 +159,16 @@ class _ResultDialogState extends State<ResultDialog> {
         if (r == 'Exit') {
           _exit();
         } else if (r == 'Result') {
-          // Todo: Add prompt for account if not created yet.
           logResult();
-          BlocProvider.of<PlayBloc>(context).add(PlayInitial());
-          BlocProvider.of<NavBloc>(context).add(QuizResults());
-          GoRouter.of(context).go('/play/results');
-          // Also show add on Web when Adsense done.
+          if (FirebaseAuth.instance.currentUser != null) {
+            BlocProvider.of<PlayBloc>(context).add(PlayInitial());
+            BlocProvider.of<NavBloc>(context).add(QuizResults());
+            GoRouter.of(context).go('/play/results');
+          } else {
+            setState(() {
+              isNotAuth = true;
+            });
+          }
         } else if (r == 'Replay') {
           BlocProvider.of<PlayBloc>(context).add(PlayInitialized());
         }
@@ -256,6 +321,28 @@ class _ResultDialogState extends State<ResultDialog> {
                 },
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _showLoginPrompt() {
+    return Dialog(
+      child: SizedBox(
+        height: H(context) * .5,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Wrap(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildAuthPrompt(),
+                ),
+              ],
+            ),
           ],
         ),
       ),
