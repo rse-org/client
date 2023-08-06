@@ -82,7 +82,7 @@ class InvestingScreenState extends State<InvestingScreen>
     }
 
     return DefaultTabController(
-      length: 4,
+      length: 1,
       child: Column(
         children: [
           TabBar(
@@ -93,18 +93,18 @@ class InvestingScreenState extends State<InvestingScreen>
             ),
             tabs: [
               Tab(text: context.l.investing),
-              Tab(text: context.l.spending),
-              Tab(text: context.l.crypto),
-              Tab(text: context.l.transfers),
+              // Tab(text: context.l.spending),
+              // Tab(text: context.l.crypto),
+              // Tab(text: context.l.transfers),
             ],
           ),
           Expanded(
             child: TabBarView(
               children: [
                 buildSingleChildScrollView(context),
-                Text(context.l.spending),
-                Text(context.l.investing),
-                Text(context.l.transfers),
+                // Text(context.l.spending),
+                // Text(context.l.investing),
+                // Text(context.l.transfers),
               ],
             ),
           ),

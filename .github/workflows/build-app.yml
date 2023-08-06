@@ -168,7 +168,10 @@ jobs:
           flutter build ipa --export-method development
           mkdir -p dist
           mv ./build/ios/ipa/rse.ipa dist/rse.ipa
-          # zip -r -9 dist/dSYMs.zip build/ios/archive/Runner.xcarchive/dSYMs
+
+          # Upload to Crashlytics
+          cd ios
+          Pods/FirebaseCrashlytics/upload-symbols -gsp ../ios/Runner/GoogleService-Info.plist -p ios ../build/ios/archive/Runner.xcarchive/dSYMs
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -200,12 +203,10 @@ jobs:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
       # Fix: Add DSYM to Crashlytics when you figure how to.
-      - name: Upload dSYMs to Crashlytics
-        run: |
-          cd ios
-          Pods/FirebaseCrashlytics/upload-symbols -gsp ../ios/Runner/GoogleService-Info.plist -p ios ../build/ios/archive/Runner.xcarchive/dSYMs
-        # uses: w9jds/firebase-action@v11.5.0
-        # with:
-        #   args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
-        # env:
-        #   GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
+      # - name: Upload dSYMs to Crashlytics
+      #   run: |
+      #   # uses: w9jds/firebase-action@v11.5.0
+      #   # with:
+      #   #   args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
+      #   # env:
+      #   #   GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
