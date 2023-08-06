@@ -41,10 +41,12 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           navigatorKey: _shellNavigatorAKey,
           routes: [
-            buildRoute(
-              '/',
-              const HomeScreen(),
-              [
+            GoRoute(
+              path: '/',
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: HomeScreen(),
+              ),
+              routes: [
                 GoRoute(
                   path: 'securities/:sym',
                   pageBuilder: (context, state) => NoTransitionPage(

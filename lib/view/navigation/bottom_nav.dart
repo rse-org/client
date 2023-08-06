@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rse/all.dart';
@@ -122,7 +123,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<TargetFocus> _createTargets() {
     List<TargetFocus> targets = [];
-    for (var i = 0; i < 5; i++) {
+    const times = kReleaseMode ? 5 : 1;
+    for (var i = 0; i < times; i++) {
       targets.add(
         _buildTarget(
           _tabKeys[i],
@@ -143,15 +145,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
         LocalStorageService.markTutorialDone('intro');
-        
       },
       onClickTarget: (target) {
         p('onClickTarget: $target');
       },
       onClickTargetWithTapPosition: (target, tapDetails) {
         p('target: $target');
-        p(
-            'clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}');
+        p('clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}');
       },
       onClickOverlay: (target) {
         p('onClickOverlay: $target');
@@ -174,9 +174,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     if (!done) {
       _createTutorial();
       Future.delayed(Duration.zero, _showTutorial);
-    } else {
-
-    }
+    } else {}
   }
 
   void _showTutorial() {

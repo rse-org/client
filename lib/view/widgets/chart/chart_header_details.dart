@@ -1,4 +1,5 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,13 +38,14 @@ class ChartHeaderDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Text(
-              //   title,
-              //   style: TextStyle(
-              //     fontSize: getFontSize(context) + 12,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
+              if (isHome && kIsWeb)
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: getFontSize(context) + 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               AnimatedFlipCounter(
                   prefix: '\$',
                   value: focusValue,
