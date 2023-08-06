@@ -12,8 +12,12 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: _buildMany(),
+    return Column(
+      children: [
+        Wrap(
+          children: _buildMany(),
+        )
+      ],
     );
   }
 

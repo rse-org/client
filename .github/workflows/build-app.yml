@@ -24,12 +24,11 @@ jobs:
         run: |
           echo "platform='${{ matrix.platform }}'" >> "$GITHUB_OUTPUT"
 
-          # Pass to next step
-          echo "value_one='value_one'" >> $GITHUB_OUTPUT
-          echo "value_two='value_two'" >> $GITHUB_ENV
+          # Pass to new job.
+          echo "value_one=value_one" >> $GITHUB_OUTPUT
 
-          echo "value_three='value_three'" >> $GITHUB_OUTPUT
-          echo "value_four='value_four'" >> $GITHUB_ENV
+          # Pass to next step.
+          echo "value_two=value_two" >> $GITHUB_ENV
 
       # Different ways to pass env vars between steps, jobs, actions
       # Leaving because documentation on the internet is fragmented between older/newer versions
@@ -39,10 +38,8 @@ jobs:
           echo value_one: ${{ env.value_one }}
           echo value_two: ${{ env.value_two }}
 
-          echo value_three: ${{ env.value_three }}
-          echo value_four: ${{ env.value_four }}
-
   android-build:
+    name: 🤖 android build
     needs: setup
     runs-on: ubuntu-latest
     if: ${{ needs.setup.outputs.platform }} == 'android'
@@ -85,6 +82,7 @@ jobs:
           path: dist/rse.apk
 
   android-distribute:
+    name: 🤖 android distribute
     needs: android-build
     runs-on: ubuntu-latest
     steps:
@@ -107,6 +105,7 @@ jobs:
   # A macOS machine needed to build IPA.
   # Otherwise we'd have reused several of the steps from above(or combined to one job)
   ios-build:
+    name: 🍎 ios build
     needs: setup
     runs-on: macOS-latest
     if: ${{ needs.setup.outputs.platform }} == 'ios'
@@ -180,6 +179,7 @@ jobs:
   # A linux machine is needed for firebase app distribution action.
   # Also helps to rerun only failing jobs when environment configured wrong.
   ios-distribute:
+    name: 🍎 ios distribute
     needs: ios-build
     runs-on: ubuntu-latest
     steps:
@@ -200,9 +200,12 @@ jobs:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
       # Fix: Add DSYM to Crashlytics when you figure how to.
-      # - name: Upload dSYMs to Crashlytics
-      #   uses: w9jds/firebase-action@v11.5.0
-      #   with:
-      #     args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
-      #   env:
-      #     GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Upload dSYMs to Crashlytics
+        run: |
+          cd ios
+          Pods/FirebaseCrashlytics/upload-symbols -gsp ../ios/Runner/GoogleService-Info.plist -p ios ../build/ios/archive/Runner.xcarchive/dSYMs
+        # uses: w9jds/firebase-action@v11.5.0
+        # with:
+        #   args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
+        # env:
+        #   GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
