@@ -144,7 +144,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       opacityShadow: 0.6,
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
-        LocalStorageService.markTutorialDone('intro');
+        LocalStorageService.tutorialMarkDone('intro');
       },
       onClickTarget: (target) {
         p('onClickTarget: $target');
@@ -170,7 +170,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   _setupTutorial() async {
-    final done = await LocalStorageService.checkTutorialDone('intro');
+    final done = await LocalStorageService.tutorialCheckDone('intro');
     if (!done) {
       _createTutorial();
       Future.delayed(Duration.zero, _showTutorial);

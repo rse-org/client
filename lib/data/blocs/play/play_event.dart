@@ -34,6 +34,13 @@ class PlayInitialized extends PlayEvent {
   PlayInitialized();
 }
 
+class PlayResultCalculated extends PlayEvent {
+  final Result result;
+  PlayResultCalculated(this.result);
+  @override
+  List<Object> get props => [result];
+}
+
 class PlayStarted extends PlayEvent {
   PlayStarted();
 }
@@ -50,10 +57,6 @@ class QuestionsRetrieved extends PlayEvent {
   QuestionsRetrieved({required this.questions});
   @override
   List<Question> get props => questions;
-}
-
-class ResultsCalculated extends PlayEvent {
-  ResultsCalculated();
 }
 
 class SetDev extends PlayEvent {

@@ -2,22 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rse/all.dart';
 
 part 'result.freezed.dart';
-
-String getGrade(val) {
-  var outcome = '';
-  if (val >= 90) {
-    outcome = 'A';
-  } else if (val >= 80) {
-    outcome = 'B';
-  } else if (val >= 70) {
-    outcome = 'C';
-  } else if (val >= 60) {
-    outcome = 'D';
-  } else {
-    outcome = 'F';
-  }
-  return outcome;
-}
+part 'result.g.dart';
 
 @freezed
 class Result with _$Result {
@@ -43,11 +28,11 @@ class Result with _$Result {
     required DateTime start,
     required List<Question> questions,
   }) {
+    final results = [];
+    final correctAnswers = [];
     final end = DateTime.now();
     Duration diff = end.difference(start);
     String time = formatTimeDifference(diff);
-    final correctAnswers = [];
-    final results = [];
     for (int i = 0; i < questions.length; i++) {
       final q = questions[i];
       correctAnswers.add(q.answer);
@@ -73,4 +58,6 @@ class Result with _$Result {
       correctAnswers: correctAnswers,
     );
   }
+
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 }

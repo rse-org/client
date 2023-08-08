@@ -94,10 +94,10 @@ class _MCCQuestionState extends State<MCCQuestion> {
         LineSeries<Point, num>(
           dataSource: data,
           animationDuration: 1000,
-          yValueMapper: (Point sales, _) => sales.y,
-          xValueMapper: (Point sales, _) => sales.x.toInt(),
+          yValueMapper: (Point p, _) => p.y,
+          xValueMapper: (Point p, _) => p.x.toInt(),
           markerSettings: const MarkerSettings(isVisible: true),
-          pointColorMapper: (Point sales, _) => sales.pointColorMapper,
+          pointColorMapper: (Point p, _) => Colors.white,
           onRendererCreated: (ChartSeriesController c) {
             _chartSeriesController = c;
           },

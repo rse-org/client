@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Result _$ResultFromJson(Map<String, dynamic> json) {
+  return _Result.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Result {
   String? get userId => throw _privateConstructorUsedError;
@@ -28,6 +32,7 @@ mixin _$Result {
   List<dynamic> get correctAnswers => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ResultCopyWith<Result> get copyWith => throw _privateConstructorUsedError;
 }
@@ -217,7 +222,7 @@ class __$$_ResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Result implements _Result {
   _$_Result(
       {this.userId,
@@ -234,6 +239,9 @@ class _$_Result implements _Result {
       : _answers = answers,
         _correctAnswers = correctAnswers,
         _questions = questions;
+
+  factory _$_Result.fromJson(Map<String, dynamic> json) =>
+      _$$_ResultFromJson(json);
 
   @override
   final String? userId;
@@ -310,6 +318,7 @@ class _$_Result implements _Result {
                 .equals(other._questions, _questions));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -330,6 +339,13 @@ class _$_Result implements _Result {
   @pragma('vm:prefer-inline')
   _$$_ResultCopyWith<_$_Result> get copyWith =>
       __$$_ResultCopyWithImpl<_$_Result>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ResultToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Result implements Result {
@@ -345,6 +361,8 @@ abstract class _Result implements Result {
       final String username,
       final List<dynamic> correctAnswers,
       required final List<Question> questions}) = _$_Result;
+
+  factory _Result.fromJson(Map<String, dynamic> json) = _$_Result.fromJson;
 
   @override
   String? get userId;

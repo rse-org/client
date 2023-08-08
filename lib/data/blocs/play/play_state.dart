@@ -48,3 +48,10 @@ class QuestionsLoadSuccess extends PlayState {
   @override
   List<Object?> get props => [questions, idx, currentQuestion];
 }
+
+class ResultShow extends PlayState {
+  final Result result;
+  ResultShow(this.result);
+  @override
+  List<Result?> get props => [result];
+}

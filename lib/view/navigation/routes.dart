@@ -75,7 +75,7 @@ final goRouter = GoRouter(
               '/play',
               const PlayScreen(),
               [
-                buildRoute('results', const ResultScreen()),
+                buildRoute('result', const ResultScreen()),
               ],
             ),
           ],

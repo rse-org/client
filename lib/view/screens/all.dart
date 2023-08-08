@@ -7,6 +7,6 @@ export 'notifications_screen.dart';
 export 'play_screen.dart';
 export 'profile_screen.dart';
 export 'profile_settings_screen.dart';
-export 'results_screen.dart';
+export 'result_screen.dart';
 export 'spending_screen.dart';
 export 'test_screen.dart';

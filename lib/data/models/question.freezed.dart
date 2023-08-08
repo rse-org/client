@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Question _$QuestionFromJson(Map<String, dynamic> json) {
+  return _Question.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Question {
   String get type => throw _privateConstructorUsedError;
@@ -30,6 +34,7 @@ mixin _$Question {
   List<String>? get answerBank => throw _privateConstructorUsedError;
   List<String>? get explanationBank => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $QuestionCopyWith<Question> get copyWith =>
       throw _privateConstructorUsedError;
@@ -246,8 +251,8 @@ class __$$_QuestionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$_Question with DiagnosticableTreeMixin implements _Question {
+@JsonSerializable()
+class _$_Question implements _Question {
   _$_Question(
       {required this.type,
       required this.body,
@@ -266,6 +271,9 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
         _newData = newData,
         _answerBank = answerBank,
         _explanationBank = explanationBank;
+
+  factory _$_Question.fromJson(Map<String, dynamic> json) =>
+      _$$_QuestionFromJson(json);
 
   @override
   final String type;
@@ -335,28 +343,8 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Question(type: $type, body: $body, answer: $answer, explanation: $explanation, c1: $c1, c2: $c2, c3: $c3, sym: $sym, context: $context, data: $data, newData: $newData, answerBank: $answerBank, explanationBank: $explanationBank)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Question'))
-      ..add(DiagnosticsProperty('type', type))
-      ..add(DiagnosticsProperty('body', body))
-      ..add(DiagnosticsProperty('answer', answer))
-      ..add(DiagnosticsProperty('explanation', explanation))
-      ..add(DiagnosticsProperty('c1', c1))
-      ..add(DiagnosticsProperty('c2', c2))
-      ..add(DiagnosticsProperty('c3', c3))
-      ..add(DiagnosticsProperty('sym', sym))
-      ..add(DiagnosticsProperty('context', context))
-      ..add(DiagnosticsProperty('data', data))
-      ..add(DiagnosticsProperty('newData', newData))
-      ..add(DiagnosticsProperty('answerBank', answerBank))
-      ..add(DiagnosticsProperty('explanationBank', explanationBank));
   }
 
   @override
@@ -382,6 +370,7 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
                 .equals(other._explanationBank, _explanationBank));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -404,6 +393,13 @@ class _$_Question with DiagnosticableTreeMixin implements _Question {
   @pragma('vm:prefer-inline')
   _$$_QuestionCopyWith<_$_Question> get copyWith =>
       __$$_QuestionCopyWithImpl<_$_Question>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_QuestionToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Question implements Question {
@@ -421,6 +417,8 @@ abstract class _Question implements Question {
       final List<Point>? newData,
       final List<String>? answerBank,
       final List<String>? explanationBank}) = _$_Question;
+
+  factory _Question.fromJson(Map<String, dynamic> json) = _$_Question.fromJson;
 
   @override
   String get type;

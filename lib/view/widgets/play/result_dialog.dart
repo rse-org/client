@@ -34,7 +34,8 @@ class _ResultDialogState extends State<ResultDialog> {
     if (!kIsWeb) {
       _loadMobileInterstitialAd();
     }
-    LocalStorageService.incrementCompleted();
+    LocalStorageService.playSaveResult(widget.result);
+    LocalStorageService.playIncrementCompleted();
   }
 
   logResult() {
@@ -67,7 +68,6 @@ class _ResultDialogState extends State<ResultDialog> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is Authenticated) {
-          p('is now Authenticated');
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -140,6 +140,7 @@ class _ResultDialogState extends State<ResultDialog> {
   }
 
   _buttonPress(r) {
+    p(widget.result.toJson());
     setState(() {
       request = r;
     });
@@ -163,7 +164,9 @@ class _ResultDialogState extends State<ResultDialog> {
           if (FirebaseAuth.instance.currentUser != null) {
             BlocProvider.of<PlayBloc>(context).add(PlayInitial());
             BlocProvider.of<NavBloc>(context).add(QuizResults());
-            GoRouter.of(context).go('/play/results');
+            GoRouter.of(context).go('/play/result');
+            BlocProvider.of<PlayBloc>(context)
+                .add(PlayResultCalculated(widget.result));
           } else {
             setState(() {
               isNotAuth = true;
@@ -307,7 +310,7 @@ class _ResultDialogState extends State<ResultDialog> {
             SizedBox(
               height: 20,
               child: FutureBuilder(
-                future: LocalStorageService.getCompletedCount(),
+                future: LocalStorageService.playCompletedCount(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const SizedBox();

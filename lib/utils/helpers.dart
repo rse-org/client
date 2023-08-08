@@ -9,6 +9,22 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:rse/all.dart';
 
+String getGrade(val) {
+  var outcome = '';
+  if (val >= 90) {
+    outcome = 'A';
+  } else if (val >= 80) {
+    outcome = 'B';
+  } else if (val >= 70) {
+    outcome = 'C';
+  } else if (val >= 60) {
+    outcome = 'D';
+  } else {
+    outcome = 'F';
+  }
+  return outcome;
+}
+
 String getTitle(context) {
   final location = GoRouterState.of(context).location;
   var title = 'RSE - Royal Stock Exchange';

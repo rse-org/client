@@ -66,24 +66,14 @@ class LocalStorageService {
         .toList();
   }
 
-  static checkTutorialDone(name) async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String> names = prefs.getStringList('tutorial') ?? [];
-
-    if (names.contains(name)) {
-      return true;
-    }
-    return false;
-  }
-
-  static getCompletedCount() async {
+  static playCompletedCount() async {
     final prefs = await SharedPreferences.getInstance();
     final result = prefs.getString('completed') ?? '0';
     var count = int.parse(result);
     return count;
   }
 
-  static incrementCompleted() async {
+  static playIncrementCompleted() async {
     final prefs = await SharedPreferences.getInstance();
     final result = prefs.getString('completed') ?? '0';
     var count = int.parse(result);
@@ -92,14 +82,14 @@ class LocalStorageService {
     return count;
   }
 
-  static markTutorialDone(name) async {
+  static playSaveResult(r) async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String> names = prefs.getStringList('tutorial') ?? [];
-    names.add(name);
-    await prefs.setStringList('tutorial', names);
+    final List<String> results = prefs.getStringList('results') ?? [];
+    results.add(r.toJson().toString());
+    await prefs.setStringList('results', results);
   }
 
-  static updateStreak() async {
+  static playUpdateStreak() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> streak = prefs.getStringList('streak dates') ?? [];
     final now = DateTime.now();
@@ -113,5 +103,22 @@ class LocalStorageService {
       // lastWeek.toString()
     ]);
     await prefs.setStringList('streak dates', streak);
+  }
+
+  static tutorialCheckDone(name) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> names = prefs.getStringList('tutorial') ?? [];
+
+    if (names.contains(name)) {
+      return true;
+    }
+    return false;
+  }
+
+  static tutorialMarkDone(name) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> names = prefs.getStringList('tutorial') ?? [];
+    names.add(name);
+    await prefs.setStringList('tutorial', names);
   }
 }
