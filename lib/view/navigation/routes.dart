@@ -94,6 +94,7 @@ final goRouter = GoRouter(
                 buildRoute('settings', const ProfileSettingsScreen()),
               ],
             ),
+            buildRoute('/privacy', const PrivacyPolicyScreen()),
           ],
         ),
       ],

@@ -26,25 +26,26 @@ class _AssetScreeState extends State<AssetScreen> {
         ],
       ),
       body: ResponsiveLayout(
-        mobile: buildOneColumn(context),
-        desktop: buildTwoColumn(),
+        mobile: _mobile(context),
+        desktop: _desktop(),
       ),
       floatingActionButton: _getFAB(context),
     );
   }
 
-  Widget buildOneColumn(context) {
-    return const SingleChildScrollView(
-      child: Column(
-        children: [
-          CandleChart(),
-          Overview(),
-        ],
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    setScreenName('/securities/${widget.sym}');
+    logEvent({'name': 'asset_view', 'sym': widget.sym});
+    haltAndFire(milliseconds: 10, fn: setHeader);
   }
 
-  Widget buildTwoColumn() {
+  setHeader() {
+    selectPeriod(context, '1d');
+  }
+
+  Widget _desktop() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -83,18 +84,6 @@ class _AssetScreeState extends State<AssetScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setScreenName('/securities/${widget.sym}');
-    logEvent({'name': 'asset_view', 'sym': widget.sym });
-    haltAndFire(milliseconds: 10, fn: setHeader);
-  }
-
-  setHeader() {
-    selectPeriod(context, '1d');
-  }
-
   Widget _getFAB(context) {
     if (isS(context)) {
       return ExpandableFab(
@@ -120,6 +109,17 @@ class _AssetScreeState extends State<AssetScreen> {
       );
     }
     return Container();
+  }
+
+  Widget _mobile(context) {
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          CandleChart(),
+          Overview(),
+        ],
+      ),
+    );
   }
 
   void _showAction(BuildContext context, int index) {
