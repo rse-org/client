@@ -33,7 +33,6 @@ class MCQuestion extends StatelessWidget {
               prompt,
               buildText(
                   context, kIsWeb ? 'headlineLarge' : 'headlineSmall', q.body),
-              const SizedBox(height: 10),
             ],
           ),
         ),

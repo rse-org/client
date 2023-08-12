@@ -107,74 +107,79 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   notificationBody(context) {
     final messages = (notificationItems[selectedIdx]['messages'] as List);
-    return Expanded(
-      flex: 5,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-          ),
-        ),
-        child: Column(
-          children: [
-            if (!kIsWeb)
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1.5, color: Colors.black),
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          setState(() {
-                            selected = false;
-                          });
-                        },
+    return Column(
+      children: [
+        Expanded(
+          flex: 5,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+              ),
+            ),
+            child: Column(
+              children: [
+                if (!kIsWeb)
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 1.5, color: Colors.black),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            Align(
-              child: buildText(
-                context,
-                'headlineLarge',
-                notificationItems[selectedIdx]['full_name'],
-              ),
-            ),
-            Flexible(
-              child: ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, idx) {
-                  return ListTile(
-                    title: Text(
-                      textAlign: messages[idx]['user'] ? TextAlign.end : null,
-                      '${messages[idx]['body']}',
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back),
+                            onPressed: () {
+                              setState(() {
+                                selected = false;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                Align(
+                  child: buildText(
+                    context,
+                    'headlineLarge',
+                    notificationItems[selectedIdx]['full_name'],
+                  ),
+                ),
+                Flexible(
+                  child: ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (context, idx) {
+                      return ListTile(
+                        title: Text(
+                          textAlign:
+                              messages[idx]['user'] ? TextAlign.end : null,
+                          '${messages[idx]['body']}',
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: TextFormField(
+                    autofocus: true,
+                    focusNode: focus1,
+                    controller: myController,
+                    onFieldSubmitted: (String value) {
+                      _addToList(value);
+                      myController.clear();
+                    },
+                  ),
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: TextFormField(
-                autofocus: true,
-                focusNode: focus1,
-                controller: myController,
-                onFieldSubmitted: (String value) {
-                  _addToList(value);
-                  myController.clear();
-                },
-              ),
-            )
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
@@ -29,10 +30,10 @@ class DrawerState extends State<CustomDrawer> {
         height: H(context),
         child: Column(
           children: [
-            _buildTop(),
             Expanded(
               child: ListView(
                 children: [
+                  _buildTop(),
                   _buildOptions(context),
                   const SizedBox(height: 70),
                   _buildBottom()
@@ -235,52 +236,90 @@ class DrawerState extends State<CustomDrawer> {
 
   _buildTop() {
     return SizedBox(
-      height: H(context) * .3,
-      child: DrawerHeader(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (taps <= 2) {
-                  setState(() => taps++);
-                  if (taps >= 2) {
-                    BlocProvider.of<PlayBloc>(context).add(SetDev());
-                  }
-                }
-              },
-              child: Text(
-                'Royal Stock Exchange',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            const SizedBox(height: 5),
-            StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.userChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      height: H(context) * .4,
+      child: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.userChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return DrawerHeader(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (taps <= 2) {
+                        setState(() => taps++);
+                        if (taps >= 2) {
+                          BlocProvider.of<PlayBloc>(context).add(SetDev());
+                        }
+                      }
+                    },
+                    // child: Text(
+                    //   'Royal Stock Exchange',
+                    //   style: Theme.of(context).textTheme.titleLarge,
+                    // ),
+                    child: buildText(
+                        context, 'headlineSmall', 'Royal Stock Exchange'),
+                  ),
+                  const SizedBox(height: 5),
+                  CircleAvatar(
+                    radius: 35,
+                    backgroundImage: NetworkImage(snapshot.data!.photoURL!),
+                  ),
+                  const SizedBox(height: 5),
+                  const Row(
                     children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(snapshot.data!.photoURL!),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.instagram,
+                            size: 25,
+                          ),
+                          SizedBox(height: 10),
+                          Text('DSidi')
+                        ],
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        getTimeAgo(),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.instagram,
+                            size: 25,
+                          ),
+                          SizedBox(height: 10),
+                          Text('DSidi')
+                        ],
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.instagram,
+                            size: 25,
+                          ),
+                          SizedBox(height: 10),
+                          Text('DSidi')
+                        ],
                       ),
                     ],
-                  );
-                }
-                return const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(urlPlaceholderAvatar),
-                );
-              },
-            ),
-          ],
-        ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    getTimeAgo(),
+                  ),
+                ],
+              ),
+            );
+          }
+          return const CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage(urlPlaceholderAvatar),
+          );
+        },
       ),
     );
   }
