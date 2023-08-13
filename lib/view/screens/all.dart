@@ -11,3 +11,4 @@ export 'profile_settings_screen.dart';
 export 'result_screen.dart';
 export 'spending_screen.dart';
 export 'test_screen.dart';
+export 'tos_screen.dart';

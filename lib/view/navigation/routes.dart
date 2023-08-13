@@ -95,6 +95,7 @@ final goRouter = GoRouter(
               ],
             ),
             buildRoute('/privacy', const PrivacyPolicyScreen()),
+            buildRoute('/terms-of-service', const TOSScreen()),
           ],
         ),
       ],
