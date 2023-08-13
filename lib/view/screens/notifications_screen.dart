@@ -90,7 +90,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           allNotifications(context),
-          notificationBody(context),
+          Expanded(
+            flex: 10,
+            child: notificationBody(context),
+          ),
         ],
       ),
     );
