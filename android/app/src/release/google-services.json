@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1056360900496",
+    "project_id": "prod-royal-stock-exchange",
+    "storage_bucket": "prod-royal-stock-exchange.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056360900496:android:8854a0a3fee651e5a27515",
+        "android_client_info": {
+          "package_name": "com.royalstockexchange.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056360900496-dkmpa2u0ikpp2d2bcspbnovfph3to390.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.royalstockexchange.app",
+            "certificate_hash": "3b616ba0e21d5cb1a434e6286a075136a6159c41"
+          }
+        },
+        {
+          "client_id": "1056360900496-jl9u2oomgav1jmc9rh0q3ubb3sptaita.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi7iurdvNiWXx6hiKny3mYCNfVRFxctOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1056360900496-jl9u2oomgav1jmc9rh0q3ubb3sptaita.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1056360900496-pdmh7gebjlujmkookf29q78gkgl3ctaa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.royalstockexchange.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

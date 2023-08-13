@@ -53,3 +53,5 @@ dist/
 /scripts/venv
 /scripts/build
 /scripts/build/*
+
+keystore.properties
