@@ -97,16 +97,9 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         title: const Text('Settings'),
         leading: const ArrowBackButton(screenCode: '4-0', root: '/profile'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildForm(context),
-            const SizedBox(height: 20),
-            buildBankAccounts(context),
-            const ExpansionPanelListExample(),
-            const SizedBox(height: 100),
-          ],
-        ),
+      body: ResponsiveLayout(
+        mobile: _buildContent(),
+        desktop: _buildContent(),
       ),
     );
   }
@@ -291,5 +284,19 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     if (kDebugMode) {
       p(formData);
     }
+  }
+
+  _buildContent() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildForm(context),
+          const SizedBox(height: 20),
+          buildBankAccounts(context),
+          const ExpansionPanelListExample(),
+          const SizedBox(height: 100),
+        ],
+      ),
+    );
   }
 }

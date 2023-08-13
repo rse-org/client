@@ -32,12 +32,7 @@ class DrawerState extends State<CustomDrawer> {
           children: [
             Expanded(
               child: ListView(
-                children: [
-                  _buildTop(),
-                  _buildOptions(context),
-                  const SizedBox(height: 70),
-                  _buildBottom()
-                ],
+                children: [_buildTop(), _buildOptions(context), _buildBottom()],
               ),
             ),
           ],
@@ -71,13 +66,6 @@ class DrawerState extends State<CustomDrawer> {
     //     ),
     //   )
     //   ..loadRequest(Uri.parse(urlFeedbackForm));
-  }
-
-  void toggleTheme(themeModel) {
-    setState(() {
-      isDark = !isDark;
-    });
-    themeModel.toggleTheme();
   }
 
   Column _buildBottom() {
@@ -224,7 +212,7 @@ class DrawerState extends State<CustomDrawer> {
                 type: 'theme',
                 value: isDark,
                 onChanged: (newValue) {
-                  toggleTheme(themeModel);
+                  _toggleTheme(themeModel);
                 },
               );
             },
@@ -255,10 +243,6 @@ class DrawerState extends State<CustomDrawer> {
                         }
                       }
                     },
-                    // child: Text(
-                    //   'Royal Stock Exchange',
-                    //   style: Theme.of(context).textTheme.titleLarge,
-                    // ),
                     child: buildText(
                         context, 'headlineSmall', 'Royal Stock Exchange'),
                   ),
@@ -278,7 +262,7 @@ class DrawerState extends State<CustomDrawer> {
                             size: 25,
                           ),
                           SizedBox(height: 10),
-                          Text('DSidi')
+                          Text('Streak')
                         ],
                       ),
                       SizedBox(width: 10),
@@ -290,7 +274,7 @@ class DrawerState extends State<CustomDrawer> {
                             size: 25,
                           ),
                           SizedBox(height: 10),
-                          Text('DSidi')
+                          Text('Total')
                         ],
                       ),
                       SizedBox(width: 10),
@@ -302,7 +286,7 @@ class DrawerState extends State<CustomDrawer> {
                             size: 25,
                           ),
                           SizedBox(height: 10),
-                          Text('DSidi')
+                          Text('Average')
                         ],
                       ),
                     ],
@@ -315,12 +299,28 @@ class DrawerState extends State<CustomDrawer> {
               ),
             );
           }
-          return const CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(urlPlaceholderAvatar),
+          return DrawerHeader(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildText(context, 'headlineSmall', 'Royal Stock Exchange'),
+                const SizedBox(height: 5),
+                const CircleAvatar(
+                  radius: 35,
+                  backgroundImage: NetworkImage(urlPlaceholderAvatar),
+                )
+              ],
+            ),
           );
         },
       ),
     );
+  }
+
+  void _toggleTheme(themeModel) {
+    setState(() {
+      isDark = !isDark;
+    });
+    themeModel.toggleTheme();
   }
 }
