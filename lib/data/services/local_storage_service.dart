@@ -66,6 +66,44 @@ class LocalStorageService {
         .toList();
   }
 
+  static Future<List<Map<String, dynamic>>> bankAccountRemove(
+      String number) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> serializedAccounts = prefs.getStringList('accounts') ?? [];
+    List<Map<String, dynamic>> accounts = serializedAccounts.map((a) {
+      return json.decode(a) as Map<String, dynamic>;
+    }).toList();
+
+    accounts.removeWhere((a) => a['accountNumber'] == number);
+
+    List<String> updatedSerializedAccounts =
+        accounts.map((a) => json.encode(a)).toList();
+    await prefs.setStringList('accounts', updatedSerializedAccounts);
+
+    return accounts;
+  }
+
+  static bankAccountsList() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> serializedAccounts = prefs.getStringList('accounts') ?? [];
+    List<Map<String, dynamic>> accounts = serializedAccounts.map((a) {
+      return json.decode(a) as Map<String, dynamic>;
+    }).toList();
+    return accounts;
+  }
+
+  static bankAccountsSave(name, routingNum, accountNum) async {
+    final prefs = await SharedPreferences.getInstance();
+    final List<String> accounts = prefs.getStringList('accounts') ?? [];
+    final info = json.encode({
+      'name': name,
+      'routingNumber': routingNum,
+      'accountNumber': accountNum
+    });
+    accounts.add(info);
+    await prefs.setStringList('accounts', accounts);
+  }
+
   static playCompletedCount() async {
     final prefs = await SharedPreferences.getInstance();
     final result = prefs.getString('completed') ?? '0';

@@ -10,8 +10,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  ProfileForm formData = ProfileForm();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

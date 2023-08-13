@@ -7,7 +7,7 @@ export 'meta.dart';
 export 'news.dart';
 export 'point.dart';
 export 'portfolio.dart';
-export 'profile_form.dart';
+export 'account.dart';
 export 'question.dart';
 export 'result.dart';
 export 'watch.dart';
