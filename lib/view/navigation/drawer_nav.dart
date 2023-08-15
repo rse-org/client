@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 // ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
@@ -224,7 +223,7 @@ class DrawerState extends State<CustomDrawer> {
 
   _buildTop() {
     return SizedBox(
-      height: H(context) * .4,
+      height: H(context) * .3,
       child: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
@@ -253,13 +252,14 @@ class DrawerState extends State<CustomDrawer> {
                   ),
                   const SizedBox(height: 5),
                   const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
-                            FontAwesomeIcons.instagram,
-                            size: 25,
+                            Icons.trending_up,
+                            size: 20,
                           ),
                           SizedBox(height: 10),
                           Text('Streak')
@@ -270,8 +270,8 @@ class DrawerState extends State<CustomDrawer> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
-                            FontAwesomeIcons.instagram,
-                            size: 25,
+                            Icons.summarize,
+                            size: 20,
                           ),
                           SizedBox(height: 10),
                           Text('Total')
@@ -282,8 +282,8 @@ class DrawerState extends State<CustomDrawer> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
-                            FontAwesomeIcons.instagram,
-                            size: 25,
+                            Icons.percent,
+                            size: 20,
                           ),
                           SizedBox(height: 10),
                           Text('Average')

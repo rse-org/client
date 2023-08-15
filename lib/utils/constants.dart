@@ -6,7 +6,7 @@
 // * Good place to have a spinner/loading screen and prompts.
 
 const urlChart =
-    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/chart!A2:L100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
+    'https://sheets.googleapis.com/v4/spreadsheets/1FAjhtJfgRr_yHHFINKRy9S2Ja39q666Do67xrYsoDIs/values/MCC!A2:K100?key=AIzaSyDo3so2R7VF4U2IjcC8fNo-HQM-7TJcrR0';
 
 const urlFeedbackForm =
     'https://docs.google.com/forms/d/e/1FAIpQLSc-Yxeq0n2galt6CaO0Uw8F_vYaQSEOQTY5LfowQpFrIDoY1w/viewform';
