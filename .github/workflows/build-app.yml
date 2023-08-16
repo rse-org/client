@@ -3,7 +3,8 @@ name: Build & distribute apps
 on:
   push:
     branches: [main]
-    paths: ['lib/**']
+    tags:
+      - '*'
   workflow_dispatch:
 
 jobs:
@@ -12,15 +13,26 @@ jobs:
   # if conditional of jobs(to run or not run, that is the question 🤔)
   # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
   setup:
+    name: Setup 🏁
     runs-on: ubuntu-latest
+    if: ${{ github.ref_type == 'tag' }}
+
     strategy:
       fail-fast: false
     outputs:
-      platform: ${{ steps.setPlatform.outputs.platform }}
+      tag: ${{ steps.set_tagged.outputs.tag }}
+      platform: ${{ steps.set_platform.outputs.platform }}
     steps:
       - uses: actions/checkout@v3
-      - name: Set platform for jobs
-        id: setPlatform
+      - name: Check & set tagged 🏷️ release
+        if: startsWith(github.ref, 'refs/tags/')
+        id: set_tagged
+        run: |
+          echo "Tag name: ${{ github.ref_name }}"
+          echo "tag='${{ github.ref_name }}'" >> "$GITHUB_OUTPUT"
+
+      - name: Set platform 🚉 for subsequent jobs
+        id: set_platform
         run: |
           echo "platform='${{ matrix.platform }}'" >> "$GITHUB_OUTPUT"
 
@@ -30,8 +42,8 @@ jobs:
           # Pass to next step.
           echo "value_two=value_two" >> $GITHUB_ENV
 
-      # Different ways to pass env vars between steps, jobs, actions
-      # Leaving because documentation on the internet is fragmented between older/newer versions
+      # Differing techniques to pass vars between steps, jobs, actions
+      # Leaving because documentation on the internet is fragmented across older/newer versions of Git.
       # Might as well see it as an example so next time we need to update we don't have to find & set to view again.
       - name: View env variables
         run: |
@@ -39,7 +51,7 @@ jobs:
           echo value_two: ${{ env.value_two }}
 
   android-build:
-    name: 🤖 android build
+    name: Android 🤖 build
     needs: setup
     runs-on: ubuntu-latest
     if: ${{ needs.setup.outputs.platform }} == 'android'
@@ -67,6 +79,14 @@ jobs:
           versionCode: ${{ github.run_number }}
           gradlePath: ./android/app/build.gradle
 
+      - name: Build Android 🤖 keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_PROPERTIES }}" > keystore.properties.asc
+          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --batch keystore.properties.asc > android/keystore.properties
+
+          echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
+          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --batch release.keystore.asc > android/app/release.keystore
+
       - name: Build Android 🤖 APK
         run: |
           flutter --version
@@ -82,7 +102,7 @@ jobs:
           path: dist/rse.apk
 
   android-distribute:
-    name: 🤖 android distribute
+    name: Android 🤖 distribute
     needs: android-build
     runs-on: ubuntu-latest
     steps:
@@ -103,9 +123,9 @@ jobs:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
 
   # A macOS machine needed to build IPA.
-  # Otherwise we'd have reused several of the steps from above(or combined to one job)
+  # We'd have reused several of the steps from above otherwise.
   ios-build:
-    name: 🍎 ios build
+    name: iOS 🍎 build
     needs: setup
     runs-on: macOS-latest
     if: ${{ needs.setup.outputs.platform }} == 'ios'
@@ -169,7 +189,8 @@ jobs:
           mkdir -p dist
           mv ./build/ios/ipa/rse.ipa dist/rse.ipa
 
-          # Upload to Crashlytics
+      - name: Upload dSYMs to Crashlytics 💥
+        run: |
           cd ios
           Pods/FirebaseCrashlytics/upload-symbols -gsp ../ios/Runner/GoogleService-Info.plist -p ios ../build/ios/archive/Runner.xcarchive/dSYMs
 
@@ -180,9 +201,9 @@ jobs:
           path: dist
 
   # A linux machine is needed for firebase app distribution action.
-  # Also helps to rerun only failing jobs when environment configured wrong.
+  # Also helps for rerunning failing jobs due to misconfigured environment.
   ios-distribute:
-    name: 🍎 ios distribute
+    name: iOS 🍎 distribute
     needs: ios-build
     runs-on: ubuntu-latest
     steps:
@@ -201,12 +222,3 @@ jobs:
           args: appdistribution:distribute dist/rse.ipa --app ${{ secrets.FIREBASE_APP_ID_IOS }} --groups ${{ vars.FIREBASE_TEST_GROUPS }}
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
-
-      # Fix: Add DSYM to Crashlytics when you figure how to.
-      # - name: Upload dSYMs to Crashlytics
-      #   run: |
-      #   # uses: w9jds/firebase-action@v11.5.0
-      #   # with:
-      #   #   args: appdistribution:upload-symbols --app ${{ secrets.FIREBASE_APP_ID_IOS }} --debug-symbols dist/dSYMs.zip
-      #   # env:
-      #   #   GCP_SA_KEY: ${{ secrets.FIREBASE_TOKEN }}
