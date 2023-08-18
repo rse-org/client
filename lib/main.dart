@@ -1,4 +1,11 @@
 import 'all.dart';
+import 'main_production.dart';
+
 void main() {
-  bootstrap(() => const Providers());
+  if (const String.fromEnvironment('FLUTTER_WEB_ENTRY') ==
+      'lib/main_production.dart') {
+    mainProduction();
+  } else {
+    bootstrap(() => const Providers());
+  }
 }

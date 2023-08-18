@@ -18,3 +18,7 @@ void main() async {
   // Or don't
   bootstrap(() => const Providers());
 }
+
+void mainProduction() {
+  main();
+}
