@@ -67,3 +67,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'prod-royal-stock-exchange.appspot.com',
   );
 }
+
+
